@@ -1,0 +1,13 @@
+li {
+    list-style: none;
+}
+
+body {
+    background: rgb(150, 132, 132);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.35em;
+}
+
+.editMode {
+    background: rgb(247, 203, 203);
+}
