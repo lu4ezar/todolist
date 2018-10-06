@@ -9,7 +9,9 @@ const List = (props) => {
 					key={item.name}
 					item={item}
 					delete={() => props.delete(i)}
-					edit={() => props.edit(i)} 
+					edit={() => props.edit(i)}
+					up={() => props.up(i)}
+					down={() => props.down(i)}
 				/>
 			);
 		}

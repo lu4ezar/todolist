@@ -20,6 +20,8 @@ class App extends React.Component {
         this.recordAlreadyExists = this.recordAlreadyExists.bind(this);
         this.deleteRecord = this.deleteRecord.bind(this);
         this.editRecord = this.editRecord.bind(this);
+        this.moveRecordUp = this.moveRecordUp.bind(this);
+        this.moveRecordDown = this.moveRecordDown.bind(this);
     }
     
     // отмена редактирования записи по нажатию Escape
@@ -44,7 +46,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        document.addEventListener('keydown', this.cancelEdit, false);           // отмена редактирования записи по нажатию Escape
+        document.addEventListener('keydown', this.cancelEdit);           // отмена редактирования записи по нажатию Escape
         window.addEventListener('beforeunload', this.saveDataToLocalStorage);
         let arr = [];
         for (let i = 0; i < localStorage.length; i++) {
@@ -57,6 +59,7 @@ class App extends React.Component {
 
     componentWillUnmount() {
         this.saveDataToLocalStorage();
+        document.removeEventListener('keydown', this.cancelEdit); 
         window.removeEventListener('beforeunload', this.saveDataToLocalStorage);
     }
     // *********************************
@@ -78,16 +81,18 @@ class App extends React.Component {
     }
 
     deleteRecord(record) {
-        let arr = [...this.state.list];
-        arr.splice(record, 1);
-        this.setState({
-            list: arr,
-            item: {
-                name: '',
-                description: ''
-            },
-            editMode: false
-        });
+        if (window.confirm(`Удалить ${this.state.list[record].name}?`)) {
+            let arr = [...this.state.list];
+            arr.splice(record, 1);
+            this.setState({
+                list: arr,
+                item: {
+                    name: '',
+                    description: ''
+                },
+                editMode: false
+            });
+        }
     }
 
     editRecord(record) {
@@ -97,6 +102,26 @@ class App extends React.Component {
                 item: state.list[record]
             })
         );
+    }
+
+    moveRecordUp(record) {
+        if (this.state.list[record - 1]) {
+            let arr = [...this.state.list];
+            [arr[record - 1], arr[record]] = [arr[record], arr[record - 1]];
+            this.setState({
+                list: arr
+            });
+        }
+    }
+
+    moveRecordDown(record) {
+        if (this.state.list[record + 1]) {
+            let arr = [...this.state.list];
+            [arr[record], arr[record + 1]] = [arr[record + 1],arr[record]];
+            this.setState({
+                list: arr
+            });
+        }
     }
 
     handleSubmit(e) {
@@ -148,6 +173,8 @@ class App extends React.Component {
                     list={this.state.list} 
                     delete={this.deleteRecord} 
                     edit={this.editRecord}
+                    up={this.moveRecordUp}
+                    down={this.moveRecordDown}
                 />
             </div>
         );

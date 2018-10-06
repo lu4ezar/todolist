@@ -12,6 +12,8 @@ const Record = (props => {
                 </div>
                 <button onClick={props.delete}>Delete</button>
                 <button onClick={props.edit}>Edit</button>
+                <button onClick={props.up}>Up</button>
+                <button onClick={props.down}>Down</button>
             </fieldset>
         </li>
     )
