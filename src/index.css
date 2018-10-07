@@ -11,3 +11,9 @@ body {
 .editMode {
     background: rgb(247, 203, 203);
 }
+
+.completed {
+    color: green;
+    font-style: italic;
+    text-decoration: line-through solid green;
+}

@@ -12,6 +12,7 @@ const List = (props) => {
 					edit={() => props.edit(i)}
 					up={() => props.up(i)}
 					down={() => props.down(i)}
+					completed={() => props.completed(i)}
 				/>
 			);
 		}

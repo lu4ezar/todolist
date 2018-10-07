@@ -1,8 +1,15 @@
 import React from 'react';
 
 const Record = (props => {
+    let className = "";
+    let completedButtonCaption = "Completed";
+    const completed = props.item.completed;
+    if (completed) {
+        className="completed";
+        completedButtonCaption="Not Completed";
+    }
     return (
-        <li>
+        <li className={className}>
             <fieldset>
                 <legend>
                     {props.item.name}
@@ -14,6 +21,7 @@ const Record = (props => {
                 <button onClick={props.edit}>Edit</button>
                 <button onClick={props.up}>Up</button>
                 <button onClick={props.down}>Down</button>
+                <button onClick={props.completed}>{completedButtonCaption}</button>
             </fieldset>
         </li>
     )

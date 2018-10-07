@@ -22,11 +22,12 @@ class App extends React.Component {
         this.editRecord = this.editRecord.bind(this);
         this.moveRecordUp = this.moveRecordUp.bind(this);
         this.moveRecordDown = this.moveRecordDown.bind(this);
+        this.markCompleted = this.markCompleted.bind(this);
     }
     
     // отмена редактирования записи по нажатию Escape
     cancelEdit(e) {
-        if (e.keyCode === 27) {
+        if (e.keyCode === 27 && (this.state.editMode)) {
             this.setState({
                 editMode: false,
                 item: {
@@ -124,6 +125,20 @@ class App extends React.Component {
         }
     }
 
+    markCompleted(record) {
+        let arr = [...this.state.list];
+        let item = arr[record];
+        if (item.completed) {
+            let {completed, ...rest} = item;
+            arr[record] = rest;
+        } else {
+            arr[record] = {...item, 'completed': true};
+        }
+        this.setState({
+            list: arr
+        });
+    }
+
     handleSubmit(e) {
         e.preventDefault();
         const item = this.state.item;
@@ -175,6 +190,7 @@ class App extends React.Component {
                     edit={this.editRecord}
                     up={this.moveRecordUp}
                     down={this.moveRecordDown}
+                    completed={this.markCompleted}
                 />
             </div>
         );
