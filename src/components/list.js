@@ -8,6 +8,7 @@ const List = (props) => {
 				<Record
 					key={item.name}
 					item={item}
+					className={props.currentItem === i ? "editMode " : ""}
 					delete={() => props.delete(i)}
 					edit={() => props.edit(i)}
 					up={() => props.up(i)}

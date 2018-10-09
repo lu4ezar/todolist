@@ -176,6 +176,7 @@ class App extends React.Component {
     }
 
     render() {
+        const currentItem = this.state.list.findIndex((val) => val.name === this.state.item.name);
         return (
             <div>
                 <Form 
@@ -185,7 +186,8 @@ class App extends React.Component {
                     submit={this.handleSubmit}
                 />
                 <List 
-                    list={this.state.list} 
+                    list={this.state.list}
+                    currentItem={currentItem}
                     delete={this.deleteRecord} 
                     edit={this.editRecord}
                     up={this.moveRecordUp}

@@ -1,11 +1,11 @@
 import React from 'react';
 
 const Record = (props => {
-    let className = "";
+    let className = props.className;
     let completedButtonCaption = "Completed";
     const completed = props.item.completed;
     if (completed) {
-        className="completed";
+        className += "completed";
         completedButtonCaption="Not Completed";
     }
     return (
