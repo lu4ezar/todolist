@@ -9,7 +9,8 @@ class App extends React.Component {
             list: [],
             item: {
                 name: '',
-                description: ''
+                description: '',
+                priority: 'normal'
             },
             editMode: false
         };
@@ -32,7 +33,8 @@ class App extends React.Component {
                 editMode: false,
                 item: {
                     name: '',
-                    description: ''
+                    description: '',
+                    priority: 'normal'
                 }
             });
         }
@@ -89,7 +91,8 @@ class App extends React.Component {
                 list: arr,
                 item: {
                     name: '',
-                    description: ''
+                    description: '',
+                    priority: 'normal'
                 },
                 editMode: false
             });
@@ -165,7 +168,8 @@ class App extends React.Component {
             this.setState({
                 item: {
                     name: '',
-                    description: ''
+                    description: '',
+                    priority: 'normal'
                 },
                 editMode: false
             })

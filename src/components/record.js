@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Record = (props => {
-    let className = props.className;
+    let className = props.className + props.item.priority;
     let completedButtonCaption = "Completed";
     const completed = props.item.completed;
     if (completed) {
@@ -16,6 +16,10 @@ const Record = (props => {
                 </legend>
                 <div>
                     {props.item.description}
+                </div>
+                <div>
+                    priority: 
+                    {props.item.priority}
                 </div>
                 <button onClick={props.delete}>Delete</button>
                 <button onClick={props.edit}>Edit</button>

@@ -17,3 +17,8 @@ body {
     font-style: italic;
     text-decoration: line-through solid green;
 }
+
+/* filter.js */
+.filters {
+    border: none;
+}
