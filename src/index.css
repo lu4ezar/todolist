@@ -1,24 +1,56 @@
-li {
-    list-style: none;
-}
+@import url(https://fonts.googleapis.com/css?family=Merriweather:700);
 
 body {
     background: rgb(150, 132, 132);
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 1.35em;
+    font-family: 'Merriweather', serif;
 }
 
 .editMode {
     background: rgb(247, 203, 203);
 }
 
-.completed {
-    color: green;
-    font-style: italic;
-    text-decoration: line-through solid green;
-}
-
 /* filter.js */
 .filters {
     border: none;
 }
+
+button {
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+#required{
+    display: inline-block;
+    /* width: 160px; */
+    text-align: right;
+}
+
+#optional{
+    display: inline-block;
+    /* width: 160px; */
+    text-align: left;
+}
+
+fieldset {
+	padding-top: 10px;
+	border: 1px solid #666;
+	border-radius: 8px;
+    box-shadow: 0 0 10px #666;
+    background-color: rgb(128, 113, 113);
+}
+
+fieldset fieldset {
+    background-color: rgb(92, 82, 82);
+}
+legend {
+	float: left;
+	margin-top: -20px;
+}
+legend + * {
+	clear: both;
+}
+
+/*.button-disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}*/

@@ -1,0 +1,26 @@
+fieldset {
+    padding: 10px;
+    margin: 10px;
+}
+
+.left, .right {
+    height: 1.5em;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.activePage {
+    background: #4e4545;
+    color: #968484;
+    border-radius: 8px;
+}
+
+/*select {
+    border-radius: 8px;
+}*/
