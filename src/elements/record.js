@@ -6,7 +6,7 @@ import './record.css';
 const Record = (props => {
     let className = props.item.priority;
     className += props.item.completed ? " completed" : "";
-    const item = props.item;
+    // const item = props.item;
     return (
         <li className={className} onClick={props.handleClick}>
             <fieldset>

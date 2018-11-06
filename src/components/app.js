@@ -1,15 +1,16 @@
 // @ts-check
 import React from 'react';
 import Form from './form';
-import List from './list';
+// import List from './list';
 import DumbList from '../elements/dumbList';
 import Record from '../elements/record';
 import Filter from '../elements/filter';
 import Pages from '../elements/pages';
 
-import ControlPanel from '../elements/controlPanel';
+// import ControlPanel from '../elements/controlPanel';
 import Item from '../Item';
 import ModeButton from '../elements/modeButton';
+// import Input from '../elements/input';
 
 class App extends React.Component {
     constructor(props) {
@@ -18,9 +19,7 @@ class App extends React.Component {
             list: [],
             item: {},
             mode: 'list',
-            filter: false,
-            filterValue: 'normal',
-            recordsPerPage: 4,
+            recordsPerPage: 1,
             pageNumber: 0,
         };
 
@@ -44,13 +43,27 @@ class App extends React.Component {
     
     componentDidMount() {
         if (!localStorage.length) {
+            console.log(`starting if`);
             let data = this.getItems(12);
+            console.log(`data length: ${data.length}`);
+
             this.setState({
                 list: data
             });
-        } else {
-            this.getDataFromLocalStorage();
-        }
+        } 
+        // else {console.log(`localStorage: ${localStorage.length}`);
+            // console.log(`starting else`);
+            // console.log(`1 list length: ${this.state.list.length}`);
+        this.getDataFromLocalStorage();
+            console.log(`2 list length: ${this.state.list.length}`);
+        let list = [...this.state.list];
+            // console.log(`2.5 list length: ${list.length}`);
+            list = list.map(this.isExpired);
+            // console.log(`3 list length: ${list.length}`);
+        /*this.setState({
+            list: list
+        });*/
+    // }
         document.addEventListener('keydown', this.cancelEdit);
         window.addEventListener('beforeunload', this.saveDataToLocalStorage);
     }
@@ -62,6 +75,7 @@ class App extends React.Component {
     }
 
     getDataFromLocalStorage() {
+        console.log(`getting data...`);
         let arr = [];
         for (let i = 0; i < localStorage.length; i++) {
             arr.push(JSON.parse(localStorage.getItem(i.toString())));
@@ -69,16 +83,20 @@ class App extends React.Component {
         this.setState({
             list: arr
         });
+        this.forceUpdate();
     }
 
     saveDataToLocalStorage() {
         localStorage.clear();
+        console.log(`saving data...`);
+
         this.state.list.map((item, i) =>
             localStorage.setItem(i.toString(), JSON.stringify(item))
         );
     }
 
     handleChange(e) {
+        e.preventDefault();
         const target = e.target;
         const name = target.name;
         // const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -146,91 +164,75 @@ class App extends React.Component {
         });
     }
 
-    handleModeButtonClick(mode) {
-        this.setState({
-            mode: mode
-        });
-    }
-
     render() {
-        const totalListLength = this.state.list.length;
-        const list = [...this.state.list];
-        let filteredItems = [];
-        let items = list.map((item, index) => {
-            return {
-                index: index,
-                task: item.task,
-                desc: item.description,
-                handleClick: () => this.handleClickListItem(index),
-                priority: item.priority,
-                completed: item.completed,
-                isExpired: this.isExpired(item)
-            };
-        });
-        if (this.state.filter) {
-            // filteredItems = items.filter(item => item.priority === this.props.filterValue)
-            items = items.filter(item => item.priority === this.state.filterValue);
-            console.log(`hi im IF and i have ${items.length} elements in my list`);
-        }
-        const listStart = this.state.pageNumber * this.state.recordsPerPage;
-		const listEnd = listStart + this.state.recordsPerPage;
-		const listLength = items.length;
-		const listToShow = items.slice(listStart, listEnd)
         let element;
-        console.log(`hi im before-switch-line  and i have ${listLength} items to pass to Pages component`);
+        const offset = this.state.pageNumber * this.state.recordsPerPage;
+        const currentItemIndex = this.state.list.indexOf( this.state.item );
         switch (this.state.mode) {
             case 'list':
                 element = (
                     <div className="list">
                         {this.state.list.length
-                            ?  <React.Fragment>
+                            ?  (<Filter list={this.state.list}>
                                     <Pages
                                         recordsPerPage={this.state.recordsPerPage}
                                         pageNumber={this.state.pageNumber}
-                                        listLength={listLength}
-                                        handleChange={this.handleChange} />
-                                    <Filter 
-                                        handleChange={this.handleChange} filter={this.state.filter} filterValue={this.state.filterValue} />
-                                    <DumbList list={listToShow} />
-                                </React.Fragment>
+                                        handleChange={this.handleChange}>
+                                        <DumbList handleClick={this.handleClickListItem} offset={offset} completed={this.markCompleted} />
+                                    </Pages>
+                                </Filter>
+                            )
                             : <h3>Your list is empty</h3>}
                     </div>
                 );
                 break;
             case 'form':
                 element = (
-                    <div className="form">
-                        <Form
-                            item={this.state.item} 
-                            handleChange={this.handleChange}
-                            handleSubmit={this.handleFormSubmit} />
-                    </div>
+                    <Form
+                        item={this.state.item} 
+                        handleChange={this.handleChange}
+                        handleSubmit={this.handleFormSubmit}
+                    />
                 );
                 break;
             case 'details':
             // const item = {};
-                element = <Record
-                                    item={this.state.item}
-                                    delete={() => this.deleteRecord( this.state.list.indexOf( this.state.item ) )} 
-                                    completed={() => this.markCompleted()}
-                                    addLevel={this.addLevel}
-                                />
+                element = (
+                    <Record
+                        item={this.state.item}
+                        delete={() => this.deleteRecord( this.state.list.indexOf( this.state.item ) )} 
+                        completed={() => this.markCompleted()}
+                        edit={() => this.editRecord()}
+                        addLevel={this.addLevel}
+                    />
+                );
                 break;
             default:
                 return <h1>No Mode set!</h1>;
         }
+
+        const totalListLength = this.state.list.length;
+
         return (
             <React.Fragment>
                 <div className="controlPanel">
                     <h3>You have {totalListLength} {totalListLength === 1 ? 'record' : 'records'}</h3>
                     {this.state.mode === 'list'
                         ? <ModeButton handleClick ={this.handleChange} name="mode" value="form" caption="Add another one" />
-                        :  <ModeButton handleClick ={this.handleChange} name="mode" value="list" caption=" Back to list" />
+                        : <ModeButton handleClick ={this.handleChange} name="mode" value="list" caption=" Back to list" />
                     }
-                    {element}
                 </div>
+                {element}
             </React.Fragment>
         );
+    }
+
+    handleModeButtonClick(e) {
+        console.log(`tagert.type=${e.target.type} name=${e.target.name} value=${e.target.value} typeof ${typeof(e.target.value)}`);
+        e.preventDefault();
+        this.setState({
+            [e.target.name]: e.target.value
+        });
     }
 
     getItems(n) {
@@ -251,21 +253,28 @@ class App extends React.Component {
     }
 
     isExpired(item) {
+        console.log(`isExpired is working for ${item.task}`);
         if (item.completeUntilDate) {
-           const date = item.completeUntilDate;
-           const targetDate = new Date(date);
-           const today = new Date(Date.now());
-           if (targetDate.getTime() === today.getTime()) {
-               const time = item.completeUntilTime;
-               const timeNow = `${targetDate.getHours()}:${targetDate.getMinutes()}`;
-               return time > timeNow;
-           } else {
-               return today > targetDate;
-           }
-       } else {
-           return false;
-       }
-   }
+            const targetDate = new Date(item.completeUntilDate);
+            const today = new Date(Date.now());
+            if (targetDate < today) {
+                item.expired = true
+            } else {
+               if (targetDate > today){
+                   return;
+               } else {
+                const time = item.completeUntilTime;
+                const timeNow = `${targetDate.getHours()}:${targetDate.getMinutes()}`;
+                console.log(`time = ${time} timeNow = ${timeNow}`);
+                    if (time < timeNow) {
+                        console.log(`time < timeNow`);
+                        item.expired = true;
+                    }
+                }
+            }
+        }
+        return item;
+    }
 
     cancelEdit(e) {
         if (e.keyCode === 27) {
@@ -284,32 +293,50 @@ class App extends React.Component {
     deleteRecord(record) {
         if (window.confirm(`Удалить ${this.state.list[record].task}?`)) {
             let arr = [...this.state.list];
+            let recordsPerPage = this.state.recordsPerPage;
+            let pageNumber = this.state.pageNumber;
             arr.splice(record, 1);
+
+             /* если удаляемая запись была на текущей странице последней,
+                то (ТекущаяСтраница - 1) чтобы не отображалась пустая */
+            
+
             /* если во время удаления записи recordsPerPage был в положении max, 
                 то recordsPerPage уменьшается на 1 чтобы не выходить за допустимые пределы */
             if (this.state.recordsPerPage > arr.length) {
-                this.setState(
+                /*this.setState(
                     state => ({
                         recordsPerPage: state.recordsPerPage--
                     })
-                );
+                );*/
+                console.log(`recordsPerPage is too big ${recordsPerPage}`);
+
+                recordsPerPage--;
+                console.log(`recordsPerPage is too big! ${recordsPerPage}`);
+            } else {
+                if (!(arr.length % this.state.recordsPerPage)) {
+                    console.log(`pageNumber is too big ${pageNumber}`);
+                    /*this.setState(
+                        state => ({
+                            pageNumber: state.pageNumber--
+                        })
+                    );*/
+                    // pageNumber = pageNumber--;
+                    pageNumber--;
+                    console.log(`pageNumber is too big! ${pageNumber}`);
+
+                }
             }
 
-            /* если удаляемая запись была на текущей странице последней,
-                то (ТекущаяСтраница - 1) чтобы не отображалась пустая */
-            if (!(arr.length % this.state.recordsPerPage)) {
-                this.setState(
-                    state => ({
-                        pageNumber: state.pageNumber--
-                    })
-                );
-            }
-
-            this.setState({
-                list: arr,
-                item: {},
-                mode: 'list',
-            });
+            this.setState(
+                state => ({
+                    list: arr,
+                    item: {},
+                    mode: 'list',
+                    pageNumber: pageNumber,
+                    recordsPerPage: recordsPerPage
+                })
+            );
         }
     }
 

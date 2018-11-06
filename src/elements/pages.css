@@ -1,23 +1,38 @@
 fieldset {
     padding: 10px;
     margin: 10px;
+    white-space: nowrap;
 }
 
 .left, .right {
-    height: 1.5em;
+    /* height: 1.5em; */
+    /* display: inline-block; */
+    margin-bottom:10px;
+
 }
 
 .left {
+    /* display:inline-block; */
+    /* width:300px; */
+    /* white-space: normal; */
     float: left;
+    /* display: inline-block; */
 }
 
 .right {
+    /* display:inline-block; */
+    /* width:300px; */
+    /* white-space: normal; */
     float: right;
+}
+
+.page {
+    color: #200a0a;
 }
 
 .activePage {
     background: #4e4545;
-    color: #968484;
+    color: #200a0a;
     border-radius: 8px;
 }
 

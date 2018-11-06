@@ -1,0 +1,61 @@
+li {
+    list-style: none;
+}
+
+.list {
+    width: 80%;
+    height: 80%;
+    background: #b4d4f3;
+    margin: 0 auto;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.listItem {
+    width: 60%;
+    margin: 0 auto;
+    background: #05181f;
+    border-radius: 8px;
+}
+
+.completed {
+    border: 2px solid #396b39;
+    border-radius: 8px;
+    padding: 1px;
+    margin: 3px;
+}
+
+li.completed::before {
+    color: #396b39;
+    /* float: right; */
+    content: "Completed";
+    /* writing-mode: vertical-rl; */
+    padding: 10px;
+    position: relative;
+    border: 1px solid #396b39;
+    background: #91c99b;
+    border-radius: 8px;
+    top: -50%;
+    transform: translateY(50%); 
+}
+
+.expired {
+    border: 2px solid #6b0d41;
+    border-radius: 8px;
+    padding: 1px;
+    margin: 3px;
+}
+
+.expired::before {
+    color: #6b0d41;
+    float: right;
+    content: "Expired";
+    writing-mode: vertical-rl;
+    padding: 10px;
+    position: relative;
+    border: 1px solid #6b0d41;
+    background: #b489a1;
+    border-radius: 8px;
+    top: 10%;
+    transform: translateY(30%); 
+}

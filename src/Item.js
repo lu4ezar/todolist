@@ -7,6 +7,7 @@ function Item(task, desc) {
   this.completed = false;
   this.completedAtDate = "";
   this.completedAtTime = "";
+  this.isExpired = false;
 }
 
 export default Item;
