@@ -1,51 +1,50 @@
 li {
+    cursor: pointer;
     list-style: none;
+    width: 60%;
+    background: #cacaca;
+    border-radius: 8px;
+    border: 2px solid #9c9b9b;
+    padding: 1px;
+    margin: 3px;
+}
+
+
+li:hover {
+    box-sizing: border-box;
+    border: 2px solid #478383;
+    background: #edfff5;
 }
 
 .list {
     width: 80%;
-    min-height: 80%;
-    background: #4e6072;
+    height: 100%;
+    background: #e2e2e2;
     margin: 0 auto;
     padding: 5px;
     border-radius: 8px;
-}
-
-.listItem {
-    width: 60%;
-    margin: 0 auto;
-    background: #3190af;
-    border-radius: 18px 8px 18px 4px;
-    color: #3d3d91;
+    border: 2px solid #616161;
 }
 
 .completed {
-    border: 2px solid #396b39;
-    border-radius: 8px;
-    padding: 1px;
-    margin: 3px;
+    border-color: #396b39;
 }
 
 li.completed::before {
-    color: #396b39;
-    /* float: right; */
     content: "Completed";
-    /* writing-mode: vertical-rl; */
-    padding: 10px;
-    position: relative;
-    border: 1px solid #396b39;
+    /* writing-mode: vertical-rl;
+    padding: 10px;*/
+    border: 2px solid #396b39;
+    /*color: #396b39;*/
     background: #91c99b;
     border-radius: 8px;
-    top: 10%;
-    right: -65%;
-    transform: translateY(50%); 
+    position: relative;
+    /*right: -55%;
+    top: 35%;*/
 }
 
 .expired {
-    border: 2px solid #6b0d41;
-    border-radius: 8px;
-    padding: 1px;
-    margin: 3px;
+    border-color: #6b0d41;
 }
 
 .expired::before {
@@ -53,11 +52,10 @@ li.completed::before {
     float: right;
     content: "Expired";
     writing-mode: vertical-rl;
-    padding: 10px;
+    padding: .71em;
     position: relative;
     border: 1px solid #6b0d41;
     background: #b489a1;
     border-radius: 8px;
     top: 10%;
-    transform: translateY(30%); 
 }

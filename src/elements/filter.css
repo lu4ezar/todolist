@@ -1,3 +1,6 @@
-fieldset fieldset{
-    display: inline-block;
+label.labelFloat {
+    float: right;
+    border-radius: 35%;
+    background: olive;
+    color: whitesmoke;
 }

@@ -1,59 +1,108 @@
 // @ts-check
-import React from 'react';
-import Item from '../Item';
+import React from "react";
+import PropTypes from "prop-types";
+import Item from "../Item";
+import {
+	Form,
+	GridColumn,
+	Label,
+	Input,
+} from "semantic-ui-react";
 
-class Form extends React.Component {
+const selectOptions = [
+	{
+		key: "1",
+		value: "normal",
+		text: "Normal"
+	},
+	{
+		key: "2",
+		value: "important",
+		text: "Important"
+	},
+	{
+		key: "3",
+		value: "veryImportant",
+		text: "Very important"
+	}
+];
+
+class ReactForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {...new Item()};
 		this.handleChange = this.handleChange.bind(this);
 	}
 
-	handleChange(e) {
-        const target = e.target;
-        const name = target.name;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
+	handleChange(data) {
+		let { name, value, type, checked } = data;
+		value = type === "checkbox" ? checked : value;
 		this.setState({
-			[name]:value
+			[name]: value
 		});
+	}
+
+	componentDidMount() {
+		if (this.props.item) {
+			for (const prop in this.props.item) {
+				this.setState({
+					[prop]: this.props.item[prop]
+				});
+			}
+		}
 	}
 
 	render() {
 		return (
-			<form onSubmit={() => this.props.handleSubmit(this.state)} className={this.props.editMode ? "editMode" : ""}>
-			<fieldset>
-				<div id="required">
-					<label>Task
-						<abbr title="required">*</abbr>
-						<input type="text" name="task" value={this.state.task} onChange={this.handleChange} autoFocus	/>
-					</label>
-					<br />
-					<label>Description
-						<abbr title="required">*</abbr>
-						<textarea name="description" value={this.state.description} onChange={this.handleChange} />
-					</label>
-				</div>
-				<div id="optional">
-					<label>Priority
-						<select name="priority" value={this.state.priority} onChange={this.handleChange}>
-							<option value="normal">Normal</option>
-							<option value="important">Important</option>
-							<option value="veryImportant">Very Important</option>
-						</select>
-					</label>
-					<br />
-					<label>Complete until:
-						<input type="date" name="completeUntilDate" value={this.state.completeUntilDate} onChange={this.handleChange} />
-						<input type="time" name="completeUntilTime" value={this.state.completeUntilTime} onChange={this.handleChange} />
-					</label>
-					<label>
-						<button type="submit" disabled={!this.state.task || !this.state.description}>{this.props.editMode ? "Save changes" : "Ok"}</button>
-					</label>
-				</div>
-			</fieldset>
-		</form>
-		)
+			<Form onSubmit={() => this.props.handleSubmit(this.state, this.props.index)}>
+				<Form.Input
+					label="Task"
+					name="task"
+					type="text"
+					placeholder="task goes here"
+					value={this.state.task}
+					onChange={(e, data) => this.handleChange(data)}
+					autoFocus
+				/>
+				<Form.TextArea
+					label="Description"
+					name="description"
+					type="textarea"
+					placeholder="add description"
+					value={this.state.description}
+					onChange={(e, data) => this.handleChange(data)}
+				/>
+				<GridColumn>
+					<Form.Dropdown 
+						name="priority"
+						value={this.state.priority}
+						placeholder="Priority"
+						options={selectOptions}
+						onChange={(e, data) => this.handleChange(data)}
+						selection
+					/>
+				</GridColumn>
+				<Label sm={2} content="Complete until: " />
+				<Input
+					type="date"
+					name="date"
+					value={this.state.date}
+					onChange={(e, data) => this.handleChange(data)}
+				/>
+				<Input
+					type="time"
+					name="time"
+					value={this.state.time}
+					onChange={(e, data) => this.handleChange(data)}
+				/>
+				<Form.Button type="submit" disabled={!this.state.task || !this.state.description}>{this.props.mode === 'edit' ? "Save changes" : "Ok"}</Form.Button>
+			</Form>
+		);
 	}
 }
 
-export default Form;
+ReactForm.propTypes = {
+	handleSubmit: PropTypes.func.isRequired
+}
+
+export default ReactForm;

@@ -1,97 +1,156 @@
-import React from 'react';
-import PropTypes from 'prop-types'; 
-import Input from './input';
-import './pages.css';
+import React from "react";
+import PropTypes from "prop-types";
+import { Pagination, Dropdown, GridColumn } from "semantic-ui-react";
 
-const Pages =  props => {
+const options = [3, 4, 5, 10, 20, "all"];
 
-    let list = [...props.list];
-    const listLength = list.length;
-    const recordsPerPage = Number(props.recordsPerPage);
-    const pageNumber = props.pageNumber;
-    const totalPages = Math.ceil(listLength / recordsPerPage);
-
-    const pages = (() => {
-        let arr = [];
-        for (let i = 0; i < totalPages; i++) {
-            const firstNumber = recordsPerPage * i + 1;
-            const secondNumber = recordsPerPage  * i + recordsPerPage + ' ';
-            const caption = firstNumber === listLength
-                ? firstNumber
-                : `${firstNumber}..${secondNumber > listLength
-                    ? listLength
-                    : secondNumber}`
-            const className = (i === pageNumber) ? "activePage" : "page";
-            arr.push(
-                <Input
-                    key={i}
-                    className={className}
-                    type="radio"
-                    name="pageNumber"
-                    value={i}
-                    onChange={props.handleChange} 
-                    checked={pageNumber === i}
-                    caption={caption.toString()}
-                    right
-                />
-            );
+class Pages extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            recordsPerPage: 4,
+            pageNumber: 1
         };
-        return arr;
-    })();
+        this.handleChange = this.handleChange.bind(this);
+        this.getDropdownOptions = this.getDropdownOptions.bind(this);
+        this.renderPagination = this.renderPagination.bind(this);
+        this.renderRecsPerPage = this.renderRecsPerPage.bind(this);
+    }
 
-    const options = [3, 4, 5, 10];
-
-    const selectDropDown = (() => {
-        let arr = [];
-        for (let i = 0; i < (options.length); i++) {
-            if (options[i] < listLength) {
-                arr.push(<option key={options[i]} value={options[i]}>{options[i]}</option>);
+    componentDidMount() {
+        let obj = {};
+        obj = JSON.parse(localStorage.getItem("pagesState"));
+        if (obj) {
+            obj.recordsPerPage > this.props.list.length && obj.recordsPerPage--; // *1
+            !(this.props.list.length % obj.recordsPerPage) &&
+                obj.pageNumber !== 1 &&
+                obj.pageNumber--; // *2
+            for (const key in obj) {
+                const val = obj[key];
+                this.setState({
+                    [key]: val
+                });
             }
         }
-        arr.push(<option key="all" value={listLength}>all</option>);
-        return arr;
-    })();
+    }
 
-    const output  = listLength === 0
-        ? <h3>Change filter settings</h3>
-        : ( <React.Fragment>
-                <fieldset className="left">
-                    {'   '}
-                    {pages}
-                </fieldset>
-                <fieldset className="right">
-                    records on page
-                <select name="recordsPerPage" value={Number(recordsPerPage)} onChange={props.handleChange}>{selectDropDown}</select>
-                </fieldset>
-            </React.Fragment>
+    /*
+  *1 - если во время удаления записи recordsPerPage был в положении max (= arr.length), 
+  то recordsPerPage уменьшается на 1 чтобы не выходить за допустимые пределы
+  *2 - если удаляемая запись была на текущей странице последней,
+  то (pageNumber - 1) чтобы не отображалась пустая 
+  */
+
+    componentWillUnmount() {
+        localStorage.setItem("pagesState", JSON.stringify(this.state));
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.list.length !== prevProps.list.length) {
+            this.setState({
+                pageNumber: 1,
+                recordsPerPage: this.props.list.length
+            });
+        }
+    }
+
+    getDropdownOptions = options => {
+        let arr = [];
+        const list = this.props.list;
+        for (let i = 0; i < options.length; i++) {
+            let value;
+            i === options.length - 1
+                ? (value = list.length)
+                : (value = options[i]);
+            if (value < list.length || options[i] === "all") {
+                arr.push({
+                    key: i,
+                    text: options[i].toString(),
+                    value: value
+                });
+            }
+        }
+        return arr;
+    };
+
+    handleChange = data => {
+        let { name, value, activePage } = data;
+        activePage && (value = activePage);
+        name === "recordsPerPage" &&
+            this.setState({
+                pageNumber: 1
+            });
+        this.setState({
+            [name]: value
+        });
+    };
+
+    renderPagination = () => {
+        const totalPages = Math.ceil(
+            this.props.list.length / this.state.recordsPerPage
+        );
+        return (
+            <Pagination
+                name="pageNumber"
+                value={this.state.pageNumber}
+                activePage={this.state.pageNumber}
+                totalPages={totalPages}
+                onPageChange={(e, data) => this.handleChange(data)}
+            />
+        );
+    };
+
+    renderRecsPerPage = () => {
+        const dropdownOptions = this.getDropdownOptions(options);
+
+        return (
+            <Dropdown
+                name="recordsPerPage"
+                value={this.state.recordsPerPage}
+                options={dropdownOptions}
+                onChange={(e, data) => this.handleChange(data)}
+                placeholder="Records per page"
+                disabled={!this.props.list.length}
+                button
+            />
+        );
+    };
+
+    render() {
+        let list = [...this.props.list];
+        const recordsPerPage = this.state.recordsPerPage;
+        const pageNumber = this.state.pageNumber;
+        list = list.slice(
+            (pageNumber - 1) * recordsPerPage,
+            pageNumber * recordsPerPage
         );
 
-    list = list.slice(pageNumber * recordsPerPage, (pageNumber + 1) * recordsPerPage);
-    const pagesOffset = pageNumber * recordsPerPage;
-	const children = React.cloneElement(props.children, {list: list, pagesOffset: pageNumber * recordsPerPage});
-
-    return (
-        /* <React.Fragment> */
-        <div className="filters">
-            List Length: {props.list.length}
-            <fieldset>
-                <legend>Pages</legend>
-                {output}
-            </fieldset>
-			{children}
-        </div>
-        /* </React.Fragment> */
-    );
+        const children = React.cloneElement(this.props.children, {
+            list: list
+        });
+        if (!list.length) {
+            return <h3>Nothing to show</h3>;
+        } else {
+            return (
+                <React.Fragment>
+                    {children}
+                    {this.renderPagination()}
+                    {this.renderRecsPerPage()}
+                </React.Fragment>
+            );
+        }
+    }
 }
 
 Pages.propTypes = {
-	pageNumber: PropTypes.number.isRequired,
-    recordsPerPage: PropTypes.number.isRequired,
+    // pageNumber: PropTypes.number.isRequired,
+    // recordsPerPage: PropTypes.number.isRequired,
     // listLength: PropTypes.number.isRequired,
-    list:PropTypes.array.isRequired
-}
+    list: PropTypes.array.isRequired
+};
 
 Pages.defaultProps = {
-    list: {}
-}
+    list: []
+};
+
 export default Pages;

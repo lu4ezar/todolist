@@ -1,51 +1,50 @@
-import React from 'react';
-import PropTypes from 'prop-types'; 
-// import List from '../components/list';
-import './record.css';
+import React from "react";
+import PropTypes from "prop-types";
+import Input from "./input";
+// import './record.css';
 
-const Record = (props => {
-    let className = props.item.priority;
-    className += props.item.completed ? " completed" : "";
-    // const item = props.item;
+const Record = props => {
+    const item = props.item;
+    let className = item.priority;
+    className += item.status === "completed" ? " completed" : "";
+    className += item.status === "expired" ? " expired" : "";
     return (
-        <li className={className} onClick={props.handleClick}>
+        <div className={className} onClick={props.handleClick}>
             <fieldset>
-                <legend>
-                    {props.item.task}
-                </legend>
+                <legend>{item.task}</legend>
+                <p>{item.description}</p>
                 <p>
-                    {props.item.description}
+                    priority:
+                    {item.priority}
                 </p>
-                <p>
-                    priority: 
-                    {props.item.priority}
-                </p>
-                <p>
-                    my className: {className}
-                </p>
-                {((props.item.completeUntilDate) || (props.item.completeUntilTime)) && 
+                <p>my className: {className}</p>
+                {(item.date || item.time) && (
                     <p>
-                        before: {props.item.completeUntilDate} {props.item.completeUntilTime}
+                        before: {item.date}{" "}
+                        {item.time}
                     </p>
-                }
-                <label>Completed
-                    <input type="checkbox" name="completed" checked={props.item.completed} onChange={props.completed} />
-                </label>
+                )}
+                <Input
+                    type="checkbox"
+                    name="completed"
+                    checked={item.status === "completed"}
+                    onChange={props.completed}
+                    caption="Completed"
+                />
                 <br />
-                <button onClick={props.delete}>Delete</button>
+                {/* <button onClick={props.delete}>Delete</button>
                 {(props.edit) && (<button onClick={props.edit}>Edit</button>)}
                 {(props.up) && <button onClick={props.up}>Up</button>}
                 {(props.down) && <button onClick={props.down}>Down</button>}
-                <button onClick={props.addLevel}>Add Level</button>
+                <button onClick={props.addLevel}>Add Level</button> */}
                 {props.children}
             </fieldset>
-        </li>
-    )
-    }
-);
+        </div>
+    );
+};
 
 Record.propTypes = {
-    item: PropTypes.object.isRequired,
-    delete: PropTypes.func.isRequired,
-}
+    item: PropTypes.object.isRequired
+    //delete: PropTypes.func.isRequired,
+};
 export default Record;
