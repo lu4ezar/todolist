@@ -1,42 +1,37 @@
 // @ts-check
-import React from "react";
-import PropTypes from "prop-types";
-import Item from "../Item";
-import {
-	Form,
-	GridColumn,
-	Label,
-	Input,
-} from "semantic-ui-react";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Item from '../Item';
+import { Form, GridColumn, Label, Input } from 'semantic-ui-react';
 
 const selectOptions = [
 	{
-		key: "1",
-		value: "normal",
-		text: "Normal"
+		key: '1',
+		value: 'normal',
+		text: 'Normal'
 	},
 	{
-		key: "2",
-		value: "important",
-		text: "Important"
+		key: '2',
+		value: 'important',
+		text: 'Important'
 	},
 	{
-		key: "3",
-		value: "veryImportant",
-		text: "Very important"
+		key: '3',
+		value: 'veryImportant',
+		text: 'Very important'
 	}
 ];
 
 class ReactForm extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {...new Item()};
+		this.state = { ...new Item() };
 		this.handleChange = this.handleChange.bind(this);
 	}
 
 	handleChange(data) {
 		let { name, value, type, checked } = data;
-		value = type === "checkbox" ? checked : value;
+		value = type === 'checkbox' ? checked : value;
 		this.setState({
 			[name]: value
 		});
@@ -54,7 +49,9 @@ class ReactForm extends React.Component {
 
 	render() {
 		return (
-			<Form onSubmit={() => this.props.handleSubmit(this.state, this.props.index)}>
+			<Form
+				onSubmit={() => this.props.handleSubmit(this.state, this.props.index)}
+			>
 				<Form.Input
 					label="Task"
 					name="task"
@@ -73,7 +70,7 @@ class ReactForm extends React.Component {
 					onChange={(e, data) => this.handleChange(data)}
 				/>
 				<GridColumn>
-					<Form.Dropdown 
+					<Form.Dropdown
 						name="priority"
 						value={this.state.priority}
 						placeholder="Priority"
@@ -95,7 +92,12 @@ class ReactForm extends React.Component {
 					value={this.state.time}
 					onChange={(e, data) => this.handleChange(data)}
 				/>
-				<Form.Button type="submit" disabled={!this.state.task || !this.state.description}>{this.props.mode === 'edit' ? "Save changes" : "Ok"}</Form.Button>
+				<Form.Button
+					type="submit"
+					disabled={!this.state.task || !this.state.description}
+				>
+					{this.props.mode === 'edit' ? 'Save changes' : 'Ok'}
+				</Form.Button>
 			</Form>
 		);
 	}
@@ -103,6 +105,6 @@ class ReactForm extends React.Component {
 
 ReactForm.propTypes = {
 	handleSubmit: PropTypes.func.isRequired
-}
+};
 
 export default ReactForm;

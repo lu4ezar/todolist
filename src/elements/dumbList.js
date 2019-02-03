@@ -1,37 +1,56 @@
-import React from "react";
+import React from 'react';
 // import PropTypes from 'prop-types';
-import { Label, GridColumn, Segment, ItemMeta } from 'semantic-ui-react';
-//import './dumbList.css';
+import styled from 'styled-components';
+import { Droppable } from 'react-beautiful-dnd';
+import ListItem from './listItem';
+
+const grid = 8;
+
+const StyledList = styled.div`
+	padding: ${grid}px;
+	width: 250px;
+	transition: background 0.2s ease;
+	background: ${props => (props.isDraggingOver ? 'skyblue' : 'lightgrey')};
+	border-radius: 8px;
+`;
 
 const DumbList = props => {
-    if (!props.list.length) {
-        return <h3>Change filter settings or disable it.</h3>;
-    }
-    const items = props.list.map((item, index) => {
-        const className =
-            item.priority +
-            //(props.active === index ? " active" : "") +
-            ((item.status) && (item.status === "completed" ? " completed" : " expired"));
-        let color;
-            (item.status === "completed") && (color='green');
-            (item.status === "expired") && (color='purple');
-            (!item.status) && (color='grey');
-        return (        
-            <li
-                key={index}
-                className={className}
-                //onClick={() => props.handleClick(index)}
-                onClick={() => props.handleClick(item)}
-            >
-                <Segment>
-                    <Label color={color} ribbon>{item.status ? item.status : item.priority}</Label>
-                    <h3 className="text-right">{item.task}</h3>  
-                    <h4 className="text-center">{item.description}</h4> 
-                </Segment>
-            </li>
-        );
-    });
-    return <ul>{items}</ul>;
+	//убрать обязательно этот массив, сделать иначе:
+	const idsArray = Array.from(props.list);
+	let itemList = props.list.map(element => element.id);
+	//убрать обязательно этот массив, сделать иначе
+
+	const items = props.originalList.map((item, index) => {
+		if (itemList.includes(item.id)) {
+			return (
+				<ListItem
+					//status={item.status ? item.status : item.priority}
+					delete={() => props.delete(item.id)}
+					index={index}
+					onClick={props.handleClick}
+					item={item}
+					key={item.id}
+				/>
+			);
+		}
+	});
+
+	return !props.list.length ? (
+		<h3>Change filter settings or disable it.</h3>
+	) : (
+		<Droppable droppableId="droppable">
+			{(provided, snapshot) => (
+				<StyledList
+					ref={provided.innerRef}
+					isDraggingOver={snapshot.isDraggingOver}
+					{...provided.droppableProps}
+				>
+					{items}
+					{provided.placeholder}
+				</StyledList>
+			)}
+		</Droppable>
+	);
 };
 
 // DumbList.propTypes = {
