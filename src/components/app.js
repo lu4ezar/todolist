@@ -1,49 +1,35 @@
 // @ts-check
 import React from 'react';
 import ReactForm from './form';
-import DumbList from '../elements/dumbList';
-import Record from '../elements/record';
-import Filter from '../elements/filter';
-import Pages from '../elements/pages';
+import List from './list';
+import View from '../elements/viewItem';
+import Filter from './filter';
+import Pagination from './pagination';
 import Item from '../Item';
-import ButtonPanel from '../elements/buttonPanel';
-import { Button, Form, Grid, GridColumn } from 'semantic-ui-react';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { arrayOf } from 'prop-types';
-// import Tumbler from '../elements/tumbler';
-// import UserMessage from '../elements/userMessage';
+import Layout from '../layout/layout';
+import moment from 'moment';
+import { isExpired } from '../utils/utils';
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			list: [],
+			filteredList: null,
+			paginatedList: null,
 			item: {},
-			id: null,
 			mode: 'list'
 		};
-		this.getDataFromLocalStorage = this.getDataFromLocalStorage.bind(this);
-		this.saveDataToLocalStorage = this.saveDataToLocalStorage.bind(this);
 		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmitForm = this.handleSubmitForm.bind(this);
-		this.cancelEdit = this.cancelEdit.bind(this);
-		this.recordAlreadyExists = this.recordAlreadyExists.bind(this);
-		this.deleteRecord = this.deleteRecord.bind(this);
-		this.editRecord = this.editRecord.bind(this);
-		this.markCompleted = this.markCompleted.bind(this);
-		this.addLevel = this.addLevel.bind(this);
-		this.handleClickListItem = this.handleClickListItem.bind(this);
-		this.isExpired = this.isExpired.bind(this);
-		this.onDragEnd = this.onDragEnd.bind(this);
-		this.getUniqueId = this.getUniqueId.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	// есть лишнее
 	componentDidMount() {
 		if (localStorage.length) {
 			this.getDataFromLocalStorage();
 		} else {
-			let data = this.getItems(12);
+			let data = this.getItems(12); // нужно только для тестового списка
 			this.setState({
 				list: data
 			});
@@ -59,15 +45,23 @@ class App extends React.Component {
 	}
 
 	getDataFromLocalStorage = () => {
-		let arr = [];
+		let list = [];
 		for (let i = 0; i < localStorage.length; i++) {
-			arr.push(JSON.parse(localStorage.getItem(i.toString())));
-			if (arr[i].status !== 'completed') {
-				arr[i].status = this.isExpired(arr[i]);
+			const item = JSON.parse(localStorage.getItem(i.toString()));
+			let { status, date, time } = item;
+			if (status !== 'completed') {
+				item.status = isExpired(item);
 			}
+			if (date) {
+				item.date = moment(date).toDate();
+			}
+			if (time) {
+				item.time = moment(time).toDate();
+			}
+			list.push(item);
 		}
 		this.setState({
-			list: arr
+			list
 		});
 	};
 
@@ -78,133 +72,131 @@ class App extends React.Component {
 		);
 	};
 
-	/* handleChange может обрабатывать как React onChange (с event), так и Semantic onChange (без event) */
 	handleChange(event) {
-		event.target && (event = event.target);
-		let { name, value, checked, activePage } = event;
-		checked && (value = checked);
-		activePage && (value = activePage);
-		/* если меняется количество записей на странице, то текущий номер страницы сбрасывается */
-		name === 'recordsPerPage' &&
-			this.setState({
-				pageNumber: 1
-			});
+		const target = event.target;
+		const value =
+			target.type === 'checkbox' ? target.checked : target.value;
+		const name = target.name;
 		this.setState({
 			[name]: value
 		});
 	}
 
-	/* подтверждение ReactForm в режимах добавления и редактирования */
-	handleSubmitForm(obj, index) {
+	handleSubmit(obj) {
 		let arr = [...this.state.list];
+		if (obj.status !== 'completed') {
+			obj.status = isExpired(obj);
+		}
 		if (this.state.mode === 'form') {
 			obj.id = this.getUniqueId();
 			arr.push(obj);
 		} else {
+			const index = this.getItemIndexById(obj.id);
 			arr[index] = obj;
 		}
-		this.setState({
-			list: arr,
-			mode: 'list'
-		});
+		this.setState(
+			{
+				list: arr
+			},
+			() => this.handleCloseModal()
+		);
 	}
 
-	handleClickListItem(item) {
+	handleClickListItem = id => {
+		const item = this.getItemById(id);
 		this.setState({
 			item,
-			mode: 'details'
+			mode: 'view'
 		});
-	}
+	};
+
+	handleCloseModal = () => {
+		this.setState({
+			mode: 'list',
+			item: {}
+		});
+	};
+
+	getFilteredList = arr => {
+		let list = [...this.state.list];
+		list = list.filter(({ id }) => arr.includes(id));
+		this.setState({
+			filteredList: list
+		});
+	};
+
+	getPaginatedList = arr => {
+		let list = this.state.filteredList
+			? [...this.state.filteredList]
+			: [...this.state.list];
+		list = list.filter(({ id }) => {
+			return arr.includes(id);
+		});
+		this.setState({
+			paginatedList: list
+		});
+	};
+
+	clearList = () => this.setState({ list: [] });
 
 	render() {
-		let element;
-		const list = this.state.list;
-		const currentItemIndex = this.state.list.indexOf(this.state.item);
-		switch (this.state.mode) {
-			case 'list':
-				element = (
-					<React.Fragment>
-						{this.state.list.length ? (
-							<Filter list={this.state.list}>
-								<Pages>
-									<DumbList
-										originalList={this.state.list}
-										handleClick={this.handleClickListItem}
-										onDragEnd={this.onDragEnd}
-										delete={this.deleteRecord}
-									/>
-								</Pages>
-							</Filter>
-						) : (
-							<h3>Your list is empty</h3>
-						)}
-					</React.Fragment>
-				);
-				break;
-			case 'edit':
-				const item = this.state.item;
-				const index = list.findIndex(el => el.id === item.id);
-			case 'form':
-				element = (
-					<ReactForm
-						item={item || null}
-						index={index || null}
-						mode={this.state.mode}
-						handleSubmit={this.handleSubmitForm}
-						getId={this.getUniqueId}
-					/>
-				);
-				break;
-			case 'details':
-				element = (
-					<Record
-						item={this.state.item}
-						completed={() => this.markCompleted(currentItemIndex)}
-						delete={() => this.deleteRecord(currentItemIndex)}
-					>
-						<ButtonPanel
-							delete={() => this.deleteRecord(currentItemIndex)}
-							edit={() => this.editRecord(currentItemIndex)}
-						/>
-					</Record>
-				);
-				break;
-			default:
-				return <h1>No Mode set!</h1>;
-		}
-
-		const totalListLength = this.state.list.length;
-
+		const { list, filteredList, paginatedList, item, mode } = this.state;
+		const forPagination = filteredList ? filteredList : list;
+		const forList = paginatedList
+			? paginatedList
+			: filteredList
+			? filteredList
+			: list;
+		const buttonPanelFunctions = {
+			view: this.handleClickListItem,
+			edit: this.editItem,
+			deleteItem: this.deleteItem,
+			completed: this.markCompleted
+		};
+		const modalWindowProps = {
+			item,
+			mode,
+			close: this.handleCloseModal
+		};
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>
-				<h3>
-					You have {totalListLength}{' '}
-					{totalListLength === 1 ? 'record' : 'records'}
-				</h3>
-				{this.state.mode === 'list' ? (
-					<Form>
-						<Form.Button
-							onClick={this.handleChange}
-							name="mode"
-							value="form"
-							icon="add square"
-							title="Add Task"
+				<Layout
+					handleChange={this.handleChange}
+					clear={this.clearList}
+					rightSide={
+						<Filter list={list} onChange={this.getFilteredList} />
+					}
+					leftSide={
+						<List
+							originalList={list}
+							list={forList}
+							handleClick={this.handleClickListItem}
+							delete={this.deleteItem}
+							btnFunc={buttonPanelFunctions}
 						/>
-						<Form.Button
-							onClick={() => this.setState({ list: [] })}
-							icon="cancel"
-							title="Clear List"
+					}
+					bottom={
+						<Pagination
+							list={forPagination}
+							onChange={this.getPaginatedList}
 						/>
-					</Form>
-				) : (
-					<Button
-						onClick={this.handleChange}
-						name="mode"
-						value="list"
-						icon="chevron circle left"
-					/>
-				)}
-				{element}
+					}
+				/>
+				{/*			***modal window***		*/}
+				{mode !== 'list' &&
+					(mode === 'edit' || mode === 'form' ? (
+						<ReactForm
+							{...modalWindowProps}
+							handleSubmit={this.handleSubmit}
+						/>
+					) : (
+						mode === 'view' && (
+							<View
+								{...modalWindowProps}
+								functions={buttonPanelFunctions}
+							/>
+						)
+					))}
 			</DragDropContext>
 		);
 	}
@@ -212,98 +204,67 @@ class App extends React.Component {
 	getItems = n => {
 		let arr = [];
 		for (let i = 0; i < n; i++) {
-			const task = 'test record ' + i;
+			const text = 'test item ' + i;
 			const desc = 'test description ' + i;
-			const item = new Item(task, desc);
+			const item = new Item(text, desc);
 			item.id = i;
 			arr.push(item);
 		}
 		return arr;
 	};
+
 	// arr можно убрать, он нужен только для тестового списка
-	getUniqueId() {
-		const arr = this.state.list.map(val => val.id);
+	getUniqueId = () => {
+		const arr = this.state.list.map(({ id }) => id);
 		for (let i = 0; i < arr.length; i++) {
 			if (!arr.includes(i)) {
 				return i;
 			}
 		}
 		return arr.length;
-	}
+	};
 
-	addLevel(record) {
-		let arr = [...this.state.list];
-		arr[record].hasChildren = true;
-		arr[record].children = [];
-	}
-
-	isExpired(item) {
-		if (item.date) {
-			const date = item.date;
-			const time = item.time ? item.time : '00:00';
-			const dateObj = new Date(`${date} ${time}`);
-			const today = new Date(Date.now());
-			if (dateObj.getTime() < today.getTime()) {
-				return 'expired';
-			}
-		}
-		return '';
-	}
-
-	cancelEdit(e) {
-		if (e.keyCode === 27 && this.state.mode !== 'list') {
-			this.setState({
-				mode: 'list'
-			});
-		}
-	}
-
-	recordAlreadyExists(val) {
-		return this.state.list.some(value => value['task'] === val);
-	}
-
-	deleteRecord(id) {
+	deleteItem = id => {
 		const list = [...this.state.list];
-		const itemIndex = list.findIndex(item => item.id === id);
-		if (window.confirm(`Удалить ${list[itemIndex].task}?`)) {
-			list.splice(itemIndex, 1);
+		const index = list.findIndex(item => item.id === id);
+		if (window.confirm(`Удалить ${list[index].task}?`)) {
+			list.splice(index, 1);
 			this.setState({
 				list,
-				id: null,
-				item: {},
 				mode: 'list'
 			});
 		}
-	}
+	};
 
-	editRecord(record) {
+	editItem = id => {
+		const item = { ...this.getItemById(id) };
 		this.setState(state => ({
 			mode: 'edit',
-			item: state.list[record]
+			item
 		}));
-	}
+	};
 
-	markCompleted(record) {
-		if (this.state.list[record].status === 'completed') {
+	markCompleted = id => {
+		const item = { ...this.getItemById(id) };
+		if (item.status === 'completed') {
 			return;
 		}
-		const arr = [...this.state.list];
-		const item = arr[record];
-		//	set status
 		item.status = 'completed';
-		//	get completion time
-		const now = new Date(Date.now());
-		item.date = now.toISOString().slice(0, 10);
-		let H = now.getHours().toString();
-		H = H.length < 2 ? '0' + H : H;
-		let M = now.getMinutes().toString();
-		M = M.length < 2 ? '0' + M : M;
-		item.time = `${H}:${M}`;
-		//	update state
+		item.date = item.time = moment().toDate();
+		const list = [...this.state.list];
+		const itemIndex = this.getItemIndexById(id);
+		list[itemIndex] = item;
 		this.setState({
-			list: arr
+			list
 		});
-	}
+	};
+
+	reorder = (list, startIndex, endIndex) => {
+		const arr = [...list];
+		const [removed] = arr.splice(startIndex, 1);
+		arr.splice(endIndex, 0, removed);
+		return arr;
+	};
 
 	onDragEnd = result => {
 		const { source, destination } = result;
@@ -313,18 +274,39 @@ class App extends React.Component {
 		if (source.index === destination.index) {
 			return;
 		}
-		const list = reorder(this.state.list, source.index, destination.index);
+		const list = this.reorder(
+			this.state.list,
+			source.index,
+			destination.index
+		);
 		this.setState({
 			list
 		});
 	};
-}
 
-const reorder = (list, startIndex, endIndex) => {
-	const arr = [...list];
-	const [removed] = arr.splice(startIndex, 1);
-	arr.splice(endIndex, 0, removed);
-	return arr;
-};
+	itemAlreadyExists = val => {
+		this.state.list.some(value => value['task'] === val);
+	};
+
+	getItemIndexById = id => {
+		const list = [...this.state.list];
+		const itemIndex = list.findIndex(item => item.id === id);
+		return itemIndex;
+	};
+
+	getItemById = id => {
+		const list = [...this.state.list];
+		const itemIndex = list.findIndex(item => item.id === id);
+		return list[itemIndex];
+	};
+
+	cancelEdit = e => {
+		if (e.keyCode === 27 && this.state.mode !== 'list') {
+			this.setState({
+				mode: 'list'
+			});
+		}
+	};
+}
 
 export default App;

@@ -1,72 +1,7 @@
-/* @import url(https://fonts.googleapis.com/css?family=Merriweather:700); */
-
-body {
-  background: #e0e0e0;
-  font-family: "Merriweather", serif;
+#root {
+	height: 100vh;
 }
 
-.main {
-  font-size: 2em;
-  float: left;
-}
-
-button {
-  margin: 3px;
-  font-size: 1em;
-  position: relative;
-  left: 50%;
-}
-
-.list {
-  max-width: 40%;
-  max-height: 90%;
-}
-
-.editMode {
-  background: #be9b9b;
-}
-
-button {
-  border-radius: 8px;
-  font-weight: bold;
-}
-
-#required {
-  display: inline-block;
-  /* width: 160px; */
-  text-align: right;
-}
-
-#optional {
-  display: inline-block;
-  /* width: 160px; */
-  text-align: left;
-}
-
-fieldset {
-  padding-top: 10px;
-  border: 1px solid #666;
-  border-radius: 8px;
-  box-shadow: 0 0 10px #666;
-  background-color: #e8e8e8;
-}
-
-fieldset fieldset {
-  background-color: #e0e0e0;
-}
-legend {
-  float: left;
-  margin-top: -20px;
-}
-legend + * {
-  clear: both;
-}
-
-:disabled {
-  color: #b3b3b3;
-}
-
-/*.button-disabled {
-    opacity: 0.6;
-    pointer-events: none;
-}*/
+/* html, body {
+	height: 100vh;
+} */
