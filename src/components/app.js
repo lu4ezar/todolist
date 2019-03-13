@@ -25,6 +25,7 @@ class App extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
+	// есть лишнее
 	componentDidMount() {
 		if (localStorage.length) {
 			this.getDataFromLocalStorage();
@@ -308,5 +309,12 @@ class App extends React.Component {
 		}
 	};
 }
+
+const reorder = (list, startIndex, endIndex) => {
+	const arr = [...list];
+	const [removed] = arr.splice(startIndex, 1);
+	arr.splice(endIndex, 0, removed);
+	return arr;
+};
 
 export default App;
