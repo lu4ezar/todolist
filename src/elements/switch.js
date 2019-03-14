@@ -6,7 +6,8 @@ import { list, listItem } from '../utils/color';
 import Badge from 'react-bootstrap/Badge';
 
 const Border = styled.div`
-	border: 2px solid ${listItem.border};
+	border-top: 2px solid ${listItem.border};
+	border-bottom: 2px solid ${listItem.border};
 	border-radius: 15px;
 	display: flex;
 	align-items: center;
