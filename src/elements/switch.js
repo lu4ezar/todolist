@@ -51,13 +51,13 @@ const Switch = (props: Props) => {
 	const { id, state, onSwitch, disabled, textLeft, textRight } = props;
 
 	const turnOn = (): void => {
-		if (!state) {
+		if (!state && !disabled) {
 			onSwitch(true, null, id);
 		}
 	};
 
 	const turnOff = (): void => {
-		if (state) {
+		if (state && !disabled) {
 			onSwitch(false, null, id);
 		}
 	};
