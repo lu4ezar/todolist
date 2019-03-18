@@ -8,7 +8,8 @@ const StyledItem = styled.div`
 	userSelect: 'none';
 	font-weight: bold;
 	line-height: 2;
-	min-height: content;
+	min-height: fit-content;
+	// min-width: fit-content;
 	color: ${listItem.color};
 	background: ${listItem.background};
 	border: 2px solid ${listItem.border}

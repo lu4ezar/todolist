@@ -1,7 +1,10 @@
+html,
+body,
 #root {
-	height: 100vh;
+	height: 100%;
+	background: #dfd292;
 }
 
-/* html, body {
-	height: 100vh;
-} */
+body {
+	padding-bottom: 70px;
+}

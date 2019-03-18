@@ -6,9 +6,7 @@ import ListItem from '../elements/listItem';
 import { list } from '../utils/color';
 
 const StyledList = styled.div`
-	// min-height: 40vh;
-	height: 50vh;
-	// max-height: 60vh;
+	max-height: 60vh;
 	overflow: auto;
 	transition: background 0.2s ease;
 	background: ${props =>
@@ -22,7 +20,7 @@ const StyledList = styled.div`
 	&::after {
 		content: '7days';
 		color: transparent;
-	}
+	};
 `;
 
 const List = props => {

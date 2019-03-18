@@ -7,11 +7,7 @@ import { list } from '../utils/color';
 
 const StyledNavbar = styled(Navbar)`
 	border-top: 4px solid ${list.border};
-	margin-top: 1em;
 	background-color: ${list.background};
-	height: ${props => props.height && `${props.height}em`};
-	margin-left: -15px;
-	margin-right: -15px;
 `;
 
 const StyledLink = styled.a`
@@ -20,8 +16,8 @@ const StyledLink = styled.a`
 	border: 'none'
 `;
 
-const Footer = ({ height }) => (
-	<StyledNavbar height={height}>
+const Footer = () => (
+	<StyledNavbar fixed='bottom'>
 		<Container>
 			<Navbar.Text>
 				<StyledLink
