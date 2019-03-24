@@ -7,7 +7,7 @@ type Props = {
 	list: Array<Item>,
 	prevProps: Props,
 	item: Item,
-	onChange: (arr: Array<?number>) => void,
+	onChange: (arr: ?Array<?number>) => void,
 	values: Array<string>
 };
 
@@ -88,17 +88,19 @@ class Filter extends React.Component<Props, State> {
 
 	updateFilteredList = (): void => {
 		const list: Array<Item> = [...this.props.list];
-		const filteredList: Array<Item> = this.state.filterIsActive
+		const filteredList: ?Array<Item> = this.state.filterIsActive
 			? this.filterList(list)
-			: list;
-		const filteredListIdArray: Array<?number> = filteredList.map(
-			({ id }): number | null => {
-				if (id != null) {
-					return id;
-				}
-				return null;
-			}
-		);
+			: null;
+		const filteredListIdArray: ?Array<?number> = filteredList
+			? filteredList.map(
+					({ id }): number | null => {
+						if (id != null) {
+							return id;
+						}
+						return null;
+					}
+			  )
+			: null;
 		this.props.onChange(filteredListIdArray);
 	};
 

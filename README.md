@@ -15,14 +15,14 @@ Simple to-do list app with ReactJS.
 ```
 git clone https://github.com/lu4ezar/todolist
 cd todolist
-npm install
-npm start
+yarn install
+yarn start
 ```
 
 ## Deployment
 
 ```
-npm run build
+yarn build
 ```
 
 ## Authors

@@ -17,16 +17,16 @@ const StyledLink = styled.a`
 `;
 
 const Footer = () => (
-	<StyledNavbar fixed='bottom'>
+	<StyledNavbar>
 		<Container>
 			<Navbar.Text>
 				<StyledLink
-					href='https://github.com/lu4ezar/todolist'
-					title='Open Github page'
+					href="https://github.com/lu4ezar/todolist"
+					title="Open Github page"
 				>
 					<FontAwesomeIcon
 						icon={['fab', 'github-square']}
-						size='2x'
+						size="2x"
 					/>
 				</StyledLink>
 			</Navbar.Text>

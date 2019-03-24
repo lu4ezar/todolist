@@ -9,7 +9,6 @@ const StyledItem = styled.div`
 	font-weight: bold;
 	line-height: 2;
 	min-height: fit-content;
-	// min-width: fit-content;
 	color: ${listItem.color};
 	background: ${listItem.background};
 	border: 2px solid ${listItem.border}
@@ -37,7 +36,7 @@ const StyledItem = styled.div`
 	filter: ${props => (props.isDragging ? 'brightness(95%)' : 'brightness(1)')};
 `;
 
-const ListItem = ({ item, index, buttonPanelFunctions, onClick }) => (
+const ListItem = ({ item, index, buttonFunctions }) => (
 	<Draggable draggableId={item.id.toString()} index={index}>
 		{(provided, snapshot) => (
 			<StyledItem
@@ -47,10 +46,10 @@ const ListItem = ({ item, index, buttonPanelFunctions, onClick }) => (
 				{...provided.dragHandleProps}
 				status={item.status ? item.status : item.priority}
 				title="DoubleClick to view details"
-				onDoubleClick={() => onClick(item.id)}
+				onDoubleClick={() => buttonFunctions.view(item.id)}
 			>
 				{item.task}
-				<ButtonPanel functions={buttonPanelFunctions} item={item} />
+				<ButtonPanel functions={buttonFunctions} item={item} />
 			</StyledItem>
 		)}
 	</Draggable>

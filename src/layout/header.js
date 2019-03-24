@@ -15,23 +15,28 @@ const StyledNavbar = styled(Navbar)`
 const Header = props => (
 	<StyledNavbar>
 		<Container>
-			<Navbar.Brand href='#'>ToDoList App</Navbar.Brand>
-			<ButtonGroup className='ml-auto'>
+			<Navbar.Brand href="#">ToDoList App</Navbar.Brand>
+			<ButtonGroup className="ml-auto">
 				<Button
 					onClick={props.handleChange}
-					name='mode'
-					value='form'
-					title='Add New Item'
+					name="mode"
+					value="form"
+					title="Add New Item"
 				>
 					<FontAwesomeIcon
-						className='mx-2'
-						title='Add Task'
-						icon='plus-square'
-						size='2x'
+						className="mx-2"
+						icon="plus-square"
+						size="2x"
+						style={{ pointerEvents: 'none' }}
 					/>
 				</Button>
-				<Button onClick={props.clear} title='Clear List'>
-					<FontAwesomeIcon className='mx-2' icon='ban' size='2x' />
+				<Button onClick={props.clear} title="Clear List">
+					<FontAwesomeIcon
+						className="mx-2"
+						icon="ban"
+						size="2x"
+						style={{ pointerEvents: 'none' }}
+					/>
 				</Button>
 			</ButtonGroup>
 		</Container>

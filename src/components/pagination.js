@@ -10,15 +10,15 @@ type Props = {
 };
 
 type State = {
-	itemsPerPage: number,
+	itemsPerPage: string,
 	pageNumber: number
 };
 
-class Pages extends React.Component<Props, State> {
+class Pages extends React.PureComponent<Props, State> {
 	constructor(props: Props) {
 		super(props);
 		this.state = {
-			itemsPerPage: 5,
+			itemsPerPage: '5',
 			pageNumber: 1
 		};
 	}
@@ -26,22 +26,35 @@ class Pages extends React.Component<Props, State> {
 	componentDidMount() {
 		this.updatePaginatedList();
 	}
-	/*
-
-*1 - если во время удаления записи itemsPerPage был в положении max (= arr.length), 
-	то itemsPerPage уменьшается на 1 чтобы не выходить за допустимые пределы
-
-*2 - если удаляемая запись была на текущей странице последней,
-	то (pageNumber - 1) чтобы не отображалась пустая 
-*/
 
 	componentDidUpdate(prevProps: Props) {
-		if (this.props.list !== prevProps.list) {
-			this.updatePaginatedList();
+		let { pageNumber, itemsPerPage } = this.state;
+		const list = [...this.props.list];
+		const totalPages = this.getTotalPages(list.length, itemsPerPage);
+		const prevPropsTotalPages = this.getTotalPages(
+			prevProps.list.length,
+			itemsPerPage
+		);
+		/*
+		если количество страниц уменьшается в результате удаления записи или 
+				включения фильтра - переключаемся на новую страницу
+		если увеличивается - на первую
+		*/
+		if (totalPages !== prevPropsTotalPages) {
+			if (totalPages < prevPropsTotalPages) {
+				pageNumber = totalPages;
+			} else {
+				pageNumber = 1;
+			}
 		}
+		this.setState(
+			{
+				pageNumber
+			},
+			() => this.updatePaginatedList()
+		);
 	}
 
-	// TODO: оптимизировать ?
 	handleChange = (e: SyntheticInputEvent<HTMLInputElement>) => {
 		let { name, value } = e.target;
 		let { pageNumber } = this.state;
@@ -50,11 +63,12 @@ class Pages extends React.Component<Props, State> {
 				? ++pageNumber
 				: value === 'descPage'
 				? --pageNumber
-				: parseInt(value);
+				: value;
 		let newState = {
 			[name]: value
 		};
-		// если меняется количество записей на странице, то номер страницы меняется на 1
+		/* если меняется количество записей на странице,
+		то номер страницы меняется на 1 */
 		if (name === 'itemsPerPage') {
 			newState = {
 				...newState,
@@ -72,17 +86,27 @@ class Pages extends React.Component<Props, State> {
 	updatePaginatedList = () => {
 		const { pageNumber, itemsPerPage } = this.state;
 		const list = [...this.props.list];
+		const iPP =
+			itemsPerPage === 'all'
+				? this.props.list.length
+				: Number(itemsPerPage);
 		const paginatedList = list.slice(
-			(pageNumber - 1) * itemsPerPage,
-			pageNumber * itemsPerPage
+			(pageNumber - 1) * iPP,
+			pageNumber * iPP
 		);
 		const paginatedListIdArray = paginatedList.map(({ id }) => id);
 		this.props.onChange(paginatedListIdArray);
 	};
 
+	getTotalPages = (listLength: number, itemsPerPage: string): number =>
+		itemsPerPage === 'all' || !listLength
+			? 1
+			: Math.ceil(listLength / +itemsPerPage);
+
 	render() {
-		const totalPages = Math.ceil(
-			this.props.list.length / this.state.itemsPerPage
+		const totalPages = this.getTotalPages(
+			this.props.list.length,
+			this.state.itemsPerPage
 		);
 		return (
 			<PagesView

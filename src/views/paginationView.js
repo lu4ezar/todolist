@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { list, listItem } from '../utils/color';
 import Button from '../elements/styledButton';
 
-const options = [3, 4, 5, 10, 20, 'all'];
+const options = ['3', '4', '5', '10', '20', 'all'];
 
 const StyledButtonGroup = styled(ButtonGroup)`
 	background: ${list.background};
@@ -17,7 +17,6 @@ const StyledButtonGroup = styled(ButtonGroup)`
 const Menu = styled(Dropdown.Menu)`
 	border: 2px solid ${list.border};
 	background: ${list.background};
-	z-index: 2000;
 `;
 
 const DDItem = styled(Button)`
@@ -37,18 +36,21 @@ const PagesView = ({
 	listLength
 }) => {
 	const dropdownItems = options.map((option, index) => {
-		if (parseInt(option) < listLength || option === 'all') {
-			const value = option === 'all' ? listLength : option;
+		if (
+			parseInt(option) < listLength ||
+			option === itemsPerPage ||
+			option === 'all'
+		) {
 			return (
 				<Dropdown.Item
 					as={DDItem}
 					key={index}
 					eventKey={index}
-					name='itemsPerPage'
-					value={value}
-					active={value === itemsPerPage}
+					name="itemsPerPage"
+					value={option}
+					active={option === itemsPerPage}
 				>
-					{option}
+					{option === 'all' ? option + ` (${listLength})` : option}
 				</Dropdown.Item>
 			);
 		}
@@ -61,32 +63,32 @@ const PagesView = ({
 				<>
 					<Button
 						onClick={handleChange}
-						name='pageNumber'
-						value='descPage'
+						name="pageNumber"
+						value="descPage"
 						disabled={pageNumber === 1}
 					>
 						<FontAwesomeIcon
-							icon='arrow-alt-circle-left'
-							size='2x'
+							icon="arrow-alt-circle-left"
+							size="2x"
 							style={{ pointerEvents: 'none' }}
 						/>
 					</Button>
 					<Button
 						onClick={handleChange}
-						name='pageNumber'
-						value='ascPage'
+						name="pageNumber"
+						value="ascPage"
 						disabled={pageNumber === totalPages}
 					>
 						<FontAwesomeIcon
-							icon='arrow-alt-circle-right'
-							size='2x'
+							icon="arrow-alt-circle-right"
+							size="2x"
 							style={{ pointerEvents: 'none' }}
 						/>
 					</Button>
 				</>
 			)}
 			<Dropdown as={StyledButtonGroup}>
-				<Dropdown.Toggle variant='outline-dark' id='items per page'>
+				<Dropdown.Toggle variant="outline-dark" id="items per page">
 					<b>{`${pageNumber}of${totalPages}`}</b>
 				</Dropdown.Toggle>
 				<Menu onClick={handleChange}>{dropdownItems}</Menu>
@@ -96,7 +98,7 @@ const PagesView = ({
 };
 
 PagesView.propTypes = {
-	itemsPerPage: PropTypes.number.isRequired,
+	itemsPerPage: PropTypes.string.isRequired,
 	pageNumber: PropTypes.number.isRequired,
 	totalPages: PropTypes.number.isRequired,
 	handleChange: PropTypes.func.isRequired,

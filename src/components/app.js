@@ -17,7 +17,7 @@ class App extends React.Component {
 		this.state = {
 			list: [],
 			filteredList: null,
-			paginatedList: null,
+			paginatedList: [],
 			item: {},
 			mode: 'list'
 		};
@@ -35,13 +35,11 @@ class App extends React.Component {
 				list: data
 			});
 		}
-		document.addEventListener('keydown', this.cancelEdit);
 		window.addEventListener('beforeunload', this.saveDataToLocalStorage);
 	}
 
 	componentWillUnmount() {
 		this.saveDataToLocalStorage();
-		document.removeEventListener('keydown', this.cancelEdit);
 		window.removeEventListener('beforeunload', this.saveDataToLocalStorage);
 	}
 
@@ -90,7 +88,7 @@ class App extends React.Component {
 		}
 		if (this.state.mode === 'form') {
 			obj.id = this.getUniqueId();
-			arr.push(obj);
+			arr.unshift(obj);
 		} else {
 			const index = this.getItemIndexById(obj.id);
 			arr[index] = obj;
@@ -120,7 +118,8 @@ class App extends React.Component {
 
 	getFilteredList = arr => {
 		let list = [...this.state.list];
-		list = list.filter(({ id }) => arr.includes(id));
+		list =
+			arr && arr.length ? list.filter(({ id }) => arr.includes(id)) : arr;
 		this.setState({
 			filteredList: list
 		});
@@ -143,12 +142,13 @@ class App extends React.Component {
 	render() {
 		const { list, filteredList, paginatedList, item, mode } = this.state;
 		const forPagination = filteredList ? filteredList : list;
-		const forList = paginatedList
-			? paginatedList
-			: filteredList
-			? filteredList
-			: list;
-		const buttonPanelFunctions = {
+		const forList = paginatedList;
+		const noListMessage = !list.length
+			? 'Your list is empty'
+			: filteredList && !filteredList.length
+			? 'Change filter settings or disable it'
+			: null;
+		const buttonFunctions = {
 			view: this.handleClickListItem,
 			edit: this.editItem,
 			deleteItem: this.deleteItem,
@@ -169,11 +169,13 @@ class App extends React.Component {
 					}
 					leftSide={
 						<List
-							originalList={list}
 							list={forList}
-							handleClick={this.handleClickListItem}
-							delete={this.deleteItem}
-							btnFunc={buttonPanelFunctions}
+							noListMessage={noListMessage}
+							btnFunc={buttonFunctions}
+							//view={this.handleClickListItem}
+							//delete={this.deleteItem}
+							//edit={this.editItem}
+							//completed={this.markCompleted}
 						/>
 					}
 					bottom={
@@ -194,7 +196,7 @@ class App extends React.Component {
 						mode === 'view' && (
 							<View
 								{...modalWindowProps}
-								functions={buttonPanelFunctions}
+								functions={buttonFunctions}
 							/>
 						)
 					))}
@@ -260,8 +262,14 @@ class App extends React.Component {
 		});
 	};
 
-	reorder = (list, startIndex, endIndex) => {
-		const arr = [...list];
+	reorder = (startIndex, endIndex) => {
+		// массив id-значений отфильтрованного списка сопоставляется с оригинальным списком,
+		// чтобы получить реальный текущий индекс элементов (react-beautiful-dnd)
+		startIndex = this.getItemIndexById(
+			this.state.paginatedList[startIndex].id
+		);
+		endIndex = this.getItemIndexById(this.state.paginatedList[endIndex].id);
+		const arr = [...this.state.list];
 		const [removed] = arr.splice(startIndex, 1);
 		arr.splice(endIndex, 0, removed);
 		return arr;
@@ -275,11 +283,7 @@ class App extends React.Component {
 		if (source.index === destination.index) {
 			return;
 		}
-		const list = this.reorder(
-			this.state.list,
-			source.index,
-			destination.index
-		);
+		const list = this.reorder(source.index, destination.index);
 		this.setState({
 			list
 		});
@@ -299,14 +303,6 @@ class App extends React.Component {
 		const list = [...this.state.list];
 		const itemIndex = list.findIndex(item => item.id === id);
 		return list[itemIndex];
-	};
-
-	cancelEdit = e => {
-		if (e.keyCode === 27 && this.state.mode !== 'list') {
-			this.setState({
-				mode: 'list'
-			});
-		}
 	};
 }
 
