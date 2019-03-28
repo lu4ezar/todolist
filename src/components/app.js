@@ -142,7 +142,6 @@ class App extends React.Component {
 	render() {
 		const { list, filteredList, paginatedList, item, mode } = this.state;
 		const forPagination = filteredList ? filteredList : list;
-		const forList = paginatedList;
 		const noListMessage = !list.length
 			? 'Your list is empty'
 			: filteredList && !filteredList.length
@@ -169,13 +168,9 @@ class App extends React.Component {
 					}
 					leftSide={
 						<List
-							list={forList}
+							list={paginatedList}
 							noListMessage={noListMessage}
 							btnFunc={buttonFunctions}
-							//view={this.handleClickListItem}
-							//delete={this.deleteItem}
-							//edit={this.editItem}
-							//completed={this.markCompleted}
 						/>
 					}
 					bottom={
