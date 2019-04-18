@@ -10,6 +10,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import Layout from '../layout/layout';
 import moment from 'moment';
 import { isExpired } from '../utils/utils';
+import update from 'immutability-helper';
 
 class App extends React.Component {
 	constructor(props) {
@@ -83,20 +84,23 @@ class App extends React.Component {
 	}
 
 	handleSubmit(obj) {
-		let arr = [...this.state.list];
+		let list;
 		if (obj.status !== 'completed') {
 			obj.status = isExpired(obj);
 		}
+		// if mode === 'form' => we're adding a new item,
+		// so we need to assign unique id and add it to the list
+		// 'else' means it was 'edit mode', so we're updating existing item
 		if (this.state.mode === 'form') {
 			obj.id = this.getUniqueId();
-			arr.unshift(obj);
+			list = update(this.state.list, { $unshift: [obj] });
 		} else {
 			const index = this.getItemIndexById(obj.id);
-			arr[index] = obj;
+			list = update(this.state.list, { [index]: { $set: obj } });
 		}
 		this.setState(
 			{
-				list: arr
+				list
 			},
 			() => this.handleCloseModal()
 		);
@@ -224,10 +228,10 @@ class App extends React.Component {
 	};
 
 	deleteItem = id => {
-		const list = [...this.state.list];
+		let list = this.state.list;
 		const index = list.findIndex(item => item.id === id);
 		if (window.confirm(`Удалить ${list[index].task}?`)) {
-			list.splice(index, 1);
+			list = update(list, { $splice: [[index, 1]] });
 			this.setState({
 				list,
 				mode: 'list'

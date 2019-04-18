@@ -61,38 +61,38 @@ class ReactForm extends React.Component {
 				onHide={this.props.close}
 				title={this.props.mode === 'edit' ? 'Edit' : 'Add'}
 				body={
-					<Form>
-						<Form.Group controlId='task' title='required'>
+					<Form id="form" onSubmit={this.onSubmit}>
+						<Form.Group controlId="task" title="required">
 							<Form.Label>
 								Todo<span>*</span>
 							</Form.Label>
 							<Form.Control
-								name='task'
+								name="task"
 								value={this.state.task}
 								onChange={this.handleChange}
-								placeholder='task goes here'
+								placeholder="task goes here"
 							/>
 						</Form.Group>
-						<Form.Group controlId='description' title='required'>
+						<Form.Group controlId="description" title="required">
 							<Form.Label>
 								Description<span>*</span>
 							</Form.Label>
 							<Form.Control
-								as='textarea'
-								name='description'
+								as="textarea"
+								name="description"
 								value={this.state.description}
 								onChange={this.handleChange}
-								placeholder='add description'
+								placeholder="add description"
 							/>
 						</Form.Group>
-						<Form.Group id='priority'>
+						<Form.Group id="priority">
 							<Form.Label>Priority</Form.Label>
 							<Select
-								name='priority'
+								name="priority"
 								value={this.state.priority}
 								options={dropdownOptions}
 								onChange={this.handleSelectChange}
-								placeholder='Priority'
+								placeholder="Priority"
 								disabled={false}
 								isMulti={false}
 								isClearable={false}
@@ -100,23 +100,23 @@ class ReactForm extends React.Component {
 						</Form.Group>
 						<Form.Label>Complete until: </Form.Label>
 						<Form.Row>
-							<Form.Group controlId='date'>
+							<Form.Group controlId="date">
 								<DatePicker
 									onChange={this.handleDateChange}
 									selected={this.state.date}
-									dateFormat='dd.MM.YYYY'
-									placeholderText='dd/mm/yyyy'
-									locale='en-GB'
+									dateFormat="dd.MM.YYYY"
+									placeholderText="dd/mm/yyyy"
+									locale="en-GB"
 									isClearable
 								/>
 							</Form.Group>
-							<Form.Group controlId='time'>
+							<Form.Group controlId="time">
 								<DatePicker
 									onChange={this.handleTimeChange}
 									selected={this.state.time}
-									dateFormat='HH:mm'
-									timeFormat='HH:mm'
-									placeholderText='Click to select time'
+									dateFormat="HH:mm"
+									timeFormat="HH:mm"
+									placeholderText="Click to select time"
 									showTimeSelect
 									showTimeSelectOnly
 									isClearable
@@ -127,13 +127,12 @@ class ReactForm extends React.Component {
 				}
 				footer={
 					<>
-						<Button variant='danger' onClick={this.props.close}>
+						<Button variant="danger" onClick={this.props.close}>
 							Cancel
 						</Button>
 						<Button
-							variant='primary'
-							type='button'
-							onClick={this.onSubmit}
+							variant="primary"
+							form="form"
 							disabled={
 								!this.state.task || !this.state.description
 							}
