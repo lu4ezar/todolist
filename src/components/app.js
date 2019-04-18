@@ -44,9 +44,11 @@ class App extends React.Component {
 	}
 
 	getDataFromLocalStorage = () => {
-		let list = [];
-		for (let i = 0; i < localStorage.length; i++) {
-			const item = JSON.parse(localStorage.getItem(i.toString()));
+		const list = JSON.parse(localStorage.getItem('list'));
+		// 'normalize' data: check for expired items and
+		// convert date/time strings into date objects
+		for (let i = 0; i < list.length; i++) {
+			const item = list[i];
 			let { status, date, time } = item;
 			if (status !== 'completed') {
 				item.status = isExpired(item);
@@ -57,7 +59,6 @@ class App extends React.Component {
 			if (time) {
 				item.time = moment(time).toDate();
 			}
-			list.push(item);
 		}
 		this.setState({
 			list
@@ -66,9 +67,9 @@ class App extends React.Component {
 
 	saveDataToLocalStorage = () => {
 		localStorage.clear();
-		this.state.list.map((item, i) =>
-			localStorage.setItem(i.toString(), JSON.stringify(item))
-		);
+		if (this.state.list.length) {
+			localStorage.setItem('list', JSON.stringify(this.state.list));
+		}
 	};
 
 	handleChange(event) {
