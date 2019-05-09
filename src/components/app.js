@@ -28,12 +28,13 @@ class App extends React.Component {
 
 	// есть лишнее
 	componentDidMount() {
-		if (localStorage.length) {
+		try {
 			this.getDataFromLocalStorage();
-		} else {
-			let data = this.getItems(12); // нужно только для тестового списка
+		} catch (err) {
+			console.log("couldn't read localStorage");
+			let list = this.getItems(12);
 			this.setState({
-				list: data
+				list
 			});
 		}
 		window.addEventListener('beforeunload', this.saveDataToLocalStorage);
