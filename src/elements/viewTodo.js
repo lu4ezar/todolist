@@ -3,22 +3,22 @@ import PropTypes from 'prop-types';
 import ButtonPanel from './buttonPanel';
 import ModalWindow from './modalWindow';
 
-const ItemView = props => {
-	const { item, mode, functions } = props;
+const TodoView = props => {
+	const { todo, mode, functions } = props;
 	return (
 		<ModalWindow
 			onHide={props.close}
-			title={item.task}
-			body={item.description}
+			title={todo.task}
+			body={todo.description}
 			footer={
-				<ButtonPanel item={item} functions={functions} mode={mode} />
+				<ButtonPanel todo={todo} functions={functions} mode={mode} />
 			}
 		/>
 	);
 };
 
-ItemView.propTypes = {
-	item: PropTypes.object.isRequired,
+TodoView.propTypes = {
+	todo: PropTypes.object.isRequired,
 	functions: PropTypes.object.isRequired
 };
-export default ItemView;
+export default TodoView;

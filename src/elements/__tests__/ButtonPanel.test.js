@@ -1,10 +1,11 @@
 import React from 'react';
 import { render, fireEvent, cleanup } from 'react-testing-library';
 import ButtonPanel from '../buttonPanel';
-import Item from '../../Item';
+import Todo from '../../Todo';
+import type { Todo, Todos } from '../types/todo';
 
 const props = {
-	item: {
+	todo: {
 		id: 0,
 		status: ''
 	},
@@ -12,7 +13,7 @@ const props = {
 		view: jest.fn(),
 		edit: jest.fn(),
 		completed: jest.fn(),
-		deleteItem: jest.fn()
+		deleteTodo: jest.fn()
 	}
 };
 
@@ -32,7 +33,7 @@ describe('Button Panel', () => {
 		expect(props.functions.completed).toBeCalled();
 
 		fireEvent.click(container.getByTitle(/delete/i));
-		expect(props.functions.deleteItem).toBeCalled();
+		expect(props.functions.deleteTodo).toBeCalled();
 	});
 
 	it('does not render "View" button in View mode', () => {
@@ -41,12 +42,12 @@ describe('Button Panel', () => {
 		expect(container.queryByTitle(/view/i)).toBeNull();
 	});
 
-	it('renders disabled "Edit" and "Mark as Completed" buttons when item.status equals "completed" ', () => {
-		const item = {
+	it('renders disabled "Edit" and "Mark as Completed" buttons when todo.status equals "completed" ', () => {
+		const todo = {
 			id: 1,
 			status: 'completed'
 		};
-		const container = render(<ButtonPanel {...props} item={item} />);
+		const container = render(<ButtonPanel {...props} todo={todo} />);
 		const editButton = container.getByTitle(/edit/i);
 		const completedButton = container.getByTitle(/completed/i);
 		expect(editButton).toHaveAttribute('disabled');

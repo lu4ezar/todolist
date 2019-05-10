@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import Button from '../elements/styledButton';
 import Container from 'react-bootstrap/Container';
 
-const ButtonPanel = ({ functions, item, mode }) => {
-	const { view, edit, deleteItem, completed } = functions;
-	const { id, status } = item;
+const ButtonPanel = ({ functions, todo, mode }) => {
+	const { view, edit, deleteTodo, completed } = functions;
+	const { id, status } = todo;
 	return (
 		<Container className="d-flex justify-content-end align-self-center pr-0">
 			<ButtonGroup size="sm">
@@ -30,7 +30,7 @@ const ButtonPanel = ({ functions, item, mode }) => {
 				>
 					<FontAwesomeIcon icon="check" />
 				</Button>
-				<Button title="Delete Item" onClick={() => deleteItem(id)}>
+				<Button title="Delete Todo" onClick={() => deleteTodo(id)}>
 					<FontAwesomeIcon icon="trash" />
 				</Button>
 			</ButtonGroup>
@@ -42,10 +42,10 @@ ButtonPanel.propTypes = {
 	functions: PropTypes.shape({
 		view: PropTypes.func.isRequired,
 		edit: PropTypes.func.isRequired,
-		deleteItem: PropTypes.func.isRequired,
+		deleteTodo: PropTypes.func.isRequired,
 		completed: PropTypes.func.isRequired
 	}).isRequired,
-	item: PropTypes.object.isRequired,
+	todo: PropTypes.object.isRequired,
 	mode: PropTypes.string
 };
 

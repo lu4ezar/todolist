@@ -4,12 +4,12 @@ import Container from 'react-bootstrap/Container';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
-import { list } from '../utils/color';
+import { ListColor } from '../utils/color';
 import Button from '../elements/styledButton';
 
 const StyledNavbar = styled(Navbar)`
-	border-bottom: 4px solid ${list.border};
-	background: ${list.background};
+	border-bottom: 4px solid ${ListColor.border};
+	background: ${ListColor.background};
 `;
 
 const Header = props => (
@@ -21,7 +21,7 @@ const Header = props => (
 					onClick={props.handleChange}
 					name="mode"
 					value="form"
-					title="Add New Item"
+					title="Add New Todo"
 				>
 					<FontAwesomeIcon
 						className="mx-2"

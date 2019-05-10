@@ -1,16 +1,16 @@
 // @flow
 import * as React from 'react';
-import Item from '../Item';
 import PagesView from '../views/paginationView';
+import type { Todos } from '../types/todo';
 
 type Props = {
-	list: Array<Item>,
+	list: Todos,
 	prevProps: Props,
 	onChange: (arr: Array<?number>) => void
 };
 
 type State = {
-	itemsPerPage: string,
+	todosPerPage: string,
 	pageNumber: number
 };
 
@@ -18,7 +18,7 @@ class Pages extends React.PureComponent<Props, State> {
 	constructor(props: Props) {
 		super(props);
 		this.state = {
-			itemsPerPage: '5',
+			todosPerPage: '5',
 			pageNumber: 1
 		};
 	}
@@ -28,12 +28,12 @@ class Pages extends React.PureComponent<Props, State> {
 	}
 
 	componentDidUpdate(prevProps: Props) {
-		let { pageNumber, itemsPerPage } = this.state;
+		let { pageNumber, todosPerPage } = this.state;
 		const list = [...this.props.list];
-		const totalPages = this.getTotalPages(list.length, itemsPerPage);
+		const totalPages = this.getTotalPages(list.length, todosPerPage);
 		const prevPropsTotalPages = this.getTotalPages(
 			prevProps.list.length,
-			itemsPerPage
+			todosPerPage
 		);
 		/*
 		если количество страниц уменьшается в результате удаления записи или 
@@ -69,7 +69,7 @@ class Pages extends React.PureComponent<Props, State> {
 		};
 		/* если меняется количество записей на странице,
 		то номер страницы меняется на 1 */
-		if (name === 'itemsPerPage') {
+		if (name === 'todosPerPage') {
 			newState = {
 				...newState,
 				pageNumber: 1
@@ -84,12 +84,12 @@ class Pages extends React.PureComponent<Props, State> {
 	};
 
 	updatePaginatedList = () => {
-		const { pageNumber, itemsPerPage } = this.state;
+		const { pageNumber, todosPerPage } = this.state;
 		const list = [...this.props.list];
 		const iPP =
-			itemsPerPage === 'all'
+			todosPerPage === 'all'
 				? this.props.list.length
-				: Number(itemsPerPage);
+				: Number(todosPerPage);
 		const paginatedList = list.slice(
 			(pageNumber - 1) * iPP,
 			pageNumber * iPP
@@ -98,15 +98,15 @@ class Pages extends React.PureComponent<Props, State> {
 		this.props.onChange(paginatedListIdArray);
 	};
 
-	getTotalPages = (listLength: number, itemsPerPage: string): number =>
-		itemsPerPage === 'all' || !listLength
+	getTotalPages = (listLength: number, todosPerPage: string): number =>
+		todosPerPage === 'all' || !listLength
 			? 1
-			: Math.ceil(listLength / +itemsPerPage);
+			: Math.ceil(listLength / +todosPerPage);
 
 	render() {
 		const totalPages = this.getTotalPages(
 			this.props.list.length,
-			this.state.itemsPerPage
+			this.state.todosPerPage
 		);
 		return (
 			<PagesView

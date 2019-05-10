@@ -1,5 +1,5 @@
 // @flow
-export default class Item {
+export default class Todo {
 	id: ?number;
 	task: string;
 	description: string;

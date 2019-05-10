@@ -4,32 +4,32 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
-import { list, listItem } from '../utils/color';
+import { TodoColor, ListColor } from '../utils/color';
 import Button from '../elements/styledButton';
 
 const options = ['3', '4', '5', '10', '20', 'all'];
 
 const StyledButtonGroup = styled(ButtonGroup)`
-	background: ${list.background};
+	background: ${ListColor.background};
 	border-radius: 8px;
 `;
 
 const Menu = styled(Dropdown.Menu)`
-	border: 2px solid ${list.border};
-	background: ${list.background};
+	border: 2px solid ${ListColor.border};
+	background: ${ListColor.background};
 `;
 
 const DDItem = styled(Button)`
-	background: ${list.dragBackground};
-	border: 1px solid ${listItem.border};
+	background: ${ListColor.dragBackground};
+	border: 1px solid ${TodoColor.border};
 	&:hover,
 	&.active {
-		background: ${listItem.background};
+		background: ${TodoColor.background};
 	}
 `;
 
 const PagesView = ({
-	itemsPerPage,
+	todosPerPage,
 	pageNumber,
 	totalPages,
 	handleChange,
@@ -38,7 +38,7 @@ const PagesView = ({
 	const dropdownItems = options.map((option, index) => {
 		if (
 			parseInt(option) < listLength ||
-			option === itemsPerPage ||
+			option === todosPerPage ||
 			option === 'all'
 		) {
 			return (
@@ -46,9 +46,9 @@ const PagesView = ({
 					as={DDItem}
 					key={index}
 					eventKey={index}
-					name="itemsPerPage"
+					name="todosPerPage"
 					value={option}
-					active={option === itemsPerPage}
+					active={option === todosPerPage}
 				>
 					{option === 'all' ? option + ` (${listLength})` : option}
 				</Dropdown.Item>
@@ -88,7 +88,7 @@ const PagesView = ({
 				</>
 			)}
 			<Dropdown as={StyledButtonGroup}>
-				<Dropdown.Toggle variant="outline-dark" id="items per page">
+				<Dropdown.Toggle variant="outline-dark" id="todos per page">
 					<b>{`${pageNumber}of${totalPages}`}</b>
 				</Dropdown.Toggle>
 				<Menu onClick={handleChange}>{dropdownItems}</Menu>
@@ -98,7 +98,7 @@ const PagesView = ({
 };
 
 PagesView.propTypes = {
-	itemsPerPage: PropTypes.string.isRequired,
+	todosPerPage: PropTypes.string.isRequired,
 	pageNumber: PropTypes.number.isRequired,
 	totalPages: PropTypes.number.isRequired,
 	handleChange: PropTypes.func.isRequired,

@@ -1,27 +1,18 @@
 // @flow
 import * as React from 'react';
-import type { Item } from '../Item';
+import type { Todo, Todos } from '../types/todo';
+import type { FilterState } from '../types/filter';
 import FilterView from '../views/filterView';
 
 type Props = {
-	list: Array<Item>,
+	list: Todos,
 	prevProps: Props,
-	item: Item,
+	todo: Todo,
 	onChange: (arr: ?Array<?number>) => void,
 	values: Array<string>
 };
 
-type State = {
-	filterIsActive: boolean,
-	priorityFilterStatus: boolean,
-	priorityFilterValue: Array<string>,
-	completedFilterStatus: boolean,
-	completed: boolean,
-	expiredFilterStatus: boolean,
-	expired: boolean
-};
-
-class Filter extends React.Component<Props, State> {
+class Filter extends React.Component<Props, FilterState> {
 	state = {
 		filterIsActive: false,
 		priorityFilterStatus: false,
@@ -38,32 +29,32 @@ class Filter extends React.Component<Props, State> {
 		}
 	}
 
-	countItems = (
+	countTodos = (
 		property: string,
 		value: string,
-		list: Array<Item> = this.props.list
+		list: Todos = this.props.list
 	): number => {
 		list = list.filter(
-			(item: Class<Item>): boolean => {
-				return item[property] === (value: string);
+			(todo: Todo): boolean => {
+				return todo[property] === (value: string);
 			}
 		);
 		return list.length;
 	};
 
-	filterList = (list: Array<Item>): Array<Item> => {
+	filterList = (list: Todos): Todos => {
 		if (
 			this.state.priorityFilterStatus ||
 			this.state.completedFilterStatus ||
 			this.state.expiredFilterStatus
 		) {
-			list = list.filter(this.filterItem);
+			list = list.filter(this.filterTodo);
 		}
 		return list;
 	};
 
-	filterItem = (item: Class<Item>): boolean => {
-		let { priority, status } = item;
+	filterTodo = (todo: Todo): boolean => {
+		let { priority, status } = todo;
 		let result = false;
 		if (this.state.priorityFilterStatus) {
 			if (!this.state.priorityFilterValue.includes(priority)) {
@@ -87,8 +78,8 @@ class Filter extends React.Component<Props, State> {
 	};
 
 	updateFilteredList = (): void => {
-		const list: Array<Item> = [...this.props.list];
-		const filteredList: ?Array<Item> = this.state.filterIsActive
+		const list: Todos = [...this.props.list];
+		const filteredList: ?Todos = this.state.filterIsActive
 			? this.filterList(list)
 			: null;
 		const filteredListIdArray: ?Array<?number> = filteredList
@@ -125,8 +116,8 @@ class Filter extends React.Component<Props, State> {
 
 	render() {
 		let list = [...this.props.list];
-		const completedCount = this.countItems('status', 'completed', list);
-		const expiredCount = this.countItems('status', 'expired', list);
+		const completedCount = this.countTodos('status', 'completed', list);
+		const expiredCount = this.countTodos('status', 'expired', list);
 		return (
 			<FilterView
 				{...this.state}

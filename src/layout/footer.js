@@ -3,11 +3,11 @@ import Navbar from 'react-bootstrap/Navbar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Container from 'react-bootstrap/Container';
 import styled from 'styled-components';
-import { list } from '../utils/color';
+import { ListColor } from '../utils/color';
 
 const StyledNavbar = styled(Navbar)`
-	border-top: 4px solid ${list.border};
-	background-color: ${list.background};
+	border-top: 4px solid ${ListColor.border};
+	background-color: ${ListColor.background};
 `;
 
 const StyledLink = styled.a`

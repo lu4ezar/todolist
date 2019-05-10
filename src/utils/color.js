@@ -1,4 +1,4 @@
-export const listItem = {
+export const TodoColor = {
 	color: '#383720',
 	background: '#e5d895',
 	border: '#30483f',
@@ -12,13 +12,13 @@ export const listItem = {
 	expiredBorder: '#7e0000'
 };
 
-export const app = {
+export const AppColor = {
 	color: '#000',
 	background: '#dfd292',
 	border: '#948b61'
 };
 
-export const list = {
+export const ListColor = {
 	color: '#000',
 	background: '#b0a673',
 	dragColor: '#948b61',
@@ -26,7 +26,7 @@ export const list = {
 	border: '#948b61'
 };
 
-export const form = {
+export const FormColor = {
 	color: '#000',
 	background: '#948b61',
 	border: '#948b61'

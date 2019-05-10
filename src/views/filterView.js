@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Badge from 'react-bootstrap/Badge';
 import Collapse from 'react-bootstrap/Collapse';
-import { list, listItem } from '../utils/color';
+import { TodoColor, ListColor } from '../utils/color';
 import Switch from '../elements/switch';
 import Select from '../elements/select';
 
@@ -13,25 +13,25 @@ const switchStyle = {
 	handleDiameter: 5,
 	height: 18,
 	width: 56,
-	offColor: `${listItem.background}`,
-	onColor: `${list.dragBackground}`,
-	offHandleColor: `${list.border}`,
+	offColor: `${TodoColor.background}`,
+	onColor: `${ListColor.dragBackground}`,
+	offHandleColor: `${ListColor.border}`,
 	onHandleColor: `#000`,
 	uncheckedIcon: false,
 	checkedIcon: false
 };
 
 const StyledContainer = styled.div`
-	background: ${list.background};
-	border: 2px solid ${list.border};
+	background: ${ListColor.background};
+	border: 2px solid ${ListColor.border};
 	border-radius: 8px;
 	padding: 15px;
 	margin: 1em auto;
 `;
 
 const FilterRow = styled(Row)`
-	border-top: 2px solid ${list.border};
-	border-bottom: 2px solid ${list.border};
+	border-top: 2px solid ${ListColor.border};
+	border-bottom: 2px solid ${ListColor.border};
 	margin: 2px 0px;
 `;
 

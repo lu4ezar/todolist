@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Item from '../Item';
+import Todo from '../Todo';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import DatePicker from 'react-datepicker';
@@ -16,13 +16,13 @@ const dropdownOptions = ['low', 'normal', 'high'];
 
 class ReactForm extends React.Component {
 	state = {
-		...new Item()
+		...new Todo()
 	};
 
 	componentDidMount() {
-		if (this.props.item) {
+		if (this.props.todo) {
 			this.setState({
-				...this.props.item
+				...this.props.todo
 			});
 		}
 	}

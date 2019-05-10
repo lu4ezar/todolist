@@ -2,18 +2,18 @@
 import * as React from 'react';
 import OriginalSwitch from 'react-switch';
 import styled from 'styled-components';
-import { list, listItem } from '../utils/color';
+import { TodoColor, ListColor } from '../utils/color';
 import Badge from 'react-bootstrap/Badge';
 
 const Border = styled.div`
-	border-top: 2px solid ${listItem.border};
-	border-bottom: 2px solid ${listItem.border};
+	border-top: 2px solid ${TodoColor.border};
+	border-bottom: 2px solid ${TodoColor.border};
 	border-radius: 15px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	background: ${props =>
-		props.on ? list.dragBackground : listItem.background};
+		props.on ? ListColor.dragBackground : TodoColor.background};
 	transition: background 0.2s ease;
 `;
 
@@ -25,9 +25,9 @@ const switchStyle = {
 	handleDiameter: 5,
 	height: 18,
 	width: 56,
-	offColor: `${listItem.background}`,
-	onColor: `${list.dragBackground}`,
-	offHandleColor: `${list.border}`,
+	offColor: `${TodoColor.background}`,
+	onColor: `${ListColor.dragBackground}`,
+	offHandleColor: `${ListColor.border}`,
 	onHandleColor: `#000`,
 	uncheckedIcon: false,
 	checkedIcon: false
@@ -73,7 +73,7 @@ const Switch = (props: Props) => {
 				aria-labelledby={id}
 				checked={state}
 				onChange={onSwitch}
-				state={state}
+				//state={state}
 				disabled={disabled}
 				{...switchStyle}
 			/>

@@ -2,10 +2,10 @@
 import React from 'react';
 import ReactForm from './form';
 import List from './list';
-import View from '../elements/viewItem';
+import View from '../elements/viewTodo';
 import Filter from './filter';
 import Pagination from './pagination';
-import Item from '../Item';
+import Todo from '../Todo';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Layout from '../layout/layout';
 import moment from 'moment';
@@ -19,7 +19,7 @@ class App extends React.Component {
 			list: [],
 			filteredList: null,
 			paginatedList: [],
-			item: {},
+			todo: {},
 			mode: 'list'
 		};
 		this.handleChange = this.handleChange.bind(this);
@@ -31,7 +31,7 @@ class App extends React.Component {
 		try {
 			this.getDataFromLocalStorage();
 		} catch (err) {
-			let list = this.getItems(12);
+			let list = this.getTodos(12);
 			this.setState({
 				list
 			});
@@ -45,19 +45,19 @@ class App extends React.Component {
 
 	getDataFromLocalStorage = () => {
 		const list = JSON.parse(localStorage.getItem('list'));
-		// 'normalize' data: check for expired items and
+		// 'normalize' data: check for expired todos and
 		// convert date/time strings into date objects
 		for (let i = 0; i < list.length; i++) {
-			const item = list[i];
-			let { status, date, time } = item;
+			const todo = list[i];
+			let { status, date, time } = todo;
 			if (status !== 'completed') {
-				item.status = isExpired(item);
+				todo.status = isExpired(todo);
 			}
 			if (date) {
-				item.date = moment(date).toDate();
+				todo.date = moment(date).toDate();
 			}
 			if (time) {
-				item.time = moment(time).toDate();
+				todo.time = moment(time).toDate();
 			}
 		}
 		this.setState({
@@ -87,14 +87,14 @@ class App extends React.Component {
 		if (obj.status !== 'completed') {
 			obj.status = isExpired(obj);
 		}
-		// if mode === 'form' => we're adding a new item,
+		// if mode === 'form' => we're adding a new todo,
 		// so we need to assign unique id and add it to the list
-		// 'else' means it was 'edit mode', so we're updating existing item
+		// 'else' means it was 'edit mode', so we're updating existing todo
 		if (this.state.mode === 'form') {
 			obj.id = this.getUniqueId();
 			list = update(this.state.list, { $unshift: [obj] });
 		} else {
-			const index = this.getItemIndexById(obj.id);
+			const index = this.getTodoIndexById(obj.id);
 			list = update(this.state.list, { [index]: { $set: obj } });
 		}
 		this.setState(
@@ -106,9 +106,9 @@ class App extends React.Component {
 	}
 
 	handleClickListItem = id => {
-		const item = this.getItemById(id);
+		const todo = this.getTodoById(id);
 		this.setState({
-			item,
+			todo,
 			mode: 'view'
 		});
 	};
@@ -116,7 +116,7 @@ class App extends React.Component {
 	handleCloseModal = () => {
 		this.setState({
 			mode: 'list',
-			item: {}
+			todo: {}
 		});
 	};
 
@@ -144,7 +144,7 @@ class App extends React.Component {
 	clearList = () => this.setState({ list: [] });
 
 	render() {
-		const { list, filteredList, paginatedList, item, mode } = this.state;
+		const { list, filteredList, paginatedList, todo, mode } = this.state;
 		const forPagination = filteredList ? filteredList : list;
 		const noListMessage = !list.length
 			? 'Your list is empty'
@@ -153,12 +153,12 @@ class App extends React.Component {
 			: null;
 		const buttonFunctions = {
 			view: this.handleClickListItem,
-			edit: this.editItem,
-			deleteItem: this.deleteItem,
+			edit: this.editTodo,
+			deleteTodo: this.deleteTodo,
 			completed: this.markCompleted
 		};
 		const modalWindowProps = {
-			item,
+			todo,
 			mode,
 			close: this.handleCloseModal
 		};
@@ -203,14 +203,14 @@ class App extends React.Component {
 		);
 	}
 
-	getItems = n => {
+	getTodos = n => {
 		let arr = [];
 		for (let i = 0; i < n; i++) {
-			const text = 'test item ' + i;
+			const text = 'test todo ' + i;
 			const desc = 'test description ' + i;
-			const item = new Item(text, desc);
-			item.id = i;
-			arr.push(item);
+			const todo = new Todo(text, desc);
+			todo.id = i;
+			arr.push(todo);
 		}
 		return arr;
 	};
@@ -226,9 +226,9 @@ class App extends React.Component {
 		return arr.length;
 	};
 
-	deleteItem = id => {
+	deleteTodo = id => {
 		let list = this.state.list;
-		const index = list.findIndex(item => item.id === id);
+		const index = list.findIndex(todo => todo.id === id);
 		if (window.confirm(`Удалить ${list[index].task}?`)) {
 			list = update(list, { $splice: [[index, 1]] });
 			this.setState({
@@ -238,24 +238,24 @@ class App extends React.Component {
 		}
 	};
 
-	editItem = id => {
-		const item = { ...this.getItemById(id) };
+	editTodo = id => {
+		const todo = { ...this.getTodoById(id) };
 		this.setState(state => ({
 			mode: 'edit',
-			item
+			todo
 		}));
 	};
 
 	markCompleted = id => {
-		const item = { ...this.getItemById(id) };
-		if (item.status === 'completed') {
+		const todo = { ...this.getTodoById(id) };
+		if (todo.status === 'completed') {
 			return;
 		}
-		item.status = 'completed';
-		item.date = item.time = moment().toDate();
+		todo.status = 'completed';
+		todo.date = todo.time = moment().toDate();
 		const list = [...this.state.list];
-		const itemIndex = this.getItemIndexById(id);
-		list[itemIndex] = item;
+		const todoIndex = this.getTodoIndexById(id);
+		list[todoIndex] = todo;
 		this.setState({
 			list
 		});
@@ -264,10 +264,10 @@ class App extends React.Component {
 	reorder = (startIndex, endIndex) => {
 		// массив id-значений отфильтрованного списка сопоставляется с оригинальным списком,
 		// чтобы получить реальный текущий индекс элементов (react-beautiful-dnd)
-		startIndex = this.getItemIndexById(
+		startIndex = this.getTodoIndexById(
 			this.state.paginatedList[startIndex].id
 		);
-		endIndex = this.getItemIndexById(this.state.paginatedList[endIndex].id);
+		endIndex = this.getTodoIndexById(this.state.paginatedList[endIndex].id);
 		const arr = [...this.state.list];
 		const [removed] = arr.splice(startIndex, 1);
 		arr.splice(endIndex, 0, removed);
@@ -288,20 +288,20 @@ class App extends React.Component {
 		});
 	};
 
-	itemAlreadyExists = val => {
+	todoAlreadyExists = val => {
 		this.state.list.some(value => value['task'] === val);
 	};
 
-	getItemIndexById = id => {
+	getTodoIndexById = id => {
 		const list = [...this.state.list];
-		const itemIndex = list.findIndex(item => item.id === id);
-		return itemIndex;
+		const todoIndex = list.findIndex(todo => todo.id === id);
+		return todoIndex;
 	};
 
-	getItemById = id => {
+	getTodoById = id => {
 		const list = [...this.state.list];
-		const itemIndex = list.findIndex(item => item.id === id);
-		return list[itemIndex];
+		const todoIndex = list.findIndex(todo => todo.id === id);
+		return list[todoIndex];
 	};
 }
 

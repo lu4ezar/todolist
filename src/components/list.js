@@ -1,18 +1,22 @@
 // @flow
 import * as React from 'react';
-import styled from 'styled-components';
 import { Droppable } from 'react-beautiful-dnd';
-import ListItem from '../elements/listItem';
-import { list } from '../utils/color';
-import Item from '../Item';
+import ListItem from '../elements/Todo';
+import { ListColor } from '../utils/color';
+import styled, { type ReactComponentStyled } from 'styled-components';
+import type { Todos } from '../types/todo';
 
-const StyledList = styled.div`
+type StyledListPropTypes = {
+	isDraggingOver: boolean
+};
+
+const StyledList: ReactComponentStyled<StyledListPropTypes> = styled.div`
 	max-height: 60vh;
 	overflow: auto;
 	transition: background 0.2s ease;
-	background: ${props =>
-		props.isDraggingOver ? list.dragBackground : list.background};
-	border: 2px solid ${list.border};
+	background: ${(props: StyledListPropTypes): string =>
+		props.isDraggingOver ? ListColor.dragBackground : ListColor.background};
+	border: 2px solid ${ListColor.border};
 	border-radius: 8px;
 	display: flex;
 	flex-direction: column;
@@ -25,14 +29,14 @@ const StyledList = styled.div`
 `;
 
 type Props = {
-	list: Array<Item>,
+	list: Todos,
 	noListMessage: string,
 	handleClick: (id: number) => void,
 	delete: (id: number) => void,
 	btnFunc: {
 		view: (id: number) => void,
-		editItem: (id: number) => void,
-		deleteItem: (id: number) => void,
+		editTodo: (id: number) => void,
+		deleteTodo: (id: number) => void,
 		completed: (id: number) => void
 	}
 };
@@ -41,11 +45,11 @@ const List = ({ list, noListMessage, btnFunc }: Props) => {
 	const content = noListMessage ? (
 		<h3>{noListMessage}</h3>
 	) : list ? (
-		list.map((item, index) => (
+		list.map((todo, index) => (
 			<ListItem
-				key={item.id}
+				key={todo.id}
 				index={index}
-				item={item}
+				todo={todo}
 				buttonFunctions={btnFunc}
 			/>
 		))

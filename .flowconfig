@@ -4,7 +4,6 @@
 
 [libs]
 flow-typed
-Item.js.flow
 [lints]
 
 [options]
