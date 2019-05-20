@@ -1,10 +1,10 @@
 // @flow
 import * as React from 'react';
-import { Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import ListItem from '../elements/Todo';
 import { ListColor } from '../utils/color';
 import styled, { type ReactComponentStyled } from 'styled-components';
-import type { Todos } from '../types/todo';
+import type { Todos } from '../types/todos';
 
 type StyledListPropTypes = {
 	isDraggingOver: boolean
@@ -29,10 +29,14 @@ const StyledList: ReactComponentStyled<StyledListPropTypes> = styled.div`
 `;
 
 type Props = {
-	list: Todos,
+	todos: Todos,
 	noListMessage: string,
 	handleClick: (id: number) => void,
-	delete: (id: number) => void,
+	deleteTodo: (id: number) => void,
+	toggleTodo: (id: number) => void,
+	viewTodo: (mode: string) => void,
+	setTodo: (id: string) => void,
+	onDragEnd: (result: Object) => void,
 	btnFunc: {
 		view: (id: number) => void,
 		editTodo: (id: number) => void,
@@ -41,32 +45,46 @@ type Props = {
 	}
 };
 
-const List = ({ list, noListMessage, btnFunc }: Props) => {
+const List = ({
+	todos,
+	noListMessage,
+	btnFunc,
+	toggleTodo,
+	deleteTodo,
+	viewTodo,
+	setTodo,
+	onDragEnd
+}: Props) => {
 	const content = noListMessage ? (
 		<h3>{noListMessage}</h3>
-	) : list ? (
-		list.map((todo, index) => (
+	) : todos ? (
+		todos.map((todo, index) => (
 			<ListItem
 				key={todo.id}
 				index={index}
 				todo={todo}
-				buttonFunctions={btnFunc}
+				toggleTodo={toggleTodo}
+				deleteTodo={deleteTodo}
+				viewTodo={viewTodo}
+				setTodo={setTodo}
 			/>
 		))
 	) : null;
 	return (
-		<Droppable droppableId="droppable">
-			{(provided, snapshot) => (
-				<StyledList
-					ref={provided.innerRef}
-					isDraggingOver={snapshot.isDraggingOver}
-					{...provided.droppableProps}
-				>
-					{content}
-					{provided.placeholder}
-				</StyledList>
-			)}
-		</Droppable>
+		<DragDropContext onDragEnd={onDragEnd}>
+			<Droppable droppableId="droppable">
+				{(provided, snapshot) => (
+					<StyledList
+						ref={provided.innerRef}
+						isDraggingOver={snapshot.isDraggingOver}
+						{...provided.droppableProps}
+					>
+						{content}
+						{provided.placeholder}
+					</StyledList>
+				)}
+			</Droppable>
+		</DragDropContext>
 	);
 };
 

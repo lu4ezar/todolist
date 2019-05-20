@@ -1,26 +1,13 @@
-// @flow
-export type Id = number;
+export type TodoActions = 'SET_TODO';
 
-export type Task = string;
-
-export type Description = string;
-
-export type Priority = string;
-
-export type Status = string;
-
-export type Time = Date;
-
-export type Todo = {
-	+id: Id,
+export type TodoState = $ReadOnly<{
+	id: Id,
 	task: Task,
 	description: Description,
 	[priority: string]: Priority,
 	status: Status,
-	date: ?Date,
-	time: ?Date
-};
+	date: CreationDate,
+	time: Time
+}>;
 
-export type Todos = Array<Todo>;
-
-export type TodoAction = 'ADD_ITEM' | 'UPDATE_ITEM' | 'DELETE_ITEM';
+export type TodoAction = { +type: TodoActions, +todo: Todo };

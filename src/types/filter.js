@@ -1,8 +1,8 @@
 // @flow
 export type FilterIsActive = boolean;
 export type PriorityFilterStatus = boolean;
-export type PriorityFilterValue = Array<string>;
-// export type PriorityFilterValue = 'low' | 'normal' | 'high';
+export type PriorityFilterValues = 'low' | 'normal' | 'high';
+export type PriorityFilterValue = Array<PriorityFilterValues>;
 export type CompletedFilterStatus = boolean;
 export type Completed = boolean;
 export type ExpiredFilterStatus = boolean;
@@ -17,3 +17,5 @@ export type FilterState = {
 	expiredFilterStatus: ExpiredFilterStatus,
 	expired: Expired
 };
+
+export type FilterAction = 'SHOW_ALL' | 'SHOW_COMPLETED' | 'SHOW_ACTIVE';

@@ -36,7 +36,15 @@ const StyledTodo = styled.div`
 	filter: ${props => (props.isDragging ? 'brightness(95%)' : 'brightness(1)')};
 `;
 
-const ListItem = ({ todo, index, buttonFunctions }) => (
+const ListItem = ({
+	todo,
+	index,
+	buttonFunctions,
+	toggleTodo,
+	deleteTodo,
+	viewTodo,
+	setTodo
+}) => (
 	<Draggable draggableId={todo.id.toString()} index={index}>
 		{(provided, snapshot) => (
 			<StyledTodo
@@ -49,7 +57,13 @@ const ListItem = ({ todo, index, buttonFunctions }) => (
 				onDoubleClick={() => buttonFunctions.view(todo.id)}
 			>
 				{todo.task}
-				<ButtonPanel functions={buttonFunctions} todo={todo} />
+				<ButtonPanel
+					todo={todo}
+					toggle={toggleTodo}
+					del={deleteTodo}
+					view={viewTodo}
+					setTodo={setTodo}
+				/>
 			</StyledTodo>
 		)}
 	</Draggable>
