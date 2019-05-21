@@ -39,11 +39,10 @@ const StyledTodo = styled.div`
 const ListItem = ({
 	todo,
 	index,
-	buttonFunctions,
 	toggleTodo,
 	deleteTodo,
 	viewTodo,
-	setTodo
+	editTodo
 }) => (
 	<Draggable draggableId={todo.id.toString()} index={index}>
 		{(provided, snapshot) => (
@@ -54,15 +53,15 @@ const ListItem = ({
 				{...provided.dragHandleProps}
 				status={todo.status ? todo.status : todo.priority}
 				title="DoubleClick to view details"
-				onDoubleClick={() => buttonFunctions.view(todo.id)}
+				onDoubleClick={() => viewTodo(todo.id)}
 			>
 				{todo.task}
 				<ButtonPanel
 					todo={todo}
 					toggle={toggleTodo}
-					del={deleteTodo}
-					view={viewTodo}
-					setTodo={setTodo}
+					deleteTodo={deleteTodo}
+					viewTodo={viewTodo}
+					editTodo={editTodo}
 				/>
 			</StyledTodo>
 		)}

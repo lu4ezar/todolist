@@ -35,24 +35,17 @@ type Props = {
 	deleteTodo: (id: number) => void,
 	toggleTodo: (id: number) => void,
 	viewTodo: (mode: string) => void,
-	setTodo: (id: string) => void,
-	onDragEnd: (result: Object) => void,
-	btnFunc: {
-		view: (id: number) => void,
-		editTodo: (id: number) => void,
-		deleteTodo: (id: number) => void,
-		completed: (id: number) => void
-	}
+	editTodo: (id: number) => void,
+	onDragEnd: (result: Object) => void
 };
 
 const List = ({
 	todos,
 	noListMessage,
-	btnFunc,
 	toggleTodo,
 	deleteTodo,
 	viewTodo,
-	setTodo,
+	editTodo,
 	onDragEnd
 }: Props) => {
 	const content = noListMessage ? (
@@ -66,7 +59,7 @@ const List = ({
 				toggleTodo={toggleTodo}
 				deleteTodo={deleteTodo}
 				viewTodo={viewTodo}
-				setTodo={setTodo}
+				editTodo={editTodo}
 			/>
 		))
 	) : null;
