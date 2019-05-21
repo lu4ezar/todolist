@@ -6,7 +6,8 @@ import type { Todo } from '../types/todos';
 import type { Dispatch } from '../types';
 
 const mapStateToProps = (state: Todo) => ({
-	todo: state.todo
+	todo: state.todo,
+	mode: state.mode
 });
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps) => ({
