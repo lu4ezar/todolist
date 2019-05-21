@@ -14,11 +14,13 @@ const dropdownOptions = ['low', 'normal', 'high'];
 
 const initialState = { ...new Todo({ id: 0, task: '', desc: '' }) };
 
-const Form = ({ todo, addTodo, mode, close }) => {
+const Form = ({ todo, addTodo, mode, cancel }) => {
 	const [state, setTodo] = React.useState(initialState);
 	React.useEffect(() => {
 		if (Object.keys(todo).length > 0) {
 			setTodo(todo);
+		} else {
+			setTodo(initialState);
 		}
 	}, [todo]);
 
@@ -56,42 +58,42 @@ const Form = ({ todo, addTodo, mode, close }) => {
 		});
 	};
 	return (
-		<BootstrapForm id="form" onSubmit={onSubmit}>
+		<BootstrapForm id='form' onSubmit={onSubmit}>
 			<fieldset disabled={mode === 'form'}>
 				<BootstrapForm.Label>{`${
 					mode === 'edit' ? 'Edit' : 'Add'
 				} Todo`}</BootstrapForm.Label>
-				<BootstrapForm.Group controlId="task" title="required">
+				<BootstrapForm.Group controlId='task' title='required'>
 					<BootstrapForm.Label>
 						Todo<span>*</span>
 					</BootstrapForm.Label>
 					<BootstrapForm.Control
-						name="task"
+						name='task'
 						value={state.task}
 						onChange={handleChange}
-						placeholder="task goes here"
+						placeholder='task goes here'
 					/>
 				</BootstrapForm.Group>
-				<BootstrapForm.Group controlId="description" title="required">
+				<BootstrapForm.Group controlId='description' title='required'>
 					<BootstrapForm.Label>
 						Description<span>*</span>
 					</BootstrapForm.Label>
 					<BootstrapForm.Control
-						as="textarea"
-						name="description"
+						as='textarea'
+						name='description'
 						value={state.description}
 						onChange={handleChange}
-						placeholder="add description"
+						placeholder='add description'
 					/>
 				</BootstrapForm.Group>
-				<BootstrapForm.Group id="priority">
+				<BootstrapForm.Group id='priority'>
 					<BootstrapForm.Label>Priority</BootstrapForm.Label>
 					<Select
-						name="priority"
+						name='priority'
 						value={state.priority}
 						options={dropdownOptions}
 						onChange={handleSelectChange}
-						placeholder="Priority"
+						placeholder='Priority'
 						disabled={false}
 						isMulti={false}
 						isClearable={false}
@@ -99,37 +101,40 @@ const Form = ({ todo, addTodo, mode, close }) => {
 				</BootstrapForm.Group>
 				<BootstrapForm.Label>Complete until: </BootstrapForm.Label>
 				<BootstrapForm.Row>
-					<BootstrapForm.Group controlId="date">
+					<BootstrapForm.Group controlId='date'>
 						<DatePicker
 							onChange={handleDateChange}
 							selected={state.date}
-							dateFormat="dd.MM.YYYY"
-							placeholderText="dd/mm/yyyy"
-							locale="en-GB"
+							dateFormat='dd.MM.YYYY'
+							placeholderText='dd/mm/yyyy'
+							locale='en-GB'
 							isClearable
 						/>
 					</BootstrapForm.Group>
-					<BootstrapForm.Group controlId="time">
+					<BootstrapForm.Group controlId='time'>
 						<DatePicker
 							onChange={handleTimeChange}
 							selected={state.time}
-							dateFormat="HH:mm"
-							timeFormat="HH:mm"
-							placeholderText="Click to select time"
+							dateFormat='HH:mm'
+							timeFormat='HH:mm'
+							placeholderText='Click to select time'
 							showTimeSelect
 							showTimeSelectOnly
 							isClearable
 						/>
 					</BootstrapForm.Group>
 				</BootstrapForm.Row>
-				<BootstrapForm.Group controlId="buttons">
-					<Button variant="danger" onClick={close}>
+				<BootstrapForm.Group controlId='buttons'>
+					<Button
+						variant='danger'
+						onClick={() => cancel(initialState)}
+					>
 						Cancel
 					</Button>
 					<Button
-						type="submit"
-						variant="primary"
-						form="form"
+						type='submit'
+						variant='primary'
+						form='form'
 						disabled={!state.task || !state.description}
 					>
 						{mode === 'edit' ? 'Save changes' : 'Ok'}
