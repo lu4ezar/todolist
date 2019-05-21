@@ -12,54 +12,51 @@ registerLocale('en-GB', enGB);
 
 const dropdownOptions = ['low', 'normal', 'high'];
 
-const initialState = { ...new Todo({ id: 0, task: '', desc: '' }) };
+const initialState = new Todo({ id: null, task: '', desc: '' });
 
-const Form = ({ todo, addTodo, mode, cancel }) => {
-	const [state, setTodo] = React.useState(initialState);
+const Form = ({ todo, addTodo, updateTodo, mode, cancel }) => {
+	const [state, setState] = React.useState(initialState);
 	React.useEffect(() => {
 		if (Object.keys(todo).length > 0) {
-			setTodo(todo);
+			setState(todo);
 		} else {
-			setTodo(initialState);
+			setState(initialState);
 		}
 	}, [todo]);
-
 	const handleChange = e => {
-		let { name, value, type, checked } = e.target;
-		value = type === 'checkbox' ? checked : value;
-		setTodo({
-			[name]: value
-		});
+		const { name, value } = e.target;
+		setState({ ...state, [name]: value });
 	};
 
 	const handleDateChange = date => {
-		setTodo({
-			date
-		});
+		setState({ ...state, date });
 	};
 
 	const handleTimeChange = time => {
-		setTodo({
-			time
-		});
+		setState({ ...state, time });
 	};
 
 	const handleSelectChange = priority => {
-		setTodo({
-			priority: priority.value
-		});
+		setState({ ...state, priority: priority.value });
 	};
 
 	const onSubmit = e => {
 		e.preventDefault();
-		addTodo(state);
-		setTodo({
-			...initialState
-		});
+		switch (mode) {
+			case 'list':
+				addTodo(state);
+				break;
+			case 'edit':
+				updateTodo(state);
+				break;
+			default:
+				return;
+		}
+		setState(initialState);
 	};
 	return (
 		<BootstrapForm id='form' onSubmit={onSubmit}>
-			<fieldset disabled={mode === 'form'}>
+			<fieldset disabled={mode === 'view'}>
 				<BootstrapForm.Label>{`${
 					mode === 'edit' ? 'Edit' : 'Add'
 				} Todo`}</BootstrapForm.Label>
@@ -124,12 +121,15 @@ const Form = ({ todo, addTodo, mode, cancel }) => {
 						/>
 					</BootstrapForm.Group>
 				</BootstrapForm.Row>
+			</fieldset>
+			{mode !== 'view' ? (
 				<BootstrapForm.Group controlId='buttons'>
 					<Button
 						variant='danger'
-						onClick={() => cancel(initialState)}
+						disabled={!state.task && !state.description}
+						onClick={cancel}
 					>
-						Cancel
+						{mode === 'list' ? 'Clear' : 'Cancel'}
 					</Button>
 					<Button
 						type='submit'
@@ -140,7 +140,13 @@ const Form = ({ todo, addTodo, mode, cancel }) => {
 						{mode === 'edit' ? 'Save changes' : 'Ok'}
 					</Button>
 				</BootstrapForm.Group>
-			</fieldset>
+			) : (
+				<BootstrapForm.Group controlId='buttons'>
+					<Button variant='primary' onClick={cancel}>
+						Add New Todo
+					</Button>
+				</BootstrapForm.Group>
+			)}
 		</BootstrapForm>
 	);
 };

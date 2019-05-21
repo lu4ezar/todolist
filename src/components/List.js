@@ -34,8 +34,7 @@ type Props = {
 	handleClick: (id: number) => void,
 	deleteTodo: (id: number) => void,
 	toggleTodo: (id: number) => void,
-	viewTodo: (mode: string) => void,
-	editTodo: (id: number) => void,
+	changeMode: (id: number, mode: string) => void,
 	onDragEnd: (result: Object) => void
 };
 
@@ -44,8 +43,7 @@ const List = ({
 	noListMessage,
 	toggleTodo,
 	deleteTodo,
-	viewTodo,
-	editTodo,
+	changeMode,
 	onDragEnd
 }: Props) => {
 	const content = noListMessage ? (
@@ -58,14 +56,13 @@ const List = ({
 				todo={todo}
 				toggleTodo={toggleTodo}
 				deleteTodo={deleteTodo}
-				viewTodo={viewTodo}
-				editTodo={editTodo}
+				changeMode={changeMode}
 			/>
 		))
 	) : null;
 	return (
 		<DragDropContext onDragEnd={onDragEnd}>
-			<Droppable droppableId="droppable">
+			<Droppable droppableId='droppable'>
 				{(provided, snapshot) => (
 					<StyledList
 						ref={provided.innerRef}

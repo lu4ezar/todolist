@@ -1,6 +1,6 @@
 // @flow
 import { connect } from 'react-redux';
-import { addTodo } from '../redux/actions/todos';
+import { addTodo, updateTodo } from '../redux/actions/todos';
 import Form from '../components/Form';
 import { setTodo } from '../redux/actions/todo';
 import { setMode } from '../redux/actions/mode';
@@ -13,10 +13,7 @@ const mapStateToProps = (state: TodoType) => ({
 });
 
 const cancel = () => {
-	return (dispatch, getState) => {
-		if (getState().mode === 'list') {
-			return;
-		}
+	return dispatch => {
 		dispatch(setTodo());
 		dispatch(setMode('list'));
 	};
@@ -24,6 +21,7 @@ const cancel = () => {
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps) => ({
 	addTodo: todo => dispatch(addTodo(todo)),
+	updateTodo: todo => dispatch(updateTodo(todo)),
 	cancel: () => dispatch(cancel())
 });
 

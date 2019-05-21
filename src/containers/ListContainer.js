@@ -1,11 +1,6 @@
 // @flow
 import { connect } from 'react-redux';
-import {
-	deleteTodo,
-	toggleTodo,
-	// updateTodo,
-	reorderTodos
-} from '../redux/actions/todos';
+import { deleteTodo, toggleTodo, reorderTodos } from '../redux/actions/todos';
 import { setTodo } from '../redux/actions/todo';
 import { setMode } from '../redux/actions/mode';
 import List from '../components/List';
@@ -16,25 +11,17 @@ const mapStateToProps = (state: TodosState) => ({
 	todos: state.todos
 });
 
-const editTodo = id => {
+const changeMode = (id, mode) => {
 	return dispatch => {
 		dispatch(setTodo(id));
-		dispatch(setMode('edit'));
-	};
-};
-
-const viewTodo = id => {
-	return dispatch => {
-		dispatch(setTodo(id));
-		dispatch(setMode('form'));
+		dispatch(setMode(mode));
 	};
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
 	deleteTodo: id => dispatch(deleteTodo(id)),
 	toggleTodo: id => dispatch(toggleTodo(id)),
-	viewTodo: mode => dispatch(viewTodo(mode)),
-	editTodo: id => dispatch(editTodo(id)),
+	changeMode: (id, mode) => dispatch(changeMode(id, mode)),
 	onDragEnd: result => dispatch(reorderTodos(result))
 });
 

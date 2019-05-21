@@ -26,7 +26,7 @@ const todos = (state: Todos = [], action: TodosAction): Todos => {
 		case DELETE_TODO:
 			return deleteTodo(state, action.id);
 		case UPDATE_TODO:
-			return updateTodo(state, action.id);
+			return updateTodo(state, action.todo);
 		case REORDER:
 			return onDragEnd(state, action.result);
 		default:
@@ -72,14 +72,10 @@ const deleteTodo = (todos: Todos, id: Id): Todos =>
 /*
 	UPDATE_TODO
 */
-const updateTodo = (todos: Todos, id: Id): Todos =>
+const updateTodo = (todos: Todos, todo: TodoType): Todos =>
 	todos.map(
-		(todo: TodoType): TodoType => {
-			if (todo.id === id) {
-				todo = { ...todo };
-			}
-			return todo;
-		}
+		(arrayItem: TodoType): TodoType =>
+			arrayItem.id === todo.id ? todo : arrayItem
 	);
 
 /*

@@ -25,9 +25,9 @@ export const toggleTodo = (id: Id): TodosAction => ({
 	id
 });
 
-export const updateTodo = (id: Id): TodoAction => ({
+export const updateTodo = (todo: Todo): TodoAction => ({
 	type: UPDATE_TODO,
-	id
+	todo
 });
 
 export const reorderTodos = (result: DropResult): TodosAction => ({

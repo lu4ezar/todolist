@@ -1,4 +1,4 @@
-export type Mode = 'list' | 'edit' | 'form';
+export type Mode = 'list' | 'edit' | 'view';
 
 export type ModeActions = 'SET_MODE';
 

@@ -42,5 +42,5 @@ export type TodosAction =
 	| { +type: 'ADD_TODO', +todo: Todo }
 	| { +type: 'TOGGLE_TODO', +id: Id }
 	| { +type: 'DELETE_TODO', +id: Id }
-	| { +type: 'UPDATE_TODO', +id: Id }
+	| { +type: 'UPDATE_TODO', +todo: Todo }
 	| { +type: 'REORDER', +result: DropResult };
