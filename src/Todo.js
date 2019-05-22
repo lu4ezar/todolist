@@ -1,19 +1,38 @@
 // @flow
+import type {
+	Id,
+	Task,
+	Description,
+	Priority,
+	Status,
+	CreationDate,
+	Time,
+	Todo as TodoType
+} from './types/todos';
+
 export default class Todo {
-	id: ?number;
-	task: string;
-	description: string;
-	priority: string;
-	status: string;
-	date: ?Date;
-	time: ?Date;
-	constructor(task: string = '', desc: string = '') {
-		this.id = null;
+	id: Id;
+	task: Task;
+	description: Description;
+	priority: Priority;
+	status: Status;
+	date: CreationDate;
+	time: Time;
+	constructor({
+		id,
+		task = '',
+		description = '',
+		priority = 'normal',
+		status = 'active',
+		date,
+		time
+	}: TodoType = {}) {
+		this.id = id;
 		this.task = task;
-		this.description = desc;
-		this.priority = 'normal';
-		this.status = '';
-		this.date = null;
-		this.time = null;
+		this.description = description;
+		this.priority = priority;
+		this.status = status;
+		this.date = date || null;
+		this.time = time || null;
 	}
 }
