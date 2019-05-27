@@ -1,8 +1,10 @@
+export const CommonColors = {
+	border: '#568171'
+};
+
 export const TodoColor = {
 	color: '#383720',
 	background: '#e5d895',
-	border: '#30483f',
-	dragColor: '#568171',
 	dragBackground: '#568171',
 	completedColor: '#003d00',
 	completedBackground: '#55aa7f',
@@ -14,15 +16,15 @@ export const TodoColor = {
 
 export const AppColor = {
 	color: '#000',
-	background: '#dfd292',
-	border: '#948b61'
+	background: '#edecea',
+	border: '#3a3a3a'
 };
 
 export const ListColor = {
 	color: '#000',
-	background: '#b0a673',
-	dragColor: '#948b61',
-	dragBackground: '#948b61',
+	background: '#d0d4db',
+	dragColor: '#bbbcbf',
+	dragBackground: '#c3c6cc',
 	border: '#948b61'
 };
 

@@ -1,63 +1,88 @@
+// @flow
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { Draggable } from 'react-beautiful-dnd';
 import ButtonPanel from './buttonPanel';
 import { TodoColor } from '../utils/color';
+import type { Id, Todo as TodoType } from '../types/todos';
+import { ListItem, RootRef } from '@material-ui/core';
 
-const StyledTodo = styled.div`
+const {
+	color,
+	//background,
+	//border,
+	completedColor,
+	completedBackground,
+	completedBorder,
+	expiredColor,
+	expiredBackground,
+	expiredBorder
+} = TodoColor;
+
+type DesctructuringTypeAnnotation = {
+	todo: TodoType,
+	index: number,
+	toggleTodo: (id: Id) => void,
+	deleteTodo: (id: Id) => void,
+	showTodo: (id: Id, str: string) => void
+};
+
+const StyledTodo = styled(({ isDragging, status, ...other }) => (
+	<ListItem {...other} />
+))`
 	userSelect: 'none';
-	font-weight: bold;
-	line-height: 2;
-	min-height: fit-content;
-	color: ${TodoColor.color};
-	background: ${TodoColor.background};
-	border: 2px solid ${TodoColor.border}
-	border-radius: 8px;
+	color: ${color};
+	border-bottom:1px solid silver;
 	padding: 10px;
 	width: 70%;
-	margin: 0.75em 0;
 	display: flex;
-	${props =>
-		props.status === 'completed' &&
+	${({ status }) =>
+		status === 'completed' &&
 		css`
-			color: ${TodoColor.completedColor};
-			background: ${TodoColor.completedBackground};
-			border-color: ${TodoColor.completedBorder};
+			color: ${completedColor};
+			background: ${completedBackground};
+			border-color: ${completedBorder};
 		`}
-	${props =>
-		props.status === 'expired' &&
+	${({ status }) =>
+		status === 'expired' &&
 		css`
-			color: ${TodoColor.expiredColor};
-			background: ${TodoColor.expiredBackground};
-			border-color: ${TodoColor.expiredBorder};
+			color: ${expiredColor};
+			background: ${expiredBackground};
+			border-color: ${expiredBorder};
 		`}
-	background: ${props =>
-		props.isDragging ? TodoColor.dragBackground : 'initial value'};
-	filter: ${props => (props.isDragging ? 'brightness(95%)' : 'brightness(1)')};
+	${({ isDragging }) =>
+		isDragging ? `filter: brightness(85%)` : `filter: brightness(1)`}
 `;
 
-const ListItem = ({ todo, index, toggleTodo, deleteTodo, changeMode }) => (
+const Todo = ({
+	todo,
+	index,
+	toggleTodo,
+	deleteTodo,
+	showTodo
+}: DesctructuringTypeAnnotation) => (
 	<Draggable draggableId={todo.id.toString()} index={index}>
 		{(provided, snapshot) => (
-			<StyledTodo
-				ref={provided.innerRef}
-				isDragging={snapshot.isDragging}
-				{...provided.draggableProps}
-				{...provided.dragHandleProps}
-				status={todo.status ? todo.status : todo.priority}
-				title='DoubleClick to view details'
-				onDoubleClick={() => changeMode(todo.id, 'view')}
-			>
-				{todo.task}
-				<ButtonPanel
-					todo={todo}
-					toggle={toggleTodo}
-					deleteTodo={deleteTodo}
-					changeMode={changeMode}
-				/>
-			</StyledTodo>
+			<RootRef rootRef={provided.innerRef}>
+				<StyledTodo
+					isDragging={snapshot.isDragging}
+					{...provided.draggableProps}
+					{...provided.dragHandleProps}
+					status={todo.status ? todo.status : todo.priority}
+					title='DoubleClick to view details'
+					onDoubleClick={() => showTodo(todo.id, 'view')}
+				>
+					{todo.task}
+					<ButtonPanel
+						todo={todo}
+						toggle={toggleTodo}
+						deleteTodo={deleteTodo}
+						showTodo={showTodo}
+					/>
+				</StyledTodo>
+			</RootRef>
 		)}
 	</Draggable>
 );
 
-export default ListItem;
+export default Todo;

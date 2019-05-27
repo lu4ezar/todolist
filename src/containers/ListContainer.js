@@ -4,24 +4,33 @@ import { deleteTodo, toggleTodo, reorderTodos } from '../redux/actions/todos';
 import { setTodo } from '../redux/actions/todo';
 import { setMode } from '../redux/actions/mode';
 import List from '../components/List';
-import type { TodosState } from '../types/todos';
+import type { TodosStateWithHistory } from '../types/todos';
 import type { Dispatch } from '../types';
+import { showMessage } from '../redux/actions/notification';
+import { getTodoById } from '../redux/selectors';
 
-const mapStateToProps = (state: TodosState) => ({
-	todos: state.todos
+const mapStateToProps = (state: TodosStateWithHistory) => ({
+	todos: state.todos.present
 });
 
-const changeMode = (id, mode) => {
-	return dispatch => {
-		dispatch(setTodo(id));
+const showTodo = (id, mode) => {
+	return (dispatch, getState) => {
+		const todo = getTodoById(getState().todos.present, id);
+		dispatch(setTodo(todo));
 		dispatch(setMode(mode));
 	};
 };
 
+const deleteTodoShowMessage = id => dispatch => {
+	dispatch(showMessage('Todo was deleted'));
+	dispatch(deleteTodo(id));
+};
+
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-	deleteTodo: id => dispatch(deleteTodo(id)),
+	setMode: () => dispatch(setMode('form')),
+	deleteTodo: id => dispatch(deleteTodoShowMessage(id)),
 	toggleTodo: id => dispatch(toggleTodo(id)),
-	changeMode: (id, mode) => dispatch(changeMode(id, mode)),
+	showTodo: (id, mode) => dispatch(showTodo(id, mode)),
 	onDragEnd: result => dispatch(reorderTodos(result))
 });
 

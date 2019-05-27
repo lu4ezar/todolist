@@ -5,49 +5,56 @@ import ListItem from '../elements/Todo';
 import { ListColor } from '../utils/color';
 import styled, { type ReactComponentStyled } from 'styled-components';
 import type { Todos } from '../types/todos';
+import Paper from '@material-ui/core/Paper';
+import ListMaterial from '@material-ui/core/List';
+import RootRef from '@material-ui/core/RootRef';
+import { Typography } from '@material-ui/core';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 type StyledListPropTypes = {
 	isDraggingOver: boolean
 };
 
-const StyledList: ReactComponentStyled<StyledListPropTypes> = styled.div`
-	max-height: 60vh;
+const StyledList: ReactComponentStyled<StyledListPropTypes> = styled(
+	({ isDraggingOver, ...other }) => <ListMaterial {...other} />
+)`
+	height: 90vh;
+	max-height: 90vh;
 	overflow: auto;
 	transition: background 0.2s ease;
-	background: ${(props: StyledListPropTypes): string =>
-		props.isDraggingOver ? ListColor.dragBackground : ListColor.background};
-	border: 2px solid ${ListColor.border};
-	border-radius: 8px;
+	background: ${({ isDraggingOver }) =>
+		isDraggingOver ? ListColor.dragBackground : ListColor.background};
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	margin: 1em auto;
-	&::after {
-		content: '7days';
-		color: transparent;
-	}
 `;
 
 type Props = {
 	todos: Todos,
-	noListMessage: string,
 	handleClick: (id: number) => void,
 	deleteTodo: (id: number) => void,
 	toggleTodo: (id: number) => void,
-	changeMode: (id: number, mode: string) => void,
+	setMode: () => void,
+	showMessage: (message: string) => void,
+	showTodo: (id: number, mode: string) => void,
 	onDragEnd: (result: Object) => void
 };
 
 const List = ({
 	todos,
-	noListMessage,
 	toggleTodo,
 	deleteTodo,
-	changeMode,
-	onDragEnd
+	showTodo,
+	onDragEnd,
+	setMode,
+	showMessage
 }: Props) => {
-	const content = noListMessage ? (
-		<h3>{noListMessage}</h3>
+	const content = !todos.length ? (
+		<Typography variant='h4' gutterBottom>
+			nothing to show
+		</Typography>
 	) : todos ? (
 		todos.map((todo, index) => (
 			<ListItem
@@ -56,7 +63,7 @@ const List = ({
 				todo={todo}
 				toggleTodo={toggleTodo}
 				deleteTodo={deleteTodo}
-				changeMode={changeMode}
+				showTodo={showTodo}
 			/>
 		))
 	) : null;
@@ -64,14 +71,28 @@ const List = ({
 		<DragDropContext onDragEnd={onDragEnd}>
 			<Droppable droppableId='droppable'>
 				{(provided, snapshot) => (
-					<StyledList
-						ref={provided.innerRef}
-						isDraggingOver={snapshot.isDraggingOver}
-						{...provided.droppableProps}
-					>
-						{content}
-						{provided.placeholder}
-					</StyledList>
+					<RootRef rootRef={provided.innerRef}>
+						<Paper>
+							<StyledList
+								isDraggingOver={snapshot.isDraggingOver}
+								{...provided.droppableProps}
+							>
+								{content}
+								{provided.placeholder}
+								<Fab
+									color='secondary'
+									onClick={setMode}
+									style={{
+										position: 'absolute',
+										bottom: '1em',
+										right: '1em'
+									}}
+								>
+									<AddIcon />
+								</Fab>
+							</StyledList>
+						</Paper>
+					</RootRef>
 				)}
 			</Droppable>
 		</DragDropContext>

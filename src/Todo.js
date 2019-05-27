@@ -24,15 +24,15 @@ export default class Todo {
 		description = '',
 		priority = 'normal',
 		status = 'active',
-		date,
-		time
+		date = '',
+		time = ''
 	}: TodoType = {}) {
 		this.id = id;
 		this.task = task;
 		this.description = description;
 		this.priority = priority;
 		this.status = status;
-		this.date = date || null;
-		this.time = time || null;
+		this.date = date;
+		this.time = time;
 	}
 }

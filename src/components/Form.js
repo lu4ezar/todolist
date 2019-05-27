@@ -1,153 +1,159 @@
 import * as React from 'react';
 import Todo from '../Todo';
-import BootstrapForm from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import DatePicker from 'react-datepicker';
-import { registerLocale } from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import enGB from 'date-fns/locale/en-GB';
-import Select from '../elements/select';
+import {
+	TextField,
+	Select,
+	FormControl,
+	InputLabel,
+	MenuItem,
+	Fab,
+	Icon,
+	Box
+} from '@material-ui/core';
+import { isExpired } from '../utils/moment';
+import Drawer from '../elements/Drawer';
 
-registerLocale('en-GB', enGB);
+const initialState = new Todo();
 
-const dropdownOptions = ['low', 'normal', 'high'];
-
-const initialState = new Todo({ id: null, task: '', desc: '' });
-
-const Form = ({ todo, addTodo, updateTodo, mode, cancel }) => {
+const Form = ({ todo, addTodo, updateTodo, mode, submit, cancel }) => {
 	const [state, setState] = React.useState(initialState);
+
 	React.useEffect(() => {
-		if (Object.keys(todo).length > 0) {
+		if (todo.id || todo.id === 0) {
 			setState(todo);
 		} else {
 			setState(initialState);
 		}
-	}, [todo]);
-	const handleChange = e => {
-		const { name, value } = e.target;
-		setState({ ...state, [name]: value });
-	};
-
-	const handleDateChange = date => {
-		setState({ ...state, date });
-	};
-
-	const handleTimeChange = time => {
-		setState({ ...state, time });
-	};
-
-	const handleSelectChange = priority => {
-		setState({ ...state, priority: priority.value });
-	};
+	}, [todo, state.id]);
 
 	const onSubmit = e => {
 		e.preventDefault();
-		switch (mode) {
-			case 'list':
-				addTodo(state);
-				break;
-			case 'edit':
-				updateTodo(state);
-				break;
-			default:
-				return;
-		}
+		state.status = isExpired(state);
+		submit(state);
 		setState(initialState);
 	};
+
+	const onChange = name => event => {
+		setState({ ...state, [name]: event.target.value });
+	};
+
+	const handleSelectChange = event => {
+		setState({ ...state, [event.target.name]: event.target.value });
+	};
+
 	return (
-		<BootstrapForm id='form' onSubmit={onSubmit}>
-			<fieldset disabled={mode === 'view'}>
-				<BootstrapForm.Label>{`${
-					mode === 'edit' ? 'Edit' : 'Add'
-				} Todo`}</BootstrapForm.Label>
-				<BootstrapForm.Group controlId='task' title='required'>
-					<BootstrapForm.Label>
-						Todo<span>*</span>
-					</BootstrapForm.Label>
-					<BootstrapForm.Control
-						name='task'
-						value={state.task}
-						onChange={handleChange}
-						placeholder='task goes here'
-					/>
-				</BootstrapForm.Group>
-				<BootstrapForm.Group controlId='description' title='required'>
-					<BootstrapForm.Label>
-						Description<span>*</span>
-					</BootstrapForm.Label>
-					<BootstrapForm.Control
-						as='textarea'
-						name='description'
-						value={state.description}
-						onChange={handleChange}
-						placeholder='add description'
-					/>
-				</BootstrapForm.Group>
-				<BootstrapForm.Group id='priority'>
-					<BootstrapForm.Label>Priority</BootstrapForm.Label>
-					<Select
-						name='priority'
-						value={state.priority}
-						options={dropdownOptions}
-						onChange={handleSelectChange}
-						placeholder='Priority'
-						disabled={false}
-						isMulti={false}
-						isClearable={false}
-					/>
-				</BootstrapForm.Group>
-				<BootstrapForm.Label>Complete until: </BootstrapForm.Label>
-				<BootstrapForm.Row>
-					<BootstrapForm.Group controlId='date'>
-						<DatePicker
-							onChange={handleDateChange}
-							selected={state.date}
-							dateFormat='dd.MM.YYYY'
-							placeholderText='dd/mm/yyyy'
-							locale='en-GB'
-							isClearable
-						/>
-					</BootstrapForm.Group>
-					<BootstrapForm.Group controlId='time'>
-						<DatePicker
-							onChange={handleTimeChange}
-							selected={state.time}
-							dateFormat='HH:mm'
-							timeFormat='HH:mm'
-							placeholderText='Click to select time'
-							showTimeSelect
-							showTimeSelectOnly
-							isClearable
-						/>
-					</BootstrapForm.Group>
-				</BootstrapForm.Row>
-			</fieldset>
-			{mode !== 'view' ? (
-				<BootstrapForm.Group controlId='buttons'>
-					<Button
-						variant='danger'
-						disabled={!state.task && !state.description}
-						onClick={cancel}
-					>
-						{mode === 'list' ? 'Clear' : 'Cancel'}
-					</Button>
-					<Button
-						type='submit'
-						variant='primary'
-						form='form'
-						disabled={!state.task || !state.description}
-					>
-						{mode === 'edit' ? 'Save changes' : 'Ok'}
-					</Button>
-				</BootstrapForm.Group>
-			) : (
-				<BootstrapForm.Group controlId='buttons'>
-					<Button variant='primary' onClick={cancel}>
-						Add New Todo
-					</Button>
-				</BootstrapForm.Group>
-			)}
-		</BootstrapForm>
+		<div>
+			<Drawer
+				side='right'
+				open={mode !== 'list'}
+				cancel={cancel}
+				children={
+					<form id='form' onSubmit={onSubmit}>
+						<Box m={5} p={5} width='45vw'>
+							<fieldset disabled={mode === 'view'}>
+								<TextField
+									id='task'
+									label={`${
+										mode === 'edit' ? 'Edit' : 'Add'
+									} Todo`}
+									value={state.task}
+									onChange={onChange('task')}
+									margin='normal'
+									required
+								/>
+								<br />
+								<TextField
+									id='description'
+									label='Description'
+									multiline
+									rowsMax='4'
+									value={state.description}
+									onChange={onChange('description')}
+									margin='normal'
+									required
+								/>
+								<br />
+								<FormControl>
+									<InputLabel htmlFor='priority'>
+										Priority
+									</InputLabel>
+									<Select
+										value={state.priority || 'normal'}
+										onChange={handleSelectChange}
+										inputProps={{
+											name: 'priority',
+											id: 'priority'
+										}}
+									>
+										<MenuItem value=''>
+											<em>None</em>
+										</MenuItem>
+										<MenuItem value='low'>Low</MenuItem>
+										<MenuItem value='normal'>
+											Normal
+										</MenuItem>
+										<MenuItem value='high'>High</MenuItem>
+									</Select>
+								</FormControl>
+								<br />
+								<InputLabel htmlFor='date'>
+									Date&Time:
+								</InputLabel>
+								<TextField
+									id='date'
+									value={state.date}
+									type='date'
+									InputLabelProps={{
+										shrink: true
+									}}
+									onChange={onChange('date')}
+								/>
+								<TextField
+									id='time'
+									value={state.time}
+									type='time'
+									InputLabelProps={{
+										shrink: true
+									}}
+									inputProps={{
+										step: 300
+									}}
+									onChange={onChange('time')}
+								/>
+							</fieldset>
+							<div>
+								<Fab
+									color='secondary'
+									size='small'
+									disabled={
+										!state.task &&
+										!state.description &&
+										!state.date &&
+										!state.time
+									}
+									onClick={cancel}
+								>
+									<Icon>close</Icon>
+								</Fab>
+								{mode !== 'view' && (
+									<Fab
+										type='submit'
+										color='primary'
+										size='small'
+										form='form'
+										disabled={
+											!state.task && !state.description
+										}
+									>
+										<Icon>check</Icon>
+									</Fab>
+								)}
+							</div>
+						</Box>
+					</form>
+				}
+			/>
+		</div>
 	);
 };
 

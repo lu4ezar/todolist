@@ -11,9 +11,9 @@ export type Priority = 'low' | 'normal' | 'high';
 
 export type Status = 'active' | 'completed' | 'expired';
 
-export type CreationDate = ?Date;
+export type CreationDate = string;
 
-export type Time = ?Date;
+export type Time = string;
 
 export type Todo = {
 	id: Id,
@@ -28,7 +28,13 @@ export type Todo = {
 export type Todos = Array<Todo>;
 
 export type TodosState = $ReadOnly<{
-	+todos: Todos
+	todos: Todos
+}>;
+
+export type TodosStateWithHistory = $ReadOnly<{
+	todos: {
+		present: Todos
+	}
 }>;
 
 export type TodoAction =

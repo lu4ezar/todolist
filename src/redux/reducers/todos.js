@@ -14,8 +14,8 @@ import type {
 } from '../../types/todos';
 import Todo from '../../Todo';
 import { getTodosIdArray } from '../selectors';
-import { isExpired } from '../../utils/moment';
 import type { DropResult } from 'react-beautiful-dnd';
+import undoable from 'redux-undo';
 
 const todos = (state: Todos = [], action: TodosAction): Todos => {
 	switch (action.type) {
@@ -39,7 +39,6 @@ const todos = (state: Todos = [], action: TodosAction): Todos => {
 */
 const createTodo = (state: Todos, todo: TodoType): TodoType => {
 	todo.id = getUniqueId(state);
-	todo.status = isExpired(todo);
 	return new Todo({ ...todo });
 };
 const getUniqueId = (state): number => {
@@ -100,4 +99,4 @@ const reorder = (todos, startIndex, endIndex) => {
 	return arr;
 };
 
-export default todos;
+export default undoable(todos);

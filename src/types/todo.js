@@ -10,4 +10,4 @@ export type TodoState = $ReadOnly<{
 	time: Time
 }>;
 
-export type TodoAction = { +type: TodoActions, +todo: Todo };
+export type TodoAction = { type: TodoActions, todo: Todo };

@@ -12,6 +12,15 @@ const mapStateToProps = (state: TodoType) => ({
 	mode: state.mode
 });
 
+const submit = todo => {
+	return (dispatch, getState) => {
+		todo.id || todo.id === 0
+			? dispatch(updateTodo(todo))
+			: dispatch(addTodo(todo));
+		dispatch(cancel());
+	};
+};
+
 const cancel = () => {
 	return dispatch => {
 		dispatch(setTodo());
@@ -20,8 +29,7 @@ const cancel = () => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps) => ({
-	addTodo: todo => dispatch(addTodo(todo)),
-	updateTodo: todo => dispatch(updateTodo(todo)),
+	submit: todo => dispatch(submit(todo)),
 	cancel: () => dispatch(cancel())
 });
 

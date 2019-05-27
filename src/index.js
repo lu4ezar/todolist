@@ -9,13 +9,12 @@ import './utils/fontawesome';
 import './index.css';
 import { getInitialState } from './utils/initialState';
 import { saveState } from './utils/localStorage';
-
 const initialState = getInitialState();
 
 export const store: Store = configureStore(initialState);
 
 store.subscribe(() => {
-	saveState(store.getState().todos);
+	saveState(store.getState().todos.present);
 });
 
 const element = document.getElementById('root');

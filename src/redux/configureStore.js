@@ -1,13 +1,13 @@
 // @flow
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import type { TodosState } from '../types/todos';
+import type { TodosStateWithHistory } from '../types/todos';
 import type { Store } from '../types';
 import reducer from './reducers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const configureStore = (initialState: TodosState): Store =>
+const configureStore = (initialState: TodosStateWithHistory): Store =>
 	createStore(
 		reducer,
 		initialState,
