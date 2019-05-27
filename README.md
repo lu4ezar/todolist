@@ -7,7 +7,7 @@ Simple to-do list app with ReactJS.
 
 * [create-react-app](https://github.com/facebook/create-react-app)
 * [redux](https://redux.js.org/)
-* [react-boostrap](https://react-bootstrap.github.io/)
+* [material-ui](https://material-ui.com/)
 * [styled-components](https://www.styled-components.com/)
 * [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
 * [flow-bin](https://github.com/flowtype/flow-bin)
@@ -27,6 +27,6 @@ yarn start
 yarn build
 ```
 
-## Authors
+## Author
 
 * **[lu4ezar](https://github.com/lu4ezar/todolist/graphs/contributors)**
