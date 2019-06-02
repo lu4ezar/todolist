@@ -1,13 +1,13 @@
 // @flow
 import type { Store as ReduxStore, Dispatch as ReduxDispatch } from 'redux';
-import type { TodosState, TodosAction } from './todos';
+import type { TodosStateWithHistory, TodosAction } from './todos';
 import type { FilterState, FilterAction } from './filter';
-import type { TodoState, TodoAction } from './todo';
+import type { TodoState, TodoAction } from './currentTodoId';
 import type { ModeState, ModeAction } from './mode';
 
 export type ReduxInitAction = { type: '@@INIT' };
 
-export type State = TodosState & FilterState & TodoState & ModeState;
+export type State = TodosStateWithHistory & FilterState & TodoState & ModeState;
 
 export type Action =
 	| ReduxInitAction

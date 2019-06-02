@@ -8,7 +8,7 @@ export const REORDER = 'REORDER';
 // mode
 export const SET_MODE = 'SET_MODE';
 // todo
-export const SET_TODO = 'SET_TODO';
+export const SET_ID = 'SET_ID';
 // notification
 export const SHOW_NOTIFICATION = 'SHOW_NOTIFICATION';
 export const CLOSE_NOTIFICATION = 'CLOSE_NOTIFICATION';

@@ -45,9 +45,10 @@ const Form = ({ todo, mode, submit, closeForm }) => {
 		setState({ ...state, [event.target.name]: event.target.value });
 	};
 
-	const todoWasChanged = todo
-		? JSON.stringify(todo) !== JSON.stringify(state)
-		: false;
+	const disableButtons =
+		todo && todo.id
+			? JSON.stringify(todo) !== JSON.stringify(state)
+			: state.task && state.description;
 
 	return (
 		<div>
@@ -137,7 +138,7 @@ const Form = ({ todo, mode, submit, closeForm }) => {
 										color='secondary'
 										size='small'
 										onClick={clearForm}
-										disabled={!todoWasChanged}
+										disabled={!disableButtons}
 									>
 										<Icon>close</Icon>
 									</Fab>
@@ -147,7 +148,7 @@ const Form = ({ todo, mode, submit, closeForm }) => {
 										color='primary'
 										size='small'
 										form='form'
-										disabled={!todoWasChanged}
+										disabled={!disableButtons}
 									>
 										<Icon>check</Icon>
 									</Fab>

@@ -1,7 +1,7 @@
 // @flow
 import { connect } from 'react-redux';
 import { deleteTodo, toggleTodo, reorderTodos } from '../redux/actions/todos';
-import { setTodo } from '../redux/actions/todo';
+import { setTodo } from '../redux/actions/currentTodoId';
 import { setMode } from '../redux/actions/mode';
 import { showMessage } from '../redux/actions/notification';
 import type { TodosStateWithHistory } from '../types/todos';

@@ -2,13 +2,13 @@
 import { connect } from 'react-redux';
 import { addTodo, updateTodo } from '../redux/actions/todos';
 import Form from '../components/Form';
-import { setTodo } from '../redux/actions/todo';
+import { setTodo } from '../redux/actions/currentTodoId';
 import { setMode } from '../redux/actions/mode';
-import type { Todo as TodoType } from '../types/todo';
 import type { Dispatch, State } from '../types';
+import { getTodoById } from '../redux/selectors';
 
-const mapStateToProps = (state: TodoType) => ({
-	todo: state.todo,
+const mapStateToProps = (state: State) => ({
+	todo: getTodoById(state),
 	mode: state.mode
 });
 
