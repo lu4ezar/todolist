@@ -1,14 +1,14 @@
 // @flow
 import { SHOW_NOTIFICATION, CLOSE_NOTIFICATION } from '../actions/actionTypes';
 import type {
-	Notification,
+	NotificationState,
 	NotificationAction
 } from '../../types/notification';
 
 const notification = (
-	state: Notification = { open: false, message: '' },
+	state: NotificationState = { open: false, message: '' },
 	action: NotificationAction
-): NotificationAction => {
+): NotificationState => {
 	switch (action.type) {
 		case SHOW_NOTIFICATION:
 			return { open: true, message: action.message };

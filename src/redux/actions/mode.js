@@ -1,8 +1,8 @@
 // @flow
-import type { Mode, ModeActions } from '../../types/mode';
+import type { Mode, ModeAction } from '../../types/mode';
 import { SET_MODE } from './actionTypes';
 
-export const setMode = (mode: Mode): ModeActions => ({
+export const setMode = (mode: Mode): ModeAction => ({
 	type: SET_MODE,
 	mode
 });

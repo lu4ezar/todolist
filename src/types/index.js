@@ -14,7 +14,8 @@ export type Action =
 	| TodosAction
 	| FilterAction
 	| TodoAction
-	| ModeAction;
+	| ModeAction
+	| NotificationAction;
 
 export type Store = ReduxStore<State, Action>;
 

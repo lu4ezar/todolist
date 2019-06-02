@@ -4,8 +4,8 @@ import { addTodo, updateTodo } from '../redux/actions/todos';
 import Form from '../components/Form';
 import { setTodo } from '../redux/actions/todo';
 import { setMode } from '../redux/actions/mode';
-import type { Todo as TodoType } from '../types/todos';
-import type { Dispatch } from '../types';
+import type { Todo as TodoType } from '../types/todo';
+import type { Dispatch, State } from '../types';
 
 const mapStateToProps = (state: TodoType) => ({
 	todo: state.todo,
@@ -22,7 +22,7 @@ const submit = todo => {
 };
 
 const closeForm = () => {
-	return (dispatch, getState) => {
+	return (dispatch: Dispatch, getState: State): void => {
 		dispatch(setTodo(null));
 		dispatch(setMode('list'));
 	};

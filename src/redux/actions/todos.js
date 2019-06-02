@@ -7,7 +7,6 @@ import {
 	REORDER
 } from './actionTypes';
 import type { Id, Todo, TodosAction } from '../../types/todos';
-import type { TodoAction } from '../../types/todo';
 import type { DropResult } from 'react-beautiful-dnd';
 
 export const addTodo = (todo: Todo): TodosAction => ({
@@ -25,7 +24,7 @@ export const toggleTodo = (id: Id): TodosAction => ({
 	id
 });
 
-export const updateTodo = (todo: Todo): TodoAction => ({
+export const updateTodo = (todo: Todo): TodosAction => ({
 	type: UPDATE_TODO,
 	todo
 });
