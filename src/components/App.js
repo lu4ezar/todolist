@@ -5,17 +5,26 @@ import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Header from '../elements/Header';
 import Notification from '../containers/NotificationContainer';
+import SidePanel from './SidePanel';
+import Navbar from '../elements/Navbar';
 
-const App = () => (
-	<div>
-		<CssBaseline />
-		<Container maxWidth='sm'>
-			<Header variant='h3' text='TodoApp' />
-			<AddTodoForm />
-			<VisibleList />
-			<Notification />
-		</Container>
-	</div>
-);
+export const App = () => {
+	const [showPanel, toggleShowPanel] = React.useState(false);
+	const togglePanel = () => toggleShowPanel(!showPanel);
+	return (
+		<div>
+			<CssBaseline />
+			<Container maxWidth='sm'>
+				<Navbar onClick={togglePanel}>
+					<Header variant='h3' text='TodoApp' />
+				</Navbar>
+				<SidePanel open={showPanel} togglePanel={togglePanel} />
+				<AddTodoForm />
+				<VisibleList />
+				<Notification />
+			</Container>
+		</div>
+	);
+};
 
 export default App;

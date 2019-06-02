@@ -4,7 +4,7 @@ export const CommonColors = {
 
 export const TodoColor = {
 	color: '#383720',
-	background: '#e5d895',
+	background: '#d0d4db',
 	dragBackground: '#568171',
 	completedColor: '#003d00',
 	completedBackground: '#55aa7f',

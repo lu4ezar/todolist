@@ -17,20 +17,20 @@ const submit = todo => {
 		todo.id || todo.id === 0
 			? dispatch(updateTodo(todo))
 			: dispatch(addTodo(todo));
-		dispatch(cancel());
+		dispatch(closeForm());
 	};
 };
 
-const cancel = () => {
-	return dispatch => {
-		dispatch(setTodo());
+const closeForm = () => {
+	return (dispatch, getState) => {
+		dispatch(setTodo(null));
 		dispatch(setMode('list'));
 	};
 };
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps) => ({
 	submit: todo => dispatch(submit(todo)),
-	cancel: () => dispatch(cancel())
+	closeForm: () => dispatch(closeForm())
 });
 
 export default connect(

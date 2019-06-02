@@ -1,44 +1,46 @@
 // @flow
 import * as React from 'react';
 import CoreDrawer from '@material-ui/core/Drawer';
+import { IconButton, Divider } from '@material-ui/core';
+import { ListColor } from '../utils/color';
+import { ChevronLeft, ChevronRight } from '@material-ui/icons';
 
 type Props = {
 	side: string,
 	open: boolean,
-	cancel: () => void,
+	toggleDrawer: () => void,
+	variant?: string,
 	children: React.Node
 };
 
-const Drawer = ({ side, open, cancel, children }: Props) => {
-	const [state, setState] = React.useState({
-		top: false,
-		left: false,
-		bottom: false,
-		right: false
-	});
-
-	React.useEffect(() => setState(state => ({ ...state, [side]: open })), [
-		side,
-		open
-	]);
-
-	const toggleDrawer = (side, open) => event => {
-		if (
-			event.type === 'keydown' &&
-			(event.key === 'Tab' || event.key === 'Shift')
-		) {
-			return;
-		}
-		setState({ ...state, [side]: open });
-		cancel();
-	};
-
+const Drawer = ({
+	side,
+	open,
+	toggleDrawer,
+	children,
+	variant
+}: Props): React.Node => {
+	const Chevron = side === 'left' ? <ChevronRight /> : <ChevronLeft />;
 	return (
 		<CoreDrawer
 			anchor={side}
 			open={open}
-			onClose={toggleDrawer('right', false)}
+			onClose={toggleDrawer}
+			variant={variant}
+			children={children}
 		>
+			<div
+				style={{
+					display: 'flex',
+					justifyContent: `${
+						side === 'left' ? 'flex-end' : 'flex-start'
+					}`,
+					background: `${ListColor.background}`
+				}}
+			>
+				<IconButton onClick={toggleDrawer}>{Chevron}</IconButton>
+			</div>
+			<Divider />
 			{children}
 		</CoreDrawer>
 	);

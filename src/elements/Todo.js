@@ -9,7 +9,7 @@ import { ListItem, RootRef } from '@material-ui/core';
 
 const {
 	color,
-	//background,
+	background,
 	//border,
 	completedColor,
 	completedBackground,
@@ -36,6 +36,7 @@ const StyledTodo = styled(({ isDragging, status, ...other }) => (
 	padding: 10px;
 	width: 70%;
 	display: flex;
+	background: ${background};
 	${({ status }) =>
 		status === 'completed' &&
 		css`
