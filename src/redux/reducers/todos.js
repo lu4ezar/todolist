@@ -12,10 +12,9 @@ import type {
 	Id,
 	TodosAction
 } from '../../types/todos';
-import Todo from '../../Todo';
 import { getTodosIdArray } from '../selectors';
 import type { DropResult } from 'react-beautiful-dnd';
-import undoable from 'redux-undo';
+import undoable, { includeAction } from 'redux-undo';
 
 const todos = (state: Todos = [], action: TodosAction): Todos => {
 	switch (action.type) {
@@ -37,12 +36,12 @@ const todos = (state: Todos = [], action: TodosAction): Todos => {
 /*
 		ADD_TODO
 */
-const createTodo = (state: Todos, todo: TodoType): TodoType => {
-	todo.id = getUniqueId(state);
-	return new Todo({ ...todo });
-};
-const getUniqueId = (state): number => {
-	const idArray = getTodosIdArray(state);
+const createTodo = (todos: Todos, todo: TodoType): TodoType => ({
+	...todo,
+	id: getUniqueId(todos)
+});
+const getUniqueId = (todos): number => {
+	const idArray = getTodosIdArray(todos);
 	for (let i = 0; i < idArray.length; i++) {
 		if (!idArray.includes(i)) {
 			return i;
@@ -50,6 +49,14 @@ const getUniqueId = (state): number => {
 	}
 	return idArray.length;
 };
+/*
+	UPDATE_TODO
+*/
+const updateTodo = (todos: Todos, todo: TodoType): Todos =>
+	todos.map(
+		(arrayItem: TodoType): TodoType =>
+			arrayItem.id === todo.id ? todo : arrayItem
+	);
 /*
 	TOGGLE_TODO
 */
@@ -67,28 +74,18 @@ const toggleTodo = (todos: Todos, id: Id): Todos =>
 */
 const deleteTodo = (todos: Todos, id: Id): Todos =>
 	todos.filter(todo => todo.id !== id);
-
-/*
-	UPDATE_TODO
-*/
-const updateTodo = (todos: Todos, todo: TodoType): Todos =>
-	todos.map(
-		(arrayItem: TodoType): TodoType =>
-			arrayItem.id === todo.id ? todo : arrayItem
-	);
-
 /*
 	REORDER
 */
-const onDragEnd = (state: Todos, result: DropResult): Todos => {
+const onDragEnd = (todos: Todos, result: DropResult): Todos => {
 	const { source, destination } = result;
 	if (!destination) {
-		return state;
+		return todos;
 	}
 	if (source.index === destination.index) {
-		return state;
+		return todos;
 	}
-	const list = reorder(state, source.index, destination.index);
+	const list = reorder(todos, source.index, destination.index);
 	return list;
 };
 
@@ -99,4 +96,6 @@ const reorder = (todos, startIndex, endIndex) => {
 	return arr;
 };
 
-export default undoable(todos);
+export default undoable(todos, {
+	filter: includeAction([ADD_TODO, DELETE_TODO])
+});

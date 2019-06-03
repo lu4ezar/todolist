@@ -3,9 +3,10 @@ import { createSelector } from 'reselect';
 import type { Id, Todo as TodoType, Todos } from '../types/todos';
 import type { State } from '../types';
 
-const getTodos = (state: State) => state.todos.present;
+const getTodos = (state: State): Todos =>
+	state.todos ? state.todos.present : state;
 
-const getId = (state: State) => state.todo;
+const getId = (state: State): Id => state.todo;
 
 export const getTodoById = createSelector(
 	[getTodos, getId],

@@ -33,7 +33,9 @@ export type TodosState = $ReadOnly<{
 
 export type TodosStateWithHistory = $ReadOnly<{
 	todos: {
-		present: Todos
+		past: Todos,
+		present: Todos,
+		future: Todos
 	}
 }>;
 
