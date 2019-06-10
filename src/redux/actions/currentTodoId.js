@@ -1,6 +1,5 @@
 // @flow
-import type { TodoAction } from '../../types/currentTodoId';
-import type { Id } from '../../types/todos';
+import type { TodoAction, Id } from '../../types/todo';
 
 import { SET_ID } from './actionTypes';
 

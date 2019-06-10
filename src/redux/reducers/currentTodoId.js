@@ -1,7 +1,6 @@
 // @flow
 import { SET_ID } from '../actions/actionTypes';
-import type { Id } from '../../types/todos';
-import type { TodoAction } from '../../types/currentTodoId';
+import type { TodoAction, Id } from '../../types/todo';
 
 const currentTodoId = (state: ?Id = null, action: TodoAction): ?Id => {
 	switch (action.type) {

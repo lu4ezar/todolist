@@ -1,21 +1,41 @@
 // @flow
-export type FilterIsActive = boolean;
-export type PriorityFilterStatus = boolean;
-export type PriorityFilterValues = 'low' | 'normal' | 'high';
-export type PriorityFilterValue = Array<PriorityFilterValues>;
-export type CompletedFilterStatus = boolean;
-export type Completed = boolean;
-export type ExpiredFilterStatus = boolean;
-export type Expired = boolean;
 
-export type FilterState = {
-	filterIsActive: FilterIsActive,
-	priorityFilterStatus: PriorityFilterStatus,
-	priorityFilterValue: PriorityFilterValue,
-	completedFilterStatus: CompletedFilterStatus,
-	completed: Completed,
-	expiredFilterStatus: ExpiredFilterStatus,
-	expired: Expired
+type FilterOn = boolean;
+type PriorityFilterValues = 'low' | 'normal' | 'high';
+type PriorityFilterValue = Array<PriorityFilterValues>;
+type CompletedFilterValue = boolean;
+type ExpiredFilterValue = boolean;
+
+export type Filters =
+	| 'filterOn'
+	| 'priorityFilterValue'
+	| 'completedFilter'
+	| 'expiredFilter';
+
+export type Filter = {
+	filterOn: FilterOn,
+	priorityFilterEnabled: boolean,
+	priorityFilter: PriorityFilterValue,
+	completedFilterEnabled: boolean,
+	completedFilter: CompletedFilterValue,
+	expiredFilterEnabled: boolean,
+	expiredFilter: ExpiredFilterValue
 };
 
-export type FilterAction = 'SHOW_ALL' | 'SHOW_COMPLETED' | 'SHOW_ACTIVE';
+export type FilterState = {
+	+filter: Filter
+};
+
+export type FilterActions = 'SET_FILTER';
+
+export type FilterValues =
+	| FilterOn
+	| PriorityFilterValue
+	| CompletedFilterValue
+	| ExpiredFilterValue;
+
+export type FilterPayload = {
+	[filter: Filters]: FilterValues
+};
+
+export type FilterAction = { type: FilterActions, payload: FilterPayload };

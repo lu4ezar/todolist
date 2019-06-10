@@ -6,7 +6,8 @@ import {
 	DELETE_TODO,
 	REORDER
 } from './actionTypes';
-import type { Id, Todo, TodosAction } from '../../types/todos';
+import type { Id, Todo } from '../../types/todo';
+import type { TodosAction } from '../../types/todos';
 import type { DropResult } from 'react-beautiful-dnd';
 
 export const addTodo = (todo: Todo): TodosAction => ({

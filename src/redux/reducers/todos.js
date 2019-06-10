@@ -6,12 +6,8 @@ import {
 	REORDER,
 	UPDATE_TODO
 } from '../actions/actionTypes';
-import type {
-	Todo as TodoType,
-	Todos,
-	Id,
-	TodosAction
-} from '../../types/todos';
+import type { Todo as TodoType, Id } from '../../types/todo';
+import type { Todos, TodosAction } from '../../types/todos';
 import { getTodosIdArray } from '../selectors';
 import type { DropResult } from 'react-beautiful-dnd';
 import undoable, { includeAction } from 'redux-undo';

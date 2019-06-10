@@ -1,8 +1,8 @@
 // @flow
 import * as React from 'react';
-import Filter from '../elements/Filter';
+import Filter from '../containers/FilterContainer';
 import Sort from '../elements/Sort';
-import UndoRedoContainer from '../containers/UndoRedoContainer';
+import UndoRedo from '../containers/UndoRedoContainer';
 import Drawer from '../elements/Drawer';
 import { Divider } from '@material-ui/core';
 
@@ -23,7 +23,7 @@ const SidePanel = ({ open, togglePanel }: Props) => {
 			<Divider />
 			<Sort />
 			<Divider />
-			<UndoRedoContainer />
+			<UndoRedo />
 		</Drawer>
 	);
 };

@@ -1,11 +1,8 @@
 // @flow
 import { loadState } from './localStorage';
 import Todo from '../Todo';
-import type {
-	Todo as TodoType,
-	Todos,
-	TodosStateWithHistory
-} from '../types/todos';
+import type { Todo as TodoType } from '../types/todo';
+import type { Todos, TodosStateWithHistory } from '../types/todos';
 import { isExpired } from '../utils/moment';
 
 /*

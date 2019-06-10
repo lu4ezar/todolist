@@ -8,7 +8,7 @@ import type {
 	CreationDate,
 	Time,
 	Todo as TodoType
-} from './types/todos';
+} from './types/todo';
 
 export default class Todo {
 	id: Id;

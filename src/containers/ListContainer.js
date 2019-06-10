@@ -7,9 +7,10 @@ import List from '../components/List';
 import type { TodosStateWithHistory } from '../types/todos';
 import type { Dispatch } from '../types';
 import { showMessage } from '../redux/actions/notification';
+import { getFilteredList } from '../redux/selectors';
 
 const mapStateToProps = (state: TodosStateWithHistory) => ({
-	todos: state.todos.present
+	todos: getFilteredList(state)
 });
 
 const showTodo = (id, mode) => {

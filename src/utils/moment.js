@@ -1,6 +1,6 @@
 // @flow
 import moment from 'moment';
-import type { Status, Todo } from '../types/todos';
+import type { Status, Todo } from '../types/todo';
 
 export const isExpired = ({ status, date, time }: Todo): Status => {
 	if (!date && !time) {

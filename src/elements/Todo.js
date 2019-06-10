@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import { Draggable } from 'react-beautiful-dnd';
 import ButtonPanel from './buttonPanel';
 import { TodoColor } from '../utils/color';
-import type { Id, Todo as TodoType } from '../types/todos';
+import type { Id, Todo as TodoType } from '../types/todo';
 import { ListItem, RootRef } from '@material-ui/core';
 
 const {

@@ -2,7 +2,7 @@
 import type { Store as ReduxStore, Dispatch as ReduxDispatch } from 'redux';
 import type { TodosStateWithHistory, TodosAction } from './todos';
 import type { FilterState, FilterAction } from './filter';
-import type { TodoState, TodoAction } from './currentTodoId';
+import type { TodoState, TodoAction } from './todo';
 import type { ModeState, ModeAction } from './mode';
 
 export type ReduxInitAction = { type: '@@INIT' };

@@ -12,3 +12,5 @@ export const SET_ID = 'SET_ID';
 // notification
 export const SHOW_NOTIFICATION = 'SHOW_NOTIFICATION';
 export const CLOSE_NOTIFICATION = 'CLOSE_NOTIFICATION';
+// filter
+export const SET_FILTER = 'SET_FILTER';
