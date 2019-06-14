@@ -11,10 +11,10 @@ type Props = {
 
 const UndoRedo = ({ canUndo, canRedo, undo, redo }: Props) => (
 	<div>
-		<Fab disabled={!canUndo} onClick={undo}>
+		<Fab disabled={!canUndo} onClick={undo} title='Undo'>
 			<Icon>undo</Icon>
 		</Fab>
-		<Fab disabled={!canRedo} onClick={redo}>
+		<Fab disabled={!canRedo} onClick={redo} title='Redo'>
 			<Icon>redo</Icon>
 		</Fab>
 	</div>

@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import CoreDrawer from '@material-ui/core/Drawer';
-import { IconButton, Divider } from '@material-ui/core';
+import { IconButton, Divider, Container } from '@material-ui/core';
 import { ListColor } from '../utils/color';
 import { ChevronLeft, ChevronRight } from '@material-ui/icons';
 
@@ -32,16 +32,14 @@ const Drawer = ({
 			<div
 				style={{
 					display: 'flex',
-					justifyContent: `${
-						side === 'left' ? 'flex-end' : 'flex-start'
-					}`,
+					justifyContent: `${side === 'left' ? 'flex-end' : 'flex-start'}`,
 					background: `${ListColor.background}`
 				}}
 			>
 				<IconButton onClick={toggleDrawer}>{Chevron}</IconButton>
 			</div>
 			<Divider />
-			{children}
+			<Container maxWidth={false}>{children}</Container>
 		</CoreDrawer>
 	);
 };

@@ -51,114 +51,109 @@ const Form = ({ todo, mode, submit, closeForm }) => {
 			: state.task && state.description;
 
 	return (
-		<div>
-			<Drawer
-				side='right'
-				open={mode !== 'list'}
-				toggleDrawer={closeForm}
-				children={
-					<form data-testid='form' id='form' onSubmit={onSubmit}>
-						<Header
-							text={`${
-								mode === 'form'
-									? 'Add new'
-									: mode.charAt(0).toUpperCase() +
-									  mode.slice(1)
-							} todo`}
+		<Drawer
+			side='right'
+			open={mode !== 'list'}
+			toggleDrawer={closeForm}
+			children={
+				<form data-testid='form' id='form' onSubmit={onSubmit}>
+					<Header
+						text={`${
+							mode === 'form'
+								? 'Add new'
+								: mode.charAt(0).toUpperCase() + mode.slice(1)
+						} todo`}
+					/>
+					<fieldset disabled={mode === 'view'}>
+						<TextField
+							id='task'
+							label='Task'
+							value={state.task}
+							onChange={onChange('task')}
+							margin='normal'
+							required
 						/>
-						<fieldset disabled={mode === 'view'}>
-							<TextField
-								id='task'
-								label='Task'
-								value={state.task}
-								onChange={onChange('task')}
-								margin='normal'
-								required
-							/>
-							<br />
-							<TextField
-								id='description'
-								label='Description'
-								multiline
-								rowsMax='4'
-								value={state.description}
-								onChange={onChange('description')}
-								margin='normal'
-								required
-							/>
-							<br />
-							<FormControl>
-								<InputLabel htmlFor='priority'>
-									Priority
-								</InputLabel>
-								<Select
-									value={state.priority || 'normal'}
-									onChange={handleSelectChange}
-									inputProps={{
-										name: 'priority',
-										id: 'priority'
-									}}
-								>
-									<MenuItem value=''>
-										<em>None</em>
-									</MenuItem>
-									<MenuItem value='low'>Low</MenuItem>
-									<MenuItem value='normal'>Normal</MenuItem>
-									<MenuItem value='high'>High</MenuItem>
-								</Select>
-							</FormControl>
-							<br />
-							<InputLabel htmlFor='date'>Date&Time:</InputLabel>
-							<TextField
-								id='date'
-								value={state.date}
-								type='date'
-								InputLabelProps={{
-									shrink: true
-								}}
-								onChange={onChange('date')}
-							/>
-							<TextField
-								id='time'
-								value={state.time}
-								type='time'
-								InputLabelProps={{
-									shrink: true
-								}}
+						<br />
+						<TextField
+							id='description'
+							label='Description'
+							multiline
+							rowsMax='4'
+							value={state.description}
+							onChange={onChange('description')}
+							margin='normal'
+							required
+						/>
+						<br />
+						<FormControl>
+							<InputLabel htmlFor='priority'>Priority</InputLabel>
+							<Select
+								value={state.priority || 'normal'}
+								onChange={handleSelectChange}
 								inputProps={{
-									step: 300
+									name: 'priority',
+									id: 'priority'
 								}}
-								onChange={onChange('time')}
-							/>
-						</fieldset>
-						<div>
-							{mode !== 'view' && (
-								<>
-									<Fab
-										color='secondary'
-										size='small'
-										onClick={clearForm}
-										disabled={!disableButtons}
-									>
-										<Icon>close</Icon>
-									</Fab>
-									<Fab
-										data-testid='submit'
-										type='submit'
-										color='primary'
-										size='small'
-										form='form'
-										disabled={!disableButtons}
-									>
-										<Icon>check</Icon>
-									</Fab>
-								</>
-							)}
-						</div>
-					</form>
-				}
-			/>
-		</div>
+							>
+								<MenuItem value=''>
+									<em>None</em>
+								</MenuItem>
+								<MenuItem value='low'>Low</MenuItem>
+								<MenuItem value='normal'>Normal</MenuItem>
+								<MenuItem value='high'>High</MenuItem>
+							</Select>
+						</FormControl>
+						<br />
+						<InputLabel htmlFor='date'>Date&Time:</InputLabel>
+						<TextField
+							id='date'
+							value={state.date}
+							type='date'
+							InputLabelProps={{
+								shrink: true
+							}}
+							onChange={onChange('date')}
+						/>
+						<TextField
+							id='time'
+							value={state.time}
+							type='time'
+							InputLabelProps={{
+								shrink: true
+							}}
+							inputProps={{
+								step: 300
+							}}
+							onChange={onChange('time')}
+						/>
+					</fieldset>
+					<div>
+						{mode !== 'view' && (
+							<>
+								<Fab
+									color='secondary'
+									size='small'
+									onClick={clearForm}
+									disabled={!disableButtons}
+								>
+									<Icon>close</Icon>
+								</Fab>
+								<Fab
+									data-testid='submit'
+									type='submit'
+									color='primary'
+									size='small'
+									form='form'
+									disabled={!disableButtons}
+								>
+									<Icon>check</Icon>
+								</Fab>
+							</>
+						)}
+					</div>
+				</form>
+			}
+		/>
 	);
 };
 

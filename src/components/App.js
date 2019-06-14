@@ -1,8 +1,7 @@
 import React from 'react';
 import AddTodoForm from '../containers/FormContainer';
 import VisibleList from '../containers/ListContainer';
-import Container from '@material-ui/core/Container';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { Container, CssBaseline } from '@material-ui/core';
 import Header from '../elements/Header';
 import Notification from '../containers/NotificationContainer';
 import SidePanel from './SidePanel';
