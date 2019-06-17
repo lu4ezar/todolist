@@ -12,7 +12,7 @@ import { getTodosIdArray } from '../selectors';
 import type { DropResult } from 'react-beautiful-dnd';
 import undoable, { includeAction } from 'redux-undo';
 
-const todos = (state: Todos = [], action: TodosAction): Todos => {
+export const todos = (state: Todos = [], action: TodosAction): Todos => {
 	switch (action.type) {
 		case ADD_TODO:
 			return [createTodo(state, action.todo), ...state];
