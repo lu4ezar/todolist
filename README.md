@@ -2,7 +2,6 @@
 
 Simple to-do list app with ReactJS.
 
-[Deprecated version - Bootstrap and no Redux](https://github.com/lu4ezar/todolist/tree/no-redux_bootstrap)
 ## Built With
 
 * [create-react-app](https://github.com/facebook/create-react-app)
