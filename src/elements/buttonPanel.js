@@ -7,10 +7,7 @@ const ButtonPanel = ({ todo, mode, toggle, deleteTodo, showTodo }) => {
 	return (
 		<Toolbar style={{ marginLeft: 'auto' }}>
 			{mode !== 'view' && (
-				<IconButton
-					title='View details'
-					onClick={() => showTodo(id, 'view')}
-				>
+				<IconButton title='View details' onClick={() => showTodo(id, 'view')}>
 					<Icon>remove_red_eye</Icon>
 				</IconButton>
 			)}

@@ -26,9 +26,7 @@ export const getInitialState = (): TodosStateWithHistory => {
 		}
 		checkForExpired(initialState);
 	} catch (err) {
-		console.log(
-			"couldn't get initial state from localStorage: " + err.message
-		);
+		console.log("couldn't get initial state from localStorage: " + err.message);
 		initialState = getTodos(3);
 	}
 	return {

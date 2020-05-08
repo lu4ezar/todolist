@@ -46,7 +46,7 @@ const PagesView = ({
 					as={DDItem}
 					key={index}
 					eventKey={index}
-					name="todosPerPage"
+					name='todosPerPage'
 					value={option}
 					active={option === todosPerPage}
 				>
@@ -63,32 +63,32 @@ const PagesView = ({
 				<>
 					<Button
 						onClick={handleChange}
-						name="pageNumber"
-						value="descPage"
+						name='pageNumber'
+						value='descPage'
 						disabled={pageNumber === 1}
 					>
 						<FontAwesomeIcon
-							icon="arrow-alt-circle-left"
-							size="2x"
+							icon='arrow-alt-circle-left'
+							size='2x'
 							style={{ pointerEvents: 'none' }}
 						/>
 					</Button>
 					<Button
 						onClick={handleChange}
-						name="pageNumber"
-						value="ascPage"
+						name='pageNumber'
+						value='ascPage'
 						disabled={pageNumber === totalPages}
 					>
 						<FontAwesomeIcon
-							icon="arrow-alt-circle-right"
-							size="2x"
+							icon='arrow-alt-circle-right'
+							size='2x'
 							style={{ pointerEvents: 'none' }}
 						/>
 					</Button>
 				</>
 			)}
 			<Dropdown as={StyledButtonGroup}>
-				<Dropdown.Toggle variant="outline-dark" id="todos per page">
+				<Dropdown.Toggle variant='outline-dark' id='todos per page'>
 					<b>{`${pageNumber}of${totalPages}`}</b>
 				</Dropdown.Toggle>
 				<Menu onClick={handleChange}>{dropdownItems}</Menu>

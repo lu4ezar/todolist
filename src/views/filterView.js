@@ -53,13 +53,13 @@ const FilterView = ({
 	expiredCount
 }) => (
 	<StyledContainer>
-		<FilterRow className="align-items-center">
-			<Label htmlFor="filterIsActive">
+		<FilterRow className='align-items-center'>
+			<Label htmlFor='filterIsActive'>
 				<b>Filter</b>
 			</Label>
-			<div className="ml-auto">
+			<div className='ml-auto'>
 				<Switch
-					id="filterIsActive"
+					id='filterIsActive'
 					state={filterIsActive}
 					onSwitch={onSwitch}
 				/>
@@ -67,13 +67,13 @@ const FilterView = ({
 		</FilterRow>
 		<FilterRow>
 			<Col>
-				<Row className="align-items-center">
-					<Label htmlFor="priorityFilterStatus">
+				<Row className='align-items-center'>
+					<Label htmlFor='priorityFilterStatus'>
 						<b>Priority</b>
 					</Label>
-					<div className="ml-auto">
+					<div className='ml-auto'>
 						<Switch
-							id="priorityFilterStatus"
+							id='priorityFilterStatus'
 							state={priorityFilterStatus}
 							disabled={!filterIsActive}
 							onSwitch={onSwitch}
@@ -81,10 +81,10 @@ const FilterView = ({
 					</div>
 				</Row>
 				<Collapse in={priorityFilterStatus && filterIsActive}>
-					<Row className="justify-content-center">
+					<Row className='justify-content-center'>
 						<Select
 							value={priorityFilterValue}
-							placeholder="Priority"
+							placeholder='Priority'
 							onChange={handleChange}
 							disabled={!filterIsActive || !priorityFilterStatus}
 							isMulti={true}
@@ -95,62 +95,60 @@ const FilterView = ({
 		</FilterRow>
 		<FilterRow>
 			<Col>
-				<Row className="justify-content-end">
-					<Label htmlFor="completedFilterStatus">
-						<b>Completed</b>{' '}
-						<Badge variant="dark">{completedCount}</Badge>
+				<Row className='justify-content-end'>
+					<Label htmlFor='completedFilterStatus'>
+						<b>Completed</b> <Badge variant='dark'>{completedCount}</Badge>
 					</Label>
 				</Row>
-				<Row className="my-2">
+				<Row className='my-2'>
 					<Switch
-						id="completedFilterStatus"
+						id='completedFilterStatus'
 						state={completedFilterStatus}
 						disabled={!filterIsActive}
 						onSwitch={onSwitch}
 						{...switchStyle}
 					/>
-					<div className="ml-auto">
+					<div className='ml-auto'>
 						<Switch
-							id="completed"
+							id='completed'
 							state={completed}
 							onSwitch={onSwitch}
 							disabled={!filterIsActive || !completedFilterStatus}
-							textLeft="hide"
-							textRight="show"
+							textLeft='hide'
+							textRight='show'
 							{...switchStyle}
 						/>
 					</div>
 				</Row>
 			</Col>
 		</FilterRow>
-		<FilterRow className="align-items-center">
+		<FilterRow className='align-items-center'>
 			<Col>
 				<Row>
-					<div className="ml-auto">
-						<Label htmlFor="completedFilterStatus">
-							<b>Expired</b>{' '}
-							<Badge variant="dark">{expiredCount}</Badge>
+					<div className='ml-auto'>
+						<Label htmlFor='completedFilterStatus'>
+							<b>Expired</b> <Badge variant='dark'>{expiredCount}</Badge>
 						</Label>
 					</div>
 				</Row>
-				<Row className="my-2">
+				<Row className='my-2'>
 					<div>
 						<Switch
-							id="expiredFilterStatus"
+							id='expiredFilterStatus'
 							state={expiredFilterStatus}
 							disabled={!filterIsActive}
 							onSwitch={onSwitch}
 							{...switchStyle}
 						/>
 					</div>
-					<div className="ml-auto">
+					<div className='ml-auto'>
 						<Switch
-							id="expired"
+							id='expired'
 							state={expired}
 							disabled={!filterIsActive || !expiredFilterStatus}
 							onSwitch={onSwitch}
-							textLeft="hide"
-							textRight="show"
+							textLeft='hide'
+							textRight='show'
 							{...switchStyle}
 						/>
 					</div>

@@ -6,16 +6,10 @@ import Col from 'react-bootstrap/Col';
 const HorizontalSplit = props => (
 	<Container>
 		<Row>
-			<Col
-				xs={{ span: 12, order: 2 }}
-				lg={{ span: 5, offset: 1, order: 1 }}
-			>
+			<Col xs={{ span: 12, order: 2 }} lg={{ span: 5, offset: 1, order: 1 }}>
 				{props.leftSide}
 			</Col>
-			<Col
-				xs={{ span: 12, order: 1 }}
-				md={{ span: 4, offset: 1, order: 2 }}
-			>
+			<Col xs={{ span: 12, order: 1 }} md={{ span: 4, offset: 1, order: 2 }}>
 				{props.rightSide}
 			</Col>
 		</Row>
