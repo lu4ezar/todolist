@@ -13,7 +13,7 @@ export const App = () => {
 	return (
 		<div>
 			<CssBaseline />
-			<Container maxWidth='sm'>
+			<Container maxWidth='lg'>
 				<Navbar onClick={togglePanel}>
 					<Header variant='h3' text='TodoApp' />
 				</Navbar>
