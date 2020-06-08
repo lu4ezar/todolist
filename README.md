@@ -9,7 +9,7 @@ Simple to-do list app with ReactJS.
 * [material-ui](https://material-ui.com/)
 * [styled-components](https://www.styled-components.com/)
 * [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
-* [flow-bin](https://github.com/flowtype/flow-bin)
+* [flow](https://flow.org)
 
 ### Getting started
 
