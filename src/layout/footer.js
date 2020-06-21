@@ -11,9 +11,9 @@ const StyledNavbar = styled(Navbar)`
 `;
 
 const StyledLink = styled.a`
-	color: '#fff',
-	background: 'transparent',
-	border: 'none'
+	color: '#fff';
+	background: 'transparent';
+	border: 'none';
 `;
 
 const Footer = () => (
