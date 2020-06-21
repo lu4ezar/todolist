@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Menu as MenuIcon, Block as BanIcon } from '@material-ui/icons';
 import styled from 'styled-components';
 import { ListColor } from '../utils/color';
 import Button from '../elements/styledButton';
@@ -23,20 +23,10 @@ const Header = props => (
 					value='form'
 					title='Add New Todo'
 				>
-					<FontAwesomeIcon
-						className='mx-2'
-						icon='plus-square'
-						size='2x'
-						style={{ pointerEvents: 'none' }}
-					/>
+					<MenuIcon />
 				</Button>
 				<Button onClick={props.clear} title='Clear List'>
-					<FontAwesomeIcon
-						className='mx-2'
-						icon='ban'
-						size='2x'
-						style={{ pointerEvents: 'none' }}
-					/>
+					<BanIcon />
 				</Button>
 			</ButtonGroup>
 		</Container>

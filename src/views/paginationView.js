@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+	KeyboardArrowLeft as LeftIcon,
+	KeyboardArrowRight as RightIcon
+} from '@material-ui/icons';
 import styled from 'styled-components';
 import { TodoColor, ListColor } from '../utils/color';
 import Button from '../elements/styledButton';
@@ -57,44 +60,24 @@ const PagesView = ({
 		return null;
 	});
 
-	return (
-		<StyledButtonGroup>
-			{totalPages > 1 && (
-				<>
-					<Button
-						onClick={handleChange}
-						name='pageNumber'
-						value='descPage'
-						disabled={pageNumber === 1}
-					>
-						<FontAwesomeIcon
-							icon='arrow-alt-circle-left'
-							size='2x'
-							style={{ pointerEvents: 'none' }}
-						/>
-					</Button>
-					<Button
-						onClick={handleChange}
-						name='pageNumber'
-						value='ascPage'
-						disabled={pageNumber === totalPages}
-					>
-						<FontAwesomeIcon
-							icon='arrow-alt-circle-right'
-							size='2x'
-							style={{ pointerEvents: 'none' }}
-						/>
-					</Button>
-				</>
-			)}
-			<Dropdown as={StyledButtonGroup}>
-				<Dropdown.Toggle variant='outline-dark' id='todos per page'>
-					<b>{`${pageNumber}of${totalPages}`}</b>
-				</Dropdown.Toggle>
-				<Menu onClick={handleChange}>{dropdownItems}</Menu>
-			</Dropdown>
-		</StyledButtonGroup>
-	);
+	<>
+		<Button
+			onClick={handleChange}
+			name='pageNumber'
+			value='descPage'
+			disabled={pageNumber === 1}
+		>
+			<LeftIcon />
+		</Button>
+		<Button
+			onClick={handleChange}
+			name='pageNumber'
+			value='ascPage'
+			disabled={pageNumber === totalPages}
+		>
+			<RightIcon />
+		</Button>
+	</>;
 };
 
 PagesView.propTypes = {

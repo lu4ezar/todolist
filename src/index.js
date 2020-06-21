@@ -5,7 +5,6 @@ import App from './components/App';
 import { Provider } from 'react-redux';
 import configureStore from './redux/configureStore';
 import type { Store } from './types';
-import './utils/fontawesome';
 import './index.css';
 import { getInitialState } from './utils/initialState';
 import { saveState } from './utils/localStorage';

@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Github as GithubIcon } from '@material-ui/icons';
 import Container from 'react-bootstrap/Container';
 import styled from 'styled-components';
 import { ListColor } from '../utils/color';
@@ -24,7 +24,7 @@ const Footer = () => (
 					href='https://github.com/lu4ezar/todolist'
 					title='Open Github page'
 				>
-					<FontAwesomeIcon icon={['fab', 'github-square']} size='2x' />
+					<GithubIcon />
 				</StyledLink>
 			</Navbar.Text>
 		</Container>
