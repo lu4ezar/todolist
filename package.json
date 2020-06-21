@@ -54,7 +54,7 @@
 	},
 	"lint-staged": {
 		"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-			"prettier --single-quote --jsx-single-quote --use-tabs --tab-width 2 --write",
+			"prettier --single-quote --jsx-single-quote --use-spaces --tab-width 2 --write",
 			"git add"
 		]
 	}
