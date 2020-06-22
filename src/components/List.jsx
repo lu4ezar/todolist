@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 // @flow
 import * as React from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
