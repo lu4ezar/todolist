@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 // @flow
 import React from "react";
 import styled, { css } from "styled-components";
@@ -10,13 +11,12 @@ import type { Id, Todo as TodoType } from "../types/todo";
 const {
   color,
   background,
-  // border,
   completedColor,
   completedBackground,
   completedBorder,
   expiredColor,
   expiredBackground,
-  expiredBorder
+  expiredBorder,
 } = TodoColor;
 
 type DesctructuringTypeAnnotation = {
@@ -24,7 +24,7 @@ type DesctructuringTypeAnnotation = {
   index: number,
   toggleTodo: (id: Id) => void,
   deleteTodo: (id: Id) => void,
-  showTodo: (id: Id, str: string) => void
+  showTodo: (id: Id, str: string) => void,
 };
 
 const StyledTodo = styled(({ isDragging, status, ...other }) => (
@@ -60,7 +60,7 @@ const Todo = ({
   index,
   toggleTodo,
   deleteTodo,
-  showTodo
+  showTodo,
 }: DesctructuringTypeAnnotation) => (
   <Draggable draggableId={todo.id.toString()} index={index}>
     {(provided, snapshot) => (
