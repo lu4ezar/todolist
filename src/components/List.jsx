@@ -1,19 +1,19 @@
 // @flow
 import * as React from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import ListItem from "../elements/Todo";
-import { ListColor } from "../utils/color";
 import styled, { type ReactComponentStyled } from "styled-components";
-import type { Todos } from "../types/todos";
 import Paper from "@material-ui/core/Paper";
 import ListMaterial from "@material-ui/core/List";
 import RootRef from "@material-ui/core/RootRef";
 import { Typography } from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
+import type { Todos } from "../types/todos";
+import { ListColor } from "../utils/color";
+import ListItem from "../elements/Todo";
 
 type StyledListPropTypes = {
-  isDraggingOver: boolean
+  isDraggingOver: boolean,
 };
 
 const StyledList: ReactComponentStyled<StyledListPropTypes> = styled(
@@ -39,7 +39,7 @@ type Props = {
   setMode: () => void,
   showMessage: (message: string) => void,
   showTodo: (id: number, mode: string) => void,
-  onDragEnd: (result: Object) => void
+  onDragEnd: (result: Object) => void,
 };
 
 const List = ({
@@ -49,13 +49,13 @@ const List = ({
   showTodo,
   onDragEnd,
   setMode,
-  showMessage
+  showMessage,
 }: Props) => {
   const content = !todos.length ? (
     <Typography variant="h4" gutterBottom>
       nothing to show
     </Typography>
-  ) : todos ? (
+  ) : (
     todos.map((todo, index) => (
       <ListItem
         key={todo.id}
@@ -66,7 +66,7 @@ const List = ({
         showTodo={showTodo}
       />
     ))
-  ) : null;
+  );
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
@@ -85,7 +85,7 @@ const List = ({
                   style={{
                     position: "absolute",
                     bottom: "1em",
-                    right: "1em"
+                    right: "1em",
                   }}
                 >
                   <AddIcon />

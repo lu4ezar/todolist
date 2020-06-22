@@ -13,7 +13,7 @@ export const isExpired = ({ status, date, time }: Todo): Status => {
     time = moment().format("HH:mm");
   }
   const now = moment();
-  if (moment(date + " " + time).isBefore(now)) {
+  if (moment(`${date  } ${  time}`).isBefore(now)) {
     return "expired";
   }
   return "active";

@@ -3,7 +3,7 @@ import { loadState } from "./localStorage";
 import Todo from "../Todo";
 import type { Todo as TodoType } from "../types/todo";
 import type { Todos, TodosStateWithHistory } from "../types/todos";
-import { isExpired } from "../utils/moment";
+import { isExpired } from "./moment";
 
 /*
 *
@@ -26,7 +26,7 @@ export const getInitialState = (): TodosStateWithHistory => {
     }
     checkForExpired(initialState);
   } catch (err) {
-    console.log("couldn't get initial state from localStorage: " + err.message);
+    console.log(`couldn't get initial state from localStorage: ${  err.message}`);
     initialState = getTodos(3);
   }
   return {
@@ -40,11 +40,11 @@ export const getInitialState = (): TodosStateWithHistory => {
 
 // get fake data
 const getTodos = (n: number): Todos => {
-  let arr = [];
+  const arr = [];
   for (let i = 0; i < n; i++) {
     const todo = new Todo();
-    todo.task = "test todo " + i;
-    todo.description = "test description " + i;
+    todo.task = `test todo ${  i}`;
+    todo.description = `test description ${  i}`;
     todo.id = i;
     arr.push(todo);
   }

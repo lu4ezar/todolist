@@ -74,7 +74,7 @@ const filterTodo = (todo: TodoType, filter): boolean => {
     expiredFilterEnabled,
     expiredFilter
   } = filter;
-  let { priority, status } = todo;
+  const { priority, status } = todo;
   let result = false;
   if (priorityFilterEnabled) {
     if (!priorityFilter.includes(priority)) {

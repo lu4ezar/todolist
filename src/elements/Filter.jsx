@@ -1,6 +1,5 @@
 // @flow
 import * as React from "react";
-import type { Filter as FilterType, FilterPayload } from "../types/filter";
 import {
   Grid,
   Switch,
@@ -12,6 +11,7 @@ import {
   Paper,
   Typography
 } from "@material-ui/core";
+import type { Filter as FilterType, FilterPayload } from "../types/filter";
 
 type Props = {
   filter: FilterType,
@@ -33,7 +33,7 @@ const Filter = (props: Props) => {
   } = props.filter;
 
   const handleChange = name => event => {
-    const target = event.target;
+    const {target} = event;
     const value = target.type === "checkbox" ? target.checked : target.value;
     setFilter({ [name]: value });
   };

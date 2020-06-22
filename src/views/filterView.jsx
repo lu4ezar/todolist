@@ -87,7 +87,7 @@ const FilterView = ({
               placeholder="Priority"
               onChange={handleChange}
               disabled={!filterIsActive || !priorityFilterStatus}
-              isMulti={true}
+              isMulti
             />
           </Row>
         </Collapse>

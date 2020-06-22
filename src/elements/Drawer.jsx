@@ -2,8 +2,8 @@
 import * as React from "react";
 import CoreDrawer from "@material-ui/core/Drawer";
 import { IconButton, Divider, Container } from "@material-ui/core";
-import { ListColor } from "../utils/color";
 import { ChevronLeft, ChevronRight } from "@material-ui/icons";
+import { ListColor } from "../utils/color";
 
 type Props = {
   side: string,

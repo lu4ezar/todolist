@@ -53,7 +53,7 @@ const PagesView = ({
           value={option}
           active={option === todosPerPage}
         >
-          {option === "all" ? option + ` (${listLength})` : option}
+          {option === "all" ? `${option  } (${listLength})` : option}
         </Dropdown.Item>
       );
     }

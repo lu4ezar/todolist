@@ -1,9 +1,9 @@
 // @flow
 import { connect } from "react-redux";
+import { ActionCreators } from "redux-undo";
 import Notification from "../elements/Notification";
 import { showMessage, closeMessage } from "../redux/actions/notification";
 import type { Dispatch } from "../types";
-import { ActionCreators } from "redux-undo";
 
 const mapStateToProps = state => ({
   notification: state.notification

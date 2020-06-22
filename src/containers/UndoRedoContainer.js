@@ -1,8 +1,8 @@
 // @flow
 import { connect } from "react-redux";
+import { ActionCreators } from "redux-undo";
 import UndoRedo from "../elements/UndoRedo";
 import type { Dispatch, State } from "../types";
-import { ActionCreators } from "redux-undo";
 
 const mapStateToProps = (state: State) => ({
   canUndo: state.todos.past.length,
