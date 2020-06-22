@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Icon, IconButton, Toolbar } from "@material-ui/core";
 
 const ButtonPanel = ({ todo, mode, toggle, deleteTodo, showTodo }) => {
@@ -34,14 +33,6 @@ const ButtonPanel = ({ todo, mode, toggle, deleteTodo, showTodo }) => {
       </IconButton>
     </Toolbar>
   );
-};
-
-ButtonPanel.propTypes = {
-  showTodo: PropTypes.func.isRequired,
-  deleteTodo: PropTypes.func.isRequired,
-  toggle: PropTypes.func.isRequired,
-  todo: PropTypes.object.isRequired,
-  mode: PropTypes.string
 };
 
 export default ButtonPanel;

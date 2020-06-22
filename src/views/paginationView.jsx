@@ -1,10 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Dropdown from "react-bootstrap/Dropdown";
 import {
   KeyboardArrowLeft as LeftIcon,
-  KeyboardArrowRight as RightIcon
+  KeyboardArrowRight as RightIcon,
 } from "@material-ui/icons";
 import styled from "styled-components";
 import { TodoColor, ListColor } from "../utils/color";
@@ -36,7 +35,7 @@ const PagesView = ({
   pageNumber,
   totalPages,
   handleChange,
-  listLength
+  listLength,
 }) => {
   const dropdownItems = options.map((option, index) => {
     if (
@@ -53,7 +52,7 @@ const PagesView = ({
           value={option}
           active={option === todosPerPage}
         >
-          {option === "all" ? `${option  } (${listLength})` : option}
+          {option === "all" ? `${option} (${listLength})` : option}
         </Dropdown.Item>
       );
     }
@@ -78,14 +77,6 @@ const PagesView = ({
       <RightIcon />
     </Button>
   </>;
-};
-
-PagesView.propTypes = {
-  todosPerPage: PropTypes.string.isRequired,
-  pageNumber: PropTypes.number.isRequired,
-  totalPages: PropTypes.number.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  listLength: PropTypes.number.isRequired
 };
 
 export default PagesView;

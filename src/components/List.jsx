@@ -12,11 +12,11 @@ import type { Todos } from "../types/todos";
 import { ListColor } from "../utils/color";
 import ListItem from "../elements/Todo";
 
-type StyledListPropTypes = {
+type StyledListType = {
   isDraggingOver: boolean,
 };
 
-const StyledList: ReactComponentStyled<StyledListPropTypes> = styled(
+const StyledList: ReactComponentStyled<StyledListType> = styled(
   ({ isDraggingOver, ...other }) => <ListMaterial {...other} />
 )`
   height: 90vh;

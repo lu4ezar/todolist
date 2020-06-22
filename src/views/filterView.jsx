@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -18,7 +17,7 @@ const switchStyle = {
   offHandleColor: `${ListColor.border}`,
   onHandleColor: `#000`,
   uncheckedIcon: false,
-  checkedIcon: false
+  checkedIcon: false,
 };
 
 const StyledContainer = styled.div`
@@ -50,7 +49,7 @@ const FilterView = ({
   onSwitch,
   handleChange,
   completedCount,
-  expiredCount
+  expiredCount,
 }) => (
   <StyledContainer>
     <FilterRow className="align-items-center">
@@ -157,19 +156,5 @@ const FilterView = ({
     </FilterRow>
   </StyledContainer>
 );
-
-FilterView.propTypes = {
-  filterIsActive: PropTypes.bool.isRequired,
-  priorityFilterStatus: PropTypes.bool.isRequired,
-  priorityFilterValue: PropTypes.array.isRequired,
-  completedFilterStatus: PropTypes.bool.isRequired,
-  completed: PropTypes.bool.isRequired,
-  expiredFilterStatus: PropTypes.bool.isRequired,
-  expired: PropTypes.bool.isRequired,
-  onSwitch: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  completedCount: PropTypes.number.isRequired,
-  expiredCount: PropTypes.number.isRequired
-};
 
 export default FilterView;
