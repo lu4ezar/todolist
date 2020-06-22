@@ -3,7 +3,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
 import { ListItem, RootRef } from "@material-ui/core";
-import ButtonPanel from "./buttonPanel";
+import ButtonPanel from "./ButtonPanel";
 import { TodoColor } from "../utils/color";
 import type { Id, Todo as TodoType } from "../types/todo";
 
