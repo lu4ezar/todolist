@@ -1,9 +1,9 @@
 // @flow
-import type { TodoAction, Id } from '../../types/todo';
+import type { TodoAction, Id } from "../../types/todo";
 
-import { SET_ID } from './actionTypes';
+import { SET_ID } from "./actionTypes";
 
 export const setTodo = (id: ?Id): TodoAction => ({
-	type: SET_ID,
-	id
+  type: SET_ID,
+  id
 });

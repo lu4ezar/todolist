@@ -1,5 +1,5 @@
-import React from 'react';
+import React from "react";
 
 export function FontAwesomeIcon(props) {
-	return <i className={`fa ${props.icon}`} />;
+  return <i className={`fa ${props.icon}`} />;
 }
