@@ -1,21 +1,22 @@
 // @flow
 import * as React from "react";
-import { Fab, Icon } from "@material-ui/core/";
+import Fab from "@material-ui/core/Fab";
+import { Undo as UndoIcon, Redo as RedoIcon } from "@material-ui/icons";
 
 type Props = {
   canUndo: boolean,
   canRedo: boolean,
   undo: () => void,
-  redo: () => void
+  redo: () => void,
 };
 
 const UndoRedo = ({ canUndo, canRedo, undo, redo }: Props) => (
   <div>
     <Fab disabled={!canUndo} onClick={undo} title="Undo">
-      <Icon>undo</Icon>
+      <UndoIcon />
     </Fab>
     <Fab disabled={!canRedo} onClick={redo} title="Redo">
-      <Icon>redo</Icon>
+      <RedoIcon />
     </Fab>
   </div>
 );

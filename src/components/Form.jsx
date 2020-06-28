@@ -6,8 +6,8 @@ import {
   InputLabel,
   MenuItem,
   Fab,
-  Icon,
 } from "@material-ui/core";
+import { Close as CloseIcon, Check as CheckIcon } from "@material-ui/icons";
 import Todo from "../Todo";
 import getExpireState from "../utils/moment";
 import Drawer from "../elements/Drawer";
@@ -145,7 +145,7 @@ const Form = ({ todo, mode, submit, closeForm }: FormProps) => {
                 onClick={clearForm}
                 disabled={!disableButtons}
               >
-                <Icon>close</Icon>
+                <CloseIcon />
               </Fab>
               <Fab
                 data-testid="submit"
@@ -155,7 +155,7 @@ const Form = ({ todo, mode, submit, closeForm }: FormProps) => {
                 form="form"
                 disabled={!disableButtons}
               >
-                <Icon>check</Icon>
+                <CheckIcon />
               </Fab>
             </>
           )}

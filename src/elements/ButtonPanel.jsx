@@ -1,6 +1,13 @@
 // @flow
 import React from "react";
-import { Icon, IconButton, Toolbar } from "@material-ui/core";
+import { IconButton, Toolbar } from "@material-ui/core";
+import {
+  RemoveRedEye as ViewIcon,
+  Edit as EditIcon,
+  CheckBox,
+  CheckBoxOutlineBlank,
+  Delete as DeleteIcon,
+} from "@material-ui/icons";
 import type { Id, Todo } from "../types/todo";
 
 type ButtonPanelProps = {
@@ -21,31 +28,25 @@ const ButtonPanel = ({
   const { id, status } = todo;
   return (
     <Toolbar style={{ marginLeft: "auto" }}>
-      {mode !== "view" && (
-        <IconButton title="View details" onClick={() => showTodo(id, "view")}>
-          <Icon>remove_red_eye</Icon>
-        </IconButton>
-      )}
+      <IconButton title="View details" onClick={() => showTodo(id, "view")}>
+        <ViewIcon />
+      </IconButton>
       <IconButton
         title="Edit"
         onClick={() => showTodo(id, "edit")}
         disabled={status === "completed"}
       >
-        <Icon>edit</Icon>
+        <EditIcon />
       </IconButton>
       <IconButton
         title="Mark as Completed"
         onClick={() => toggle(id)}
         disabled={status === "completed"}
       >
-        {status === "completed" ? (
-          <Icon>check_box</Icon>
-        ) : (
-          <Icon>check_box_outline_blank</Icon>
-        )}
+        {status === "completed" ? <CheckBox /> : <CheckBoxOutlineBlank />}
       </IconButton>
       <IconButton title="Delete Todo" onClick={() => deleteTodo(id)}>
-        <Icon>delete</Icon>
+        <DeleteIcon />
       </IconButton>
     </Toolbar>
   );
