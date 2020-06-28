@@ -69,7 +69,6 @@ const Todo = ({ todo, index, toggleTodo, deleteTodo, showTodo }: TodoProps) => (
         >
           {todo.task}
           <ButtonPanel
-            mode="view"
             todo={todo}
             toggle={toggleTodo}
             deleteTodo={deleteTodo}

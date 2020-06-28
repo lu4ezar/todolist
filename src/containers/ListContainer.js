@@ -12,6 +12,7 @@ import { getFilteredList } from "../redux/selectors";
 
 const mapStateToProps = (state: State) => ({
   todos: getFilteredList(state),
+  mode: state.mode,
 });
 
 const showTodo = (id: Id, mode: Mode) => {

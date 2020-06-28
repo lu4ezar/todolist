@@ -12,7 +12,6 @@ import type { Id, Todo } from "../types/todo";
 
 type ButtonPanelProps = {
   todo: Todo,
-  mode: ?string,
   toggle: (id: Id) => void,
   deleteTodo: (id: Id) => void,
   showTodo: (id: Id, string) => void,
@@ -20,7 +19,6 @@ type ButtonPanelProps = {
 
 const ButtonPanel = ({
   todo,
-  mode,
   toggle,
   deleteTodo,
   showTodo,
