@@ -11,6 +11,7 @@ import {
 } from "../actions/actionTypes";
 import type { Todo as TodoType, Id } from "../../types/todo";
 import type { Todos, TodosAction } from "../../types/todos";
+import getExpireState from "../../utils/moment";
 
 const reorder = (todos: Todos, startIndex, endIndex) => {
   const arr = [...todos];
@@ -44,7 +45,8 @@ const updateTodo = (todos: Todos, todo: TodoType): Todos =>
 const toggleTodo = (todos: Todos, id: Id): Todos =>
   todos.map((todo: TodoType): TodoType => {
     if (todo.id === id) {
-      todo.status = todo.status === "completed" ? "active" : "completed";
+      todo.status =
+        todo.status === "completed" ? getExpireState(todo) : "completed";
     }
     return todo;
   });
