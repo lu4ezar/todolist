@@ -29,18 +29,10 @@ const ButtonPanel = ({
       <IconButton title="View details" onClick={() => showTodo(id, "view")}>
         <ViewIcon />
       </IconButton>
-      <IconButton
-        title="Edit"
-        onClick={() => showTodo(id, "edit")}
-        disabled={status === "completed"}
-      >
+      <IconButton title="Edit" onClick={() => showTodo(id, "edit")}>
         <EditIcon />
       </IconButton>
-      <IconButton
-        title="Mark as Completed"
-        onClick={() => toggle(id)}
-        disabled={status === "completed"}
-      >
+      <IconButton title="Mark as Completed" onClick={() => toggle(id)}>
         {status === "completed" ? <CheckBox /> : <CheckBoxOutlineBlank />}
       </IconButton>
       <IconButton title="Delete Todo" onClick={() => deleteTodo(id)}>

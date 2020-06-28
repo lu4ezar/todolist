@@ -44,7 +44,7 @@ const updateTodo = (todos: Todos, todo: TodoType): Todos =>
 const toggleTodo = (todos: Todos, id: Id): Todos =>
   todos.map((todo: TodoType): TodoType => {
     if (todo.id === id) {
-      todo.status = "completed";
+      todo.status = todo.status === "completed" ? "active" : "completed";
     }
     return todo;
   });
