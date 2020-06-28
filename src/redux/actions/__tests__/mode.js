@@ -1,4 +1,4 @@
-import { setMode } from "../mode";
+import setMode from "../mode";
 import * as types from "../actionTypes";
 
 describe("mode actions", () => {
@@ -6,7 +6,7 @@ describe("mode actions", () => {
     const mode = "list";
     const expectedAction = {
       type: types.SET_MODE,
-      mode
+      mode,
     };
     expect(setMode(mode)).toEqual(expectedAction);
   });

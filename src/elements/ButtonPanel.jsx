@@ -1,15 +1,14 @@
 // @flow
 import React from "react";
 import { Icon, IconButton, Toolbar } from "@material-ui/core";
-
-import { Todo } from "../types/todo";
+import type { Id, Todo } from "../types/todo";
 
 type ButtonPanelProps = {
   todo: Todo,
-  mode: any,
-  toggle: any,
-  deleteTodo: () => void,
-  showTodo: () => void,
+  mode: ?string,
+  toggle: (id: Id) => void,
+  deleteTodo: (id: Id) => void,
+  showTodo: (id: Id, string) => void,
 };
 
 const ButtonPanel = ({

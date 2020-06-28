@@ -1,12 +1,12 @@
 import reducer from "../currentTodoId";
 import * as ActionTypes from "../../actions/actionTypes";
 
-const initialState = null;
+// const initialState = null;
 let id = 5;
 const type = ActionTypes.SET_ID;
 const action = {
   type,
-  id
+  id,
 };
 
 describe("todo reducer", () => {

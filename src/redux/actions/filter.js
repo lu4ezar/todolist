@@ -1,8 +1,10 @@
 // @flow
-import type { FilterAction, FilterPayload } from "../../types/filter";
+import type { FilterAction, ActionPayload } from "../../types/filter";
 import { SET_FILTER } from "./actionTypes";
 
-export const setFilter = (payload: FilterPayload): FilterAction => ({
+const setFilter = (payload: ActionPayload): FilterAction => ({
   type: SET_FILTER,
-  payload
+  payload,
 });
+
+export default setFilter;

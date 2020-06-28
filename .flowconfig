@@ -1,11 +1,15 @@
 [ignore]
-<PROJECT_ROOT>/node_modules/.*
+
 [include]
 
 [libs]
 flow-typed
+
 [lints]
 
 [options]
 
 [strict]
+
+[declarations]
+<PROJECT_ROOT>/node_modules/.*

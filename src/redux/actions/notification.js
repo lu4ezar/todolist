@@ -1,12 +1,16 @@
 // @flow
-import { SHOW_NOTIFICATION, CLOSE_NOTIFICATION } from "./actionTypes";
-import type { NotificationAction } from "../../types/notification";
+import { SET_NOTIFICATION, DROP_NOTIFICATION } from "./actionTypes";
+import type {
+  Notification,
+  SetNotificationAction,
+  DropNotificationAction,
+} from "../../types/notification";
 
-export const showMessage = (message: string): NotificationAction => ({
-  type: SHOW_NOTIFICATION,
-  message
+export const showMessage = (payload: Notification): SetNotificationAction => ({
+  type: SET_NOTIFICATION,
+  payload,
 });
 
-export const closeMessage = (): NotificationAction => ({
-  type: CLOSE_NOTIFICATION
+export const closeMessage = (): DropNotificationAction => ({
+  type: DROP_NOTIFICATION,
 });

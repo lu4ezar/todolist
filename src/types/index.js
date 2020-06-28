@@ -4,10 +4,15 @@ import type { TodosStateWithHistory, TodosAction } from "./todos";
 import type { FilterState, FilterAction } from "./filter";
 import type { TodoState, TodoAction } from "./todo";
 import type { ModeState, ModeAction } from "./mode";
+import type { NotificationState, NotificationAction } from "./notification";
 
 export type ReduxInitAction = { type: "@@INIT" };
 
-export type State = TodosStateWithHistory & FilterState & TodoState & ModeState;
+export type State = TodosStateWithHistory &
+  FilterState &
+  TodoState &
+  ModeState &
+  NotificationState;
 
 export type Action =
   | ReduxInitAction

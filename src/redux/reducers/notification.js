@@ -1,20 +1,22 @@
 // @flow
-import { SHOW_NOTIFICATION, CLOSE_NOTIFICATION } from "../actions/actionTypes";
+import { SET_NOTIFICATION, DROP_NOTIFICATION } from "../actions/actionTypes";
 import type {
-  NotificationState,
-  NotificationAction
+  Notification,
+  NotificationAction,
 } from "../../types/notification";
 
 const notification = (
-  state: NotificationState = { open: false, message: "" },
+  state: Notification = null,
   action: NotificationAction
-): NotificationState => {
+): Notification => {
   switch (action.type) {
-    case SHOW_NOTIFICATION:
-      return { open: true, message: action.message };
-    case CLOSE_NOTIFICATION:
-      return { open: false, message: "" };
+    case SET_NOTIFICATION:
+      return action.payload;
+    case DROP_NOTIFICATION:
+      return null;
     default:
+      // eslint-disable-next-line no-unused-expressions
+      (action: empty);
       return state;
   }
 };

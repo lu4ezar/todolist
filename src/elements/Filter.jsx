@@ -11,52 +11,67 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import type { Filter as FilterType, FilterPayload } from "../types/filter";
+import type {
+  Filter as FilterType,
+  FilterTitle,
+  FilterValue,
+  ActionPayload,
+} from "../types/filter";
 
 type Props = {
   filter: FilterType,
   completedCount: number,
   expiredCount: number,
-  setFilter: (payload: FilterPayload) => void,
+  setFilter: (payload: ActionPayload) => void,
 };
 
 const Filter = (props: Props) => {
-  const { setFilter, completedCount, expiredCount } = props;
   const {
+    setFilter,
+    completedCount,
+    expiredCount,
     filter: {
-      filterOn,
-      priorityFilter,
-      priorityFilterEnabled,
-      completedFilter,
-      completedFilterEnabled,
-      expiredFilter,
-      expiredFilterEnabled,
+      master: { status: masterFilterStatus },
+      priority: { status: priorityFilterStatus, value: priorityFilterValue },
+      completed: { status: completedFilterStatus, value: completedFilterValue },
+      expired: { status: expiredFilterStatus, value: expiredFilterValue },
     },
   } = props;
 
-  const handleChange = (name) => (event) => {
-    const { target } = event;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    setFilter({ [name]: value });
+  const handleChange = (filter: FilterTitle) => (
+    event: SyntheticInputEvent<HTMLInputElement>
+  ) => {
+    const target = event.target.type ? event.currentTarget : event.target; // MUI Select does not have currentTarget
+    const value: FilterValue =
+      target.type === "checkbox" ? target.checked : target.value;
+    const { name } = target;
+    setFilter({
+      filter,
+      property: name,
+      value,
+    });
   };
 
   return (
     <Grid container direction="column">
+      {/* master filter */}
       <Grid item>
         <FormControlLabel
           label="Filter"
           labelPlacement="top"
           control={
             <Switch
-              checked={filterOn}
-              onChange={handleChange("filterOn")}
-              value="filterOn"
+              name="status"
+              checked={masterFilterStatus}
+              onChange={handleChange("master")}
+              value={masterFilterStatus}
             />
           }
         />
       </Grid>
-      <Collapse in={filterOn}>
+      <Collapse in={masterFilterStatus}>
         <Grid container spacing={4} justify="center">
+          {/* priority filter */}
           <Grid item>
             <Paper>
               <Grid container alignItems="center" justify="center">
@@ -65,9 +80,10 @@ const Filter = (props: Props) => {
                 </Grid>
                 <Grid item>
                   <Switch
-                    checked={priorityFilterEnabled}
-                    onChange={handleChange("priorityFilterEnabled")}
-                    value="priorityFilterEnabled"
+                    name="status"
+                    checked={priorityFilterStatus}
+                    onChange={handleChange("priority")}
+                    value={priorityFilterStatus}
                   />
                 </Grid>
                 <Grid item>
@@ -81,9 +97,10 @@ const Filter = (props: Props) => {
               </Grid>
               <Grid item>
                 <Select
-                  value={priorityFilter}
-                  onChange={handleChange("priorityFilter")}
-                  disabled={!filterOn || !priorityFilterEnabled}
+                  name="value"
+                  value={priorityFilterValue}
+                  onChange={handleChange("priority")}
+                  disabled={!masterFilterStatus || !priorityFilterStatus}
                   variant="standard"
                   multiple
                 >
@@ -94,6 +111,7 @@ const Filter = (props: Props) => {
               </Grid>
             </Paper>
           </Grid>
+          {/* completed filter */}
           <Grid item>
             <Paper>
               <Grid container alignItems="center" justify="center">
@@ -102,9 +120,10 @@ const Filter = (props: Props) => {
                 </Grid>
                 <Grid item>
                   <Switch
-                    checked={completedFilterEnabled}
-                    onChange={handleChange("completedFilterEnabled")}
-                    value="completedFilterEnabled"
+                    name="status"
+                    checked={completedFilterStatus}
+                    onChange={handleChange("completed")}
+                    value="completedFilterStatus"
                   />
                 </Grid>
                 <Grid item>
@@ -124,10 +143,11 @@ const Filter = (props: Props) => {
                 </Grid>
                 <Grid item>
                   <Switch
-                    checked={completedFilter}
-                    onChange={handleChange("completedFilter")}
+                    name="value"
+                    checked={completedFilterValue}
+                    onChange={handleChange("completed")}
                     value="completedFilter"
-                    disabled={!filterOn || !completedFilterEnabled}
+                    disabled={!masterFilterStatus || !completedFilterStatus}
                   />
                 </Grid>
                 <Grid item>
@@ -136,6 +156,7 @@ const Filter = (props: Props) => {
               </Grid>
             </Paper>
           </Grid>
+          {/* expired filter */}
           <Grid item>
             <Paper>
               <Grid container alignItems="center" justify="center">
@@ -144,9 +165,10 @@ const Filter = (props: Props) => {
                 </Grid>
                 <Grid item>
                   <Switch
-                    checked={expiredFilterEnabled}
-                    onChange={handleChange("expiredFilterEnabled")}
-                    value="expiredFilterEnabled"
+                    name="status"
+                    checked={expiredFilterStatus}
+                    onChange={handleChange("expired")}
+                    value="expiredFilterStatus"
                   />
                 </Grid>
                 <Grid item>
@@ -166,10 +188,11 @@ const Filter = (props: Props) => {
                 </Grid>
                 <Grid item>
                   <Switch
-                    checked={expiredFilter}
-                    onChange={handleChange("expiredFilter")}
+                    name="value"
+                    checked={expiredFilterValue}
+                    onChange={handleChange("expired")}
                     value="expiredFilter"
-                    disabled={!filterOn || !expiredFilterEnabled}
+                    disabled={!masterFilterStatus || !expiredFilterStatus}
                   />
                 </Grid>
                 <Grid item>

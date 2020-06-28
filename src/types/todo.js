@@ -13,20 +13,20 @@ export type CreationDate = string;
 
 export type Time = string;
 
-export type Todo = {
+export type Todo = {|
   id: Id,
   task: Task,
   description: Description,
   [priority: string]: Priority,
   status: Status,
   date: CreationDate,
-  time: Time
-};
+  time: Time,
+|};
 
 export type TodoActions = "SET_ID";
 
-export type TodoState = {
-  +todo: Id
-};
+export type TodoState = {|
+  +todo: Id,
+|};
 
-export type TodoAction = { type: TodoActions, id: ?Id };
+export type TodoAction = {| type: TodoActions, id: ?Id |};

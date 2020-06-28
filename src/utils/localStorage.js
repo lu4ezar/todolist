@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // @flow
 import type { Todos } from "../types/todos";
 
@@ -11,13 +12,9 @@ export const saveState = (list: Todos) => {
 };
 
 export const loadState = (): ?Todos => {
-  try {
-    const serializedState = localStorage.getItem("todos");
-    if (serializedState == null) {
-      return undefined;
-    }
-    return JSON.parse(serializedState);
-  } catch (err) {
-    console.error("couldn't load state");
+  const serializedState = localStorage.getItem("todos");
+  if (serializedState == null) {
+    return undefined;
   }
+  return JSON.parse(serializedState);
 };

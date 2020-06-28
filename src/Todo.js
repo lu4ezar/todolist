@@ -7,17 +7,24 @@ import type {
   Status,
   CreationDate,
   Time,
-  Todo as TodoType
+  Todo as TodoType,
 } from "./types/todo";
 
 export default class Todo {
   id: Id;
+
   task: Task;
+
   description: Description;
+
   priority: Priority;
+
   status: Status;
+
   date: CreationDate;
+
   time: Time;
+
   constructor({
     id,
     task = "",
@@ -25,7 +32,7 @@ export default class Todo {
     priority = "normal",
     status = "active",
     date = "",
-    time = ""
+    time = "",
   }: TodoType = {}) {
     this.id = id;
     this.task = task;

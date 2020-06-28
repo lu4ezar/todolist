@@ -1,16 +1,19 @@
 // @flow
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/App";
 import { Provider } from "react-redux";
+import App from "./components/App";
 import configureStore from "./redux/configureStore";
 import type { Store } from "./types";
 import "./index.css";
-import { getInitialState } from "./utils/initialState";
+import getInitialState from "./utils/initialState";
 import { saveState } from "./utils/localStorage";
+
 const initialState = getInitialState();
 
-export const store: Store = configureStore(initialState);
+const store: Store = configureStore(initialState);
+
+export default store;
 
 store.subscribe(() => {
   saveState(store.getState().todos.present);
@@ -23,9 +26,9 @@ if (!element) {
 }
 
 ReactDOM.render(
-  /*<React.StrictMode>
+  /* <React.StrictMode>
 		<App />
-	</React.StrictMode>,*/
+	</React.StrictMode>, */
   <Provider store={store}>
     <App />
   </Provider>,

@@ -19,7 +19,7 @@ const {
   expiredBorder,
 } = TodoColor;
 
-type DesctructuringTypeAnnotation = {
+type TodoProps = {
   todo: TodoType,
   index: number,
   toggleTodo: (id: Id) => void,
@@ -55,13 +55,7 @@ const StyledTodo = styled(({ isDragging, status, ...other }) => (
     isDragging ? `filter: brightness(85%)` : `filter: brightness(1)`}
 `;
 
-const Todo = ({
-  todo,
-  index,
-  toggleTodo,
-  deleteTodo,
-  showTodo,
-}: DesctructuringTypeAnnotation) => (
+const Todo = ({ todo, index, toggleTodo, deleteTodo, showTodo }: TodoProps) => (
   <Draggable draggableId={todo.id.toString()} index={index}>
     {(provided, snapshot) => (
       <RootRef rootRef={provided.innerRef}>
@@ -75,6 +69,7 @@ const Todo = ({
         >
           {todo.task}
           <ButtonPanel
+            mode="view"
             todo={todo}
             toggle={toggleTodo}
             deleteTodo={deleteTodo}

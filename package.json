@@ -14,13 +14,12 @@
 		"react-dom": "^16.13.1",
 		"react-redux": "^7.2.0",
 		"react-scripts": "3.4.1",
-		"react-select": "^3.1.0",
-		"react-switch": "^5.0.1",
 		"redux": "^4.0.5",
 		"redux-thunk": "^2.3.0",
 		"redux-undo": "^1.0.1",
 		"reselect": "^4.0.0",
-		"styled-components": "^5.1.1"
+		"styled-components": "^5.1.1",
+		"uuid": "^8.2.0"
 	},
 	"scripts": {
 		"start": "react-scripts start",
@@ -29,7 +28,8 @@
 		"predeploy": "npm run build",
 		"deploy": "gh-pages -d build",
 		"eject": "react-scripts eject",
-		"lint": "eslint . && flow"
+		"flow": "flow",
+		"lint": "eslint ./src/**/*.js[x] && flow"
 	},
 	"browserslist": [
 		">0.2%",
@@ -38,13 +38,22 @@
 		"not op_mini all"
 	],
 	"devDependencies": {
+		"@babel/cli": "^7.10.3",
+		"@babel/core": "^7.10.3",
+		"@babel/preset-flow": "^7.10.1",
 		"@react-mock/localstorage": "^0.1.2",
 		"@testing-library/react": "^10.3.0",
+		"babel-eslint": "^10.1.0",
 		"babel-plugin-styled-components": "^1.10.7",
 		"eslint-config-airbnb": "^18.2.0",
 		"eslint-config-prettier": "^6.11.0",
+		"eslint-config-react-app": "^5.2.1",
+		"eslint-plugin-flowtype": "^5.1.3",
+		"eslint-plugin-import": "^2.21.2",
 		"eslint-plugin-jsx-a11y": "^6.3.1",
 		"eslint-plugin-prettier": "^3.1.4",
+		"eslint-plugin-react": "^7.20.0",
+		"eslint-plugin-react-hooks": "^4.0.4",
 		"flow-bin": "^0.127.0",
 		"flow-typed": "^3.1.0",
 		"gh-pages": "^3.1.0",
@@ -59,7 +68,7 @@
 	},
 	"lint-staged": {
 		"*.+(js|jsx)": [
-			"eslint --fix",
+			"eslint src/**/*.js[x] --fix",
 			"git add"
 		],
 		"*.+(js,jsx,json,css,md)": [

@@ -1,12 +1,18 @@
 // @flow
-export type NotificationActions = "SHOW_NOTIFICATION" | "CLOSE_NOTIFICATION";
 
-export type NotificationState = {
-  +open: boolean,
-  +message?: string
-};
+export type Notification = string | null;
 
-export type NotificationAction = {
-  type: NotificationActions,
-  message?: string
-};
+export type NotificationActionTypes = "SET_NOTIFICATION" | "DROP_NOTIFICATION";
+
+export type SetNotificationAction = {|
+  type: "SET_NOTIFICATION",
+  payload: Notification,
+|};
+
+export type DropNotificationAction = {|
+  type: "DROP_NOTIFICATION",
+|};
+
+export type NotificationAction = SetNotificationAction | DropNotificationAction;
+
+export type NotificationState = {| +notification: Notification |};

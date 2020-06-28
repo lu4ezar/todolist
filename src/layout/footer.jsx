@@ -1,7 +1,6 @@
 import React from "react";
-import Navbar from "react-bootstrap/Navbar";
+import { Navbar, Container } from "@material-ui/core";
 import { Github as GithubIcon } from "@material-ui/icons";
-import Container from "react-bootstrap/Container";
 import styled from "styled-components";
 import { ListColor } from "../utils/color";
 
@@ -19,14 +18,12 @@ const StyledLink = styled.a`
 const Footer = () => (
   <StyledNavbar>
     <Container>
-      <Navbar.Text>
-        <StyledLink
-          href="https://github.com/lu4ezar/todolist"
-          title="Open Github page"
-        >
-          <GithubIcon />
-        </StyledLink>
-      </Navbar.Text>
+      <StyledLink
+        href="https://github.com/lu4ezar/todolist"
+        title="Open Github page"
+      >
+        <GithubIcon />
+      </StyledLink>
     </Container>
   </StyledNavbar>
 );

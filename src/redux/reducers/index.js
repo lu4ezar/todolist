@@ -11,5 +11,5 @@ export default combineReducers({
   mode,
   notification,
   todo,
-  todos
+  todos,
 });

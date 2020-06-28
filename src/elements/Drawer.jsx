@@ -9,31 +9,18 @@ type Props = {
   side: string,
   open: boolean,
   toggleDrawer: () => void,
-  variant?: string,
-  children: React.Node
+  children: React.Node,
 };
 
-const Drawer = ({
-  side,
-  open,
-  toggleDrawer,
-  children,
-  variant
-}: Props): React.Node => {
+const Drawer = ({ side, open, toggleDrawer, children }: Props): React.Node => {
   const Chevron = side === "left" ? <ChevronRight /> : <ChevronLeft />;
   return (
-    <CoreDrawer
-      anchor={side}
-      open={open}
-      onClose={toggleDrawer}
-      variant={variant}
-      children={children}
-    >
+    <CoreDrawer anchor={side} open={open} onClose={toggleDrawer}>
       <div
         style={{
           display: "flex",
           justifyContent: `${side === "left" ? "flex-end" : "flex-start"}`,
-          background: `${ListColor.background}`
+          background: `${ListColor.background}`,
         }}
       >
         <IconButton onClick={toggleDrawer}>{Chevron}</IconButton>

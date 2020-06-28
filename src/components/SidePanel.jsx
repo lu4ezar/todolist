@@ -13,12 +13,7 @@ type Props = {
 
 const SidePanel = ({ open, togglePanel }: Props) => {
   return (
-    <Drawer
-      toggleDrawer={togglePanel}
-      variant="persistent"
-      side="left"
-      open={open}
-    >
+    <Drawer toggleDrawer={togglePanel} side="left" open={open}>
       <Filter />
       <Divider />
       <Sort />

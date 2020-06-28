@@ -1,14 +1,16 @@
 import * as React from "react";
-import Snackbar from "@material-ui/core/Snackbar";
-import IconButton from "@material-ui/core/IconButton";
+import { Snackbar, Button, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import Button from "@material-ui/core/Button";
 
-const Notification = ({ notification, showMessage, closeMessage, undo }) => {
-  const { open, message } = notification;
+type NotificationProps = {
+  message: string,
+  closeMessage: () => void,
+  undo: () => void,
+};
 
+const Notification = ({ message, closeMessage, undo }: NotificationProps) => {
   const handleClose = (event, reason) => {
-    if (!open) {
+    if (!message) {
       return;
     }
     if (reason === "clickaway") {
@@ -20,13 +22,13 @@ const Notification = ({ notification, showMessage, closeMessage, undo }) => {
     <Snackbar
       anchorOrigin={{
         vertical: "bottom",
-        horizontal: "left"
+        horizontal: "left",
       }}
-      open={open}
+      open={!!message}
       autoHideDuration={3000}
       onClose={handleClose}
       ContentProps={{
-        "aria-describedby": "message-id"
+        "aria-describedby": "message-id",
       }}
       message={<span id="message-id">{message}</span>}
       action={[
@@ -40,7 +42,7 @@ const Notification = ({ notification, showMessage, closeMessage, undo }) => {
           onClick={handleClose}
         >
           <CloseIcon />
-        </IconButton>
+        </IconButton>,
       ]}
     />
   );

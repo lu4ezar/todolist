@@ -1,4 +1,4 @@
-import { setTodo } from "../currentTodoId";
+import setTodo from "../currentTodoId";
 import * as types from "../actionTypes";
 
 describe("todo actions", () => {
@@ -6,7 +6,7 @@ describe("todo actions", () => {
     const id = 5;
     const expectedAction = {
       type: types.SET_ID,
-      id
+      id,
     };
     expect(setTodo(id)).toEqual(expectedAction);
   });

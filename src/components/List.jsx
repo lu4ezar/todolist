@@ -2,12 +2,15 @@
 // @flow
 import * as React from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import type { DropResult } from "react-beautiful-dnd";
 import styled, { type ReactComponentStyled } from "styled-components";
-import Paper from "@material-ui/core/Paper";
-import ListMaterial from "@material-ui/core/List";
-import RootRef from "@material-ui/core/RootRef";
-import { Typography } from "@material-ui/core";
-import Fab from "@material-ui/core/Fab";
+import {
+  Paper,
+  List as ListMui,
+  RootRef,
+  Typography,
+  Fab,
+} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import type { Todos } from "../types/todos";
 import { ListColor } from "../utils/color";
@@ -18,7 +21,7 @@ type StyledListType = {
 };
 
 const StyledList: ReactComponentStyled<StyledListType> = styled(
-  ({ isDraggingOver, ...other }) => <ListMaterial {...other} />
+  ({ isDraggingOver, ...other }) => <ListMui {...other} />
 )`
   height: 90vh;
   max-height: 90vh;
@@ -40,7 +43,7 @@ type Props = {
   setMode: () => void,
   showMessage: (message: string) => void,
   showTodo: (id: number, mode: string) => void,
-  onDragEnd: (result: Object) => void,
+  onDragEnd: (result: DropResult) => void,
 };
 
 const List = ({
@@ -50,7 +53,6 @@ const List = ({
   showTodo,
   onDragEnd,
   setMode,
-  showMessage,
 }: Props) => {
   const content = !todos.length ? (
     <Typography variant="h4" gutterBottom>
