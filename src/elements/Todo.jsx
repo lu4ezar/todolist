@@ -13,10 +13,8 @@ const {
   background,
   completedColor,
   completedBackground,
-  completedBorder,
   expiredColor,
   expiredBackground,
-  expiredBorder,
 } = TodoColor;
 
 type TodoProps = {
@@ -47,15 +45,35 @@ const StyledTodo = styled(({ isDragging, status, ...other }) => (
     status === "completed" &&
     css`
       color: ${completedColor};
-      background: ${completedBackground};
-      border-color: ${completedBorder};
+      border-color: ${completedColor};
+      position: relative;
+      overflow: hidden;
+      &::after {
+        content: "Done!";
+        position: absolute;
+        top: 60%;
+        left: 27%;
+        background-color: ${completedBackground};
+        padding: 0.5rem 1rem 1rem;
+        border-radius: 8px;
+      }
     `}
 	${({ status }) =>
     status === "expired" &&
     css`
       color: ${expiredColor};
-      background: ${expiredBackground};
-      border-color: ${expiredBorder};
+      border-color: ${expiredColor};
+      position: relative;
+      overflow: hidden;
+      &::after {
+        content: "Expired!";
+        position: absolute;
+        top: 60%;
+        left: 25%;
+        background-color: ${expiredBackground};
+        padding: 0.5rem 1rem 1rem;
+        border-radius: 8px;
+      }
     `}
 	${({ isDragging }) =>
     isDragging ? `filter: brightness(85%)` : `filter: brightness(1)`}
