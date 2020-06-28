@@ -37,14 +37,11 @@ export const getExpiredCount = createSelector(
     todos.filter((todo) => todo.status === "expired").length
 );
 
-const filterTodo = (todo: TodoType, filter): boolean => {
+const filterTodo = (todo: TodoType, filter: Filter): boolean => {
   const {
-    priorityFilterEnabled,
-    priorityFilter,
-    completedFilterEnabled,
-    completedFilter,
-    expiredFilterEnabled,
-    expiredFilter,
+    priority: { status: priorityFilterEnabled, value: priorityFilter },
+    completed: { status: completedFilterEnabled, value: completedFilter },
+    expired: { status: expiredFilterEnabled, value: expiredFilter },
   } = filter;
   const { priority, status } = todo;
   let result = false;
@@ -71,9 +68,9 @@ const filterTodo = (todo: TodoType, filter): boolean => {
 
 const filterList = (list, filter) => {
   if (
-    filter.priorityFilterEnabled ||
-    filter.completedFilterEnabled ||
-    filter.expiredFilterEnabled
+    filter.priority.status ||
+    filter.completed.status ||
+    filter.expired.status
   ) {
     return list.filter((todo) => filterTodo(todo, filter));
   }
@@ -82,6 +79,5 @@ const filterList = (list, filter) => {
 
 export const getFilteredList = createSelector(
   [getTodos, getFilter],
-  (todos, filter) =>
-    filter.masterFilterStatus ? filterList(todos, filter) : todos
+  (todos, filter) => (filter.master.status ? filterList(todos, filter) : todos)
 );
