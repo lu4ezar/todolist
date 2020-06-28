@@ -21,9 +21,7 @@ type MasterFilter = {|
 
 type PriorityFilterValues = "Low" | "Normal" | "High";
 
-type PriorityFilterValue = {
-  [value: string]: Array<PriorityFilterValues>,
-};
+type PriorityFilterValue = Array<PriorityFilterValues>;
 
 type PriorityFilter = {|
   status: FilterStatus,
