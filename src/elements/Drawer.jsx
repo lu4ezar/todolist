@@ -1,8 +1,6 @@
 // @flow
 import * as React from "react";
-import CoreDrawer from "@material-ui/core/Drawer";
-import { IconButton, Divider, Container } from "@material-ui/core";
-import { ChevronLeft, ChevronRight } from "@material-ui/icons";
+import styled from "styled-components";
 import { ListColor } from "../utils/color";
 
 type Props = {
@@ -12,23 +10,15 @@ type Props = {
   children: React.Node,
 };
 
-const Drawer = ({ side, open, toggleDrawer, children }: Props): React.Node => {
-  const Chevron = side === "left" ? <ChevronRight /> : <ChevronLeft />;
-  return (
-    <CoreDrawer anchor={side} open={open} onClose={toggleDrawer}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: `${side === "left" ? "flex-end" : "flex-start"}`,
-          background: `${ListColor.background}`,
-        }}
-      >
-        <IconButton onClick={toggleDrawer}>{Chevron}</IconButton>
-      </div>
-      <Divider />
-      <Container maxWidth={false}>{children}</Container>
-    </CoreDrawer>
-  );
-};
+const Content = styled.div`
+  display: flex;
+  justify-content: ${(props) =>
+    props.side === "left" ? "flex-end" : "flex-start"};
+  background-color: ${ListColor.background};
+`;
+
+    <Content side={side}>
+    </Content>
+    <Divider />
 
 export default Drawer;

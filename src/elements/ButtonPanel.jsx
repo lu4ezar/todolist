@@ -25,7 +25,7 @@ const ButtonPanel = ({
 }: ButtonPanelProps) => {
   const { id, status } = todo;
   return (
-    <Toolbar style={{ marginLeft: "auto" }}>
+    <Toolbar>
       <IconButton title="View details" onClick={() => showTodo(id, "view")}>
         <ViewIcon />
       </IconButton>

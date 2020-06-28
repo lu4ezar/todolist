@@ -35,6 +35,12 @@ const StyledList: ReactComponentStyled<StyledListType> = styled(
   margin: 1em auto;
 `;
 
+const StyledFab = styled(Fab)`
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+`;
+
 type Props = {
   todos: Todos,
   handleClick: (id: number) => void,
@@ -82,17 +88,9 @@ const List = ({
               >
                 {content}
                 {provided.placeholder}
-                <Fab
-                  color="secondary"
-                  onClick={setMode}
-                  style={{
-                    position: "absolute",
-                    bottom: "1em",
-                    right: "1em",
-                  }}
-                >
+                <StyledFab color="secondary" onClick={setMode}>
                   <AddIcon />
-                </Fab>
+                </StyledFab>
               </StyledList>
             </Paper>
           </RootRef>

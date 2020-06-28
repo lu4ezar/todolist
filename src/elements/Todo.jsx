@@ -37,6 +37,9 @@ const StyledTodo = styled(({ isDragging, status, ...other }) => (
 	width: 70%;
 	display: flex;
 	background: ${background};
+	& > div {
+		margin-left: auto
+	}
 	${({ status }) =>
     status === "completed" &&
     css`
