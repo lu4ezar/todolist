@@ -31,12 +31,15 @@ const StyledTodo = styled(({ isDragging, status, ...other }) => (
   <ListItem {...other} />
 ))`
 	userSelect: 'none';
+	font-weight: bold;
 	color: ${color};
 	border-bottom:1px solid silver;
-	padding: 10px;
 	width: 70%;
 	display: flex;
 	background: ${background};
+	& > span {
+		padding-left: 1.5rem;
+	}
 	& > div {
 		margin-left: auto
 	}
@@ -70,7 +73,7 @@ const Todo = ({ todo, index, toggleTodo, deleteTodo, showTodo }: TodoProps) => (
           title="DoubleClick to view details"
           onDoubleClick={() => showTodo(todo.id, "view")}
         >
-          {todo.task}
+          <span>{todo.task}</span>
           <ButtonPanel
             todo={todo}
             toggle={toggleTodo}
