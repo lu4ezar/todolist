@@ -2,12 +2,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import { ApolloProvider } from "@apollo/client";
 import App from "./components/App";
 import configureStore from "./redux/configureStore";
 import type { Store } from "./types";
 import "./index.css";
 import getInitialState from "./utils/initialState";
 import { saveState } from "./utils/localStorage";
+import client from "./graphql";
 
 const initialState = getInitialState();
 
@@ -29,8 +31,10 @@ ReactDOM.render(
   /* <React.StrictMode>
 		<App />
 	</React.StrictMode>, */
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </ApolloProvider>,
   element
 );
