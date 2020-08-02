@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: "https://todo-server-self.vercel.app/graphql",
+  uri: "https://todo-gql-server.herokuapp.com/graphql",
   cache: new InMemoryCache(),
 });
 
