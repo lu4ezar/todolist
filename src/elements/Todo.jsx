@@ -91,7 +91,7 @@ const Todo = ({ todo, index, toggleTodo, deleteTodo, showTodo }: TodoProps) => (
           title="DoubleClick to view details"
           onDoubleClick={() => showTodo(todo.id, "view")}
         >
-          <span>{todo.task}</span>
+          <span>{todo.title}</span>
           <ButtonPanel
             todo={todo}
             toggle={toggleTodo}
