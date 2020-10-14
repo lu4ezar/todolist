@@ -1,6 +1,5 @@
 // @flow
 import React from "react";
-import { IconButton, Toolbar } from "@material-ui/core";
 import {
   RemoveRedEye as ViewIcon,
   Edit as EditIcon,
@@ -8,24 +7,18 @@ import {
   CheckBoxOutlineBlank,
   Delete as DeleteIcon,
 } from "@material-ui/icons";
-import type { Id, Todo } from "../types/todo";
-
-type ButtonPanelProps = {
-  todo: Todo,
-  toggle: (id: Id) => void,
-  deleteTodo: (id: Id) => void,
-  showTodo: (id: Id, string) => void,
-};
+import { StToolbar, IconButton } from "./styles";
+import type { ButtonPanelProps } from "./types";
 
 const ButtonPanel = ({
-  todo,
+  todo: {
+    id, status
+  },
   toggle,
   deleteTodo,
   showTodo,
-}: ButtonPanelProps) => {
-  const { id, status } = todo;
-  return (
-    <Toolbar>
+}: ButtonPanelProps) => (
+    <StToolbar>
       <IconButton title="View details" onClick={() => showTodo(id, "view")}>
         <ViewIcon />
       </IconButton>
@@ -38,8 +31,7 @@ const ButtonPanel = ({
       <IconButton title="Delete Todo" onClick={() => deleteTodo(id)}>
         <DeleteIcon />
       </IconButton>
-    </Toolbar>
+    </StToolbar>
   );
-};
 
 export default ButtonPanel;
