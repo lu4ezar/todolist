@@ -12,9 +12,11 @@ import {
   Fab,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+import { useQuery } from "@apollo/client";
 import type { Todos } from "../types/todos";
 import { ListColor } from "../utils/color";
 import ListItem from "../elements/Todo";
+import GET_TODOS from "../graphql/queries";
 
 type StyledListType = {
   isDraggingOver: boolean,
@@ -42,7 +44,6 @@ const StyledFab = styled(Fab)`
 `;
 
 type Props = {
-  todos: Todos,
   handleClick: (id: number) => void,
   deleteTodo: (id: number) => void,
   toggleTodo: (id: number) => void,
@@ -53,13 +54,14 @@ type Props = {
 };
 
 const List = ({
-  todos,
   toggleTodo,
   deleteTodo,
   showTodo,
   onDragEnd,
   setMode,
 }: Props) => {
+  const { data } = useQuery(GET_TODOS);
+  const { todos = [] }: { todos: Todos } = data ?? {};
   const content = !todos.length ? (
     <Typography variant="h4" gutterBottom>
       nothing to show
