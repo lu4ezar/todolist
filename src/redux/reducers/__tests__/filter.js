@@ -2,18 +2,29 @@ import reducer from "../filter";
 import * as ActionTypes from "../../actions/actionTypes";
 
 const initialState = {
-  filterOn: false,
-  priorityFilterEnabled: false,
-  priorityFilter: ["normal"],
-  completedFilterEnabled: false,
-  completedFilter: true,
-  expiredFilterEnabled: false,
-  expiredFilter: true
+  master: {
+    status: false
+  },
+  priority: {
+    status: false,
+    value: [
+      'normal'
+    ]
+  },
+  completed: {
+    status: false,
+    value: false
+  },
+  expired: {
+    status: false,
+    value: false
+  }
 };
 
 const type = ActionTypes.SET_FILTER;
 
-const payload = { filterOn: true };
+const payload = { master: {
+	status: true }};
 
 const action = {
   type,
@@ -29,13 +40,14 @@ describe("filter reducer", () => {
 
   it("should update filter on SET_FILTER action", () => {
     const expectedState = {
-      filterOn: true,
-      priorityFilterEnabled: false,
-      priorityFilter: ["normal"],
-      completedFilterEnabled: false,
-      completedFilter: true,
-      expiredFilterEnabled: false,
-      expiredFilter: true
+	    master: {                                              status: true                                     },
+	    priority: {
+    status: false,
+    value: [                                               'normal'                                           ]                                                  },                                                   completed: {                                           status: false,                                       value: false
+  },
+  expired: {
+    status: false,                                       value: false
+  }
     };
     expect(reducer(state, action)).toEqual(expectedState);
   });
