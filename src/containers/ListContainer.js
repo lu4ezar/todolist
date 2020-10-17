@@ -28,7 +28,6 @@ const deleteTodoShowMessage = (id: Id) => (dispatch: Dispatch) => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  setMode: () => dispatch(setMode("form")),
   deleteTodo: (id) => dispatch(deleteTodoShowMessage(id)),
   toggleTodo: (id) => dispatch(toggleTodo(id)),
   showTodo: (id, mode) => dispatch(showTodo(id, mode)),

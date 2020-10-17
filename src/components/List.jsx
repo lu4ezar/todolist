@@ -4,14 +4,7 @@ import * as React from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import type { DropResult } from "react-beautiful-dnd";
 import styled, { type ReactComponentStyled } from "styled-components";
-import {
-  Paper,
-  List as ListMui,
-  RootRef,
-  Typography,
-  Fab,
-} from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
+import { Paper, List as ListMui, RootRef, Typography } from "@material-ui/core";
 import { useQuery } from "@apollo/client";
 import type { Todos } from "../types/todos";
 import { ListColor } from "../utils/color";
@@ -37,29 +30,16 @@ const StyledList: ReactComponentStyled<StyledListType> = styled(
   margin: 1em auto;
 `;
 
-const StyledFab = styled(Fab)`
-  position: absolute;
-  bottom: 1em;
-  right: 1em;
-`;
-
 type Props = {
   handleClick: (id: number) => void,
   deleteTodo: (id: number) => void,
   toggleTodo: (id: number) => void,
-  setMode: () => void,
   showMessage: (message: string) => void,
   showTodo: (id: number, mode: string) => void,
   onDragEnd: (result: DropResult) => void,
 };
 
-const List = ({
-  toggleTodo,
-  deleteTodo,
-  showTodo,
-  onDragEnd,
-  setMode,
-}: Props) => {
+const List = ({ toggleTodo, deleteTodo, showTodo, onDragEnd }: Props) => {
   const { data } = useQuery(GET_TODOS);
   const { todos = [] }: { todos: Todos } = data ?? {};
   const content = !todos.length ? (
@@ -90,9 +70,6 @@ const List = ({
               >
                 {content}
                 {provided.placeholder}
-                <StyledFab color="secondary" onClick={setMode}>
-                  <AddIcon />
-                </StyledFab>
               </StyledList>
             </Paper>
           </RootRef>

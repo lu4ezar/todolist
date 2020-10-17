@@ -6,6 +6,7 @@ import Header from "../elements/Header";
 import Notification from "../containers/NotificationContainer";
 import SidePanel from "./SidePanel";
 import Navbar from "../elements/Navbar";
+import AddButton from "../containers/AddButtonContainer";
 
 const App = () => {
   const [showPanel, toggleShowPanel] = React.useState(false);
@@ -20,6 +21,7 @@ const App = () => {
         <SidePanel open={showPanel} togglePanel={togglePanel} />
         <AddTodoForm />
         <VisibleList />
+        <AddButton />
         <Notification />
       </Container>
     </div>
