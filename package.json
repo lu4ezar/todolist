@@ -9,7 +9,6 @@
 		"@material-ui/styles": "^4.10.0",
 		"@testing-library/jest-dom": "^5.11.4",
 		"graphql": "^15.3.0",
-		"moment": "^2.27.0",
 		"moment": "^2.29.1",
 		"react": "^16.13.1",
 		"react-beautiful-dnd": "^13.0.0",
