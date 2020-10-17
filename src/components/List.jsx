@@ -4,7 +4,14 @@ import * as React from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import type { DropResult } from "react-beautiful-dnd";
 import styled, { type ReactComponentStyled } from "styled-components";
-import { Paper, List as ListMui, RootRef, Typography } from "@material-ui/core";
+import {
+  Paper,
+  List as ListMui,
+  RootRef,
+  Typography,
+  LinearProgress,
+} from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import { useQuery } from "@apollo/client";
 import type { Todos } from "../types/todos";
 import { ListColor } from "../utils/color";
@@ -40,7 +47,14 @@ type Props = {
 };
 
 const List = ({ toggleTodo, deleteTodo, showTodo, onDragEnd }: Props) => {
-  const { data } = useQuery(GET_TODOS);
+  const { data, loading, error } = useQuery(GET_TODOS);
+  if (loading) return <LinearProgress />;
+  if (error)
+    return (
+      <Alert variant="filled" severity="error">
+        Error
+      </Alert>
+    );
   const { todos = [] }: { todos: Todos } = data ?? {};
   const content = !todos.length ? (
     <Typography variant="h4" gutterBottom>
