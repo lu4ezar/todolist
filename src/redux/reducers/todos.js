@@ -9,7 +9,8 @@ import {
   REORDER,
   UPDATE_TODO,
 } from "../actions/actionTypes";
-import type { Todo as TodoType, Id } from "../../types/todo";
+// import type { Todo as TodoType, Id } from "../../types/todo";
+import type { Todo as TodoType, ID as Id } from "../../generated/graphql";
 import type { Todos, TodosAction } from "../../types/todos";
 import getExpireState from "../../utils/moment";
 
@@ -38,8 +39,7 @@ const createTodo = (todos: Todos, todo: TodoType): TodoType => ({
 });
 
 const updateTodo = (todos: Todos, todo: TodoType): Todos =>
-  todos.map((arrayItem: TodoType): TodoType =>
-    arrayItem.id === todo.id ? todo : arrayItem
+  todos.map(({id}: TodoType["ID"]): TodoType => arrayItem.id === todo.id ? { id, ...todo } : arrayItem
   );
 
 const toggleTodo = (todos: Todos, id: Id): Todos =>
@@ -51,10 +51,13 @@ const toggleTodo = (todos: Todos, id: Id): Todos =>
     return todo;
   });
 
-const deleteTodo = (todos: Todos, id: Id): Todos =>
-  todos.filter((todo) => todo.id !== id);
+const deleteTodo = (todos: Todos, id: Id): Todos => {
+	const newArr = todos.filter((todo) => todo.id !== id);
+	return newArr
 
-const todos = (state: Todos = [], action: TodosAction): Todos => {
+}
+
+export const todos = (state: Todos = [], action: TodosAction): Todos => {
   switch (action.type) {
     case ADD_TODO:
       return [createTodo(state, action.todo), ...state];
