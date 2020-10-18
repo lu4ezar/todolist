@@ -2,28 +2,25 @@ import { todos } from "../todos";
 import * as ActionTypes from "../../actions/actionTypes";
 
 const todo1 = {
-  task: "hope",
+  title: "hope",
   description: "wisdom"
 };
 const todo2 = {
-  task: "bliss",
+  title: "bliss",
   description: "glory"
 };
 const someState = [
   {
-    id: 0,
+    id: expect.anything(),
     ...todo1
   }
 ];
 const finalState = [
   {
-    id: 1,
+    id: expect.anything(),
     ...todo2
   },
-  {
-    id: 0,
-    ...todo1
-  }
+  ...someState
 ];
 
 describe("todos reducer", () => {
@@ -45,14 +42,28 @@ describe("todos reducer", () => {
     expect(todos(someState, action2)).toEqual(finalState);
   });
 
+  it("should handle UPDATE_TODO", () => {
+    const todoUpdate = {
+      // id: 0,
+      title: "updatedTask",
+      description: "updatedDescription"
+    };
+    const action = {
+      type: ActionTypes.UPDATE_TODO,
+      todo: todoUpdate
+    };
+    expect(todos(finalState, action)).toEqual([todoUpdate
+    ]);
+  });
+
   it("should handle DELETE_TODO", () => {
     const action1 = {
       type: ActionTypes.DELETE_TODO,
-      id: 1
+      id: finalState[0].id
     };
     const action2 = {
       type: ActionTypes.DELETE_TODO,
-      id: 0
+      id: someState[0].id
     };
     expect(todos(finalState, action1)).toEqual(someState);
     expect(todos(someState, action2)).toEqual([]);
@@ -61,7 +72,7 @@ describe("todos reducer", () => {
   it("should handle TOGGLE_TODO", () => {
     const todo = {
       id: 0,
-      task: "task",
+      title: "task",
       description: "desc"
     };
     const action = {
@@ -69,28 +80,12 @@ describe("todos reducer", () => {
       id: 0
     };
     expect(todos([todo], action)).toEqual([
-      { id: 0, task: "task", description: "desc", status: "completed" }
+      {
+	      id: 0,
+	      title: "task", description: "desc", status: "completed" }
     ]);
   });
 
-  it("should handle UPDATE_TODO", () => {
-    const todo = {
-      id: 0,
-      task: "updatedTask",
-      description: "updatedDescription"
-    };
-    const action = {
-      type: ActionTypes.UPDATE_TODO,
-      todo
-    };
-    expect(todos(someState, action)).toEqual([
-      {
-        id: 0,
-        task: "updatedTask",
-        description: "updatedDescription"
-      }
-    ]);
-  });
 
   it("should handle REORDER_TODO", () => {
     const result = {

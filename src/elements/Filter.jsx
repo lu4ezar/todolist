@@ -45,9 +45,6 @@ const Filter = (props: Props) => {
     const value: FilterValue =
       target.type === "checkbox" ? target.checked : target.value;
     const { name } = target;
-	  console.log(filter);
-	  console.log(name);
-	  console.log(value);
     setFilter({
       [filter]: {
         [name]: value
