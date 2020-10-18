@@ -27,11 +27,19 @@ describe("Button Panel", () => {
     expect(props.showTodo).toBeCalledWith(props.todo.id, "view");
   });
 
-  it("calls editTodo prop function", () => {             const container = render(<ButtonPanel {...props} />);                                                     const editButton = container.getByTitle(/edit/i);    fireEvent.click(editButton);                         expect(props.showTodo).toBeCalledWith(props.todo.id, "edit");
+  it("calls editTodo prop function", () => {
+    const container = render(<ButtonPanel {...props} />);
+    const editButton = container.getByTitle(/edit/i);
+    fireEvent.click(editButton);
+    expect(props.showTodo).toBeCalledWith(props.todo.id, "edit");
   });
 
-    it("calls toggleTodo prop function", () => {             const container = render(<ButtonPanel {...props} />);                                                     const toggleButton = container.getByTitle(/completed/i);
-  fireEvent.click(toggleButton);                         expect(props.toggle).toBeCalled();                      });
+  it("calls toggleTodo prop function", () => {
+    const container = render(<ButtonPanel {...props} />);
+    const toggleButton = container.getByTitle(/completed/i);
+    fireEvent.click(toggleButton);
+    expect(props.toggle).toBeCalled();
+  });
 
   it("calls deleteTodo prop function", () => {
     const container = render(<ButtonPanel {...props} />);
