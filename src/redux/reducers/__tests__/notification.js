@@ -1,28 +1,25 @@
 import reducer from "../notification";
 import * as ActionTypes from "../../actions/actionTypes";
 
-const initialState = { open: false, message: "" };
+const initialState = null;
 
 describe("notification reducer", () => {
   it("should return the initial state", () => {
     expect(reducer(undefined, {})).toEqual(initialState);
   });
 
-  it("should handle SHOW_NOTIFICATION", () => {
+  it("should handle SET_NOTIFICATION", () => {
     const action = {
-      type: ActionTypes.SHOW_NOTIFICATION,
-      message: "notice me!"
+      type: ActionTypes.SET_NOTIFICATION,
+      payload: "notice me!",
     };
-    expect(reducer(undefined, action)).toEqual({
-      open: true,
-      message: "notice me!"
-    });
+    expect(reducer(undefined, action)).toEqual("notice me!");
   });
 
-  it("should handle CLOSE_NOTIFICATION", () => {
+  it("should handle DROP_NOTIFICATION", () => {
     const action = {
-      type: ActionTypes.CLOSE_NOTIFICATION
+      type: ActionTypes.DROP_NOTIFICATION,
     };
-    expect(reducer({}, action)).toEqual({ open: false, message: "" });
+    expect(reducer({}, action)).toBeNull();
   });
 });

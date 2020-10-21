@@ -46,9 +46,9 @@ const Filter = (props: Props) => {
       target.type === "checkbox" ? target.checked : target.value;
     const { name } = target;
     setFilter({
-      filter,
-      property: name,
-      value,
+      [filter]: {
+        [name]: value,
+      },
     });
   };
 

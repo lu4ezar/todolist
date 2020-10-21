@@ -29,15 +29,11 @@ const filter = (
   action: FilterAction
 ): FilterType => {
   const { payload } = action;
-  const { filter: filterTitle, property, value } = payload || {};
   switch (action.type) {
     case SET_FILTER:
       return {
         ...state,
-        [(filterTitle: string)]: {
-          ...state[filterTitle],
-          [(property: string)]: value,
-        },
+        ...payload,
       };
     default: {
       return state;

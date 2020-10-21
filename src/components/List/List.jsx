@@ -2,51 +2,21 @@
 // @flow
 import * as React from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import type { DropResult } from "react-beautiful-dnd";
-import styled, { type ReactComponentStyled } from "styled-components";
-import {
-  Paper,
-  List as ListMui,
-  RootRef,
-  Typography,
-  LinearProgress,
-} from "@material-ui/core";
+import { RootRef, Typography, LinearProgress } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { useQuery } from "@apollo/client";
-import type { Todos } from "../types/todos";
-import { ListColor } from "../utils/color";
-import ListItem from "../elements/Todo";
-import GET_TODOS from "../graphql/queries";
+import type { Todos } from "../../types/todos";
+import ListItem from "../../elements/Todo";
+import GET_TODOS from "../../graphql/queries";
+import type { Props } from "./types";
+import { StyledPaper, StyledList } from "./styles";
 
-type StyledListType = {
-  isDraggingOver: boolean,
-};
-
-const StyledList: ReactComponentStyled<StyledListType> = styled(
-  ({ isDraggingOver, ...other }) => <ListMui {...other} />
-)`
-  height: 90vh;
-  max-height: 90vh;
-  overflow: auto;
-  transition: background 0.2s ease;
-  background: ${({ isDraggingOver }) =>
-    isDraggingOver ? ListColor.dragBackground : ListColor.background};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 1em auto;
-`;
-
-type Props = {
-  handleClick: (id: number) => void,
-  deleteTodo: (id: number) => void,
-  toggleTodo: (id: number) => void,
-  showMessage: (message: string) => void,
-  showTodo: (id: number, mode: string) => void,
-  onDragEnd: (result: DropResult) => void,
-};
-
-const List = ({ toggleTodo, deleteTodo, showTodo, onDragEnd }: Props) => {
+const List = ({
+  toggleTodo,
+  deleteTodo,
+  showTodo,
+  onDragEnd,
+}: Props): React.Node => {
   const { data, loading, error } = useQuery(GET_TODOS);
   if (loading) return <LinearProgress />;
   if (error)
@@ -77,7 +47,7 @@ const List = ({ toggleTodo, deleteTodo, showTodo, onDragEnd }: Props) => {
       <Droppable droppableId="droppable">
         {(provided, snapshot) => (
           <RootRef rootRef={provided.innerRef}>
-            <Paper>
+            <StyledPaper>
               <StyledList
                 isDraggingOver={snapshot.isDraggingOver}
                 {...provided.droppableProps}
@@ -85,7 +55,7 @@ const List = ({ toggleTodo, deleteTodo, showTodo, onDragEnd }: Props) => {
                 {content}
                 {provided.placeholder}
               </StyledList>
-            </Paper>
+            </StyledPaper>
           </RootRef>
         )}
       </Droppable>

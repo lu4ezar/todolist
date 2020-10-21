@@ -7,22 +7,8 @@ import {
   Drawer as CoreDrawer,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import styled from "styled-components";
-import { ListColor } from "../utils/color";
-
-type Props = {
-  side: string,
-  open: boolean,
-  toggleDrawer: () => void,
-  children: React.Node,
-};
-
-const Content = styled.div`
-  display: flex;
-  justify-content: ${(props) =>
-    props.side === "left" ? "flex-end" : "flex-start"};
-  background-color: ${ListColor.background};
-`;
+import Content from "./styles";
+import type { Props } from "./types";
 
 const Drawer = ({ side, open, toggleDrawer, children }: Props): React.Node => (
   <CoreDrawer anchor={side} open={open} onClose={toggleDrawer}>
@@ -32,7 +18,7 @@ const Drawer = ({ side, open, toggleDrawer, children }: Props): React.Node => (
       </IconButton>
     </Content>
     <Divider />
-    <Container maxWidth={false}>{children}</Container>
+    <Container maxWidth="sm">{children}</Container>
   </CoreDrawer>
 );
 
