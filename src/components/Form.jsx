@@ -73,6 +73,7 @@ const Form = ({ todo, mode, submit, closeForm }: FormProps) => {
               : mode.charAt(0).toUpperCase() + mode.slice(1)
           } todo`}
         />
+
         <fieldset disabled={mode === "view"}>
           <TextField
             id="task"
@@ -136,30 +137,28 @@ const Form = ({ todo, mode, submit, closeForm }: FormProps) => {
             onChange={onChange("time")}
           />
         </fieldset>
-        <div>
-          {mode !== "view" && (
-            <>
-              <Fab
-                color="secondary"
-                size="small"
-                onClick={clearForm}
-                disabled={!disableButtons}
-              >
-                <CloseIcon />
-              </Fab>
-              <Fab
-                data-testid="submit"
-                type="submit"
-                color="primary"
-                size="small"
-                form="form"
-                disabled={!disableButtons}
-              >
-                <CheckIcon />
-              </Fab>
-            </>
-          )}
-        </div>
+        {mode !== "view" && (
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Fab
+              color="secondary"
+              size="small"
+              onClick={clearForm}
+              disabled={!disableButtons}
+            >
+              <CloseIcon />
+            </Fab>
+            <Fab
+              data-testid="submit"
+              type="submit"
+              color="primary"
+              size="small"
+              form="form"
+              disabled={!disableButtons}
+            >
+              <CheckIcon />
+            </Fab>
+          </div>
+        )}
       </form>
     </Drawer>
   );
