@@ -18,7 +18,7 @@ const Drawer = ({ side, open, toggleDrawer, children }: Props): React.Node => (
       </IconButton>
     </Content>
     <Divider />
-    <Container maxWidth={false}>{children}</Container>
+    <Container maxWidth="sm">{children}</Container>
   </CoreDrawer>
 );
 
