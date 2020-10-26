@@ -9,12 +9,10 @@ import {
 } from "@material-ui/core";
 import { Close as CloseIcon, Check as CheckIcon } from "@material-ui/icons";
 import Todo from "../../Todo";
-import getExpireState from "../../utils/moment";
+import getExpireState from "../../utils/luxon";
 import Drawer from "../../elements/Drawer";
 import Header from "../../elements/Header";
 import type { Props } from "./types";
-// import { Todo as TodoType } from "../../types/todo";
-// import { Mode } from "../../types/mode";
 
 const initialState = new Todo();
 
