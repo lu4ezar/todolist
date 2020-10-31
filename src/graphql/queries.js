@@ -5,6 +5,10 @@ const GET_TODOS = gql`
     todos {
       id
       title
+      description
+      priority
+      status
+      created
     }
   }
 `;
