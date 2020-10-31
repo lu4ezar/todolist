@@ -8,7 +8,7 @@ import {
   Fab,
 } from "@material-ui/core";
 import { Close as CloseIcon, Check as CheckIcon } from "@material-ui/icons";
-import getExpireState from "../../utils/moment";
+import getExpireState from "../../utils/luxon";
 import Drawer from "../../elements/Drawer";
 import Header from "../../elements/Header";
 import type { Props } from "./types";
