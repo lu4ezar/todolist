@@ -19,7 +19,7 @@
     "redux-thunk": "2.3.0",
     "redux-undo": "1.0.1",
     "reselect": "4.0.0",
-    "styled-components": "5.2.0",
+    "styled-components": "5.2.1",
     "uuid": "8.3.1"
   },
   "scripts": {
