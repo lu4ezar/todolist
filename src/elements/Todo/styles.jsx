@@ -12,8 +12,9 @@ const {
   expiredColor,
   expiredBackground,
 } = TodoColor;
-const StyledTodo = styled(({ isDragging, status, ...other }) => (
-  <ListItem {...other} />
+
+const StyledTodo = styled(({ isDragging, status, innerRef, ...other }) => (
+  <ListItem ref={innerRef} {...other} />
 ))`
 	userSelect: 'none';
 	font-weight: bold;

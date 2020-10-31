@@ -2,7 +2,7 @@
 // @flow
 import * as React from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { RootRef, Typography, LinearProgress } from "@material-ui/core";
+import { Typography, LinearProgress } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { useQuery } from "@apollo/client";
 import type { Todos } from "../../types/todos";
@@ -46,17 +46,15 @@ const List = ({
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
         {(provided, snapshot) => (
-          <RootRef rootRef={provided.innerRef}>
-            <StyledPaper>
-              <StyledList
-                isDraggingOver={snapshot.isDraggingOver}
-                {...provided.droppableProps}
-              >
-                {content}
-                {provided.placeholder}
-              </StyledList>
-            </StyledPaper>
-          </RootRef>
+          <StyledPaper ref={provided.innerRef}>
+            <StyledList
+              isDraggingOver={snapshot.isDraggingOver}
+              {...provided.droppableProps}
+            >
+              {content}
+              {provided.placeholder}
+            </StyledList>
+          </StyledPaper>
         )}
       </Droppable>
     </DragDropContext>
