@@ -6,10 +6,10 @@ Object {
   "baseElement": <body>
     <div>
       <div
-        class="MuiToolbar-root MuiToolbar-regular sc-AxirZ dcxWqW MuiToolbar-gutters"
+        class="MuiToolbar-root MuiToolbar-regular sc-gtssRu kTCCXo MuiToolbar-gutters"
       >
         <button
-          class="MuiButtonBase-root MuiIconButton-root sc-AxjAm cvlSEL"
+          class="MuiButtonBase-root MuiIconButton-root sc-bdnylx bywLLM"
           tabindex="0"
           title="View details"
           type="button"
@@ -33,7 +33,7 @@ Object {
           />
         </button>
         <button
-          class="MuiButtonBase-root MuiIconButton-root sc-AxjAm cvlSEL"
+          class="MuiButtonBase-root MuiIconButton-root sc-bdnylx bywLLM"
           tabindex="0"
           title="Edit"
           type="button"
@@ -57,7 +57,7 @@ Object {
           />
         </button>
         <button
-          class="MuiButtonBase-root MuiIconButton-root sc-AxjAm cvlSEL"
+          class="MuiButtonBase-root MuiIconButton-root sc-bdnylx bywLLM"
           tabindex="0"
           title="Mark as Completed"
           type="button"
@@ -81,7 +81,7 @@ Object {
           />
         </button>
         <button
-          class="MuiButtonBase-root MuiIconButton-root sc-AxjAm cvlSEL"
+          class="MuiButtonBase-root MuiIconButton-root sc-bdnylx bywLLM"
           tabindex="0"
           title="Delete Todo"
           type="button"
@@ -109,10 +109,10 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="MuiToolbar-root MuiToolbar-regular sc-AxirZ dcxWqW MuiToolbar-gutters"
+      class="MuiToolbar-root MuiToolbar-regular sc-gtssRu kTCCXo MuiToolbar-gutters"
     >
       <button
-        class="MuiButtonBase-root MuiIconButton-root sc-AxjAm cvlSEL"
+        class="MuiButtonBase-root MuiIconButton-root sc-bdnylx bywLLM"
         tabindex="0"
         title="View details"
         type="button"
@@ -136,7 +136,7 @@ Object {
         />
       </button>
       <button
-        class="MuiButtonBase-root MuiIconButton-root sc-AxjAm cvlSEL"
+        class="MuiButtonBase-root MuiIconButton-root sc-bdnylx bywLLM"
         tabindex="0"
         title="Edit"
         type="button"
@@ -160,7 +160,7 @@ Object {
         />
       </button>
       <button
-        class="MuiButtonBase-root MuiIconButton-root sc-AxjAm cvlSEL"
+        class="MuiButtonBase-root MuiIconButton-root sc-bdnylx bywLLM"
         tabindex="0"
         title="Mark as Completed"
         type="button"
@@ -184,7 +184,7 @@ Object {
         />
       </button>
       <button
-        class="MuiButtonBase-root MuiIconButton-root sc-AxjAm cvlSEL"
+        class="MuiButtonBase-root MuiIconButton-root sc-bdnylx bywLLM"
         tabindex="0"
         title="Delete Todo"
         type="button"
