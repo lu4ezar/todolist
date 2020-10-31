@@ -8,10 +8,9 @@ import List from "../components/List";
 import type { Mode } from "../types/mode";
 import type { Dispatch, State } from "../types";
 import { showMessage } from "../redux/actions/notification";
-import { getFilteredList } from "../redux/selectors";
 
 const mapStateToProps = (state: State) => ({
-  todos: getFilteredList(state),
+  filter: state.filter,
   mode: state.mode,
 });
 

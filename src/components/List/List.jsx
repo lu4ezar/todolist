@@ -10,8 +10,10 @@ import ListItem from "../../elements/Todo";
 import GET_TODOS from "../../graphql/queries";
 import type { Props } from "./types";
 import { StyledPaper, StyledList } from "./styles";
+import { filterList } from "../../redux/selectors";
 
 const List = ({
+  filter,
   toggleTodo,
   deleteTodo,
   showTodo,
@@ -25,23 +27,28 @@ const List = ({
         Error
       </Alert>
     );
-  const { todos = [] }: { todos: Todos } = data ?? {};
-  const content = !todos.length ? (
-    <Typography variant="h4" gutterBottom>
-      nothing to show
-    </Typography>
-  ) : (
-    todos.map((todo, index) => (
-      <ListItem
-        key={todo.id}
-        index={index}
-        todo={todo}
-        toggleTodo={toggleTodo}
-        deleteTodo={deleteTodo}
-        showTodo={showTodo}
-      />
-    ))
-  );
+  let { todos = [] }: { todos: Todos } = data ?? {};
+  if (!todos.length) {
+    return (
+      <Typography variant="h4" gutterBottom>
+        nothing to show
+      </Typography>
+    );
+  }
+  if (filter.master.status) {
+    todos = filterList(todos, filter);
+  }
+  const content = todos.map((todo, index) => (
+    <ListItem
+      key={todo.id}
+      index={index}
+      todo={todo}
+      toggleTodo={toggleTodo}
+      deleteTodo={deleteTodo}
+      showTodo={showTodo}
+    />
+  ));
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">

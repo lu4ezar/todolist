@@ -59,7 +59,7 @@ const filterTodo = (todo: TodoType, filter: Filter): boolean => {
   return result;
 };
 
-const filterList = (list, filter) => {
+export const filterList = (list: Todos, filter: Filter): Todos => {
   if (
     filter.priority.status ||
     filter.completed.status ||
