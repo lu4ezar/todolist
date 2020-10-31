@@ -10,5 +10,4 @@ export const StToolbar = styled(Toolbar)`
   flexwrap: wrap;
   width: 20vw;
   height: 20vw;
-  border: 1px solid;
 `;

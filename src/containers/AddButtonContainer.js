@@ -8,4 +8,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   setMode: () => dispatch(setMode("form")),
 });
 
+// $FlowFixMe
 export default connect(null, mapDispatchToProps)(AddButton);

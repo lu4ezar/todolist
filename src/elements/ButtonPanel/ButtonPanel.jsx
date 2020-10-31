@@ -1,5 +1,5 @@
 // @flow
-import React from "react";
+import * as React from "react";
 import {
   RemoveRedEye as ViewIcon,
   Edit as EditIcon,
@@ -8,14 +8,15 @@ import {
   Delete as DeleteIcon,
 } from "@material-ui/icons";
 import { StToolbar, IconButton } from "./styles";
-import type { ButtonPanelProps } from "./types";
+import type { Props } from "./types";
+import { TodoStatusValues } from "../../generated/graphql";
 
 const ButtonPanel = ({
   todo: { id, status },
   toggle,
   deleteTodo,
   showTodo,
-}: ButtonPanelProps) => (
+}: Props): React.Node => (
   <StToolbar>
     <IconButton title="View details" onClick={() => showTodo(id, "view")}>
       <ViewIcon />
@@ -24,7 +25,11 @@ const ButtonPanel = ({
       <EditIcon />
     </IconButton>
     <IconButton title="Mark as Completed" onClick={() => toggle(id)}>
-      {status === "completed" ? <CheckBox /> : <CheckBoxOutlineBlank />}
+      {status === TodoStatusValues.Completed ? (
+        <CheckBox />
+      ) : (
+        <CheckBoxOutlineBlank />
+      )}
     </IconButton>
     <IconButton title="Delete Todo" onClick={() => deleteTodo(id)}>
       <DeleteIcon />

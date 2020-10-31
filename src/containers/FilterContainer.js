@@ -15,4 +15,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   setFilter: (payload) => dispatch(setFilter(payload)),
 });
 
+// $FlowFixMe
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);

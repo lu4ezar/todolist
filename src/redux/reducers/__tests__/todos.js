@@ -1,4 +1,4 @@
-import { todos } from "../todos";
+import { todosReducer as todos } from "../todos";
 import * as ActionTypes from "../../actions/actionTypes";
 
 const todo1 = {

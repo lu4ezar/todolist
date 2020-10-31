@@ -1,40 +1,33 @@
 // @flow
 import { createSelector } from "reselect";
-import type { Id, Todo as TodoType } from "../types/todo";
+import { TodoStatusValues } from "../generated/graphql";
+import type { Todo as TodoType } from "../generated/graphql";
+import type { CurrentTodoId } from "../types/currentTodoId";
 import type { Todos } from "../types/todos";
 import type { Filter } from "../types/filter";
 import type { State } from "../types";
 
-/*
-get current list, todo's id, filter state:
-*/
 const getTodos = (state: State): Todos => state.todos.present;
 
-const getId = (state: State): Id => state.todo;
+const getId = (state: State): ?CurrentTodoId => state.currentTodoId;
 
 const getFilter = (state: State): Filter => state.filter;
 
-/*
-get todo by its id
-*/
-export const getTodoById = createSelector(
+export const getTodoById: (State) => ?TodoType = createSelector(
   [getTodos, getId],
-  (todos: Todos, id: Id): ?TodoType => todos.find((todo) => todo.id === id)
+  (todos: Todos, id: ?string): ?TodoType => todos.find((t) => t.id === id)
 );
 
-/*
-get number of todos with status 'completed' and 'expired
-*/
-export const getCompletedCount = createSelector(
+export const getCompletedCount: (State) => number = createSelector(
   getTodos,
   (todos: Todos): number =>
-    todos.filter((todo) => todo.status === "completed").length
+    todos.filter((todo) => todo.status === TodoStatusValues.Completed).length
 );
 
-export const getExpiredCount = createSelector(
+export const getExpiredCount: (State) => number = createSelector(
   getTodos,
   (todos: Todos): number =>
-    todos.filter((todo) => todo.status === "expired").length
+    todos.filter((todo) => todo.status === TodoStatusValues.Expired).length
 );
 
 const filterTodo = (todo: TodoType, filter: Filter): boolean => {
@@ -52,13 +45,13 @@ const filterTodo = (todo: TodoType, filter: Filter): boolean => {
     result = true;
   }
   if (completedFilterEnabled) {
-    if (status === "completed") {
+    if (status === TodoStatusValues.Completed) {
       return completedFilter;
     }
     result = !completedFilter;
   }
   if (expiredFilterEnabled) {
-    if (status === "expired") {
+    if (status === TodoStatusValues.Expired) {
       return expiredFilter;
     }
     result = !expiredFilter;
@@ -77,7 +70,8 @@ const filterList = (list, filter) => {
   return list;
 };
 
-export const getFilteredList = createSelector(
+export const getFilteredList: (state: State) => Todos = createSelector(
   [getTodos, getFilter],
-  (todos, filter) => (filter.master.status ? filterList(todos, filter) : todos)
+  (todos, filter): Todos =>
+    filter.master.status ? filterList(todos, filter) : todos
 );

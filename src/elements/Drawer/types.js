@@ -1,4 +1,5 @@
-export React from "react";
+// @flow
+import * as React from "react";
 
 export type Props = {
   side: string,

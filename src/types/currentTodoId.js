@@ -1,5 +1,5 @@
 // @flow
-import { SET_ID } from "../redux/actions/actionTypes";
+import { SET_ID, DROP_ID } from "../redux/actions/actionTypes";
 
 export type CurrentTodoId = string | null;
 

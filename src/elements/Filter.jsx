@@ -13,10 +13,15 @@ import {
 } from "@material-ui/core";
 import type {
   Filter as FilterType,
-  FilterTitle,
+  FilterName,
   FilterValue,
+  FilterStatus,
   ActionPayload,
+  PriorityFilterValue,
+  CompletedFilterValue,
+  ExpiredFilterValue,
 } from "../types/filter";
+import { TodoPriorityValues } from "../generated/graphql";
 
 type Props = {
   filter: FilterType,
@@ -25,7 +30,7 @@ type Props = {
   setFilter: (payload: ActionPayload) => void,
 };
 
-const Filter = (props: Props) => {
+const Filter = (props: Props): React.Node => {
   const {
     setFilter,
     completedCount,
@@ -38,17 +43,28 @@ const Filter = (props: Props) => {
     },
   } = props;
 
-  const handleChange = (filter: FilterTitle) => (
+  const handleChange = (filterName: FilterName) => (
     event: SyntheticInputEvent<HTMLInputElement>
   ) => {
-    const target = event.target.type ? event.currentTarget : event.target; // MUI Select does not have currentTarget
+    // MUI Select does not have currentTarget
+    const target: HTMLInputElement = event.target.type
+      ? event.currentTarget
+      : event.target;
     const value: FilterValue =
-      target.type === "checkbox" ? target.checked : target.value;
+      target.type === "checkbox"
+        ? (target.checked:
+            | FilterStatus
+            | CompletedFilterValue
+            | ExpiredFilterValue)
+        : // $FlowFixMe
+          (target.value: PriorityFilterValue);
     const { name } = target;
+
     setFilter({
-      [filter]: {
-        [name]: value,
-      },
+      filter: filterName,
+      // $FlowFixMe
+      property: name,
+      value,
     });
   };
 
@@ -104,9 +120,9 @@ const Filter = (props: Props) => {
                   variant="standard"
                   multiple
                 >
-                  <MenuItem value="low">low</MenuItem>
-                  <MenuItem value="normal">normal</MenuItem>
-                  <MenuItem value="high">high</MenuItem>
+                  <MenuItem value={TodoPriorityValues.Low}>low</MenuItem>
+                  <MenuItem value={TodoPriorityValues.Normal}>normal</MenuItem>
+                  <MenuItem value={TodoPriorityValues.High}>high</MenuItem>
                 </Select>
               </Grid>
             </Paper>

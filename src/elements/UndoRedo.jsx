@@ -10,7 +10,7 @@ type Props = {
   redo: () => void,
 };
 
-const UndoRedo = ({ canUndo, canRedo, undo, redo }: Props) => (
+const UndoRedo = ({ canUndo, canRedo, undo, redo }: Props): React.Node => (
   <div>
     <Fab disabled={!canUndo} onClick={undo} title="Undo">
       <UndoIcon />

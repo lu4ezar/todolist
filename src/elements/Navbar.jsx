@@ -4,11 +4,10 @@ import { AppBar, Toolbar, IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
 type Props = {
-  // open: boolean,
   onClick: () => void,
   children: React.Node,
 };
-const Navbar = ({ onClick, children }: Props) => (
+const Navbar = ({ onClick, children }: Props): React.Node => (
   <AppBar position="static">
     <Toolbar>
       <IconButton

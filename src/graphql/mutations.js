@@ -10,14 +10,14 @@ export const CREATE_TODO: OperationComponent<Response> = gql`
     }
   }
 `;
-export const UPDATE_TODO = gql`
+export const UPDATE_TODO: OperationComponent<Response> = gql`
   mutation updateTodo($id: ID!, $input: UpdateTodoInput!) {
     updateTodo(id: $id, input: $input) {
       title
     }
   }
 `;
-export const DELETE_TODO = gql`
+export const DELETE_TODO: OperationComponent<Response> = gql`
   mutation deleteTodo($id: ID!) {
     deleteTodo(id: $id) {
       title

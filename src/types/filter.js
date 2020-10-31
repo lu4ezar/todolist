@@ -1,17 +1,18 @@
 // @flow
+import { TodoPriorityValues } from "../generated/graphql";
 
-type FilterStatus = boolean;
+export type FilterStatus = boolean;
 
-type MasterFilterTitle = "master";
-type PriorityFilterTitle = "priority";
-type CompletedFilterTitle = "completed";
-type ExpiredFilterTitle = "expired";
+type MasterFilterName = "master";
+type PriorityFilterName = "priority";
+type CompletedFilterName = "completed";
+type ExpiredFilterName = "expired";
 
-export type FilterTitle =
-  | MasterFilterTitle
-  | PriorityFilterTitle
-  | CompletedFilterTitle
-  | ExpiredFilterTitle;
+export type FilterName =
+  | MasterFilterName
+  | PriorityFilterName
+  | CompletedFilterName
+  | ExpiredFilterName;
 
 type FilterProperty = "status" | "value";
 
@@ -19,23 +20,26 @@ type MasterFilter = {|
   status: FilterStatus,
 |};
 
-type PriorityFilterValues = "Low" | "Normal" | "High";
+export type PriorityFilterValues =
+  | typeof TodoPriorityValues.Low
+  | typeof TodoPriorityValues.Normal
+  | typeof TodoPriorityValues.High;
 
-type PriorityFilterValue = Array<PriorityFilterValues>;
+export type PriorityFilterValue = Array<PriorityFilterValues>;
 
 type PriorityFilter = {|
   status: FilterStatus,
   [value: string]: PriorityFilterValue,
 |};
 
-type CompletedFilterValue = boolean;
+export type CompletedFilterValue = boolean;
 
 type CompletedFilter = {|
   status: FilterStatus,
   value: CompletedFilterValue,
 |};
 
-type ExpiredFilterValue = boolean;
+export type ExpiredFilterValue = boolean;
 
 type ExpiredFilter = {|
   status: FilterStatus,
@@ -58,7 +62,7 @@ export type FilterValue =
   | ExpiredFilterValue;
 
 export type ActionPayload = {|
-  filter: FilterTitle,
+  filter: FilterName,
   [property: string]: FilterProperty,
   value: FilterValue,
 |};

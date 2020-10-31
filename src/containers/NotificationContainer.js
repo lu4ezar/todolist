@@ -15,4 +15,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   closeMessage: () => dispatch(closeMessage()),
 });
 
+// $FlowFixMe
 export default connect(mapStateToProps, mapDispatchToProps)(Notification);

@@ -1,12 +1,14 @@
 // @flow
 import type { DropResult } from "react-beautiful-dnd";
+import type { Mode } from "../../types/mode";
+import type { ThunkAction } from "../../types";
 
 export type Props = {
-  handleClick: (id: number) => void,
-  deleteTodo: (id: number) => void,
-  toggleTodo: (id: number) => void,
+  handleClick: (id: string) => void,
+  deleteTodo: (id: string) => void,
+  toggleTodo: (id: string) => void,
   setMode: () => void,
-  showMessage: (message: string) => void,
-  showTodo: (id: number, mode: string) => void,
+  showMessage: (message: string) => ThunkAction,
+  showTodo: (id: string, mode: Mode) => ThunkAction,
   onDragEnd: (result: DropResult) => void,
 };
