@@ -2,9 +2,9 @@
 import type { Todo } from "../../generated/graphql";
 import type { Mode } from "../../types/mode";
 
-export type Props = {
+export type Props = {|
   todo: ?Todo,
   mode: Mode,
-  submit: () => void,
+  submit: (Todo) => void,
   closeForm: () => void,
-};
+|};
