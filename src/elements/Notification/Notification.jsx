@@ -1,14 +1,10 @@
+// @flow
 import * as React from "react";
 import { Snackbar, Button, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+import type { Props } from "./types";
 
-type NotificationProps = {
-  message: string,
-  closeMessage: () => void,
-  undo: () => void,
-};
-
-const Notification = ({ message, closeMessage, undo }: NotificationProps) => {
+const Notification = ({ message, closeMessage, undo }: Props): React.Node => {
   const handleClose = (event, reason) => {
     if (!message) {
       return;
