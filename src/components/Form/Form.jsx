@@ -1,3 +1,4 @@
+// @flow
 import * as React from "react";
 import {
   TextField,
@@ -12,11 +13,20 @@ import getExpireState from "../../utils/luxon";
 import Drawer from "../Drawer";
 import Header from "../Header";
 import type { Props } from "./types";
+import { TodoPriorityValues, TodoStatusValues } from "../../generated/graphql";
+import type { Todo } from "../../generated/graphql";
 
-const initialState = {};
+const initialState: Todo = {
+  id: "",
+  title: "",
+  description: "",
+  priority: TodoPriorityValues.Normal,
+  status: TodoStatusValues.Active,
+  created: null,
+};
 
-const Form = ({ todo, mode, submit, closeForm }: Props) => {
-  const [state, setState] = React.useState(initialState);
+const Form = ({ todo, mode, submit, closeForm }: Props): React.Node => {
+  const [state, setState] = React.useState<Todo>(initialState);
   // check if todo was set to prevent already entered form data from erasing on form close
   React.useEffect(() => {
     if (todo) {
@@ -41,8 +51,9 @@ const Form = ({ todo, mode, submit, closeForm }: Props) => {
     }
   };
 
-  const onChange = (name) => (event) => {
-    setState({ ...state, [name]: event.target.value });
+  const onChange = (name) => (event: SyntheticInputEvent<HTMLInputElement>) => {
+    // $FlowFixMe
+    setState({ ...state, [(name: string)]: event.currentTarget.value });
   };
 
   const handleSelectChange = (event) => {
@@ -52,7 +63,7 @@ const Form = ({ todo, mode, submit, closeForm }: Props) => {
   const disableButtons =
     todo && todo.id
       ? JSON.stringify(todo) !== JSON.stringify(state)
-      : state.task && state.description;
+      : state != null && state.title && state.description;
 
   return (
     <Drawer side="right" open={mode !== "list"} toggleDrawer={closeForm}>
@@ -67,10 +78,10 @@ const Form = ({ todo, mode, submit, closeForm }: Props) => {
 
         <fieldset disabled={mode === "view"}>
           <TextField
-            id="task"
-            label="Task"
-            value={state.task}
-            onChange={onChange("task")}
+            id="title"
+            label="Title"
+            value={state.title}
+            onChange={onChange("title")}
             margin="normal"
             required
           />
@@ -105,7 +116,7 @@ const Form = ({ todo, mode, submit, closeForm }: Props) => {
             </Select>
           </FormControl>
           <br />
-          <InputLabel htmlFor="date">Date&Time:</InputLabel>
+          {/* <InputLabel htmlFor="date">Date&Time:</InputLabel>
           <TextField
             id="date"
             value={state.date}
@@ -126,7 +137,7 @@ const Form = ({ todo, mode, submit, closeForm }: Props) => {
               step: 300,
             }}
             onChange={onChange("time")}
-          />
+          /> */}
         </fieldset>
         {mode !== "view" && (
           <div style={{ display: "flex", justifyContent: "space-between" }}>
