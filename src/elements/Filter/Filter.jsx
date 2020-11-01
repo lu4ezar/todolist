@@ -12,23 +12,15 @@ import {
   Typography,
 } from "@material-ui/core";
 import type {
-  Filter as FilterType,
   FilterName,
   FilterValue,
   FilterStatus,
-  ActionPayload,
   PriorityFilterValue,
   CompletedFilterValue,
   ExpiredFilterValue,
-} from "../types/filter";
-import { TodoPriorityValues } from "../generated/graphql";
-
-type Props = {
-  filter: FilterType,
-  completedCount: number,
-  expiredCount: number,
-  setFilter: (payload: ActionPayload) => void,
-};
+} from "../../types/filter";
+import { TodoPriorityValues } from "../../generated/graphql";
+import type { Props } from "./types";
 
 const Filter = (props: Props): React.Node => {
   const {
