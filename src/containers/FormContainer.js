@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { addTodo, updateTodo } from "../redux/actions/todos";
 import { dropTodo } from "../redux/actions/currentTodoId";
 import setMode from "../redux/actions/mode";
-import { getTodoById } from "../redux/selectors";
 import type { Dispatch, State } from "../types";
 import Form from "../components/Form";
 
@@ -22,7 +21,7 @@ const submit = (todo) => (dispatch) => {
 };
 
 const mapStateToProps = (state: State) => ({
-  todo: getTodoById(state),
+  id: state.currentTodoId,
   mode: state.mode,
 });
 
