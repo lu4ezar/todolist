@@ -5,7 +5,7 @@ import { Paper, List as ListMui, Fab } from "@material-ui/core";
 import { ListColor } from "../../utils/color";
 
 export const StyledPaper = styled(Paper)`
-  height: 100%;
+  height: auto;
 `;
 
 export const StyledList = styled(({ isDraggingOver, ...other }) => (
