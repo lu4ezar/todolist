@@ -1,6 +1,6 @@
 // @flow
 import { connect } from "react-redux";
-import AddButton from "../elements/AddButton";
+import AddButton from "../components/AddButton";
 import setMode from "../redux/actions/mode";
 import type { Dispatch } from "../types";
 

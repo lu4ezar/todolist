@@ -9,8 +9,8 @@ import {
 } from "@material-ui/core";
 import { Close as CloseIcon, Check as CheckIcon } from "@material-ui/icons";
 import getExpireState from "../../utils/luxon";
-import Drawer from "../../elements/Drawer";
-import Header from "../../elements/Header";
+import Drawer from "../Drawer";
+import Header from "../Header";
 import type { Props } from "./types";
 
 const initialState = {};

@@ -3,10 +3,10 @@ import * as React from "react";
 import { CssBaseline } from "@material-ui/core";
 import AddTodoForm from "../../containers/FormContainer";
 import VisibleList from "../../containers/ListContainer";
-import Header from "../../elements/Header";
+import Header from "../Header";
 import Notification from "../../containers/NotificationContainer";
 import SidePanel from "../SidePanel";
-import Navbar from "../../elements/Navbar";
+import Navbar from "../Navbar";
 import AddButton from "../../containers/AddButtonContainer";
 import { StyledApp, StyledContainer } from "./styles";
 

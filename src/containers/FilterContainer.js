@@ -1,6 +1,6 @@
 // @flow
 import { connect } from "react-redux";
-import Filter from "../elements/Filter";
+import Filter from "../components/Filter";
 import setFilter from "../redux/actions/filter";
 import type { Dispatch, State } from "../types";
 import { getCompletedCount, getExpiredCount } from "../redux/selectors";

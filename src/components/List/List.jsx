@@ -6,7 +6,7 @@ import { Typography, LinearProgress } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { useQuery } from "@apollo/client";
 import type { Todos } from "../../types/todos";
-import ListItem from "../../elements/Todo";
+import ListItem from "../Todo";
 import GET_TODOS from "../../graphql/queries";
 import type { Props } from "./types";
 import { StyledPaper, StyledList } from "./styles";
