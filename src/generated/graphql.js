@@ -219,6 +219,7 @@ export type ResolversParentTypes = {
 };
 
 export type DateTimeScalarConfig = {
+  // $FlowFixMe
   ...GraphQLScalarTypeConfig<$ElementType<ResolversTypes, "DateTime">, any>,
   name: "DateTime",
 };
@@ -303,6 +304,7 @@ export type UploadScalarConfig = {
 };
 
 export type Resolvers<ContextType = any> = {
+  // $FlowFixMe
   DateTime?: GraphQLScalarType<>,
   Todo?: TodoResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
