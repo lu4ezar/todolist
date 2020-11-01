@@ -16,24 +16,22 @@ const {
 const StyledTodo = styled(({ isDragging, status, innerRef, ...other }) => (
   <ListItem ref={innerRef} {...other} />
 ))`
-	userSelect: 'none';
-	font-weight: bold;
-	color: ${color};
-	border-bottom: 1px solid silver;
-	box-sizing: border-box;
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	background: ${background};
-	& > span {
-		padding-left: 1.5rem;
-		padding-left: 0;
-	}
-	& > div {
-		margin-left: auto
-		margin: 0;
-	}
-	${({ status }) =>
+  user-select: none;
+  font-weight: bold;
+  color: ${color};
+  border-bottom: 1px solid silver;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background: ${background};
+  & > span {
+    padding-left: 1.5rem;
+  }
+  & > div {
+    margin-left: auto;
+  }
+  ${({ status }) =>
     status === "completed" &&
     css`
       color: ${completedColor};
@@ -50,7 +48,7 @@ const StyledTodo = styled(({ isDragging, status, innerRef, ...other }) => (
         border-radius: 8px;
       }
     `}
-	${({ status }) =>
+  ${({ status }) =>
     status === "expired" &&
     css`
       color: ${expiredColor};
@@ -64,6 +62,7 @@ const StyledTodo = styled(({ isDragging, status, innerRef, ...other }) => (
         left: 25%;
         background-color: ${expiredBackground};
       }
-    `}`;
+    `}
+`;
 
 export default StyledTodo;

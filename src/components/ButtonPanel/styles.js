@@ -7,7 +7,6 @@ export const IconButton = styled(MuiBtn)`
 
 export const StToolbar = styled(Toolbar)`
   display: flex;
-  flexwrap: wrap;
-  width: 20vw;
-  height: 20vw;
+  flex-wrap: wrap;
+  max-width: 25vmin;
 `;
