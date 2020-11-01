@@ -1,6 +1,6 @@
 // @flow
 import { useQuery } from "@apollo/client";
-import GET_TODOS from "../graphql/queries";
+import GET_TODOS from "../apollo/queries";
 import type { Todos } from "../types/todos";
 
 const useGetTodos = (): { loading: boolean, error: Error, todos: Todos } => {

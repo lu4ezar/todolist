@@ -8,7 +8,7 @@ import configureStore from "./redux/configureStore";
 import type { Store } from "./types";
 import "./index.css";
 import { saveState } from "./utils/localStorage";
-import client from "./graphql";
+import client from "./apollo";
 
 const store: Store = configureStore();
 

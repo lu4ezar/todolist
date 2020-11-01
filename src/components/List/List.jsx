@@ -7,7 +7,7 @@ import { Alert } from "@material-ui/lab";
 import { useQuery } from "@apollo/client";
 import type { Todos } from "../../types/todos";
 import ListItem from "../Todo";
-import GET_TODOS from "../../graphql/queries";
+import GET_TODOS from "../../apollo/queries";
 import type { Props } from "./types";
 import { StyledPaper, StyledList } from "./styles";
 import { filterList } from "../../redux/selectors";
