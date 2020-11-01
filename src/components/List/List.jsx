@@ -28,26 +28,27 @@ const List = ({
       </Alert>
     );
   let { todos = [] }: { todos: Todos } = data ?? {};
-  if (!todos.length) {
-    return (
-      <Typography variant="h4" gutterBottom>
-        nothing to show
-      </Typography>
-    );
-  }
+
   if (filter.master.status) {
     todos = filterList(todos, filter);
   }
-  const content = todos.map((todo, index) => (
-    <ListItem
-      key={todo.id}
-      index={index}
-      todo={todo}
-      toggleTodo={toggleTodo}
-      deleteTodo={deleteTodo}
-      showTodo={showTodo}
-    />
-  ));
+
+  const content = todos.length ? (
+    todos.map((todo, index) => (
+      <ListItem
+        key={todo.id}
+        index={index}
+        todo={todo}
+        toggleTodo={toggleTodo}
+        deleteTodo={deleteTodo}
+        showTodo={showTodo}
+      />
+    ))
+  ) : (
+    <Typography variant="h4" gutterBottom>
+      nothing to show
+    </Typography>
+  );
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
