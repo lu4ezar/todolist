@@ -9,7 +9,8 @@ const props = {
 
 describe("Add Button", () => {
   it("renders as expected", () => {
-    expect(render(<AddButton {...props} />)).toMatchSnapshot();
+    const { container } = render(<AddButton {...props} />);
+    expect(container).toMatchSnapshot();
   });
   it("calls setMode prop function", () => {
     const container = render(<AddButton {...props} />);
