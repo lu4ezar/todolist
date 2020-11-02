@@ -1,11 +1,19 @@
 // @flow
-import { SET_ID } from "../actions/actionTypes";
-import type { TodoAction, Id } from "../../types/todo";
+import { DROP_ID, SET_ID } from "../actions/actionTypes";
+import type {
+  CurrentTodoIdAction,
+  CurrentTodoId,
+} from "../../types/currentTodoId";
 
-const currentTodoId = (state: ?Id = null, action: TodoAction): ?Id => {
+const currentTodoId = (
+  state: CurrentTodoId = null,
+  action: CurrentTodoIdAction
+): CurrentTodoId => {
   switch (action.type) {
     case SET_ID:
-      return action.id;
+      return action.payload;
+    case DROP_ID:
+      return null;
     default:
       return state;
   }

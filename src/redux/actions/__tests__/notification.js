@@ -6,14 +6,14 @@ describe("notification actions", () => {
     const message = "helllo!";
     const expectedAction = {
       type: types.SET_NOTIFICATION,
-      payload: message
+      payload: message,
     };
     expect(actions.showMessage(message)).toEqual(expectedAction);
   });
 
   it("closeMessage should create an action to close message", () => {
     const expectedAction = {
-      type: types.DROP_NOTIFICATION
+      type: types.DROP_NOTIFICATION,
     };
     expect(actions.closeMessage()).toEqual(expectedAction);
   });

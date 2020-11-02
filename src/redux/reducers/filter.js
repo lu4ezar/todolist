@@ -5,6 +5,7 @@ import type {
   FilterAction,
   Filter,
 } from "../../types/filter";
+import { TodoPriorityValues } from "../../generated/graphql";
 
 const initialState: Filter = {
   master: {
@@ -12,7 +13,7 @@ const initialState: Filter = {
   },
   priority: {
     status: false,
-    [("value": string)]: ["normal"],
+    value: [TodoPriorityValues.Normal],
   },
   completed: {
     status: false,
@@ -28,12 +29,16 @@ const filter = (
   state: FilterType = initialState,
   action: FilterAction
 ): FilterType => {
-  const { payload } = action;
+  const { payload } = action || {};
+  const { filter: filterName, property, value } = payload || {};
   switch (action.type) {
-	  case SET_FILTER:
+    case SET_FILTER:
       return {
         ...state,
-        ...payload
+        [(filterName: string)]: {
+          ...state[filterName],
+          [(property: string)]: value,
+        },
       };
     default: {
       return state;

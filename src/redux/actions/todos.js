@@ -7,7 +7,7 @@ import {
   DELETE_TODO,
   REORDER,
 } from "./actionTypes";
-import type { Id, Todo } from "../../types/todo";
+import type { Todo } from "../../generated/graphql";
 import type { TodosAction } from "../../types/todos";
 
 export const addTodo = (todo: Todo): TodosAction => ({
@@ -15,12 +15,12 @@ export const addTodo = (todo: Todo): TodosAction => ({
   todo,
 });
 
-export const deleteTodo = (id: Id): TodosAction => ({
+export const deleteTodo = (id: string): TodosAction => ({
   type: DELETE_TODO,
   id,
 });
 
-export const toggleTodo = (id: Id): TodosAction => ({
+export const toggleTodo = (id: string): TodosAction => ({
   type: TOGGLE_TODO,
   id,
 });

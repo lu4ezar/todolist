@@ -1,26 +1,26 @@
-import { todos } from "../todos";
+import { todosReducer as todos } from "../todos";
 import * as ActionTypes from "../../actions/actionTypes";
 
 const todo1 = {
   title: "hope",
-  description: "wisdom"
+  description: "wisdom",
 };
 const todo2 = {
   title: "bliss",
-  description: "glory"
+  description: "glory",
 };
 const someState = [
   {
     id: expect.anything(),
-    ...todo1
-  }
+    ...todo1,
+  },
 ];
 const finalState = [
   {
     id: expect.anything(),
-    ...todo2
+    ...todo2,
   },
-  ...someState
+  ...someState,
 ];
 
 describe("todos reducer", () => {
@@ -32,11 +32,11 @@ describe("todos reducer", () => {
     const type = ActionTypes.ADD_TODO;
     const action1 = {
       type,
-      todo: todo1
+      todo: todo1,
     };
     const action2 = {
       type,
-      todo: todo2
+      todo: todo2,
     };
     expect(todos([], action1)).toEqual(someState);
     expect(todos(someState, action2)).toEqual(finalState);
@@ -46,24 +46,23 @@ describe("todos reducer", () => {
     const todoUpdate = {
       // id: 0,
       title: "updatedTask",
-      description: "updatedDescription"
+      description: "updatedDescription",
     };
     const action = {
       type: ActionTypes.UPDATE_TODO,
-      todo: todoUpdate
+      todo: todoUpdate,
     };
-    expect(todos(finalState, action)).toEqual([todoUpdate
-    ]);
+    expect(todos(finalState, action)).toEqual([todoUpdate]);
   });
 
   it("should handle DELETE_TODO", () => {
     const action1 = {
       type: ActionTypes.DELETE_TODO,
-      id: finalState[0].id
+      id: finalState[0].id,
     };
     const action2 = {
       type: ActionTypes.DELETE_TODO,
-      id: someState[0].id
+      id: someState[0].id,
     };
     expect(todos(finalState, action1)).toEqual(someState);
     expect(todos(someState, action2)).toEqual([]);
@@ -73,32 +72,34 @@ describe("todos reducer", () => {
     const todo = {
       id: 0,
       title: "task",
-      description: "desc"
+      description: "desc",
     };
     const action = {
       type: ActionTypes.TOGGLE_TODO,
-      id: 0
+      id: 0,
     };
     expect(todos([todo], action)).toEqual([
       {
-	      id: 0,
-	      title: "task", description: "desc", status: "completed" }
+        id: 0,
+        title: "task",
+        description: "desc",
+        status: "completed",
+      },
     ]);
   });
-
 
   it("should handle REORDER_TODO", () => {
     const result = {
       source: {
-        index: 1
+        index: 1,
       },
       destination: {
-        index: 0
-      }
+        index: 0,
+      },
     };
     const action = {
       type: ActionTypes.REORDER_TODO,
-      result
+      result,
     };
     expect(todos(finalState, action)).toEqual([finalState[0], finalState[1]]);
   });

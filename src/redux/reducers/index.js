@@ -2,14 +2,15 @@
 import { combineReducers } from "redux";
 import todos from "./todos";
 import mode from "./mode";
-import todo from "./currentTodoId";
+import currentTodoId from "./currentTodoId";
 import notification from "./notification";
 import filter from "./filter";
 
+// $FlowFixMe
 export default combineReducers({
   filter,
   mode,
   notification,
-  todo,
+  currentTodoId,
   todos,
 });

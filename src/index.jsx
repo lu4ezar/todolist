@@ -7,13 +7,10 @@ import App from "./components/App";
 import configureStore from "./redux/configureStore";
 import type { Store } from "./types";
 import "./index.css";
-import getInitialState from "./utils/initialState";
 import { saveState } from "./utils/localStorage";
-import client from "./graphql";
+import client from "./apollo";
 
-const initialState = getInitialState();
-
-const store: Store = configureStore(initialState);
+const store: Store = configureStore();
 
 export default store;
 
@@ -28,13 +25,12 @@ if (!element) {
 }
 
 ReactDOM.render(
-  /* <React.StrictMode>
-		<App />
-	</React.StrictMode>, */
-  <ApolloProvider client={client}>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </ApolloProvider>,
+  <React.StrictMode>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ApolloProvider>
+  </React.StrictMode>,
   element
 );

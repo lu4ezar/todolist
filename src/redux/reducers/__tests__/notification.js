@@ -11,14 +11,14 @@ describe("notification reducer", () => {
   it("should handle SET_NOTIFICATION", () => {
     const action = {
       type: ActionTypes.SET_NOTIFICATION,
-      payload: "notice me!"
+      payload: "notice me!",
     };
     expect(reducer(undefined, action)).toEqual("notice me!");
   });
 
   it("should handle DROP_NOTIFICATION", () => {
     const action = {
-      type: ActionTypes.DROP_NOTIFICATION
+      type: ActionTypes.DROP_NOTIFICATION,
     };
     expect(reducer({}, action)).toBeNull();
   });

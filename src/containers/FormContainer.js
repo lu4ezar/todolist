@@ -1,32 +1,27 @@
 // @flow
 import { connect } from "react-redux";
 import { addTodo, updateTodo } from "../redux/actions/todos";
-import Form from "../components/Form";
-import setTodo from "../redux/actions/currentTodoId";
+import { dropTodo } from "../redux/actions/currentTodoId";
 import setMode from "../redux/actions/mode";
 import type { Dispatch, State } from "../types";
-import { getTodoById } from "../redux/selectors";
+import Form from "../components/Form";
 
-const closeForm = () => {
-  return (dispatch: Dispatch): void => {
-    dispatch(setTodo(null));
-    dispatch(setMode("list"));
-  };
+const closeForm = () => (dispatch) => {
+  dispatch(dropTodo());
+  dispatch(setMode("list"));
 };
 
-const submit = (todo) => {
-  return (dispatch) => {
-    if (todo.id) {
-      dispatch(updateTodo(todo));
-    } else {
-      dispatch(addTodo(todo));
-    }
-    dispatch(closeForm());
-  };
+const submit = (todo) => (dispatch) => {
+  if (todo.id) {
+    dispatch(updateTodo(todo));
+  } else {
+    dispatch(addTodo(todo));
+  }
+  closeForm();
 };
 
 const mapStateToProps = (state: State) => ({
-  todo: getTodoById(state),
+  id: state.currentTodoId,
   mode: state.mode,
 });
 
@@ -35,4 +30,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   closeForm: () => dispatch(closeForm()),
 });
 
+// $FlowFixMe
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
