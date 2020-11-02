@@ -6,7 +6,7 @@ Object {
   "baseElement": <body>
     <div>
       <div
-        class="MuiToolbar-root MuiToolbar-regular sc-gtssRu kTCCXo MuiToolbar-gutters"
+        class="MuiToolbar-root MuiToolbar-regular sc-gtssRu exUfSz MuiToolbar-gutters"
       >
         <button
           class="MuiButtonBase-root MuiIconButton-root sc-bdnylx bywLLM"
@@ -109,7 +109,7 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="MuiToolbar-root MuiToolbar-regular sc-gtssRu kTCCXo MuiToolbar-gutters"
+      class="MuiToolbar-root MuiToolbar-regular sc-gtssRu exUfSz MuiToolbar-gutters"
     >
       <button
         class="MuiButtonBase-root MuiIconButton-root sc-bdnylx bywLLM"
