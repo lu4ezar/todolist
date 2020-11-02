@@ -42,7 +42,7 @@ describe("todos reducer", () => {
     expect(todos(someState, action2)).toEqual(finalState);
   });
 
-  it("should handle UPDATE_TODO", () => {
+  xit("should handle UPDATE_TODO", () => {
     const todoUpdate = {
       // id: 0,
       title: "updatedTask",
@@ -68,7 +68,7 @@ describe("todos reducer", () => {
     expect(todos(someState, action2)).toEqual([]);
   });
 
-  it("should handle TOGGLE_TODO", () => {
+  xit("should handle TOGGLE_TODO", () => {
     const todo = {
       id: 0,
       title: "task",

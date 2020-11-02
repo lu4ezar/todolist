@@ -1,4 +1,4 @@
-import setTodo from "../currentTodoId";
+import { setTodo, dropTodo } from "../currentTodoId";
 import * as types from "../actionTypes";
 
 describe("todo actions", () => {
@@ -6,8 +6,14 @@ describe("todo actions", () => {
     const id = 5;
     const expectedAction = {
       type: types.SET_ID,
-      id,
+      payload: id,
     };
     expect(setTodo(id)).toEqual(expectedAction);
+  });
+  it("dropTodo should create an action to set todo id equal to null", () => {
+    const expectedAction = {
+      type: types.DROP_ID,
+    };
+    expect(dropTodo()).toEqual(expectedAction);
   });
 });

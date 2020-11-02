@@ -18,7 +18,8 @@ afterEach(cleanup);
 
 describe("Button Panel", () => {
   it("renders as expected", () => {
-    expect(render(<ButtonPanel {...props} />)).toMatchSnapshot();
+    const { container } = render(<ButtonPanel {...props} />);
+    expect(container).toMatchSnapshot();
   });
   it("calls showTodo prop function", () => {
     const container = render(<ButtonPanel {...props} />);
