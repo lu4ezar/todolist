@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
-import { render, fireEvent, cleanup } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import ButtonPanel from "../ButtonPanel";
 
 const props = {
@@ -13,8 +13,6 @@ const props = {
   toggle: jest.fn(),
   deleteTodo: jest.fn(),
 };
-
-afterEach(cleanup);
 
 describe("Button Panel", () => {
   it("renders as expected", () => {
