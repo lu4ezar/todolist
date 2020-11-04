@@ -3,7 +3,7 @@
 exports[`Add Button renders as expected 1`] = `
 <div>
   <button
-    class="MuiButtonBase-root MuiFab-root sc-bdnylx MuiFab-secondary"
+    class="MuiButtonBase-root MuiFab-root sc-bdfBwQ MuiFab-secondary"
     tabindex="0"
     title="add todo"
     type="button"

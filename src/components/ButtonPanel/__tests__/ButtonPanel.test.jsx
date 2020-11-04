@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import ButtonPanel from "../ButtonPanel";
 
 const props = {
@@ -20,30 +21,26 @@ describe("Button Panel", () => {
     expect(container).toMatchSnapshot();
   });
   it("calls showTodo prop function", () => {
-    const container = render(<ButtonPanel {...props} />);
-    const viewButton = container.getByTitle(/view/i);
-    fireEvent.click(viewButton);
+    render(<ButtonPanel {...props} />);
+    userEvent.click(screen.getByTitle(/view/i));
     expect(props.showTodo).toBeCalledWith(props.todo.id, "view");
   });
 
   it("calls editTodo prop function", () => {
-    const container = render(<ButtonPanel {...props} />);
-    const editButton = container.getByTitle(/edit/i);
-    fireEvent.click(editButton);
+    render(<ButtonPanel {...props} />);
+    userEvent.click(screen.getByTitle(/edit/i));
     expect(props.showTodo).toBeCalledWith(props.todo.id, "edit");
   });
 
   it("calls toggleTodo prop function", () => {
-    const container = render(<ButtonPanel {...props} />);
-    const toggleButton = container.getByTitle(/completed/i);
-    fireEvent.click(toggleButton);
+    render(<ButtonPanel {...props} />);
+    userEvent.click(screen.getByTitle(/completed/i));
     expect(props.toggle).toBeCalled();
   });
 
   it("calls deleteTodo prop function", () => {
-    const container = render(<ButtonPanel {...props} />);
-    const deleteButton = container.getByTitle(/delete/i);
-    fireEvent.click(deleteButton);
+    render(<ButtonPanel {...props} />);
+    userEvent.click(screen.getByTitle(/delete/i));
     expect(props.deleteTodo).toBeCalled();
   });
 });
