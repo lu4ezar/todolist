@@ -13,7 +13,7 @@ import type { Props } from "./types";
 const Drawer = ({ side, open, toggleDrawer, children }: Props): React.Node => (
   <CoreDrawer anchor={side} open={open} onClose={toggleDrawer}>
     <Content side={side}>
-      <IconButton onClick={toggleDrawer}>
+      <IconButton onClick={toggleDrawer} title="close">
         <CloseIcon />
       </IconButton>
     </Content>
