@@ -20,13 +20,16 @@ const List = ({
   onDragEnd,
 }: Props): React.Node => {
   const { data, loading, error } = useQuery(GET_TODOS);
+
   if (loading) return <LinearProgress />;
+
   if (error)
     return (
       <Alert variant="filled" severity="error">
         Error
       </Alert>
     );
+
   let { todos = [] }: { todos: Todos } = data ?? {};
 
   if (filter.master.status) {
@@ -47,6 +50,7 @@ const List = ({
   ) : (
     <Typography variant="h4" gutterBottom>
       nothing to show
+      {todos}
     </Typography>
   );
 

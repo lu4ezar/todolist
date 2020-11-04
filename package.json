@@ -26,6 +26,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "test:staged": "cross-env CI=true react-scripts test --coverage --env=jsdom --findRelatedTests",
     "predeploy": "npm generate && npm run build",
     "deploy": "gh-pages -d build",
     "eject": "react-scripts eject",
@@ -80,7 +81,8 @@
   },
   "lint-staged": {
     "*.+(js|jsx)": [
-      "eslint src/**/*.js[x] --fix"
+      "eslint src/**/*.js[x] --fix",
+      "npm run test:staged"
     ],
     "*.+(js|jsx|json|css|md)": [
       "prettier --write"

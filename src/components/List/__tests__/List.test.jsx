@@ -1,0 +1,87 @@
+/* eslint-disable react/jsx-props-no-spreading */
+// @flow
+import React from "react";
+import { render, screen, waitForElementToBeRemoved } from "@testing-library/react";
+import { MockedProvider } from "@apollo/client/testing";
+import List from "../List";
+import { GET_TODOS } from "../../../apollo/queries";
+import { initialState as filter } from "../../../redux/reducers/filter";
+import {
+  TodoStatusValues,
+  TodoPriorityValues,
+} from "../../../generated/graphql";
+import type { Todo } from "../../../generated/graphql";
+
+const todo1: Todo = {
+  id: "1",
+  title: "hope",
+  description: "wisdom",
+  status: TodoStatusValues.Active,
+  priority: TodoPriorityValues.Normal,
+  created: "yesterday",
+};
+const todo2 = {
+  id: "2",
+  title: "bliss",
+  description: "glory",
+  status: TodoStatusValues.Active,
+  priority: TodoPriorityValues.Normal,
+  created: "yesterday",
+};
+
+const props = {
+  deleteTodo: jest.fn(),
+  filter,
+  handleClick: jest.fn(),
+  onDragEnd: jest.fn(),
+  setMode: jest.fn(),
+  showMessage: jest.fn(),
+  showTodo: jest.fn(),
+  toggleTodo: jest.fn(),
+};
+
+const mocks = [
+  {
+    request: {
+      query: GET_TODOS,
+      variables: {},
+    },
+    result: {
+      data: {
+        todos: [todo1, todo2],
+      },
+    },
+  },
+];
+
+const renderComponent = () => {
+  return render(
+    <MockedProvider mocks={mocks} addTypename={false}>
+      <List {...props} />
+    </MockedProvider>
+  );
+};
+
+describe("List", () => {
+  it("renders in loading state initially", () => {
+    const { container} = renderComponent();
+    expect(container).toMatchSnapshot();
+    expect(screen.getByRole("progressbar")).toBeInTheDocument();
+  });
+  it("renders list of todos after loading", async () => {
+    const { container } = renderComponent();
+    await waitForElementToBeRemoved(screen.getByRole("progressbar"));
+    expect(container).toMatchSnapshot();
+    expect(screen.getByText(todo1.title)).toBeInTheDocument();
+    expect(screen.getByText(todo2.title)).toBeInTheDocument();
+  });
+  it("shows 'nothing to show' message when no todos present", () => {});
+  it("shows error message", () => {});
+  it("", () => {});
+  it("", () => {});
+  it("", () => {});
+  it("", () => {});
+  it("", () => {});
+  it("", () => {});
+  it("", () => {});
+});
