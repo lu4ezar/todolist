@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 // @flow
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitForElementToBeRemoved } from "@testing-library/react";
 import { MockedProvider } from "@apollo/client/testing";
 import List from "../List";
 import { GET_TODOS } from "../../../apollo/queries";
@@ -64,18 +64,24 @@ const renderComponent = () => {
 
 describe("List", () => {
   it("renders in loading state initially", () => {
-    const { container } = renderComponent();
+    const { container} = renderComponent();
     expect(container).toMatchSnapshot();
+    expect(screen.getByRole("progressbar")).toBeInTheDocument();
   });
   it("renders list of todos after loading", async () => {
-    const container = renderComponent();
-    // await waitFor(() => {
-    //   expect(screen.getAllByRole("listitem")).toHaveLength(2);
-    // });
-    await waitFor(() => {
-      expect(container.container).toMatchSnapshot();
-		});
-		expect(screen.getByText(todo1.title)).toBeInTheDocument();
+    const { container } = renderComponent();
+    await waitForElementToBeRemoved(screen.getByRole("progressbar"));
+    expect(container).toMatchSnapshot();
+    expect(screen.getByText(todo1.title)).toBeInTheDocument();
     expect(screen.getByText(todo2.title)).toBeInTheDocument();
   });
+  it("shows 'nothing to show' message when no todos present", () => {});
+  it("shows error message", () => {});
+  it("", () => {});
+  it("", () => {});
+  it("", () => {});
+  it("", () => {});
+  it("", () => {});
+  it("", () => {});
+  it("", () => {});
 });
