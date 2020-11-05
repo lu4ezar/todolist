@@ -1,7 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 // @flow
 import React from "react";
-import { render, screen, waitForElementToBeRemoved } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import { MockedProvider } from "@apollo/client/testing";
 import List from "../List";
 import { GET_TODOS } from "../../../apollo/queries";
@@ -29,7 +33,7 @@ const todo2 = {
   created: "yesterday",
 };
 
-const props = {
+const initialProps = {
   deleteTodo: jest.fn(),
   filter,
   handleClick: jest.fn(),
@@ -40,23 +44,21 @@ const props = {
   toggleTodo: jest.fn(),
 };
 
-const mocks = [
-  {
-    request: {
-      query: GET_TODOS,
-      variables: {},
-    },
-    result: {
-      data: {
-        todos: [todo1, todo2],
-      },
+const initialMock = {
+  request: {
+    query: GET_TODOS,
+    variables: {},
+  },
+  result: {
+    data: {
+      todos: [todo1, todo2],
     },
   },
-];
+};
 
-const renderComponent = () => {
+const renderComponent = (mocks = initialMock, props = initialProps) => {
   return render(
-    <MockedProvider mocks={mocks} addTypename={false}>
+    <MockedProvider mocks={[mocks]} addTypename={false}>
       <List {...props} />
     </MockedProvider>
   );
@@ -64,10 +66,11 @@ const renderComponent = () => {
 
 describe("List", () => {
   it("renders in loading state initially", () => {
-    const { container} = renderComponent();
+    const { container } = renderComponent();
     expect(container).toMatchSnapshot();
     expect(screen.getByRole("progressbar")).toBeInTheDocument();
   });
+
   it("renders list of todos after loading", async () => {
     const { container } = renderComponent();
     await waitForElementToBeRemoved(screen.getByRole("progressbar"));
@@ -75,13 +78,92 @@ describe("List", () => {
     expect(screen.getByText(todo1.title)).toBeInTheDocument();
     expect(screen.getByText(todo2.title)).toBeInTheDocument();
   });
-  it("shows 'nothing to show' message when no todos present", () => {});
-  it("shows error message", () => {});
-  it("", () => {});
-  it("", () => {});
-  it("", () => {});
-  it("", () => {});
-  it("", () => {});
-  it("", () => {});
-  it("", () => {});
+
+  it("filters list if filter is enabled", async () => {
+    const enabledFilterLowPriority = {
+      ...filter,
+      master: {
+        status: true,
+      },
+      priority: {
+        status: true,
+        value: [TodoPriorityValues.Low],
+      },
+    };
+    const enabledFilterProps = {
+      ...initialProps,
+      filter: enabledFilterLowPriority,
+    };
+    const lowPriorityTodo = {
+      ...todo1,
+      priority: TodoPriorityValues.Low,
+    };
+    const normalPriorityTodo = todo2;
+    const mock = {
+      ...initialMock,
+      result: {
+        data: {
+          todos: [lowPriorityTodo, normalPriorityTodo],
+        },
+      },
+    };
+
+    renderComponent(mock, enabledFilterProps);
+    await waitForElementToBeRemoved(screen.getByRole("progressbar"));
+    expect(screen.getByText(lowPriorityTodo.title)).toBeInTheDocument();
+    expect(
+      screen.queryByText(normalPriorityTodo.title)
+    ).not.toBeInTheDocument();
+  });
+
+  it("shows 'nothing to show' message when todos array is empty", async () => {
+    const emptyArrayMock = {
+      ...initialMock,
+      result: {
+        data: {
+          todos: [],
+        },
+      },
+    };
+    const { container } = renderComponent(emptyArrayMock);
+    await waitForElementToBeRemoved(screen.getByRole("progressbar"));
+    expect(container).toMatchSnapshot();
+    expect(screen.getByText(/nothing to show/i)).toBeInTheDocument();
+  });
+
+  it("shows error message", async () => {
+    const errorMock = {
+      ...initialMock,
+      data: null,
+      error: new Error("network error"),
+    };
+    const { container } = renderComponent(errorMock);
+    await waitForElementToBeRemoved(screen.getByRole("progressbar"));
+    expect(container).toMatchSnapshot();
+    expect(screen.getByText(/error/i)).toBeInTheDocument();
+  });
+
+  it("should render without error if 'todos' is undefined", async () => {
+    const undefinedTodosMock = {
+      ...initialMock,
+      result: {
+        data: {
+          todos: undefined,
+        },
+      },
+    };
+    renderComponent(undefinedTodosMock);
+    await waitForElementToBeRemoved(screen.getByRole("progressbar"));
+  });
+
+  it("should render without error if 'data' is undefined", async () => {
+    const undefinedDataMock = {
+      ...initialMock,
+      result: {
+        data: undefined,
+      },
+    };
+    renderComponent(undefinedDataMock);
+    await waitForElementToBeRemoved(screen.getByRole("progressbar"));
+  });
 });
