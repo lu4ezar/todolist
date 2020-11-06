@@ -26,7 +26,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "test:staged": "cross-env CI=true react-scripts test --coverage --env=jsdom --findRelatedTests",
+    "test:staged": "CI=true react-scripts test --coverage --env=jsdom --findRelatedTests",
     "predeploy": "npm generate && npm run build",
     "deploy": "gh-pages -d build",
     "eject": "react-scripts eject",
