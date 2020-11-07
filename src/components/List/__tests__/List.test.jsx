@@ -44,7 +44,7 @@ const initialProps = {
   toggleTodo: jest.fn(),
 };
 
-const initialMock = {
+export const initialMock = {
   request: {
     query: GET_TODOS,
     variables: {},
