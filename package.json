@@ -50,7 +50,7 @@
     "@graphql-codegen/flow-resolvers": "1.17.10",
     "@graphql-codegen/introspection": "1.18.0",
     "@react-mock/localstorage": "0.1.2",
-    "@testing-library/react": "11.1.0",
+    "@testing-library/react": "11.1.1",
     "babel-eslint": "10.1.0",
     "babel-plugin-styled-components": "1.11.1",
     "eslint-config-airbnb": "18.2.0",
