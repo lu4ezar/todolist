@@ -5,12 +5,11 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Typography, LinearProgress } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { useQuery } from "@apollo/client";
-import type { Todos } from "../../types/todos";
 import ListItem from "../Todo";
 import { GET_TODOS } from "../../apollo/queries";
 import type { Props } from "./types";
 import { StyledPaper, StyledList } from "./styles";
-import { filterList } from "../../redux/selectors";
+import filterTodo from "../../utils/filterTodo";
 
 const List = ({
   filter,
@@ -26,18 +25,13 @@ const List = ({
   if (error)
     return (
       <Alert variant="filled" severity="error">
-        Error
+        Error: {error.message}
       </Alert>
     );
 
-  let { todos = [] }: { todos: Todos } = data ?? {};
-
-  if (filter.master.status) {
-    todos = filterList(todos, filter);
-  }
-
-  const content = todos.length ? (
-    todos.map((todo, index) => (
+  const content = data?.todos
+    .filter((todo) => (filter.master.status ? filterTodo(todo, filter) : todo))
+    .map((todo, index) => (
       <ListItem
         key={todo.id}
         index={index}
@@ -46,13 +40,7 @@ const List = ({
         deleteTodo={deleteTodo}
         showTodo={showTodo}
       />
-    ))
-  ) : (
-    <Typography variant="h4" gutterBottom>
-      nothing to show
-      {todos}
-    </Typography>
-  );
+    ));
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -63,8 +51,16 @@ const List = ({
               isDraggingOver={snapshot.isDraggingOver}
               {...provided.droppableProps}
             >
-              {content}
-              {provided.placeholder}
+              {content?.length ? (
+                <>
+                  {content}
+                  {provided.placeholder}
+                </>
+              ) : (
+                <Typography variant="h4" gutterBottom>
+                  nothing to show
+                </Typography>
+              )}
             </StyledList>
           </StyledPaper>
         )}
