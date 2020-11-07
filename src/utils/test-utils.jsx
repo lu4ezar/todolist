@@ -1,14 +1,43 @@
 import React from "react";
 import { render as rtlRender } from "@testing-library/react";
 import { MockedProvider } from "@apollo/client/testing";
+import { GraphQLError } from "graphql";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import { initialMock } from "../components/List/__tests__/List.test";
-import { GET_TODO } from "../apollo/queries";
+import { GET_TODOS, GET_TODO } from "../apollo/queries";
+import { TodoStatusValues, TodoPriorityValues } from "../generated/graphql";
+import type { Todo } from "../generated/graphql";
 import reducer from "../redux/reducers";
 
-const mock = [
-  initialMock,
+export const lowPriorTodo: Todo = {
+  id: "1",
+  title: "hope",
+  description: "wisdom",
+  status: TodoStatusValues.Active,
+  priority: TodoPriorityValues.Low,
+  created: "yesterday",
+};
+
+export const normalPriorTodo: Todo = {
+  id: "2",
+  title: "bliss",
+  description: "glory",
+  status: TodoStatusValues.Active,
+  priority: TodoPriorityValues.Normal,
+  created: "yesterday",
+};
+
+export const mocks = [
+  {
+    request: {
+      query: GET_TODOS,
+    },
+    result: {
+      data: {
+        todos: [lowPriorTodo, normalPriorTodo],
+      },
+    },
+  },
   {
     request: {
       query: GET_TODO,
@@ -18,14 +47,7 @@ const mock = [
     },
     result: {
       data: {
-        todo: {
-          id: "1",
-          title: "todo1",
-          description: "desc",
-          status: "ACTIVE",
-          priority: "NORMAL",
-          created: "today",
-        },
+        todo: normalPriorTodo,
       },
     },
   },
@@ -38,9 +60,40 @@ const mock = [
     },
     result: {
       data: {
-        todo: {},
+        todo: null,
       },
     },
+  },
+];
+
+export const emptyMock = [
+  {
+    request: {
+      query: GET_TODOS,
+    },
+    result: {
+      data: {
+        todos: [],
+      },
+    },
+  },
+];
+
+export const errorMock = [
+  {
+    request: {
+      query: GET_TODOS,
+    },
+    error: new GraphQLError("Error!"),
+  },
+];
+
+export const undefinedMock = [
+  {
+    request: {
+      query: GET_TODOS,
+    },
+    result: { data: undefined },
   },
 ];
 
@@ -54,7 +107,7 @@ function render(
 ) {
   function Wrapper({ children }: { children: React.Node }) {
     return (
-      <MockedProvider mocks={mock} addTypename={false}>
+      <MockedProvider mocks={mocks} addTypename={false}>
         <Provider store={store}>{children}</Provider>
       </MockedProvider>
     );

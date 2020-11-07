@@ -8,30 +8,16 @@ import {
 } from "@testing-library/react";
 import { MockedProvider } from "@apollo/client/testing";
 import List from "../List";
-import { GET_TODOS } from "../../../apollo/queries";
 import { initialState as filter } from "../../../redux/reducers/filter";
+import { TodoPriorityValues } from "../../../generated/graphql";
 import {
-  TodoStatusValues,
-  TodoPriorityValues,
-} from "../../../generated/graphql";
-import type { Todo } from "../../../generated/graphql";
-
-const todo1: Todo = {
-  id: "1",
-  title: "hope",
-  description: "wisdom",
-  status: TodoStatusValues.Active,
-  priority: TodoPriorityValues.Normal,
-  created: "yesterday",
-};
-const todo2 = {
-  id: "2",
-  title: "bliss",
-  description: "glory",
-  status: TodoStatusValues.Active,
-  priority: TodoPriorityValues.Normal,
-  created: "yesterday",
-};
+  lowPriorTodo,
+  normalPriorTodo,
+  mocks as okMocks,
+  errorMock,
+  emptyMock,
+  undefinedMock,
+} from "../../../utils/test-utils";
 
 const initialProps = {
   deleteTodo: jest.fn(),
@@ -44,25 +30,12 @@ const initialProps = {
   toggleTodo: jest.fn(),
 };
 
-export const initialMock = {
-  request: {
-    query: GET_TODOS,
-    variables: {},
-  },
-  result: {
-    data: {
-      todos: [todo1, todo2],
-    },
-  },
-};
-
-const renderComponent = (mocks = initialMock, props = initialProps) => {
-  return render(
-    <MockedProvider mocks={[mocks]} addTypename={false}>
+const renderComponent = (mocks = okMocks, props = initialProps) =>
+  render(
+    <MockedProvider mocks={mocks} addTypename={false}>
       <List {...props} />
     </MockedProvider>
   );
-};
 
 describe("List", () => {
   it("renders in loading state initially", () => {
@@ -75,8 +48,8 @@ describe("List", () => {
     const { container } = renderComponent();
     await waitForElementToBeRemoved(screen.getByRole("progressbar"));
     expect(container).toMatchSnapshot();
-    expect(screen.getByText(todo1.title)).toBeInTheDocument();
-    expect(screen.getByText(todo2.title)).toBeInTheDocument();
+    expect(screen.getByText(lowPriorTodo.title)).toBeInTheDocument();
+    expect(screen.getByText(normalPriorTodo.title)).toBeInTheDocument();
   });
 
   it("filters list if filter is enabled", async () => {
@@ -94,49 +67,34 @@ describe("List", () => {
       ...initialProps,
       filter: enabledFilterLowPriority,
     };
-    const lowPriorityTodo = {
-      ...todo1,
-      priority: TodoPriorityValues.Low,
-    };
-    const normalPriorityTodo = todo2;
-    const mock = {
-      ...initialMock,
-      result: {
-        data: {
-          todos: [lowPriorityTodo, normalPriorityTodo],
-        },
-      },
-    };
-
-    renderComponent(mock, enabledFilterProps);
+    renderComponent(undefined, enabledFilterProps);
     await waitForElementToBeRemoved(screen.getByRole("progressbar"));
-    expect(screen.getByText(lowPriorityTodo.title)).toBeInTheDocument();
-    expect(
-      screen.queryByText(normalPriorityTodo.title)
-    ).not.toBeInTheDocument();
+    expect(screen.getByText(lowPriorTodo.title)).toBeInTheDocument();
+    expect(screen.queryByText(normalPriorTodo.title)).not.toBeInTheDocument();
   });
 
   it("shows 'nothing to show' message when todos array is empty", async () => {
-    const emptyArrayMock = {
-      ...initialMock,
-      result: {
-        data: {
-          todos: [],
-        },
+    const enabledFilterHighPriority = {
+      ...filter,
+      master: {
+        status: true,
+      },
+      priority: {
+        status: true,
+        value: [TodoPriorityValues.High],
       },
     };
-    const { container } = renderComponent(emptyArrayMock);
+    const enabledFilterProps = {
+      ...initialProps,
+      filter: enabledFilterHighPriority,
+    };
+    const { container } = renderComponent(emptyMock, enabledFilterProps);
     await waitForElementToBeRemoved(screen.getByRole("progressbar"));
     expect(container).toMatchSnapshot();
     expect(screen.getByText(/nothing to show/i)).toBeInTheDocument();
   });
 
   it("shows error message", async () => {
-    const errorMock = {
-      ...initialMock,
-      data: null,
-      error: new Error("network error"),
-    };
     const { container } = renderComponent(errorMock);
     await waitForElementToBeRemoved(screen.getByRole("progressbar"));
     expect(container).toMatchSnapshot();
@@ -144,26 +102,12 @@ describe("List", () => {
   });
 
   it("should render without error if 'todos' is undefined", async () => {
-    const undefinedTodosMock = {
-      ...initialMock,
-      result: {
-        data: {
-          todos: undefined,
-        },
-      },
-    };
-    renderComponent(undefinedTodosMock);
+    renderComponent(undefinedMock);
     await waitForElementToBeRemoved(screen.getByRole("progressbar"));
   });
 
   it("should render without error if 'data' is undefined", async () => {
-    const undefinedDataMock = {
-      ...initialMock,
-      result: {
-        data: undefined,
-      },
-    };
-    renderComponent(undefinedDataMock);
+    renderComponent(undefinedMock);
     await waitForElementToBeRemoved(screen.getByRole("progressbar"));
   });
 });
