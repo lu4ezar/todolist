@@ -15,7 +15,12 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": ["**/*.test.js", "**/*.test.jsx", "**/setupTests.js"]
+        "devDependencies": [
+          "**/*.test.js",
+          "**/*.test.jsx",
+          "**/setupTests.js",
+          "**/test-utils.jsx"
+        ]
       }
     ]
   }
