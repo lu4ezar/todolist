@@ -306,7 +306,8 @@ exports[`List shows error message 1`] = `
     <div
       class="MuiAlert-message"
     >
-      Error
+      Error: 
+      Error!
     </div>
   </div>
 </div>
