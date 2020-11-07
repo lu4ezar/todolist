@@ -27,6 +27,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "test:staged": "CI=true react-scripts test --coverage --env=jsdom --findRelatedTests",
+    "coverage": "npm run test -- --coverage --watchAll=false",
     "predeploy": "npm run generate && npm run build",
     "deploy": "gh-pages -d build",
     "eject": "react-scripts eject",
