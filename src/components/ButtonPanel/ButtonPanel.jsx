@@ -18,17 +18,24 @@ const ButtonPanel = ({
   showTodo,
 }: Props): React.Node => (
   <StToolbar>
-    <IconButton title="View details" onClick={() => showTodo(id, "view")}>
+    <IconButton title="View Details" onClick={() => showTodo(id, "view")}>
       <ViewIcon />
     </IconButton>
-    <IconButton title="Edit" onClick={() => showTodo(id, "edit")}>
+    <IconButton title="Edit Todo" onClick={() => showTodo(id, "edit")}>
       <EditIcon />
     </IconButton>
-    <IconButton title="Mark as Completed" onClick={() => toggle(id)}>
-      {status === TodoStatusValues.Completed ? (
-        <CheckBox />
-      ) : (
+    <IconButton
+      title={
+        status === TodoStatusValues.Active
+          ? "Mark as Completed"
+          : "Mark as Active"
+      }
+      onClick={() => toggle(id)}
+    >
+      {status === TodoStatusValues.Active ? (
         <CheckBoxOutlineBlank />
+      ) : (
+        <CheckBox />
       )}
     </IconButton>
     <IconButton title="Delete Todo" onClick={() => deleteTodo(id)}>

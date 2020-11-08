@@ -47,7 +47,7 @@ exports[`List renders list of todos after loading 1`] = `
           <button
             class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
             tabindex="0"
-            title="View details"
+            title="View Details"
             type="button"
           >
             <span
@@ -71,7 +71,7 @@ exports[`List renders list of todos after loading 1`] = `
           <button
             class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
             tabindex="0"
-            title="Edit"
+            title="Edit Todo"
             type="button"
           >
             <span
@@ -163,7 +163,7 @@ exports[`List renders list of todos after loading 1`] = `
           <button
             class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
             tabindex="0"
-            title="View details"
+            title="View Details"
             type="button"
           >
             <span
@@ -187,7 +187,7 @@ exports[`List renders list of todos after loading 1`] = `
           <button
             class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
             tabindex="0"
-            title="Edit"
+            title="Edit Todo"
             type="button"
           >
             <span

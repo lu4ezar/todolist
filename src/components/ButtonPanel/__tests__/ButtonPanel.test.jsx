@@ -3,11 +3,12 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import ButtonPanel from "../ButtonPanel";
+import { TodoStatusValues } from "../../../generated/graphql";
 
 const props = {
   todo: {
     id: 0,
-    status: "",
+    status: TodoStatusValues.Active,
   },
   showTodo: jest.fn(),
   edit: jest.fn(),
@@ -34,7 +35,7 @@ describe("Button Panel", () => {
 
   it("calls toggleTodo prop function", () => {
     render(<ButtonPanel {...props} />);
-    userEvent.click(screen.getByTitle(/completed/i));
+    userEvent.click(screen.getByTitle(/mark as completed/i));
     expect(props.toggle).toBeCalled();
   });
 
@@ -42,5 +43,22 @@ describe("Button Panel", () => {
     render(<ButtonPanel {...props} />);
     userEvent.click(screen.getByTitle(/delete/i));
     expect(props.deleteTodo).toBeCalled();
+  });
+
+  it("renders empty checkbox button when todo has 'active' status", () => {
+    const { container } = render(<ButtonPanel {...props} />);
+    expect(container).toMatchSnapshot();
+  });
+
+  it("renders checked checkbox button when todo has 'completed' status", () => {
+    const completedTodoProps = {
+      ...props,
+      todo: {
+        id: "1",
+        status: TodoStatusValues.Completed,
+      },
+    };
+    const { container } = render(<ButtonPanel {...completedTodoProps} />);
+    expect(container).toMatchSnapshot();
   });
 });
