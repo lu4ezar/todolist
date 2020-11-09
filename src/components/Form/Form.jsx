@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { Close as CloseIcon, Check as CheckIcon } from "@material-ui/icons";
-import { useQuery, NetworkStatus } from "@apollo/client";
+import { useApolloClient, NetworkStatus } from "@apollo/client";
 import getExpireState from "../../utils/luxon";
 import Drawer from "../Drawer";
 import Header from "../Header";
@@ -30,7 +30,16 @@ const initialState: Todo = {
 
 const Form = ({ id, mode, submit, closeForm }: Props): React.Node => {
   const [state, setState] = React.useState<Todo>(initialState);
-  const { data: { todo } = {}, loading, refetch, networkStatus } = useQuery(
+  const client = useApolloClient();
+  const todo = client.readQuery({
+    query: GET_TODO,
+    variables: {
+      id,
+    },
+  });
+  const loading = false;
+  const networkStatus = false;
+  /* const { data: { todo } = {}, loading, refetch, networkStatus } = useQuery(
     GET_TODO,
     {
       skip: !id,
@@ -40,11 +49,12 @@ const Form = ({ id, mode, submit, closeForm }: Props): React.Node => {
       notifyOnNetworkStatusChange: true,
       fetchPolicy: "cache-first",
     }
-  );
+  ); */
 
-  React.useEffect(() => {
+  /* React.useEffect(() => {
     refetch();
   }, [id, refetch]);
+  */
 
   React.useEffect(() => {
     if (todo) {
