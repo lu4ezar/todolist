@@ -1,4 +1,4 @@
-import { useQuery, useMutation, NetworkStatus } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { CREATE_TODO, UPDATE_TODO, DELETE_TODO } from "./mutations";
 import { GET_TODO, GET_TODOS } from "./queries";
 
@@ -67,7 +67,7 @@ export const useDeleteTodo = (id) => {
 };
 
 export const useGetTodo = (id) => {
-  const [getTodo, { loading, error, refetch, networkStatus }] = useQuery(
+  const { data, loading, error } = useQuery(
     GET_TODO,
     {
       variables: {
@@ -77,10 +77,24 @@ export const useGetTodo = (id) => {
       notifyOnNetworkStatusChange: true,
     }
   );
+  const { todo = {} } = data;
   return {
-    getTodo,
-    loading: loading || networkStatus === NetworkStatus.refetch,
+    todo,
+    loading,
     error,
-    refetch,
   };
 };
+
+/* export const useGetTodos = () => {
+  const { data: { todo } = {}, loading, networkStatus } = useQuery(GET_TODO, {
+    skip: !id,
+    variables: {
+      id,
+    },
+    notifyOnNetworkStatusChange: true,
+  });
+  return {
+    data,
+    loading: loading || networkStatus = 
+}
+*/
