@@ -54,7 +54,7 @@ export const useDeleteTodo = (id) => {
         query: GET_TODOS,
       });
       const { todos: cachedTodos } = cachedQuery;
-      const todos = cachedTodos.filter(({ _id }) => _id !== removedTodoId);
+      const todos = cachedTodos.filter(({ id: _id }) => _id !== removedTodoId);
       cache.writeQuery({
         query: GET_TODOS,
         data: {

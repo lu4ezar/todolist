@@ -7,6 +7,7 @@ import {
   CheckBoxOutlineBlank,
   Delete as DeleteIcon,
 } from "@material-ui/icons";
+import { useDeleteTodo } from "../../apollo/hooks";
 import { StToolbar, IconButton } from "./styles";
 import type { Props } from "./types";
 import { TodoStatusValues } from "../../generated/graphql";
@@ -14,9 +15,10 @@ import { TodoStatusValues } from "../../generated/graphql";
 const ButtonPanel = ({
   todo: { id, status },
   toggle,
-  deleteTodo,
   showTodo,
-}: Props): React.Node => (
+}: Props): React.Node => {
+  const { deleteTodo } = useDeleteTodo(id); 
+  return (
   <StToolbar>
     <IconButton title="View details" onClick={() => showTodo(id, "view")}>
       <ViewIcon />
@@ -31,10 +33,11 @@ const ButtonPanel = ({
         <CheckBoxOutlineBlank />
       )}
     </IconButton>
-    <IconButton title="Delete Todo" onClick={() => deleteTodo(id)}>
+    <IconButton title="Delete Todo" onClick={deleteTodo} >
       <DeleteIcon />
     </IconButton>
   </StToolbar>
-);
+)
+}
 
 export default ButtonPanel;
