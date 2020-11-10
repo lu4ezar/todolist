@@ -10,14 +10,15 @@ import {
 } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { Close as CloseIcon, Check as CheckIcon } from "@material-ui/icons";
-import { useApolloClient, NetworkStatus } from "@apollo/client";
-import getExpireState from "../../utils/luxon";
+import { NetworkStatus, useQuery } from "@apollo/client";
+// import getExpireState from "../../utils/luxon";
 import Drawer from "../Drawer";
 import Header from "../Header";
 import type { Props } from "./types";
 import { TodoPriorityValues, TodoStatusValues } from "../../generated/graphql";
 import type { Todo } from "../../generated/graphql";
 import { GET_TODO } from "../../apollo/queries";
+import { useCreateTodo } from "../../apollo/hooks";
 
 const initialState: Todo = {
   id: "",
@@ -28,33 +29,17 @@ const initialState: Todo = {
   created: null,
 };
 
-const Form = ({ id, mode, submit, closeForm }: Props): React.Node => {
+const Form = ({ id, mode, closeForm }: Props): React.Node => {
   const [state, setState] = React.useState<Todo>(initialState);
-  const client = useApolloClient();
-  const todo = client.readQuery({
-    query: GET_TODO,
+  const { createTodo } = useCreateTodo(state);
+  const { data: { todo } = {}, loading, networkStatus } = useQuery(GET_TODO, {
+    skip: !id,
     variables: {
       id,
     },
+    notifyOnNetworkStatusChange: true,
+    fetchPolicy: "cache-first",
   });
-  const loading = false;
-  const networkStatus = false;
-  /* const { data: { todo } = {}, loading, refetch, networkStatus } = useQuery(
-    GET_TODO,
-    {
-      skip: !id,
-      variables: {
-        id,
-      },
-      notifyOnNetworkStatusChange: true,
-      fetchPolicy: "cache-first",
-    }
-  ); */
-
-  /* React.useEffect(() => {
-    refetch();
-  }, [id, refetch]);
-  */
 
   React.useEffect(() => {
     if (todo) {
@@ -66,8 +51,8 @@ const Form = ({ id, mode, submit, closeForm }: Props): React.Node => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    state.status = getExpireState(state);
-    submit(state);
+    createTodo();
+    closeForm();
     setState(initialState);
   };
 
