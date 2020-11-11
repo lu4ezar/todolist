@@ -2,7 +2,9 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MockedProvider } from "@apollo/client/testing";
 import ButtonPanel from "../ButtonPanel";
+import { mocks } from "../../../utils/test-utils";
 
 const props = {
   todo: {
@@ -15,31 +17,38 @@ const props = {
   // deleteTodo: jest.fn(),
 };
 
+const renderComponent = () =>
+  render(
+    <MockedProvider mocks={mocks} addTypename={false}>
+      <ButtonPanel {...props} />
+    </MockedProvider>
+  );
+
 describe("Button Panel", () => {
   it("renders as expected", () => {
-    const { container } = render(<ButtonPanel {...props} />);
+    const { container } = renderComponent();
     expect(container).toMatchSnapshot();
   });
   it("calls showTodo prop function", () => {
-    render(<ButtonPanel {...props} />);
+    renderComponent();
     userEvent.click(screen.getByTitle(/view/i));
     expect(props.showTodo).toBeCalledWith(props.todo.id, "view");
   });
 
   it("calls editTodo prop function", () => {
-    render(<ButtonPanel {...props} />);
+    renderComponent();
     userEvent.click(screen.getByTitle(/edit/i));
     expect(props.showTodo).toBeCalledWith(props.todo.id, "edit");
   });
 
   it("calls toggleTodo prop function", () => {
-    render(<ButtonPanel {...props} />);
+    renderComponent();
     userEvent.click(screen.getByTitle(/completed/i));
     expect(props.toggle).toBeCalled();
   });
 
   xit("calls deleteTodo prop function", () => {
-    render(<ButtonPanel {...props} />);
+    renderComponent();
     userEvent.click(screen.getByTitle(/delete/i));
     expect(props.deleteTodo).toBeCalled();
   });
