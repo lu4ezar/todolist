@@ -16,7 +16,6 @@ import Header from "../Header";
 import type { Props } from "./types";
 import { TodoPriorityValues, TodoStatusValues } from "../../generated/graphql";
 import type { Todo } from "../../generated/graphql";
-// import { GET_TODO } from "../../apollo/queries";
 import { useCreateTodo, useUpdateTodo, useGetTodo } from "../../apollo/hooks";
 
 const initialState: Todo = {
@@ -29,26 +28,24 @@ const initialState: Todo = {
 };
 
 const Form = ({ id, mode, closeForm }: Props): React.Node => {
+  const { todo, loading } = useGetTodo(id);
   const [state, setState] = React.useState<Todo>(initialState);
   const { createTodo } = useCreateTodo(state);
-  const { loading = false, todo = initialState } = useGetTodo(id) ; 
-  const { updateTodo } = useUpdateTodo();
+  const { updateTodo } = useUpdateTodo({ ...state });
 
   React.useEffect(() => {
     if (id) {
       setState(todo);
-    } else {
-      setState(initialState);
     }
   }, [id, todo]);
 
   const onSubmit = (e) => {
     e.preventDefault();
     if (id) {
-      updateTodo({ id: todo.id, ...state });
+      updateTodo(todo.id, { ...state });
     } else {
       createTodo();
-    };
+    }
     closeForm();
     setState(initialState);
   };

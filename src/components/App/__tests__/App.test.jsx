@@ -9,8 +9,9 @@ import {
 import App from "../App";
 
 describe("App", () => {
-  it("should render without error", () => {
+  it("should render without error", async () => {
     render(<App />);
+    await waitForElementToBeRemoved(screen.getByRole("progressbar"));
   });
   it("should show and hide side panel on button click", async () => {
     render(<App />);

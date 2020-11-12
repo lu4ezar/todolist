@@ -32,8 +32,8 @@ export const useCreateTodo = ({ title, description, status, priority }) => {
 export const useUpdateTodo = ({ id, title, description, status, priority }) => {
   const [updateTodo] = useMutation(UPDATE_TODO, {
     variables: {
+      id,
       input: {
-        id,
         title,
         description,
         status,
@@ -67,19 +67,14 @@ export const useDeleteTodo = (id) => {
 };
 
 export const useGetTodo = (id) => {
-  const { data, loading, error } = useQuery(
-    GET_TODO,
-    {
-      variables: {
-        id,
-      },
-      skip: !id,
-      notifyOnNetworkStatusChange: true,
-    }
-  );
-  const { todo = {} } = data;
+  const { data, loading, error } = useQuery(GET_TODO, {
+    variables: {
+      id,
+    },
+    skip: !id,
+  });
   return {
-    todo,
+    data,
     loading,
     error,
   };
