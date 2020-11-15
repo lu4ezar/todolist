@@ -4,7 +4,8 @@ import * as React from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Typography, LinearProgress } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import { useQuery } from "@apollo/client";
+import { useApolloClient, useQuery } from "@apollo/client";
+import type { DropResult } from "react-beautiful-dnd";
 import ListItem from "../Todo";
 import { GET_TODOS } from "../../apollo/queries";
 import type { Props } from "./types";
@@ -16,9 +17,29 @@ const List = ({
   toggleTodo,
   deleteTodo,
   showTodo,
-  onDragEnd,
 }: Props): React.Node => {
   const { data, loading, error } = useQuery(GET_TODOS);
+  const client = useApolloClient();
+  function onDragEnd(result: DropResult): void {
+    const { source, destination } = result;
+    const { todos } = client.cache.readQuery({ query: GET_TODOS });
+    if (!destination) {
+      return todos;
+    }
+    if (source.index === destination.index) {
+      return todos;
+    }
+    const arr = [...todos];
+    const [removed] = arr.splice(source.index, 1);
+    arr.splice(destination.index, 0, removed);
+    client.cache.writeQuery({
+      query: GET_TODOS,
+      data: {
+        todos: arr,
+      },
+    });
+    return arr;
+  }
 
   if (loading) return <LinearProgress />;
 
