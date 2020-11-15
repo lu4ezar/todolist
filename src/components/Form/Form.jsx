@@ -31,7 +31,7 @@ const Form = ({ id, mode, closeForm }: Props): React.Node => {
   const { todo, loading } = useGetTodo(id);
   const [state, setState] = React.useState<Todo>(initialState);
   const { createTodo } = useCreateTodo(state);
-  const { updateTodo } = useUpdateTodo({ ...state });
+  const { updateTodo } = useUpdateTodo(state);
 
   React.useEffect(() => {
     if (id && todo) {
