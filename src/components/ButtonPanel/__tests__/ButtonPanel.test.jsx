@@ -14,7 +14,6 @@ const props = {
   showTodo: jest.fn(),
   edit: jest.fn(),
   toggle: jest.fn(),
-  // deleteTodo: jest.fn(),
 };
 
 const renderComponent = () =>
@@ -47,9 +46,10 @@ describe("Button Panel", () => {
     expect(props.toggle).toBeCalled();
   });
 
-  xit("calls deleteTodo prop function", () => {
+  xit("calls deleteTodo function", () => {
     renderComponent();
+    const deleteTodo = jest.fn();
     userEvent.click(screen.getByTitle(/delete/i));
-    expect(props.deleteTodo).toBeCalled();
+    expect(deleteTodo).toBeCalled();
   });
 });
