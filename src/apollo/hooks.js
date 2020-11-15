@@ -17,7 +17,7 @@ export const useCreateTodo = ({ title, description, status, priority }) => {
         query: GET_TODOS,
       });
       const { todos: cachedTodos } = cachedQuery;
-      const todos = [newTodo, ...cachedTodos];
+      const todos = [...cachedTodos, newTodo];
       cache.writeQuery({
         query: GET_TODOS,
         data: {
