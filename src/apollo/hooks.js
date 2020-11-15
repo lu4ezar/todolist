@@ -49,7 +49,14 @@ export const useDeleteTodo = (id) => {
     variables: {
       id,
     },
-    update(cache, { data: { id: removedTodoId } }) {
+    update(
+      cache,
+      {
+        data: {
+          deleteTodo: { id: removedTodoId },
+        },
+      }
+    ) {
       const cachedQuery = cache.readQuery({
         query: GET_TODOS,
       });
