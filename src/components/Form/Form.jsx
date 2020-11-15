@@ -34,7 +34,7 @@ const Form = ({ id, mode, closeForm }: Props): React.Node => {
   const { updateTodo } = useUpdateTodo({ ...state });
 
   React.useEffect(() => {
-    if (id) {
+    if (id && todo) {
       setState(todo);
     }
   }, [id, todo]);
