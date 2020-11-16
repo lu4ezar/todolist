@@ -11,14 +11,16 @@ import { GET_TODOS } from "../../apollo/queries";
 import type { Props } from "./types";
 import { StyledPaper, StyledList } from "./styles";
 import filterTodo from "../../utils/filterTodo";
+import { useToggle } from "../../apollo/hooks";
 
 const List = ({
   filter,
-  toggleTodo,
+  // toggleTodo,
   deleteTodo,
   showTodo,
 }: Props): React.Node => {
   const { data, loading, error } = useQuery(GET_TODOS);
+  const toggleTodo = useToggle();
   const client = useApolloClient();
   function onDragEnd(result: DropResult): void {
     const { source, destination } = result;
@@ -57,7 +59,7 @@ const List = ({
         key={todo.id}
         index={index}
         todo={todo}
-        toggleTodo={toggleTodo}
+        toggleTodo={() => toggleTodo(todo.id)}
         deleteTodo={deleteTodo}
         showTodo={showTodo}
       />
