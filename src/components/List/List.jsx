@@ -22,7 +22,7 @@ const List = ({
   const client = useApolloClient();
   function onDragEnd(result: DropResult): void {
     const { source, destination } = result;
-    const { todos } = client.cache.readQuery({ query: GET_TODOS });
+    const { todos } = client.readQuery({ query: GET_TODOS });
     if (!destination) {
       return todos;
     }
@@ -32,7 +32,7 @@ const List = ({
     const arr = [...todos];
     const [removed] = arr.splice(source.index, 1);
     arr.splice(destination.index, 0, removed);
-    client.cache.writeQuery({
+    client.writeQuery({
       query: GET_TODOS,
       data: {
         todos: arr,
