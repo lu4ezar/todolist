@@ -13,7 +13,7 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": [".storybook/**", "src/components/**/*.stories.jsx"]
+        "devDependencies": ["**/*.stories.jsx", "**/*.test.jsx"]
       }
     ]
   }
