@@ -1,6 +1,8 @@
-import { 
+import {
   // useApolloClient,
-  useQuery, useMutation } from "@apollo/client";
+  useQuery,
+  useMutation,
+} from "@apollo/client";
 import { CREATE_TODO, UPDATE_TODO, DELETE_TODO } from "./mutations";
 import { GET_TODO, GET_TODOS } from "./queries";
 import { TodoStatusValues } from "../generated/graphql";
@@ -97,19 +99,25 @@ export const useToggle = (id) => {
       id
     }
   }); */
-  const { todo = {} } = useGetTodo(id);
-  alert(todo);
-  const newStatus = todo?.status === TodoStatusValues.COMPLETED ? TodoStatusValues.ACTIVE : TodoStatusValues.COMPLETED;
-  const [ updateTodo ] = useMutation(UPDATE_TODO, {
+  const { todo } = useGetTodo(id);
+  const newStatus =
+    todo.status === TodoStatusValues.COMPLETED
+      ? TodoStatusValues.ACTIVE
+      : TodoStatusValues.COMPLETED;
+  const [updateTodo] = useMutation(UPDATE_TODO, {
     variables: {
       id,
       input: {
-	status: newStatus 
-      }
-    }
+        status: newStatus,
+      },
+    },
   });
-  return () => updateTodo({id, newStatus});
-}
+  // console.log(id);
+  // console.log(newStatus);
+
+  // return () => updateTodo({id, newStatus});
+  return () => updateTodo({ id, newStatus });
+};
 
 /* export const useGetTodos = () => {
   const { data: { todo } = {}, loading, networkStatus } = useQuery(GET_TODO, {
