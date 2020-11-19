@@ -36,6 +36,8 @@ const Form = ({ id, mode, closeForm }: Props): React.Node => {
   React.useEffect(() => {
     if (id && todo) {
       setState(todo);
+    } else {
+      setState(initialState);
     }
   }, [id, todo]);
 
