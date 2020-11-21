@@ -44,7 +44,7 @@ const Form = ({ id, mode, closeForm }: Props): React.Node => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (id) {
-      updateTodo(todo.id, { ...state });
+      updateTodo();
     } else {
       createTodo();
     }

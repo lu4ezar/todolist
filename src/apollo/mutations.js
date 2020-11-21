@@ -12,8 +12,8 @@ export const CREATE_TODO: DocumentNode = gql`
   ${FRAGMENT_TODO_ALL_FIELDS}
 `;
 export const UPDATE_TODO: DocumentNode = gql`
-  mutation updateTodo($id: ID!, $input: UpdateTodoInput!) {
-    updateTodo(id: $id, input: $input) {
+  mutation updateTodo($input: UpdateTodoInput!) {
+    updateTodo(input: $input) {
       ...TodoAllFields
     }
   }
@@ -21,14 +21,10 @@ export const UPDATE_TODO: DocumentNode = gql`
 `;
 
 // export const TOGGLE_TODO: DocumentNode = gql`
-//   mutation updateTodo($id: ID!, $input: UpdateTodoInput!) {
-//     updateTodo(id: $id, input: $input) {
+//   mutation updateTodo($input: UpdateTodoInput!) {
+//     updateTodo(id: $id, order: $order) {
 //       id
-//       title
-//       description
 //       status
-//       priority
-//       created
 //     }
 //   }
 // `;

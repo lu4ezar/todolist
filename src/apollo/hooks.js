@@ -1,11 +1,7 @@
-import {
-  // useApolloClient,
-  useQuery,
-  useMutation,
-} from "@apollo/client";
+import { useApolloClient, useQuery, useMutation } from "@apollo/client";
 import { CREATE_TODO, UPDATE_TODO, DELETE_TODO } from "./mutations";
 import { GET_TODO, GET_TODOS } from "./queries";
-import { TodoStatusValues } from "../generated/graphql";
+// import { TodoStatusValues } from "../generated/graphql";
 
 export const useCreateTodo = ({ title, description, status, priority }) => {
   const [createTodo] = useMutation(CREATE_TODO, {
@@ -37,8 +33,8 @@ export const useCreateTodo = ({ title, description, status, priority }) => {
 export const useUpdateTodo = ({ id, title, description, status, priority }) => {
   const [updateTodo] = useMutation(UPDATE_TODO, {
     variables: {
-      id,
       input: {
+        id,
         title,
         description,
         status,
@@ -92,31 +88,54 @@ export const useGetTodo = (id) => {
   };
 };
 
-export const useToggle = (id) => {
+export const useToggle = (id, status) => {
   // const client = useApolloClient();
   /* const { todo } = useQuery(GET_TODO,{
     variables: {
       id
     }
   }); */
-  const { todo } = useGetTodo(id);
-  const newStatus =
-    todo.status === TodoStatusValues.COMPLETED
+  // const { todo = {} } = useGetTodo(id);
+  // alert(todo);
+  /* const newStatus =
+    todo?.status === TodoStatusValues.COMPLETED
       ? TodoStatusValues.ACTIVE
       : TodoStatusValues.COMPLETED;
+  */
   const [updateTodo] = useMutation(UPDATE_TODO, {
     variables: {
       id,
       input: {
-        status: newStatus,
+        status,
       },
     },
   });
-  // console.log(id);
-  // console.log(newStatus);
+  return { toggleTodo: updateTodo };
+};
 
-  // return () => updateTodo({id, newStatus});
-  return () => updateTodo({ id, newStatus });
+export const useReorder = () => {
+  const client = useApolloClient();
+  function onDragEnd(result: DropResult): void {
+    const { source, destination } = result;
+    const { todos } = client.readQuery({ query: GET_TODOS });
+    if (!destination) {
+      return todos;
+    }
+    if (source.index === destination.index) {
+      return todos;
+    }
+    const arr = [...todos];
+    const [removed] = arr.splice(source.index, 1);
+    arr.splice(destination.index, 0, removed);
+    client.writeQuery({
+      query: GET_TODOS,
+      data: {
+        todos: arr,
+      },
+    });
+    return arr;
+  }
+  return onDragEnd;
 };
 
 /* export const useGetTodos = () => {
