@@ -3,10 +3,10 @@
 exports[`Button Panel renders as expected 1`] = `
 <div>
   <div
-    class="MuiToolbar-root MuiToolbar-regular sc-gtssRu exUfSz MuiToolbar-gutters"
+    class="MuiToolbar-root MuiToolbar-regular sc-gsTCUz TOrPC MuiToolbar-gutters"
   >
     <button
-      class="MuiButtonBase-root MuiIconButton-root sc-bdnylx bywLLM"
+      class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
       tabindex="0"
       title="View details"
       type="button"
@@ -30,7 +30,7 @@ exports[`Button Panel renders as expected 1`] = `
       />
     </button>
     <button
-      class="MuiButtonBase-root MuiIconButton-root sc-bdnylx bywLLM"
+      class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
       tabindex="0"
       title="Edit"
       type="button"
@@ -54,7 +54,7 @@ exports[`Button Panel renders as expected 1`] = `
       />
     </button>
     <button
-      class="MuiButtonBase-root MuiIconButton-root sc-bdnylx bywLLM"
+      class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
       tabindex="0"
       title="Mark as Completed"
       type="button"
@@ -78,7 +78,7 @@ exports[`Button Panel renders as expected 1`] = `
       />
     </button>
     <button
-      class="MuiButtonBase-root MuiIconButton-root sc-bdnylx bywLLM"
+      class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
       tabindex="0"
       title="Delete Todo"
       type="button"

@@ -1,24 +1,6 @@
-import reducer from "../filter";
+import reducer, { initialState } from "../filter";
 import * as ActionTypes from "../../actions/actionTypes";
 import { TodoPriorityValues } from "../../../generated/graphql";
-
-const initialState = {
-  master: {
-    status: false,
-  },
-  priority: {
-    status: false,
-    value: [TodoPriorityValues.Normal],
-  },
-  completed: {
-    status: false,
-    value: false,
-  },
-  expired: {
-    status: false,
-    value: false,
-  },
-};
 
 const type = ActionTypes.SET_FILTER;
 

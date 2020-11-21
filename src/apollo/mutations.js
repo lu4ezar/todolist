@@ -1,25 +1,38 @@
 // @flow
 import { gql } from "@apollo/client";
-import type { OperationComponent } from "@apollo/client";
+import type { DocumentNode } from "graphql";
+import FRAGMENT_TODO_ALL_FIELDS from "./fragments";
 
-export const CREATE_TODO: OperationComponent<Response> = gql`
+export const CREATE_TODO: DocumentNode = gql`
   mutation createTodo($input: CreateTodoInput!) {
     createTodo(input: $input) {
-      id
-      title
+      ...TodoAllFields
     }
   }
+  ${FRAGMENT_TODO_ALL_FIELDS}
 `;
-export const UPDATE_TODO: OperationComponent<Response> = gql`
-  mutation updateTodo($id: ID!, $input: UpdateTodoInput!) {
-    updateTodo(id: $id, input: $input) {
-      title
+export const UPDATE_TODO: DocumentNode = gql`
+  mutation updateTodo($input: UpdateTodoInput!) {
+    updateTodo(input: $input) {
+      ...TodoAllFields
     }
   }
+  ${FRAGMENT_TODO_ALL_FIELDS}
 `;
-export const DELETE_TODO: OperationComponent<Response> = gql`
+
+// export const TOGGLE_TODO: DocumentNode = gql`
+//   mutation updateTodo($input: UpdateTodoInput!) {
+//     updateTodo(id: $id, order: $order) {
+//       id
+//       status
+//     }
+//   }
+// `;
+
+export const DELETE_TODO: DocumentNode = gql`
   mutation deleteTodo($id: ID!) {
     deleteTodo(id: $id) {
+      id
       title
     }
   }

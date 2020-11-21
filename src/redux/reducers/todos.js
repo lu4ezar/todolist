@@ -17,7 +17,7 @@ import type {
   TodosState,
   TodosStateWithHistory,
 } from "../../types/todos";
-import getExpireState from "../../utils/luxon";
+// import getExpireState from "../../utils/luxon";
 
 const reorder = (todos: Todos, startIndex, endIndex) => {
   const arr = [...todos];
@@ -51,10 +51,18 @@ const updateTodo = (todos: Todos, todo: TodoType): Todos =>
 const toggleTodo = (todos: Todos, id: string): Todos =>
   todos.map((todo: TodoType): TodoType => {
     if (todo.id === id) {
-      todo.status =
-        todo.status === TodoStatusValues.Completed
-          ? getExpireState(todo)
-          : TodoStatusValues.Completed;
+      // todo.status =
+      //   todo.status === TodoStatusValues.Completed
+      //     ? getExpireState(todo)
+      //     : TodoStatusValues.Completed;
+      return {
+        ...todo,
+        status:
+          todo.status !== TodoStatusValues.Completed
+            ? TodoStatusValues.Completed
+            : // : getExpireState(todo),
+              TodoStatusValues.Active,
+      };
     }
     return todo;
   });

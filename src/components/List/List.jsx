@@ -5,50 +5,44 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Typography, LinearProgress } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { useQuery } from "@apollo/client";
-import type { Todos } from "../../types/todos";
+// import type { DropResult } from "react-beautiful-dnd";
 import ListItem from "../Todo";
 import { GET_TODOS } from "../../apollo/queries";
 import type { Props } from "./types";
 import { StyledPaper, StyledList } from "./styles";
-import { filterList } from "../../redux/selectors";
+import filterTodo from "../../utils/filterTodo";
+import { useReorder } from "../../apollo/hooks";
 
 const List = ({
   filter,
-  toggleTodo,
+  // toggleTodo,
   deleteTodo,
   showTodo,
-  onDragEnd,
 }: Props): React.Node => {
   const { data, loading, error } = useQuery(GET_TODOS);
+  const onDragEnd = useReorder();
+
   if (loading) return <LinearProgress />;
+
   if (error)
     return (
       <Alert variant="filled" severity="error">
-        Error
+        Error: {error.message}
       </Alert>
     );
-  let { todos = [] }: { todos: Todos } = data ?? {};
 
-  if (filter.master.status) {
-    todos = filterList(todos, filter);
-  }
-
-  const content = todos.length ? (
-    todos.map((todo, index) => (
+  const content = data?.todos
+    .filter((todo) => (filter.master.status ? filterTodo(todo, filter) : todo))
+    .map((todo, index) => (
       <ListItem
         key={todo.id}
         index={index}
         todo={todo}
-        toggleTodo={toggleTodo}
+        // toggleTodo={() => toggleTodo(todo.id)}
         deleteTodo={deleteTodo}
         showTodo={showTodo}
       />
-    ))
-  ) : (
-    <Typography variant="h4" gutterBottom>
-      nothing to show
-    </Typography>
-  );
+    ));
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -59,8 +53,16 @@ const List = ({
               isDraggingOver={snapshot.isDraggingOver}
               {...provided.droppableProps}
             >
-              {content}
-              {provided.placeholder}
+              {content?.length ? (
+                <>
+                  {content}
+                  {provided.placeholder}
+                </>
+              ) : (
+                <Typography variant="h4" gutterBottom>
+                  nothing to show
+                </Typography>
+              )}
             </StyledList>
           </StyledPaper>
         )}

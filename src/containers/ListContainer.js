@@ -1,7 +1,6 @@
 // @flow
 import { connect } from "react-redux";
-import type { DropResult } from "react-beautiful-dnd";
-import { deleteTodo, toggleTodo, reorderTodos } from "../redux/actions/todos";
+import { deleteTodo, toggleTodo } from "../redux/actions/todos";
 import { setTodo } from "../redux/actions/currentTodoId";
 import setMode from "../redux/actions/mode";
 import List from "../components/List";
@@ -28,7 +27,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   deleteTodo: (id: string) => deleteTodoShowMessage(id),
   toggleTodo: (id: string) => dispatch(toggleTodo(id)),
   showTodo: (id: string, mode: Mode) => dispatch(showTodo(id, mode)),
-  onDragEnd: (result: DropResult) => dispatch(reorderTodos(result)),
 });
 
 // $FlowFixMe
