@@ -1,91 +1,85 @@
 {
-	"name": "todolist",
-	"version": "0.1.0",
-	"private": true,
-	"dependencies": {
-		"@apollo/client": "3.2.5",
-		"@material-ui/core": "4.11.0",
-		"@material-ui/icons": "4.9.1",
-		"@material-ui/lab": "4.0.0-alpha.56",
-		"@material-ui/styles": "4.10.0",
-		"luxon": "^1.25.0",
-		"graphql": "15.4.0",
-		"react": "17.0.1",
-		"react-beautiful-dnd": "13.0.0",
-		"react-dom": "17.0.1",
-		"react-redux": "7.2.2",
-		"react-scripts": "4.0.0",
-		"redux": "4.0.5",
-		"redux-thunk": "2.3.0",
-		"redux-undo": "1.0.1",
-		"reselect": "4.0.0",
-		"styled-components": "5.2.1",
-		"uuid": "8.3.1"
-	},
-	"scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test --env=jsdom",
-		"test:staged": "CI=true react-scripts test --coverage --env=jsdom --findRelatedTests",
-		"coverage": "npm run test -- --coverage --watchAll=false",
-		"predeploy": "npm run generate && npm run build",
-		"deploy": "gh-pages -d build",
-		"eject": "react-scripts eject",
-		"flow": "flow",
-		"lint": "eslint ./src/**/*.js[x] && flow",
-		"generate": "graphql-codegen --config codegen.yml"
-	},
-	"browserslist": [
-		">0.2%",
-		"not dead",
-		"not ie <= 11",
-		"not op_mini all"
-	],
-	"devDependencies": {
-		"@babel/cli": "7.12.1",
-		"@babel/core": "7.12.3",
-		"@babel/preset-flow": "7.12.1",
-		"@graphql-codegen/cli": "1.19.0",
-		"@graphql-codegen/flow": "1.18.1",
-		"@graphql-codegen/flow-operations": "1.18.1",
-		"@graphql-codegen/flow-resolvers": "1.17.10",
-		"@graphql-codegen/introspection": "1.18.0",
-		"@react-mock/localstorage": "0.1.2",
-		"@testing-library/dom": "^7.26.5",
-		"@testing-library/jest-dom": "^5.11.5",
-		"@testing-library/react": "11.1.1",
-		"@testing-library/user-event": "^12.2.0",
-		"babel-eslint": "10.1.0",
-		"babel-plugin-styled-components": "1.11.1",
-		"eslint-config-airbnb": "18.2.1",
-		"eslint-config-prettier": "6.15.0",
-		"eslint-config-react-app": "6.0.0",
-		"eslint-plugin-flowtype": "5.2.0",
-		"eslint-plugin-import": "2.22.1",
-		"eslint-plugin-jest-dom": "^3.2.4",
-		"eslint-plugin-jsx-a11y": "6.4.1",
-		"eslint-plugin-prettier": "3.1.4",
-		"eslint-plugin-react": "7.21.5",
-		"eslint-plugin-react-hooks": "4.2.0",
-		"eslint-plugin-testing-library": "^3.10.0",
-		"flow-bin": "0.137.0",
-		"flow-typed": "3.2.1",
-		"gh-pages": "3.1.0",
-		"husky": "4.3.0",
-		"lint-staged": "10.5.1",
-		"prettier": "2.1.2"
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "lint-staged"
-		}
-	},
-	"lint-staged": {
-		"*.+(js|jsx)": [
-			"eslint src/**/*.js[x] --fix"
-		],
-		"*.+(js|jsx|json|css|md)": [
-			"prettier --write"
-		]
-	}
+  "name": "todolist",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@apollo/client": "3.2.5",
+    "@material-ui/core": "4.11.0",
+    "@material-ui/icons": "4.9.1",
+    "@material-ui/lab": "4.0.0-alpha.56",
+    "@material-ui/styles": "4.10.0",
+    "@testing-library/jest-dom": "5.11.6",
+    "luxon": "^1.25.0",
+    "graphql": "15.4.0",
+    "react": "17.0.1",
+    "react-beautiful-dnd": "13.0.0",
+    "react-dom": "17.0.1",
+    "react-redux": "7.2.2",
+    "react-scripts": "4.0.0",
+    "redux": "4.0.5",
+    "redux-thunk": "2.3.0",
+    "redux-undo": "1.0.1",
+    "reselect": "4.0.0",
+    "styled-components": "5.2.1",
+    "uuid": "8.3.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "predeploy": "npm run generate && npm run build",
+    "deploy": "gh-pages -d build",
+    "eject": "react-scripts eject",
+    "flow": "flow",
+    "lint": "eslint ./src/**/*.js[x] && flow",
+    "generate": "graphql-codegen --config codegen.yml"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "@babel/cli": "7.12.1",
+    "@babel/core": "7.12.3",
+    "@babel/preset-flow": "7.12.1",
+    "@graphql-codegen/cli": "1.19.1",
+    "@graphql-codegen/flow": "1.18.1",
+    "@graphql-codegen/flow-operations": "1.18.2",
+    "@graphql-codegen/flow-resolvers": "1.17.10",
+    "@graphql-codegen/introspection": "1.18.0",
+    "@react-mock/localstorage": "0.1.2",
+    "@testing-library/react": "11.1.2",
+    "babel-eslint": "10.1.0",
+    "babel-plugin-styled-components": "1.11.1",
+    "eslint-config-airbnb": "18.2.1",
+    "eslint-config-react-app": "6.0.0",
+    "eslint-config-prettier": "6.15.0",
+    "eslint-plugin-flowtype": "5.2.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jsx-a11y": "6.4.1",
+    "eslint-plugin-prettier": "3.1.4",
+    "eslint-plugin-react": "7.21.5",
+    "eslint-plugin-react-hooks": "4.2.0",
+    "flow-bin": "0.138.0",
+    "flow-typed": "3.2.1",
+    "gh-pages": "3.1.0",
+    "husky": "4.3.0",
+    "lint-staged": "10.5.1",
+    "prettier": "2.1.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.+(js|jsx)": [
+      "eslint src/**/*.js[x] --fix"
+    ],
+    "*.+(js|jsx|json|css|md)": [
+      "prettier --write"
+    ]
+  }
 }
