@@ -7,7 +7,7 @@ import type {
 } from "../../types/filter";
 import { TodoPriorityValues } from "../../generated/graphql";
 
-const initialState: Filter = {
+export const initialState: Filter = {
   master: {
     status: false,
   },
