@@ -9,9 +9,15 @@ import {
   REORDER,
   UPDATE_TODO,
 } from "../actions/actionTypes";
-import type { Todo as TodoType, Id } from "../../types/todo";
-import type { Todos, TodosAction } from "../../types/todos";
-import getExpireState from "../../utils/moment";
+import { TodoStatusValues } from "../../generated/graphql";
+import type { Todo as TodoType } from "../../generated/graphql";
+import type {
+  Todos,
+  TodosAction,
+  TodosState,
+  TodosStateWithHistory,
+} from "../../types/todos";
+// import getExpireState from "../../utils/luxon";
 
 const reorder = (todos: Todos, startIndex, endIndex) => {
   const arr = [...todos];
@@ -42,19 +48,31 @@ const updateTodo = (todos: Todos, todo: TodoType): Todos =>
     arrayItem.id === todo.id ? todo : arrayItem
   );
 
-const toggleTodo = (todos: Todos, id: Id): Todos =>
+const toggleTodo = (todos: Todos, id: string): Todos =>
   todos.map((todo: TodoType): TodoType => {
     if (todo.id === id) {
-      todo.status =
-        todo.status === "completed" ? getExpireState(todo) : "completed";
+      // todo.status =
+      //   todo.status === TodoStatusValues.Completed
+      //     ? getExpireState(todo)
+      //     : TodoStatusValues.Completed;
+      return {
+        ...todo,
+        status:
+          todo.status !== TodoStatusValues.Completed
+            ? TodoStatusValues.Completed
+            : // : getExpireState(todo),
+              TodoStatusValues.Active,
+      };
     }
     return todo;
   });
 
-const deleteTodo = (todos: Todos, id: Id): Todos =>
-  todos.filter((todo) => todo.id !== id);
+const deleteTodo = (todos: Todos, id: string): Todos => {
+  const newArr = todos.filter((todo) => todo.id !== id);
+  return newArr;
+};
 
-const todos = (state: Todos = [], action: TodosAction): Todos => {
+export const todosReducer = (state: Todos = [], action: TodosAction): Todos => {
   switch (action.type) {
     case ADD_TODO:
       return [createTodo(state, action.todo), ...state];
@@ -71,8 +89,8 @@ const todos = (state: Todos = [], action: TodosAction): Todos => {
   }
 };
 
-const undoableTodos = undoable(todos, {
+const todos: (TodosState) => TodosStateWithHistory = undoable(todosReducer, {
   filter: includeAction([ADD_TODO, DELETE_TODO]),
 });
 
-export default undoableTodos;
+export default todos;

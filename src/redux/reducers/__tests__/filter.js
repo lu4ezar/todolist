@@ -1,23 +1,18 @@
-import reducer from "../filter";
+import reducer, { initialState } from "../filter";
 import * as ActionTypes from "../../actions/actionTypes";
-
-const initialState = {
-  filterOn: false,
-  priorityFilterEnabled: false,
-  priorityFilter: ["normal"],
-  completedFilterEnabled: false,
-  completedFilter: true,
-  expiredFilterEnabled: false,
-  expiredFilter: true
-};
+import { TodoPriorityValues } from "../../../generated/graphql";
 
 const type = ActionTypes.SET_FILTER;
 
-const payload = { filterOn: true };
+const payload = {
+  filter: "master",
+  property: "status",
+  value: true,
+};
 
 const action = {
   type,
-  payload
+  payload,
 };
 
 const state = initialState;
@@ -29,13 +24,16 @@ describe("filter reducer", () => {
 
   it("should update filter on SET_FILTER action", () => {
     const expectedState = {
-      filterOn: true,
-      priorityFilterEnabled: false,
-      priorityFilter: ["normal"],
-      completedFilterEnabled: false,
-      completedFilter: true,
-      expiredFilterEnabled: false,
-      expiredFilter: true
+      master: { status: true },
+      priority: {
+        status: false,
+        value: [TodoPriorityValues.Normal],
+      },
+      completed: { status: false, value: false },
+      expired: {
+        status: false,
+        value: false,
+      },
     };
     expect(reducer(state, action)).toEqual(expectedState);
   });

@@ -1,38 +1,33 @@
 // @flow
 import { connect } from "react-redux";
-import { deleteTodo, toggleTodo, reorderTodos } from "../redux/actions/todos";
-import setTodo from "../redux/actions/currentTodoId";
+import { deleteTodo, toggleTodo } from "../redux/actions/todos";
+import { setTodo } from "../redux/actions/currentTodoId";
 import setMode from "../redux/actions/mode";
 import List from "../components/List";
-import type { Id } from "../types/todo";
 import type { Mode } from "../types/mode";
 import type { Dispatch, State } from "../types";
 import { showMessage } from "../redux/actions/notification";
-import { getFilteredList } from "../redux/selectors";
 
 const mapStateToProps = (state: State) => ({
-  todos: getFilteredList(state),
+  filter: state.filter,
   mode: state.mode,
 });
 
-const showTodo = (id: Id, mode: Mode) => {
-  return (dispatch: Dispatch) => {
-    dispatch(setTodo(id));
-    dispatch(setMode(mode));
-  };
+const showTodo = (id: string, mode: Mode) => (dispatch) => {
+  dispatch(setTodo(id));
+  dispatch(setMode(mode));
 };
 
-const deleteTodoShowMessage = (id: Id) => (dispatch: Dispatch) => {
+const deleteTodoShowMessage = (id: string) => (dispatch: Dispatch) => {
   dispatch(showMessage("Todo was deleted"));
   dispatch(deleteTodo(id));
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  setMode: () => dispatch(setMode("form")),
-  deleteTodo: (id) => dispatch(deleteTodoShowMessage(id)),
-  toggleTodo: (id) => dispatch(toggleTodo(id)),
-  showTodo: (id, mode) => dispatch(showTodo(id, mode)),
-  onDragEnd: (result) => dispatch(reorderTodos(result)),
+  deleteTodo: (id: string) => deleteTodoShowMessage(id),
+  toggleTodo: (id: string) => dispatch(toggleTodo(id)),
+  showTodo: (id: string, mode: Mode) => dispatch(showTodo(id, mode)),
 });
 
+// $FlowFixMe
 export default connect(mapStateToProps, mapDispatchToProps)(List);

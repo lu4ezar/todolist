@@ -12,6 +12,7 @@ export const SET_MODE = "SET_MODE";
 
 // todo
 export const SET_ID = "SET_ID";
+export const DROP_ID = "DROP_ID";
 
 // notification
 export const SET_NOTIFICATION = "SET_NOTIFICATION";

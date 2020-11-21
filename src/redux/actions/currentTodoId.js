@@ -1,11 +1,15 @@
 // @flow
-import type { TodoAction, Id } from "../../types/todo";
+import type {
+  SetCurrentTodoIdAction,
+  DropCurrentTodoIdAction,
+} from "../../types/currentTodoId";
+import { SET_ID, DROP_ID } from "./actionTypes";
 
-import { SET_ID } from "./actionTypes";
-
-const setTodo = (id: ?Id): TodoAction => ({
+export const setTodo = (id: string): SetCurrentTodoIdAction => ({
   type: SET_ID,
-  id,
+  payload: id,
 });
 
-export default setTodo;
+export const dropTodo = (): DropCurrentTodoIdAction => ({
+  type: DROP_ID,
+});

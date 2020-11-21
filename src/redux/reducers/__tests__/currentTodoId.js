@@ -1,12 +1,13 @@
 import reducer from "../currentTodoId";
 import * as ActionTypes from "../../actions/actionTypes";
 
-// const initialState = null;
-let id = 5;
-const type = ActionTypes.SET_ID;
-const action = {
-  type,
-  id,
+const setAction = {
+  type: ActionTypes.SET_ID,
+  payload: 5,
+};
+
+const dropAction = {
+  type: ActionTypes.DROP_ID,
 };
 
 describe("todo reducer", () => {
@@ -16,8 +17,12 @@ describe("todo reducer", () => {
 
   it("should handle SET_ID", () => {
     const expectedState = 5;
-    expect(reducer({}, action)).toEqual(expectedState);
-    id = 6;
-    expect(reducer(expectedState, { type, id })).toEqual(6);
+    expect(reducer({}, setAction)).toEqual(expectedState);
+    setAction.payload = 6;
+    expect(reducer(expectedState, setAction)).toEqual(6);
+  });
+  it("should handle DROP_ID", () => {
+    const expectedState = null;
+    expect(reducer({}, dropAction)).toEqual(expectedState);
   });
 });

@@ -1,22 +1,22 @@
 // @flow
 import type { DropResult } from "react-beautiful-dnd";
-import type { Todo, Id } from "./todo";
+import type { Todo } from "../generated/graphql";
 
 export type Todos = Array<Todo>;
 
-export type TodosState = $ReadOnly<{|
-  todos: Todos,
-|}>;
+export type TodosState = {|
+  +todos: Todos,
+|};
 
-export type TodosStateWithHistory = $ReadOnly<{|
-  todos: {
-    past: Todos,
-    present: Todos,
-    future: Todos,
+export type TodosStateWithHistory = {|
+  +todos: {
+    +past: Todos,
+    +present: Todos,
+    +future: Todos,
   },
-|}>;
+|};
 
-export type TodoAction =
+export type TodosActions =
   | "ADD_TODO"
   | "TOGGLE_TODO"
   | "UPDATE_TODO"
@@ -24,8 +24,8 @@ export type TodoAction =
   | "REORDER";
 
 export type TodosAction =
-  | {| +type: "ADD_TODO", +todo: Todo |}
-  | {| +type: "TOGGLE_TODO", +id: Id |}
-  | {| +type: "DELETE_TODO", +id: Id |}
-  | {| +type: "UPDATE_TODO", +todo: Todo |}
-  | {| +type: "REORDER", +result: DropResult |};
+  | {| type: "ADD_TODO", todo: Todo |}
+  | {| type: "TOGGLE_TODO", id: string |}
+  | {| type: "DELETE_TODO", id: string |}
+  | {| type: "UPDATE_TODO", todo: Todo |}
+  | {| type: "REORDER", result: DropResult |};

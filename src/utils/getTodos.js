@@ -1,9 +1,13 @@
 // @flow
 import { useQuery } from "@apollo/client";
-import GET_TODOS from "../graphql/queries";
-import type { Todos } from "../generated/graphql";
+import { GET_TODOS } from "../apollo/queries";
+import type { Todos } from "../types/todos";
 
-const useGetTodos = () => {
+const useGetTodosQuery = (): {
+  loading: boolean,
+  error: Error,
+  todos: Todos,
+} => {
   const { loading, error, todos } = useQuery<Todos>(GET_TODOS);
   return {
     loading,
@@ -12,4 +16,4 @@ const useGetTodos = () => {
   };
 };
 
-export default useGetTodos;
+export default useGetTodosQuery;
