@@ -14,10 +14,11 @@ import { TodoStatusValues } from "../../generated/graphql";
 
 const ButtonPanel = ({
   todo: { id, status },
-  toggle,
+  // toggle,
   showTodo,
 }: Props): React.Node => {
-  const { deleteTodo } = useDeleteTodo(id); 
+  const { deleteTodo } = useDeleteTodo(id);
+  const { useToggle } = useToggle(id);
   return (
   <StToolbar>
     <IconButton title="View details" onClick={() => showTodo(id, "view")}>

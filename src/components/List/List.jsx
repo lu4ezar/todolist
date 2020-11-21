@@ -4,14 +4,14 @@ import * as React from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Typography, LinearProgress } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import { useApolloClient, useQuery } from "@apollo/client";
-import type { DropResult } from "react-beautiful-dnd";
+import { useQuery } from "@apollo/client";
+// import type { DropResult } from "react-beautiful-dnd";
 import ListItem from "../Todo";
 import { GET_TODOS } from "../../apollo/queries";
 import type { Props } from "./types";
 import { StyledPaper, StyledList } from "./styles";
 import filterTodo from "../../utils/filterTodo";
-import { useToggle } from "../../apollo/hooks";
+import { useReorder } from "../../apollo/hooks";
 
 const List = ({
   filter,
@@ -20,28 +20,7 @@ const List = ({
   showTodo,
 }: Props): React.Node => {
   const { data, loading, error } = useQuery(GET_TODOS);
-  const toggleTodo = useToggle();
-  const client = useApolloClient();
-  function onDragEnd(result: DropResult): void {
-    const { source, destination } = result;
-    const { todos } = client.readQuery({ query: GET_TODOS });
-    if (!destination) {
-      return todos;
-    }
-    if (source.index === destination.index) {
-      return todos;
-    }
-    const arr = [...todos];
-    const [removed] = arr.splice(source.index, 1);
-    arr.splice(destination.index, 0, removed);
-    client.writeQuery({
-      query: GET_TODOS,
-      data: {
-        todos: arr,
-      },
-    });
-    return arr;
-  }
+  const onDragEnd = useReorder()
 
   if (loading) return <LinearProgress />;
 
@@ -59,7 +38,7 @@ const List = ({
         key={todo.id}
         index={index}
         todo={todo}
-        toggleTodo={() => toggleTodo(todo.id)}
+        // toggleTodo={() => toggleTodo(todo.id)}
         deleteTodo={deleteTodo}
         showTodo={showTodo}
       />
