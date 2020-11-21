@@ -52,7 +52,7 @@
     "@graphql-codegen/flow-resolvers": "1.17.10",
     "@graphql-codegen/introspection": "1.18.0",
     "@react-mock/localstorage": "0.1.2",
-    "@storybook/addon-actions": "^6.0.28",
+    "@storybook/addon-actions": "^6.1.2",
     "@storybook/addon-essentials": "^6.0.28",
     "@storybook/addon-knobs": "^6.0.28",
     "@storybook/addon-links": "^6.0.28",
