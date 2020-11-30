@@ -33,6 +33,12 @@ const List = ({
     todos = filterList(todos, filter);
   }
 
+  const onDragStart = () => {
+    if (window.navigator.vibrate) {
+      window.navigator.vibrate(100);
+    }
+  };
+
   const content = todos.length ? (
     todos.map((todo, index) => (
       <ListItem
@@ -51,7 +57,7 @@ const List = ({
   );
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
         {(provided, snapshot) => (
           <StyledPaper ref={provided.innerRef}>
