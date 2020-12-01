@@ -23,7 +23,8 @@ const App = (): React.Node => {
         <SidePanel open={showPanel} togglePanel={togglePanel} />
         <AddTodoForm />
         <VisibleList />
-        <AddButton />
+        <AddButton entity="todo" />
+        <AddButton entity="checklist" />
         <Notification />
       </StyledContainer>
     </StyledApp>
