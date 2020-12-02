@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apollo/client": "3.2.7",
-    "@material-ui/core": "4.11.0",
+    "@apollo/client": "3.2.9",
+    "@material-ui/core": "4.11.1",
     "@material-ui/icons": "4.9.1",
     "@material-ui/lab": "4.0.0-alpha.56",
-    "@material-ui/styles": "4.10.0",
+    "@material-ui/styles": "4.11.1",
     "@testing-library/jest-dom": "5.11.6",
     "luxon": "^1.25.0",
     "graphql": "15.4.0",
@@ -15,7 +15,7 @@
     "react-beautiful-dnd": "13.0.0",
     "react-dom": "17.0.1",
     "react-redux": "7.2.2",
-    "react-scripts": "4.0.0",
+    "react-scripts": "4.0.1",
     "redux": "4.0.5",
     "redux-thunk": "2.3.0",
     "redux-undo": "1.0.1",
@@ -41,14 +41,14 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@babel/cli": "7.12.7",
-    "@babel/core": "7.12.7",
+    "@babel/cli": "7.12.8",
+    "@babel/core": "7.12.9",
     "@babel/preset-flow": "7.12.1",
-    "@graphql-codegen/cli": "1.19.2",
-    "@graphql-codegen/flow": "1.18.1",
-    "@graphql-codegen/flow-operations": "1.18.3",
-    "@graphql-codegen/flow-resolvers": "1.17.11",
-    "@graphql-codegen/introspection": "1.18.0",
+    "@graphql-codegen/cli": "1.19.4",
+    "@graphql-codegen/flow": "1.18.2",
+    "@graphql-codegen/flow-operations": "1.18.4",
+    "@graphql-codegen/flow-resolvers": "1.17.12",
+    "@graphql-codegen/introspection": "1.18.1",
     "@react-mock/localstorage": "0.1.2",
     "@testing-library/react": "11.2.2",
     "babel-eslint": "10.1.0",
@@ -66,8 +66,8 @@
     "flow-typed": "3.2.1",
     "gh-pages": "3.1.0",
     "husky": "4.3.0",
-    "lint-staged": "10.5.1",
-    "prettier": "2.2.0"
+    "lint-staged": "10.5.2",
+    "prettier": "2.2.1"
   },
   "husky": {
     "hooks": {
