@@ -31,6 +31,12 @@ const List = ({
       </Alert>
     );
 
+  const onDragStart = () => {
+    if (window.navigator.vibrate) {
+      window.navigator.vibrate(100);
+    }
+  };
+
   const content = data?.todos
     .filter((todo) => (filter.master.status ? filterTodo(todo, filter) : todo))
     .map((todo, index) => (
@@ -45,7 +51,7 @@ const List = ({
     ));
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
         {(provided, snapshot) => (
           <StyledPaper ref={provided.innerRef}>
