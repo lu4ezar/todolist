@@ -1,7 +1,7 @@
 import { InMemoryCache, makeVar } from "@apollo/client";
 import type { Filter } from "../types/filter";
 import type { Mode } from "../types/mode";
-import type { PriorityValues } from "../generated/graphql";
+import { PriorityValues } from "../generated/graphql";
 
 export const initialValue: Filter = {
   master: {
