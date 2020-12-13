@@ -8,8 +8,8 @@ import {
 } from "@testing-library/react";
 import { MockedProvider } from "@apollo/client/testing";
 import List from "../List";
-import { initialState as filter } from "../../../redux/reducers/filter";
-import { TodoPriorityValues } from "../../../generated/graphql";
+import { initialValue as filter } from "../../../apollo/cache";
+import { PriorityValues } from "../../../generated/graphql";
 import {
   lowPriorTodo,
   normalPriorTodo,
@@ -66,8 +66,7 @@ describe("List", () => {
         status: true,
       },
       priority: {
-        status: true,
-        value: [TodoPriorityValues.Low],
+        value: [PriorityValues.Low],
       },
     };
     const enabledFilterProps = {
@@ -87,8 +86,7 @@ describe("List", () => {
         status: true,
       },
       priority: {
-        status: true,
-        value: [TodoPriorityValues.High],
+        value: [PriorityValues.High],
       },
     };
     const enabledFilterProps = {
