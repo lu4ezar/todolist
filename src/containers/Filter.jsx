@@ -1,15 +1,12 @@
 // @flow
-import { useApolloClient } from "@apollo/client";
 import * as React from "react";
 import { filterVar } from "../apollo/cache";
-import { GET_TODOS } from "../apollo/queries";
+import { useGetCompletedCount, useGetExpiredCount } from "../apollo/hooks";
 import Filter from "../components/Filter";
 
 export default () => {
-  const client = useApolloClient();
-  const todos = client.readQuery(GET_TODOS);
-  const completedCount = todos.filter((todo) => !!todo.completed).length;
-  const expiredCount = todos.filter((todo) => todo.expires > Date.now()).length;
+  const completedCount = useGetCompletedCount();
+  const expiredCount = useGetExpiredCount();
   const filter = filterVar();
 
   const handleChange = (filterName: FilterName) => (

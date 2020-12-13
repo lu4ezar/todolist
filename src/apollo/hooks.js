@@ -1,15 +1,19 @@
-import { useApolloClient, useQuery, useMutation } from "@apollo/client";
-import { CREATE_TODO, UPDATE_TODO, DELETE_TODO } from "./mutations";
+import { useApolloClient, useQuery, useMutation, gql } from "@apollo/client";
+import {
+  CREATE_TODO,
+  UPDATE_TODO,
+  DELETE_TODO,
+  TOGGLE_TODO,
+} from "./mutations";
 import { GET_TODO, GET_TODOS } from "./queries";
-// import { TodoStatusValues } from "../generated/graphql";
 
-export const useCreateTodo = ({ title, description, status, priority }) => {
+export const useCreateTodo = ({ title, description, completed, priority }) => {
   const [createTodo] = useMutation(CREATE_TODO, {
     variables: {
       input: {
         title,
         description,
-        status,
+        completed,
         priority,
       },
     },
@@ -30,14 +34,20 @@ export const useCreateTodo = ({ title, description, status, priority }) => {
   return { createTodo };
 };
 
-export const useUpdateTodo = ({ id, title, description, status, priority }) => {
+export const useUpdateTodo = ({
+  id,
+  title,
+  description,
+  completed,
+  priority,
+}) => {
   const [updateTodo] = useMutation(UPDATE_TODO, {
     variables: {
       input: {
         id,
         title,
         description,
-        status,
+        completed,
         priority,
       },
     },
@@ -88,25 +98,26 @@ export const useGetTodo = (id) => {
   };
 };
 
-export const useToggle = (id, status) => {
-  // const client = useApolloClient();
-  /* const { todo } = useQuery(GET_TODO,{
-    variables: {
-      id
-    }
-  }); */
-  // const { todo = {} } = useGetTodo(id);
-  // alert(todo);
-  /* const newStatus =
-    todo?.status === TodoStatusValues.COMPLETED
-      ? TodoStatusValues.ACTIVE
-      : TodoStatusValues.COMPLETED;
-  */
-  const [updateTodo] = useMutation(UPDATE_TODO, {
+export const useToggle = (id) => {
+  const client = useApolloClient();
+  const todo = client.readFragment({
+    id: `Todo:${id}`,
+    fragment: gql`
+      fragment Todo on Todo {
+        completed
+      }
+    `,
+  });
+  const [updateTodo] = useMutation(TOGGLE_TODO, {
     variables: {
       id,
-      input: {
-        status,
+    },
+    optimisticResponse: {
+      __typename: "Mutation",
+      toggleTodo: {
+        id,
+        __typename: "Todo",
+        completed: !todo.completed,
       },
     },
   });
@@ -138,16 +149,23 @@ export const useReorder = () => {
   return onDragEnd;
 };
 
-/* export const useGetTodos = () => {
-  const { data: { todo } = {}, loading, networkStatus } = useQuery(GET_TODO, {
-    skip: !id,
-    variables: {
-      id,
-    },
-    notifyOnNetworkStatusChange: true,
-  });
+export const useGetTodos = () => {
+  const { data: { todos } = {}, loading, error } = useQuery(GET_TODO);
   return {
-    data,
-    loading: loading || networkStatus = 
-}
-*/
+    todos,
+    loading,
+    error,
+  };
+};
+
+export const useGetCompletedCount = () => {
+  const client = useApolloClient();
+  const todos = client.readQuery(GET_TODOS);
+  return todos?.filter((todo) => !!todo.completed).length || 0;
+};
+
+export const useGetExpiredCount = () => {
+  const client = useApolloClient();
+  const todos = client.readQuery(GET_TODOS);
+  return todos?.filter((todo) => todo.expires > Date.now()).length || 0;
+};
