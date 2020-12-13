@@ -10,11 +10,9 @@ import {
 import { useToggle, useDeleteTodo } from "../../apollo/hooks";
 import { StToolbar, IconButton } from "./styles";
 import type { Props } from "./types";
-import { TodoStatusValues } from "../../generated/graphql";
 
 const ButtonPanel = ({
-  todo: { id, status },
-  // toggle,
+  todo: { id, completed },
   showTodo,
 }: Props): React.Node => {
   const { deleteTodo } = useDeleteTodo(id);
@@ -28,11 +26,7 @@ const ButtonPanel = ({
         <EditIcon />
       </IconButton>
       <IconButton title="Mark as Completed" onClick={toggleTodo}>
-        {status === TodoStatusValues.Completed ? (
-          <CheckBox />
-        ) : (
-          <CheckBoxOutlineBlank />
-        )}
+        {completed ? <CheckBox /> : <CheckBoxOutlineBlank />}
       </IconButton>
       <IconButton title="Delete Todo" onClick={deleteTodo}>
         <DeleteIcon />

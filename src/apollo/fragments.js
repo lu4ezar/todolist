@@ -7,7 +7,7 @@ const FRAGMENT_TODO_ALL_FIELDS: DocumentNode = gql`
     id
     title
     description
-    status
+    completed
     priority
     created
   }
