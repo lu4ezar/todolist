@@ -14,7 +14,7 @@ import { Close as CloseIcon, Check as CheckIcon } from "@material-ui/icons";
 import Drawer from "../Drawer";
 import Header from "../Header";
 import type { Props } from "./types";
-import { TodoPriorityValues, TodoStatusValues } from "../../generated/graphql";
+import { PriorityValues } from "../../generated/graphql";
 import type { Todo } from "../../generated/graphql";
 import { useCreateTodo, useUpdateTodo, useGetTodo } from "../../apollo/hooks";
 
@@ -22,8 +22,8 @@ const initialState: Todo = {
   id: "",
   title: "",
   description: "",
-  priority: TodoPriorityValues.Normal,
-  status: TodoStatusValues.Active,
+  priority: PriorityValues.Normal,
+  status: PriorityValues.Active,
   created: null,
 };
 
@@ -112,16 +112,16 @@ const Form = ({ id, mode, closeForm }: Props): React.Node => {
             <FormControl>
               <InputLabel htmlFor="priority">Priority</InputLabel>
               <Select
-                value={state.priority || TodoPriorityValues.Normal}
+                value={state.priority || PriorityValues.Normal}
                 onChange={handleSelectChange}
                 inputProps={{
                   name: "priority",
                   id: "priority",
                 }}
               >
-                <MenuItem value={TodoPriorityValues.Low}>Low</MenuItem>
-                <MenuItem value={TodoPriorityValues.Normal}>Normal</MenuItem>
-                <MenuItem value={TodoPriorityValues.High}>High</MenuItem>
+                <MenuItem value={PriorityValues.Low}>Low</MenuItem>
+                <MenuItem value={PriorityValues.Normal}>Normal</MenuItem>
+                <MenuItem value={PriorityValues.High}>High</MenuItem>
               </Select>
             </FormControl>
             <br />
