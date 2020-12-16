@@ -6,7 +6,8 @@ import type { Props } from "./types";
 
 const AddButton = ({ setMode, entity }: Props): React.Node => (
   <Fab color="secondary" title="add todo" onClick={setMode}>
-    <AddIcon /> ${entity}
+    <AddIcon />
+    {entity}
   </Fab>
 );
 
