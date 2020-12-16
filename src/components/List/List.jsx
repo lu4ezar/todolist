@@ -23,25 +23,6 @@ const List = ({
       </Alert>
     );
 
-  const onDragStart = () => {
-    if (window.navigator.vibrate) {
-      window.navigator.vibrate(100);
-    }
-  };
-
-  const content = data?.todos
-    .filter((todo) => (filter.master.status ? filterTodo(todo, filter) : todo))
-    .map((todo, index) => (
-      <ListItem
-        key={todo.id}
-        index={index}
-        todo={todo}
-        // toggleTodo={() => toggleTodo(todo.id)}
-        deleteTodo={deleteTodo}
-        showTodo={showTodo}
-      />
-    ));
-
   return (
     <StyledList
       isDraggingOver={snapshot?.isDraggingOver}
