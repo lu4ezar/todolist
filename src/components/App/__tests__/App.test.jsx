@@ -6,7 +6,7 @@ import {
   waitForElementToBeRemoved,
 } from "../../../utils/test-utils";
 
-import App from "../App";
+import App from "..";
 
 describe("App", () => {
   it("should render without error", async () => {
