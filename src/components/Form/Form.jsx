@@ -71,9 +71,7 @@ const Form = ({ id, mode, closeForm }: Props): React.Node => {
 
   const disableClearButton = !state.title && !state.description;
   const disableSubmitButton =
-    JSON.stringify(todo) === JSON.stringify(state) ||
-    !state.title ||
-    !state.description;
+    JSON.stringify(todo) === JSON.stringify(state) || !state.title;
 
   return (
     <Drawer side="right" open={mode !== "list"} toggleDrawer={closeForm}>
@@ -106,7 +104,6 @@ const Form = ({ id, mode, closeForm }: Props): React.Node => {
               value={state.description}
               onChange={onChange("description")}
               margin="normal"
-              required
             />
             <br />
             <FormControl>
