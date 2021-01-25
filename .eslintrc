@@ -22,7 +22,8 @@
           "**/test-utils.jsx"
         ]
       }
-    ]
+    ],
+    "no-underscore-dangle": [2, { "allow": ["__typename"] }]
   },
   "overrides": [
     {
