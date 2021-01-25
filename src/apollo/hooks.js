@@ -102,11 +102,7 @@ export const useToggle = (id) => {
   const client = useApolloClient();
   const todo = client.readFragment({
     id: `Todo:${id}`,
-    fragment: gql`
-      fragment Todo on Todo {
-        completed
-      }
-    `,
+    fragment: TodoFragments.completed,
   });
   const [updateTodo] = useMutation(TOGGLE_TODO, {
     variables: {

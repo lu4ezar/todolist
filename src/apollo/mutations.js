@@ -1,7 +1,7 @@
 // @flow
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
-import FRAGMENT_TODO_ALL_FIELDS from "./fragments";
+import { TodoFragments } from "./fragments";
 
 export const CREATE_TODO: DocumentNode = gql`
   mutation createTodo($input: CreateTodoInput!) {
@@ -9,7 +9,7 @@ export const CREATE_TODO: DocumentNode = gql`
       ...TodoAllFields
     }
   }
-  ${FRAGMENT_TODO_ALL_FIELDS}
+  ${TodoFragments.allFields}
 `;
 export const UPDATE_TODO: DocumentNode = gql`
   mutation updateTodo($input: UpdateTodoInput!) {
@@ -17,7 +17,7 @@ export const UPDATE_TODO: DocumentNode = gql`
       ...TodoAllFields
     }
   }
-  ${FRAGMENT_TODO_ALL_FIELDS}
+  ${TodoFragments.allFields}
 `;
 
 export const TOGGLE_TODO: DocumentNode = gql`
