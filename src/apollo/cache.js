@@ -1,6 +1,7 @@
 import { InMemoryCache, makeVar } from "@apollo/client";
 import type { Filter } from "../types/filter";
 import type { Mode } from "../types/mode";
+import type { Entity } from "../types/entity";
 import { PriorityValues } from "../generated/graphql";
 
 export const initialValue: Filter = {
@@ -20,6 +21,7 @@ export const initialValue: Filter = {
 
 export const filterVar: Filter = makeVar(initialValue);
 export const modeVar: Mode = makeVar("list");
+export const entityVar: Entity = makeVar("todo");
 
 export default new InMemoryCache({
   typePolicies: {
@@ -33,6 +35,11 @@ export default new InMemoryCache({
         mode: {
           read() {
             return modeVar();
+          },
+        },
+        entity: {
+          read() {
+            return entityVar();
           },
         },
       },
