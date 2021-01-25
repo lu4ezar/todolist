@@ -22,6 +22,7 @@ export const initialValue: Filter = {
 export const filterVar: Filter = makeVar(initialValue);
 export const modeVar: Mode = makeVar("list");
 export const entityVar: Entity = makeVar("todo");
+export const currentEntityIdVar: string | null = makeVar(null);
 
 export default new InMemoryCache({
   typePolicies: {
@@ -40,6 +41,11 @@ export default new InMemoryCache({
         entity: {
           read() {
             return entityVar();
+          },
+        },
+        currentEntityId: {
+          read() {
+            return currentEntityIdVar();
           },
         },
       },
