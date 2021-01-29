@@ -3,7 +3,7 @@ import cache from "./cache";
 
 const uri =
   !process.env.NODE_ENV || process.env.NODE_ENV === "development"
-    ? "http://127.0.0.1:4000/graphql"
+    ? "http://localhost:4000/graphql"
     : "https://todo-gql-server.herokuapp.com/graphql";
 
 const link = createHttpLink({
