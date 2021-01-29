@@ -4,7 +4,7 @@ import { filterVar } from "../apollo/cache";
 import { useGetCompletedCount, useGetExpiredCount } from "../apollo/hooks";
 import Filter from "../components/Filter";
 
-export default () => {
+export default (): React.Node => {
   const completedCount = useGetCompletedCount();
   const expiredCount = useGetExpiredCount();
   const filter = filterVar();

@@ -5,7 +5,7 @@ import { Droppable } from "react-beautiful-dnd";
 import List from "./List";
 import { StyledPaper } from "./styles";
 
-const DnDWrapper = (props) => (
+const DnDWrapper = (props: Props): React.Node => (
   <Droppable droppableId="droppable">
     {(provided, snapshot) => (
       <StyledPaper ref={provided.innerRef}>

@@ -4,7 +4,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 import App from "./App";
 import { useReorder } from "../../apollo/hooks";
 
-const DnDWrapper = () => {
+const DnDWrapper = (): React.Node => {
   const onDragStart = () => {
     if (window.navigator.vibrate) {
       window.navigator.vibrate(100);
