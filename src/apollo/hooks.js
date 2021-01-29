@@ -116,7 +116,7 @@ export const useToggle = (id) => {
       toggleTodo: {
         id,
         __typename: "Todo",
-        completed: !todo.completed,
+        completed: todo ? !todo.completed : false,
       },
     },
   });
