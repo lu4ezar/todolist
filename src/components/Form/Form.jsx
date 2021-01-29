@@ -20,6 +20,7 @@ import { useCreateTodo, useUpdateTodo, useGetTodo } from "../../apollo/hooks";
 
 const initialState: Todo = {
   id: "",
+  // order: 0,
   title: "",
   description: "",
   priority: PriorityValues.Normal,
