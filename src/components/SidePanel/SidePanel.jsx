@@ -3,7 +3,7 @@ import * as React from "react";
 import { Divider } from "@material-ui/core";
 import Filter from "../../containers/Filter";
 import Sort from "../Sort";
-import UndoRedo from "../../containers/UndoRedoContainer";
+import UndoRedo from "../../containers/UndoRedo";
 import Drawer from "../Drawer";
 import type { Props } from "./types";
 
