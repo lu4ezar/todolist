@@ -1,11 +1,14 @@
-import { useApolloClient, useQuery, useMutation, gql } from "@apollo/client";
+import { useApolloClient, useQuery, useMutation } from "@apollo/client";
+import jwtDecode from "jwt-decode";
+import { TodoFragments } from "./fragments";
 import {
   CREATE_TODO,
   UPDATE_TODO,
   DELETE_TODO,
   TOGGLE_TODO,
-} from "./mutations";
-import { GET_TODO, GET_TODOS } from "./queries";
+} from "./mutations/todo";
+import { CREATE_USER, LOGIN_USER } from "./mutations/user";
+import { GET_ALL, GET_TODO, GET_TODOS } from "./queries";
 
 export const useCreateTodo = ({ title, description, completed, priority }) => {
   const [createTodo] = useMutation(CREATE_TODO, {
@@ -156,12 +159,58 @@ export const useGetTodos = () => {
 
 export const useGetCompletedCount = () => {
   const client = useApolloClient();
-  const todos = client.readQuery(GET_TODOS);
-  return todos?.filter((todo) => !!todo.completed).length || 0;
+  const query = GET_ALL;
+  const queryResult = client.readQuery({ query });
+  let sum = 0;
+  Object.keys(queryResult).forEach((entity) => {
+    queryResult[entity].forEach((item) => {
+      if (item.completed) {
+        sum += 1;
+      }
+    });
+  });
+  return sum;
 };
 
 export const useGetExpiredCount = () => {
   const client = useApolloClient();
-  const todos = client.readQuery(GET_TODOS);
-  return todos?.filter((todo) => todo.expires > Date.now()).length || 0;
+  const query = GET_ALL;
+  const queryResult = client.readQuery({ query });
+  let sum = 0;
+  Object.keys(queryResult).forEach((entity) => {
+    queryResult[entity].forEach((item) => {
+      if (item.expires > Date.now()) {
+        sum += 1;
+      }
+    });
+  });
+  return sum;
+};
+
+export const useLoginMutation = () => {
+  const [loginUser, { loading, error }] = useMutation(LOGIN_USER, {
+    onCompleted: ({ loginUser: { token } }) => {
+      const user = jwtDecode(token);
+      localStorage.setItem("user", JSON.stringify(user));
+    },
+  });
+  return {
+    loginUser,
+    loading,
+    error,
+  };
+};
+
+export const useCreateUserMutation = () => {
+  const [createUser, { loading, error }] = useMutation(CREATE_USER, {
+    onCompleted: ({ createUser: { token } }) => {
+      const user = jwtDecode(token);
+      localStorage.setItem("user", JSON.stringify(user));
+    },
+  });
+  return {
+    createUser,
+    loading,
+    error,
+  };
 };
