@@ -19,4 +19,18 @@ export const GET_TODOS: DocumentNode = gql`
   }
   ${TodoFragments.allFields}
 `;
+
+export const GET_ALL: DocumentNode = gql`
+  query getAll {
+    todos {
+      title
+      ...TodoAllFields
+    }
+    checklists {
+      title
+      ...ChecklistAllFields
+    }
+  }
+  ${TodoFragments.allFields}
+  ${ChecklistFragments.allFields}
 `;
