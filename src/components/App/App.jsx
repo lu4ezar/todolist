@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import { CssBaseline } from "@material-ui/core";
-import AddTodoForm from "../../containers/Form";
+import AddForm from "../../containers/Form";
 import VisibleList from "../../containers/List";
 import Header from "../Header";
 import Notification from "../../containers/Notification";
@@ -21,7 +21,7 @@ const App = (): React.Node => {
           <Header variant="h3" text="TodoApp" />
         </Navbar>
         <SidePanel open={showPanel} togglePanel={togglePanel} />
-        <AddTodoForm />
+        <AddForm />
         <VisibleList />
         <AddButton entity="todo" />
         <AddButton entity="checklist" />
