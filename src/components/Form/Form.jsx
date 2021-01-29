@@ -27,7 +27,7 @@ const initialState: Todo = {
   created: null,
 };
 
-const Form = ({ id, mode, closeForm }: Props): React.Node => {
+const Form = ({ id, mode, entity, closeForm }: Props): React.Node => {
   const { todo, loading } = useGetTodo(id);
   const [state, setState] = React.useState<Todo>(initialState);
   const { createTodo } = useCreateTodo(state);
@@ -73,16 +73,14 @@ const Form = ({ id, mode, closeForm }: Props): React.Node => {
   const disableSubmitButton =
     JSON.stringify(todo) === JSON.stringify(state) || !state.title;
 
+  const formTitle = `${
+    mode === "form" ? "Add new" : mode.charAt(0).toUpperCase() + mode.slice(1)
+  } ${entity}`;
+
   return (
     <Drawer side="right" open={mode !== "list"} toggleDrawer={closeForm}>
       <form data-testid="form" id="form" onSubmit={onSubmit}>
-        <Header
-          text={`${
-            mode === "form"
-              ? "Add new"
-              : mode.charAt(0).toUpperCase() + mode.slice(1)
-          } todo`}
-        />
+        <Header text={formTitle} />
         {loading ? (
           <Skeleton variant="rect" width={300} height={500} />
         ) : (

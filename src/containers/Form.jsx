@@ -1,11 +1,11 @@
 // @flow
-import React from "react";
+import * as React from "react";
+import { useReactiveVar } from "@apollo/client";
 import Form from "../components/Form";
-import { modeVar } from "../apollo/cache";
+import { modeVar, entityVar } from "../apollo/cache";
 
-export default () => {
-  const closeForm = () => {
-    modeVar("list");
-  };
-  return <Form closeForm={closeForm} mode={modeVar()} />;
+export default (): React.Node => {
+  const mode = useReactiveVar(modeVar);
+  const entity = useReactiveVar(entityVar);
+  return <Form mode={mode} entity={entity} closeForm={() => modeVar("list")} />;
 };

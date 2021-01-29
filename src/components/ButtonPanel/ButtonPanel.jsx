@@ -10,24 +10,30 @@ import {
 import { useToggle, useDeleteTodo } from "../../apollo/hooks";
 import { StToolbar, IconButton } from "./styles";
 import type { Props } from "./types";
+import { modeVar, currentEntityIdVar } from "../../apollo/cache";
 
 const ButtonPanel = ({
-  todo: { id, completed },
-  showTodo,
+  entity: { id, completed, __typename: type },
 }: Props): React.Node => {
   const { deleteTodo } = useDeleteTodo(id);
   const { toggleTodo } = useToggle(id);
+  const showEntity = (ID, mode) => {
+    currentEntityIdVar(ID);
+    modeVar(mode);
+  };
   return (
     <StToolbar>
-      <IconButton title="View details" onClick={() => showTodo(id, "view")}>
+      <IconButton title="View details" onClick={() => showEntity(id, "view")}>
         <ViewIcon />
       </IconButton>
-      <IconButton title="Edit" onClick={() => showTodo(id, "edit")}>
+      <IconButton title="Edit" onClick={() => showEntity(id, "edit")}>
         <EditIcon />
       </IconButton>
-      <IconButton title="Mark as Completed" onClick={toggleTodo}>
-        {completed ? <CheckBox /> : <CheckBoxOutlineBlank />}
-      </IconButton>
+      {type === "Todo" && (
+        <IconButton title="Mark as Completed" onClick={toggleTodo}>
+          {completed ? <CheckBox /> : <CheckBoxOutlineBlank />}
+        </IconButton>
+      )}
       <IconButton title="Delete Todo" onClick={deleteTodo}>
         <DeleteIcon />
       </IconButton>

@@ -1,14 +1,14 @@
 // @flow
-import type { Todo as TodoType } from "../generated/graphql";
 import type { Filter } from "../types/filter";
+import type { Entity } from "../types/entity";
 
-const filterTodo = (todo: TodoType, filter: Filter): boolean => {
+const filterTodo = (entity: Entity, filter: Filter): boolean => {
   const {
     priority: { completed: priorityFilterEnabled, value: priorityFilter },
     completed: { completed: completedFilterEnabled, value: completedFilter },
     expired: { completed: expiredFilterEnabled, value: expiredFilter },
   } = filter;
-  const { priority, completed, expires } = todo;
+  const { priority, completed, expires } = entity;
   let result = false;
   if (priorityFilterEnabled) {
     if (!priorityFilter.includes(priority)) {

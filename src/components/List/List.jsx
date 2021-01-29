@@ -3,7 +3,8 @@
 import * as React from "react";
 import { Typography, LinearProgress } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import { DnDWrapper as ListItem } from "../Todo";
+import { DnDWrapper as ChkList } from "../Checklist";
+import { DnDWrapper as Todo } from "../Todo";
 import type { Props } from "./types";
 import { StyledList } from "./styles";
 
@@ -30,9 +31,13 @@ const List = ({
     >
       {list?.length ? (
         <>
-          {list.map((todo, index) => (
-            <ListItem key={todo.id} todo={todo} index={index} />
-          ))}
+          {list.map((entity, index) =>
+            entity.__typename === "Todo" ? (
+              <Todo key={entity.id} todo={entity} index={index} />
+            ) : (
+              <ChkList key={entity.id} checklist={entity} index={index} />
+            )
+          )}
           {provided.placeholder}
         </>
       ) : (
