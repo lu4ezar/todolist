@@ -1,4 +1,4 @@
 // @flow
-import type { Mode, ModeAction } from "../../types/mode";
+import type { Mode } from "../../types/mode";
 
-export type Props = {| entity: string, setMode: (mode: Mode) => ModeAction |};
+export type Props = {| entity: string, setMode: (mode: Mode) => void |};
