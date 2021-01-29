@@ -5,7 +5,7 @@ import { GraphQLError } from "graphql";
 import { GET_TODOS, GET_TODO } from "../apollo/queries";
 import { PriorityValues } from "../generated/graphql";
 import type { Todo } from "../generated/graphql";
-import { TOGGLE_TODO } from "../apollo/mutations";
+import { TOGGLE_TODO } from "../apollo/mutations/todo";
 
 export const lowPriorTodo: Todo = {
   id: "1",
