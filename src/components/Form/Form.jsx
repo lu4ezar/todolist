@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { Close as CloseIcon, Check as CheckIcon } from "@material-ui/icons";
-// import getExpireState from "../../utils/luxon";
+// import isExpired from "../../utils/luxon";
 import Drawer from "../Drawer";
 import Header from "../Header";
 import type { Props } from "./types";
