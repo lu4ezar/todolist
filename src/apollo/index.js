@@ -1,4 +1,4 @@
-import { ApolloClient } from "@apollo/client";
+import { ApolloClient, createHttpLink } from "@apollo/client";
 import cache from "./cache";
 
 const uri =
@@ -6,9 +6,14 @@ const uri =
     ? "http://127.0.0.1:4000/graphql"
     : "https://todo-gql-server.herokuapp.com/graphql";
 
-const client = new ApolloClient({
+const link = createHttpLink({
   uri,
+  credentials: "include",
+});
+
+const client = new ApolloClient({
   cache,
+  link,
   connectToDevTools: true,
 });
 
