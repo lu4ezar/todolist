@@ -27,15 +27,15 @@ exports[`List renders list of todos after loading 1`] = `
   >
     <ul
       class="MuiList-root sc-jSgupP cxEGPw MuiList-padding"
-      data-rbd-droppable-context-id="0"
+      data-rbd-droppable-context-id="1"
       data-rbd-droppable-id="droppable"
     >
       <li
-        aria-describedby="rbd-hidden-text-0-hidden-text-0"
+        aria-describedby="rbd-hidden-text-1-hidden-text-2"
         class="MuiListItem-root sc-hKgILt QEaFm MuiListItem-gutters"
-        data-rbd-drag-handle-context-id="0"
+        data-rbd-drag-handle-context-id="1"
         data-rbd-drag-handle-draggable-id="1"
-        data-rbd-draggable-context-id="0"
+        data-rbd-draggable-context-id="1"
         data-rbd-draggable-id="1"
         draggable="false"
         role="button"
@@ -180,11 +180,11 @@ exports[`List renders list of todos after loading 1`] = `
         </div>
       </li>
       <li
-        aria-describedby="rbd-hidden-text-0-hidden-text-0"
+        aria-describedby="rbd-hidden-text-1-hidden-text-2"
         class="MuiListItem-root sc-hKgILt QEaFm MuiListItem-gutters"
-        data-rbd-drag-handle-context-id="0"
+        data-rbd-drag-handle-context-id="1"
         data-rbd-drag-handle-draggable-id="2"
-        data-rbd-draggable-context-id="0"
+        data-rbd-draggable-context-id="1"
         data-rbd-draggable-id="2"
         draggable="false"
         role="button"
@@ -329,11 +329,11 @@ exports[`List renders list of todos after loading 1`] = `
         </div>
       </li>
       <li
-        aria-describedby="rbd-hidden-text-0-hidden-text-0"
+        aria-describedby="rbd-hidden-text-1-hidden-text-2"
         class="MuiListItem-root sc-dlfnbm jyLeSY MuiListItem-gutters"
-        data-rbd-drag-handle-context-id="0"
+        data-rbd-drag-handle-context-id="1"
         data-rbd-drag-handle-draggable-id="3"
-        data-rbd-draggable-context-id="0"
+        data-rbd-draggable-context-id="1"
         data-rbd-draggable-id="3"
         draggable="false"
         role="button"
