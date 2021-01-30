@@ -1,12 +1,14 @@
 // @flow
 import * as React from "react";
 import {
-  RemoveRedEye as ViewIcon,
-  Edit as EditIcon,
-  CheckBox,
-  CheckBoxOutlineBlank,
-  Delete as DeleteIcon,
-} from "@material-ui/icons";
+  CaretUp,
+  CaretDown,
+  CheckSquare,
+  Eye,
+  Pencil,
+  Square,
+  TrashSimple,
+} from "phosphor-react";
 import { useToggle, useDeleteTodo } from "../../apollo/hooks";
 import { StToolbar, IconButton } from "./styles";
 import type { Props } from "./types";
@@ -17,6 +19,7 @@ const ButtonPanel = ({
 }: Props): React.Node => {
   const { deleteTodo } = useDeleteTodo(id);
   const { toggleTodo } = useToggle(id);
+  const [expandChecklist, setExpandChecklist] = React.useState(false);
   const showEntity = (ID, mode) => {
     currentEntityIdVar(ID);
     modeVar(mode);
@@ -24,18 +27,33 @@ const ButtonPanel = ({
   return (
     <StToolbar>
       <IconButton title="View details" onClick={() => showEntity(id, "view")}>
-        <ViewIcon />
+        <Eye size={24} weight="fill" />
       </IconButton>
       <IconButton title="Edit" onClick={() => showEntity(id, "edit")}>
-        <EditIcon />
+        <Pencil size={24} weight="fill" />
       </IconButton>
-      {type === "Todo" && (
+      {type === "Todo" ? (
         <IconButton title="Mark as Completed" onClick={toggleTodo}>
-          {completed ? <CheckBox /> : <CheckBoxOutlineBlank />}
+          {completed ? (
+            <CheckSquare size={24} weight="fill" />
+          ) : (
+            <Square size={24} weight="fill" />
+          )}
+        </IconButton>
+      ) : (
+        <IconButton
+          title="Expand todos list"
+          onClick={() => setExpandChecklist(!expandChecklist)}
+        >
+          {expandChecklist ? (
+            <CaretUp size={24} weight="fill" />
+          ) : (
+            <CaretDown size={24} weight="fill" />
+          )}
         </IconButton>
       )}
       <IconButton title="Delete Todo" onClick={deleteTodo}>
-        <DeleteIcon />
+        <TrashSimple size={24} weight="fill" />
       </IconButton>
     </StToolbar>
   );
