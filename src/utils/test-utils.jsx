@@ -111,7 +111,14 @@ export const undefinedMock = [
 function render(ui, { initialState, ...renderOptions } = {}) {
   function Wrapper({ children }: { children: React.Node }) {
     return (
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider
+        mocks={mocks}
+        addTypename={false}
+        defaultOptions={{
+          watchQuery: { fetchPolicy: "no-cache" },
+          query: { fetchPolicy: "no-cache" },
+        }}
+      >
         {children}
       </MockedProvider>
     );
