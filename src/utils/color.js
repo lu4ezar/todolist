@@ -3,9 +3,9 @@ export const CommonColors = {
 };
 
 export const TodoColor = {
-  color: "#383720",
-  background: "#d0d4db",
-  dragBackground: "#568171",
+  color: "#ece85a",
+  background: "#2372fa",
+  dragBackground: "#40856c",
   completedColor: "#003d00",
   completedBackground: "#55aa7f",
   expiredColor: "#440000",
@@ -13,9 +13,9 @@ export const TodoColor = {
 };
 
 export const ChecklistColor = {
-  color: "#383720",
-  background: "#d0d4db",
-  dragBackground: "#568171",
+  color: "#837f17",
+  background: "#dce7fc",
+  dragBackground: "#4cdaa6",
   completedColor: "#003d00",
   completedBackground: "#55aa7f",
   expiredColor: "#440000",
