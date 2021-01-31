@@ -3,22 +3,80 @@
 exports[`Add Button renders as expected 1`] = `
 <div>
   <button
-    class="MuiButtonBase-root MuiFab-root sc-bdfBwQ MuiFab-secondary"
+    class="MuiButtonBase-root MuiFab-root MuiFab-primary"
     tabindex="0"
-    title="add todo"
+    title="add undefined"
     type="button"
   >
     <span
       class="MuiFab-label"
     >
       <svg
-        aria-hidden="true"
-        class="MuiSvgIcon-root"
-        focusable="false"
-        viewBox="0 0 24 24"
+        fill="#8be4ff"
+        height="48"
+        viewBox="0 0 256 256"
+        width="48"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <path
-          d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+        <rect
+          fill="none"
+          height="256"
+          width="256"
+        />
+        <line
+          fill="none"
+          stroke="#8be4ff"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="8"
+          x1="40"
+          x2="216"
+          y1="63.99414"
+          y2="63.99414"
+        />
+        <line
+          fill="none"
+          stroke="#8be4ff"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="8"
+          x1="40.00614"
+          x2="216"
+          y1="127.99414"
+          y2="127.99414"
+        />
+        <line
+          fill="none"
+          stroke="#8be4ff"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="8"
+          x1="40.00614"
+          x2="144"
+          y1="191.99414"
+          y2="191.99414"
+        />
+        <line
+          fill="none"
+          stroke="#8be4ff"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="8"
+          x1="184"
+          x2="232"
+          y1="192"
+          y2="192"
+        />
+        <line
+          fill="none"
+          stroke="#8be4ff"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="8"
+          x1="208"
+          x2="208"
+          y1="168"
+          y2="216"
         />
       </svg>
     </span>
