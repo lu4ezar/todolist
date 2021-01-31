@@ -13,7 +13,7 @@ const {
   expiredBackground,
 } = TodoColor;
 
-const StyledTodo = styled(({ isDragging, status, innerRef, ...other }) => (
+const StyledTodo = styled(({ isDragging, completed, innerRef, ...other }) => (
   <ListItem ref={innerRef} {...other} />
 ))`
   user-select: none;
@@ -31,8 +31,8 @@ const StyledTodo = styled(({ isDragging, status, innerRef, ...other }) => (
   & > div {
     margin-left: auto;
   }
-  ${({ status }) =>
-    status === "completed" &&
+  ${({ completed }) =>
+    completed === "completed" &&
     css`
       color: ${completedColor};
       border-color: ${completedColor};
@@ -48,8 +48,8 @@ const StyledTodo = styled(({ isDragging, status, innerRef, ...other }) => (
         border-radius: 8px;
       }
     `}
-  ${({ status }) =>
-    status === "expired" &&
+  ${({ completed }) =>
+    completed === "expired" &&
     css`
       color: ${expiredColor};
       border-color: ${expiredColor};

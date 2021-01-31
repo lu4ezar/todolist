@@ -22,6 +22,15 @@
           "**/test-utils.jsx"
         ]
       }
-    ]
-  }
+    ],
+    "no-underscore-dangle": [2, { "allow": ["__typename"] }]
+  },
+  "overrides": [
+    {
+      "files": ["src/**/*.test.js[x]"],
+      "rules": {
+        "react/jsx-props-no-spreading": 0
+      }
+    }
+  ]
 }

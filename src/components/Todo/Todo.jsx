@@ -24,7 +24,7 @@ const Todo = ({
   >
     <span>{todo.title}</span>
     <ButtonPanel
-      todo={todo}
+      entity={todo}
       toggle={toggleTodo}
       deleteTodo={deleteTodo}
       showTodo={showTodo}

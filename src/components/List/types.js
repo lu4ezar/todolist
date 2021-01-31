@@ -2,7 +2,6 @@
 import type { DropResult } from "react-beautiful-dnd";
 import type { Mode } from "../../types/mode";
 import type { Filter } from "../../types/filter";
-import type { ThunkAction } from "../../types";
 
 export type Props = {|
   filter: Filter,
@@ -10,7 +9,7 @@ export type Props = {|
   deleteTodo: (id: string) => void,
   toggleTodo: (id: string) => void,
   setMode: () => void,
-  showMessage: (message: string) => ThunkAction,
-  showTodo: (id: string, mode: Mode) => ThunkAction,
+  showMessage: (message: string) => void,
+  showEntity: (id: string, mode: Mode) => void,
   onDragEnd: (result: DropResult) => void,
 |};

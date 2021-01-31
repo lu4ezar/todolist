@@ -1,7 +1,6 @@
 // @flow
 
 import { type GraphQLResolveInfo } from "graphql";
-
 export type $RequireFields<Origin, Keys> = $Diff<Origin, Keys> &
   $ObjMapi<Keys, <Key>(k: Key) => $NonMaybeType<$ElementType<Origin, Key>>>;
 /** All built-in and custom scalars, mapped to their actual values */
@@ -26,6 +25,9 @@ export type Query = {|
   todos: Array<Todo>,
   checklist?: ?Checklist,
   checklists: Array<Checklist>,
+  me: User,
+  user: User,
+  users: Array<User>,
 |};
 
 export type QueryTodoArgs = {|
@@ -40,6 +42,10 @@ export type QueryChecklistArgs = {|
   id: $ElementType<Scalars, "ID">,
 |};
 
+export type QueryUserArgs = {|
+  email: $ElementType<Scalars, "String">,
+|};
+
 export type Mutation = {|
   __typename?: "Mutation",
   createTodo: Todo,
@@ -51,6 +57,10 @@ export type Mutation = {|
   updateChecklist: Checklist,
   deleteChecklist: Checklist,
   reorderChecklists: Checklist,
+  createUser: AuthPayload,
+  loginUser: AuthPayload,
+  updateUser: User,
+  deleteUser: User,
 |};
 
 export type MutationCreateTodoArgs = {|
@@ -91,6 +101,22 @@ export type MutationReorderChecklistsArgs = {|
   order: $ElementType<Scalars, "Int">,
 |};
 
+export type MutationCreateUserArgs = {|
+  input: CreateUserInput,
+|};
+
+export type MutationLoginUserArgs = {|
+  input: LoginUserInput,
+|};
+
+export type MutationUpdateUserArgs = {|
+  input: UpdateUserInput,
+|};
+
+export type MutationDeleteUserArgs = {|
+  email: $ElementType<Scalars, "String">,
+|};
+
 export const PriorityValues = Object.freeze({
   Low: "LOW",
   Normal: "NORMAL",
@@ -123,10 +149,10 @@ export type CreateTodoInput = {|
 
 export type UpdateTodoInput = {|
   id: $ElementType<Scalars, "ID">,
-  title?: ?$ElementType<Scalars, "String">,
-  description?: ?$ElementType<Scalars, "String">,
-  priority?: ?Priority,
-  completed?: ?$ElementType<Scalars, "Boolean">,
+  title: $ElementType<Scalars, "String">,
+  description: $ElementType<Scalars, "String">,
+  priority: Priority,
+  completed: $ElementType<Scalars, "Boolean">,
   expires?: ?$ElementType<Scalars, "DateTime">,
   checklist?: ?$ElementType<Scalars, "ID">,
 |};
@@ -140,6 +166,7 @@ export type ReorderTodoInput = {|
 export type Checklist = {|
   __typename?: "Checklist",
   id: $ElementType<Scalars, "ID">,
+  owner: $ElementType<Scalars, "ID">,
   order: $ElementType<Scalars, "Int">,
   title: $ElementType<Scalars, "String">,
   description?: ?$ElementType<Scalars, "String">,
@@ -159,11 +186,43 @@ export type CreateChecklistInput = {|
 
 export type UpdateChecklistInput = {|
   id: $ElementType<Scalars, "ID">,
-  title?: ?$ElementType<Scalars, "String">,
-  description?: ?$ElementType<Scalars, "String">,
-  priority?: ?Priority,
-  completed?: ?$ElementType<Scalars, "Boolean">,
-  expires: $ElementType<Scalars, "DateTime">,
+  title: $ElementType<Scalars, "String">,
+  description: $ElementType<Scalars, "String">,
+  priority: Priority,
+  completed: $ElementType<Scalars, "Boolean">,
+  expires?: ?$ElementType<Scalars, "DateTime">,
+|};
+
+/** User Type */
+export type User = {|
+  __typename?: "User",
+  id: $ElementType<Scalars, "ID">,
+  name?: ?$ElementType<Scalars, "String">,
+  email: $ElementType<Scalars, "String">,
+  password: $ElementType<Scalars, "String">,
+  created: $ElementType<Scalars, "DateTime">,
+|};
+
+export type AuthPayload = {|
+  __typename?: "AuthPayload",
+  token: $ElementType<Scalars, "String">,
+|};
+
+export type CreateUserInput = {|
+  name?: ?$ElementType<Scalars, "String">,
+  email: $ElementType<Scalars, "String">,
+  password: $ElementType<Scalars, "String">,
+|};
+
+export type UpdateUserInput = {|
+  name?: ?$ElementType<Scalars, "String">,
+  email: $ElementType<Scalars, "String">,
+  password: $ElementType<Scalars, "String">,
+|};
+
+export type LoginUserInput = {|
+  email: $ElementType<Scalars, "String">,
+  password: $ElementType<Scalars, "String">,
 |};
 
 export type Resolver<Result, Parent = {}, Context = {}, Args = {}> = (
@@ -276,6 +335,11 @@ export type ResolversTypes = {
   Checklist: ResolverTypeWrapper<Checklist>,
   CreateChecklistInput: CreateChecklistInput,
   UpdateChecklistInput: UpdateChecklistInput,
+  User: ResolverTypeWrapper<User>,
+  AuthPayload: ResolverTypeWrapper<AuthPayload>,
+  CreateUserInput: CreateUserInput,
+  UpdateUserInput: UpdateUserInput,
+  LoginUserInput: LoginUserInput,
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -295,6 +359,11 @@ export type ResolversParentTypes = {
   Checklist: Checklist,
   CreateChecklistInput: CreateChecklistInput,
   UpdateChecklistInput: UpdateChecklistInput,
+  User: User,
+  AuthPayload: AuthPayload,
+  CreateUserInput: CreateUserInput,
+  UpdateUserInput: UpdateUserInput,
+  LoginUserInput: LoginUserInput,
 };
 
 export type DateTimeScalarConfig = {
@@ -326,6 +395,18 @@ export type QueryResolvers<
   >,
   checklists?: Resolver<
     Array<$ElementType<ResolversTypes, "Checklist">>,
+    ParentType,
+    ContextType
+  >,
+  me?: Resolver<$ElementType<ResolversTypes, "User">, ParentType, ContextType>,
+  user?: Resolver<
+    $ElementType<ResolversTypes, "User">,
+    ParentType,
+    ContextType,
+    $RequireFields<QueryUserArgs, { email: * }>
+  >,
+  users?: Resolver<
+    Array<$ElementType<ResolversTypes, "User">>,
     ParentType,
     ContextType
   >,
@@ -389,6 +470,30 @@ export type MutationResolvers<
     ContextType,
     $RequireFields<MutationReorderChecklistsArgs, { id: *, order: * }>
   >,
+  createUser?: Resolver<
+    $ElementType<ResolversTypes, "AuthPayload">,
+    ParentType,
+    ContextType,
+    $RequireFields<MutationCreateUserArgs, { input: * }>
+  >,
+  loginUser?: Resolver<
+    $ElementType<ResolversTypes, "AuthPayload">,
+    ParentType,
+    ContextType,
+    $RequireFields<MutationLoginUserArgs, { input: * }>
+  >,
+  updateUser?: Resolver<
+    $ElementType<ResolversTypes, "User">,
+    ParentType,
+    ContextType,
+    $RequireFields<MutationUpdateUserArgs, { input: * }>
+  >,
+  deleteUser?: Resolver<
+    $ElementType<ResolversTypes, "User">,
+    ParentType,
+    ContextType,
+    $RequireFields<MutationDeleteUserArgs, { email: * }>
+  >,
 };
 
 export type TodoResolvers<
@@ -444,6 +549,7 @@ export type ChecklistResolvers<
   ParentType = $ElementType<ResolversParentTypes, "Checklist">
 > = {
   id?: Resolver<$ElementType<ResolversTypes, "ID">, ParentType, ContextType>,
+  owner?: Resolver<$ElementType<ResolversTypes, "ID">, ParentType, ContextType>,
   order?: Resolver<
     $ElementType<ResolversTypes, "Int">,
     ParentType,
@@ -487,12 +593,54 @@ export type ChecklistResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>,
 };
 
+export type UserResolvers<
+  ContextType = any,
+  ParentType = $ElementType<ResolversParentTypes, "User">
+> = {
+  id?: Resolver<$ElementType<ResolversTypes, "ID">, ParentType, ContextType>,
+  name?: Resolver<
+    ?$ElementType<ResolversTypes, "String">,
+    ParentType,
+    ContextType
+  >,
+  email?: Resolver<
+    $ElementType<ResolversTypes, "String">,
+    ParentType,
+    ContextType
+  >,
+  password?: Resolver<
+    $ElementType<ResolversTypes, "String">,
+    ParentType,
+    ContextType
+  >,
+  created?: Resolver<
+    $ElementType<ResolversTypes, "DateTime">,
+    ParentType,
+    ContextType
+  >,
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>,
+};
+
+export type AuthPayloadResolvers<
+  ContextType = any,
+  ParentType = $ElementType<ResolversParentTypes, "AuthPayload">
+> = {
+  token?: Resolver<
+    $ElementType<ResolversTypes, "String">,
+    ParentType,
+    ContextType
+  >,
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>,
+};
+
 export type Resolvers<ContextType = any> = {
   DateTime?: GraphQLScalarType<>,
   Query?: QueryResolvers<ContextType>,
   Mutation?: MutationResolvers<ContextType>,
   Todo?: TodoResolvers<ContextType>,
   Checklist?: ChecklistResolvers<ContextType>,
+  User?: UserResolvers<ContextType>,
+  AuthPayload?: AuthPayloadResolvers<ContextType>,
 };
 
 /**
@@ -505,3 +653,5 @@ type $Pick<Origin: Object, Keys: Object> = $ObjMapi<
   Keys,
   <Key>(k: Key) => $ElementType<Origin, Key>
 >;
+type $MakeOptional<T, K: Object> = $Diff<T, K> &
+  $ObjMapi<$Rest<T, K>, <SubKey>(k: SubKey) => Maybe<$ElementType<T, SubKey>>>;
