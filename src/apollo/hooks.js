@@ -159,8 +159,10 @@ export const useGetTodos = () => {
 
 export const useGetCompletedCount = () => {
   const client = useApolloClient();
-  const query = GET_ALL;
-  const queryResult = client.readQuery({ query });
+  const queryResult = client.readQuery({ query: GET_ALL });
+  if (!queryResult) {
+    return 0;
+  }
   let sum = 0;
   Object.keys(queryResult).forEach((entity) => {
     queryResult[entity].forEach((item) => {
@@ -174,8 +176,10 @@ export const useGetCompletedCount = () => {
 
 export const useGetExpiredCount = () => {
   const client = useApolloClient();
-  const query = GET_ALL;
-  const queryResult = client.readQuery({ query });
+  const queryResult = client.readQuery({ query: GET_ALL });
+  if (!queryResult) {
+    return 0;
+  }
   let sum = 0;
   Object.keys(queryResult).forEach((entity) => {
     queryResult[entity].forEach((item) => {
