@@ -13,9 +13,9 @@ const props = {
 };
 
 jest.mock("../../Filter", () => ({
-  __esModule: true,
-  default: () => <div />,
-}));
+    __esModule: true,
+    default: () => <div />,
+  }));
 
 describe("Drawer", () => {
   it("renders as expected", () => {
