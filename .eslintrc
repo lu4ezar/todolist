@@ -3,9 +3,34 @@
     "react-app",
     "airbnb",
     "plugin:jsx-a11y/recommended",
+    "plugin:testing-library/recommended",
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended",
     "prettier",
     "prettier/react"
   ],
-  "plugins": ["jsx-a11y", "prettier"],
-  "rules": { "no-param-reassign": ["error", { "props": false }] }
+  "plugins": ["jsx-a11y", "prettier", "testing-library", "jest-dom"],
+  "rules": {
+    "no-param-reassign": ["error", { "props": false }],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "**/*.test.js",
+          "**/*.test.jsx",
+          "**/setupTests.js",
+          "**/test-utils.jsx"
+        ]
+      }
+    ],
+    "no-underscore-dangle": [2, { "allow": ["__typename"] }]
+  },
+  "overrides": [
+    {
+      "files": ["src/**/*.test.js[x]"],
+      "rules": {
+        "react/jsx-props-no-spreading": 0
+      }
+    }
+  ]
 }

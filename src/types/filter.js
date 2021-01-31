@@ -1,5 +1,5 @@
 // @flow
-import { TodoPriorityValues } from "../generated/graphql";
+import { PriorityValues } from "../generated/graphql";
 
 export type FilterStatus = boolean;
 
@@ -14,35 +14,35 @@ export type FilterName =
   | CompletedFilterName
   | ExpiredFilterName;
 
-type FilterProperty = "status" | "value";
+type FilterProperty = "completed" | "value";
 
 type MasterFilter = {|
-  status: FilterStatus,
+  completed: FilterStatus,
 |};
 
 export type PriorityFilterValues =
-  | typeof TodoPriorityValues.Low
-  | typeof TodoPriorityValues.Normal
-  | typeof TodoPriorityValues.High;
+  | typeof PriorityValues.Low
+  | typeof PriorityValues.Normal
+  | typeof PriorityValues.High;
 
 export type PriorityFilterValue = Array<PriorityFilterValues>;
 
 type PriorityFilter = {|
-  status: FilterStatus,
+  completed: FilterStatus,
   [value: string]: PriorityFilterValue,
 |};
 
 export type CompletedFilterValue = boolean;
 
 type CompletedFilter = {|
-  status: FilterStatus,
+  completed: FilterStatus,
   value: CompletedFilterValue,
 |};
 
 export type ExpiredFilterValue = boolean;
 
 type ExpiredFilter = {|
-  status: FilterStatus,
+  completed: FilterStatus,
   value: ExpiredFilterValue,
 |};
 

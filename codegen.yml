@@ -1,8 +1,5 @@
 overwrite: true
 schema: "https://todo-gql-server.herokuapp.com/graphql"
-documents:
-  - "src/graphql/*.js"
-  - "!src/graphql/index.js"
 generates:
   src/generated/graphql.js:
     plugins:

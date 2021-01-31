@@ -1,0 +1,529 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List renders in loading state initially 1`] = `
+<div>
+  <div
+    class="MuiPaper-root sc-eCssSg gzWUST MuiPaper-elevation1 MuiPaper-rounded"
+  >
+    <div
+      class="MuiLinearProgress-root MuiLinearProgress-colorPrimary MuiLinearProgress-indeterminate"
+      role="progressbar"
+    >
+      <div
+        class="MuiLinearProgress-bar MuiLinearProgress-barColorPrimary MuiLinearProgress-bar1Indeterminate"
+      />
+      <div
+        class="MuiLinearProgress-bar MuiLinearProgress-bar2Indeterminate MuiLinearProgress-barColorPrimary"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`List renders list of todos after loading 1`] = `
+<div>
+  <div
+    class="MuiPaper-root sc-eCssSg gzWUST MuiPaper-elevation1 MuiPaper-rounded"
+  >
+    <ul
+      class="MuiList-root sc-jSgupP cxEGPw MuiList-padding"
+      data-rbd-droppable-context-id="1"
+      data-rbd-droppable-id="droppable"
+    >
+      <li
+        aria-describedby="rbd-hidden-text-1-hidden-text-2"
+        class="MuiListItem-root sc-hKgILt QEaFm MuiListItem-gutters"
+        data-rbd-drag-handle-context-id="1"
+        data-rbd-drag-handle-draggable-id="1"
+        data-rbd-draggable-context-id="1"
+        data-rbd-draggable-id="1"
+        draggable="false"
+        role="button"
+        tabindex="0"
+        title="DoubleClick to view details"
+      >
+        <span>
+          hope
+        </span>
+        <div
+          class="MuiToolbar-root MuiToolbar-regular sc-gsTCUz TOrPC MuiToolbar-gutters"
+        >
+          <button
+            class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
+            tabindex="0"
+            title="View details"
+            type="button"
+          >
+            <span
+              class="MuiIconButton-label"
+            >
+              <svg
+                fill="currentColor"
+                height="24"
+                viewBox="0 0 256 256"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  fill="none"
+                  height="256"
+                  width="256"
+                />
+                <path
+                  d="M247.31055,124.75061c-.35157-.79-8.81934-19.57617-27.65332-38.41113C194.57324,61.25256,162.87793,47.99182,128,47.99182S61.42676,61.25256,36.34277,86.33948c-18.834,18.835-27.30175,37.62109-27.65332,38.41113a8.00282,8.00282,0,0,0,0,6.49805c.35157.791,8.82032,19.57226,27.6543,38.40429C61.42773,194.734,93.12207,207.99182,128,207.99182S194.57227,194.734,219.65625,169.653c18.834-18.832,27.30273-37.61328,27.6543-38.40429A8.00282,8.00282,0,0,0,247.31055,124.75061ZM128,92.00061a36,36,0,1,1-36,36A36.04061,36.04061,0,0,1,128,92.00061Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
+            tabindex="0"
+            title="Edit"
+            type="button"
+          >
+            <span
+              class="MuiIconButton-label"
+            >
+              <svg
+                fill="currentColor"
+                height="24"
+                viewBox="0 0 256 256"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  fill="none"
+                  height="256"
+                  width="256"
+                />
+                <path
+                  d="M224,76.68652,179.314,32a15.99948,15.99948,0,0,0-22.62744,0L130.34473,58.3418l-.00147.00146-.00146.00147L36.687,151.99951A15.89429,15.89429,0,0,0,32,163.31348V208a16.01833,16.01833,0,0,0,16,16H92.68652A15.89438,15.89438,0,0,0,104,219.31348l120.00049-120A16.01823,16.01823,0,0,0,224,76.68652Zm-32,32L147.31372,64,168,43.31348,212.68652,88Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
+            tabindex="0"
+            title="Mark as Completed"
+            type="button"
+          >
+            <span
+              class="MuiIconButton-label"
+            >
+              <svg
+                fill="currentColor"
+                height="24"
+                viewBox="0 0 256 256"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  fill="none"
+                  height="256"
+                  width="256"
+                />
+                <rect
+                  height="192"
+                  rx="16"
+                  width="192"
+                  x="32"
+                  y="32"
+                />
+              </svg>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
+            tabindex="0"
+            title="Delete Todo"
+            type="button"
+          >
+            <span
+              class="MuiIconButton-label"
+            >
+              <svg
+                fill="currentColor"
+                height="24"
+                viewBox="0 0 256 256"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  fill="none"
+                  height="256"
+                  width="256"
+                />
+                <g>
+                  <path
+                    d="M88,32h80a8,8,0,0,0,0-16H88a8,8,0,0,0,0,16Z"
+                  />
+                  <path
+                    d="M216,48H40a8,8,0,0,0,0,16h8V208a16.01582,16.01582,0,0,0,16,16H192a16.01582,16.01582,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM112,168a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"
+                  />
+                </g>
+              </svg>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+      </li>
+      <li
+        aria-describedby="rbd-hidden-text-1-hidden-text-2"
+        class="MuiListItem-root sc-hKgILt QEaFm MuiListItem-gutters"
+        data-rbd-drag-handle-context-id="1"
+        data-rbd-drag-handle-draggable-id="2"
+        data-rbd-draggable-context-id="1"
+        data-rbd-draggable-id="2"
+        draggable="false"
+        role="button"
+        tabindex="0"
+        title="DoubleClick to view details"
+      >
+        <span>
+          bliss
+        </span>
+        <div
+          class="MuiToolbar-root MuiToolbar-regular sc-gsTCUz TOrPC MuiToolbar-gutters"
+        >
+          <button
+            class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
+            tabindex="0"
+            title="View details"
+            type="button"
+          >
+            <span
+              class="MuiIconButton-label"
+            >
+              <svg
+                fill="currentColor"
+                height="24"
+                viewBox="0 0 256 256"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  fill="none"
+                  height="256"
+                  width="256"
+                />
+                <path
+                  d="M247.31055,124.75061c-.35157-.79-8.81934-19.57617-27.65332-38.41113C194.57324,61.25256,162.87793,47.99182,128,47.99182S61.42676,61.25256,36.34277,86.33948c-18.834,18.835-27.30175,37.62109-27.65332,38.41113a8.00282,8.00282,0,0,0,0,6.49805c.35157.791,8.82032,19.57226,27.6543,38.40429C61.42773,194.734,93.12207,207.99182,128,207.99182S194.57227,194.734,219.65625,169.653c18.834-18.832,27.30273-37.61328,27.6543-38.40429A8.00282,8.00282,0,0,0,247.31055,124.75061ZM128,92.00061a36,36,0,1,1-36,36A36.04061,36.04061,0,0,1,128,92.00061Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
+            tabindex="0"
+            title="Edit"
+            type="button"
+          >
+            <span
+              class="MuiIconButton-label"
+            >
+              <svg
+                fill="currentColor"
+                height="24"
+                viewBox="0 0 256 256"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  fill="none"
+                  height="256"
+                  width="256"
+                />
+                <path
+                  d="M224,76.68652,179.314,32a15.99948,15.99948,0,0,0-22.62744,0L130.34473,58.3418l-.00147.00146-.00146.00147L36.687,151.99951A15.89429,15.89429,0,0,0,32,163.31348V208a16.01833,16.01833,0,0,0,16,16H92.68652A15.89438,15.89438,0,0,0,104,219.31348l120.00049-120A16.01823,16.01823,0,0,0,224,76.68652Zm-32,32L147.31372,64,168,43.31348,212.68652,88Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
+            tabindex="0"
+            title="Mark as Completed"
+            type="button"
+          >
+            <span
+              class="MuiIconButton-label"
+            >
+              <svg
+                fill="currentColor"
+                height="24"
+                viewBox="0 0 256 256"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  fill="none"
+                  height="256"
+                  width="256"
+                />
+                <rect
+                  height="192"
+                  rx="16"
+                  width="192"
+                  x="32"
+                  y="32"
+                />
+              </svg>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
+            tabindex="0"
+            title="Delete Todo"
+            type="button"
+          >
+            <span
+              class="MuiIconButton-label"
+            >
+              <svg
+                fill="currentColor"
+                height="24"
+                viewBox="0 0 256 256"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  fill="none"
+                  height="256"
+                  width="256"
+                />
+                <g>
+                  <path
+                    d="M88,32h80a8,8,0,0,0,0-16H88a8,8,0,0,0,0,16Z"
+                  />
+                  <path
+                    d="M216,48H40a8,8,0,0,0,0,16h8V208a16.01582,16.01582,0,0,0,16,16H192a16.01582,16.01582,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM112,168a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"
+                  />
+                </g>
+              </svg>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+      </li>
+      <li
+        aria-describedby="rbd-hidden-text-1-hidden-text-2"
+        class="MuiListItem-root sc-dlfnbm jyLeSY MuiListItem-gutters"
+        data-rbd-drag-handle-context-id="1"
+        data-rbd-drag-handle-draggable-id="3"
+        data-rbd-draggable-context-id="1"
+        data-rbd-draggable-id="3"
+        draggable="false"
+        role="button"
+        tabindex="0"
+        title="DoubleClick to view details"
+      >
+        <span>
+          blister
+        </span>
+        <div
+          class="MuiToolbar-root MuiToolbar-regular sc-gsTCUz TOrPC MuiToolbar-gutters"
+        >
+          <button
+            class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
+            tabindex="0"
+            title="View details"
+            type="button"
+          >
+            <span
+              class="MuiIconButton-label"
+            >
+              <svg
+                fill="currentColor"
+                height="24"
+                viewBox="0 0 256 256"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  fill="none"
+                  height="256"
+                  width="256"
+                />
+                <path
+                  d="M247.31055,124.75061c-.35157-.79-8.81934-19.57617-27.65332-38.41113C194.57324,61.25256,162.87793,47.99182,128,47.99182S61.42676,61.25256,36.34277,86.33948c-18.834,18.835-27.30175,37.62109-27.65332,38.41113a8.00282,8.00282,0,0,0,0,6.49805c.35157.791,8.82032,19.57226,27.6543,38.40429C61.42773,194.734,93.12207,207.99182,128,207.99182S194.57227,194.734,219.65625,169.653c18.834-18.832,27.30273-37.61328,27.6543-38.40429A8.00282,8.00282,0,0,0,247.31055,124.75061ZM128,92.00061a36,36,0,1,1-36,36A36.04061,36.04061,0,0,1,128,92.00061Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
+            tabindex="0"
+            title="Edit"
+            type="button"
+          >
+            <span
+              class="MuiIconButton-label"
+            >
+              <svg
+                fill="currentColor"
+                height="24"
+                viewBox="0 0 256 256"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  fill="none"
+                  height="256"
+                  width="256"
+                />
+                <path
+                  d="M224,76.68652,179.314,32a15.99948,15.99948,0,0,0-22.62744,0L130.34473,58.3418l-.00147.00146-.00146.00147L36.687,151.99951A15.89429,15.89429,0,0,0,32,163.31348V208a16.01833,16.01833,0,0,0,16,16H92.68652A15.89438,15.89438,0,0,0,104,219.31348l120.00049-120A16.01823,16.01823,0,0,0,224,76.68652Zm-32,32L147.31372,64,168,43.31348,212.68652,88Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
+            tabindex="0"
+            title="Expand todos list"
+            type="button"
+          >
+            <span
+              class="MuiIconButton-label"
+            >
+              <svg
+                fill="currentColor"
+                height="24"
+                viewBox="0 0 256 256"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  fill="none"
+                  height="256"
+                  width="256"
+                />
+                <path
+                  d="M215.39111,92.93848A8.00015,8.00015,0,0,0,208,88H48a8,8,0,0,0-5.65674,13.657l80,79.99976a7.99945,7.99945,0,0,0,11.31348,0l80-79.99976A8.00011,8.00011,0,0,0,215.39111,92.93848Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            class="MuiButtonBase-root MuiIconButton-root sc-bdfBwQ kBsyEI"
+            tabindex="0"
+            title="Delete Todo"
+            type="button"
+          >
+            <span
+              class="MuiIconButton-label"
+            >
+              <svg
+                fill="currentColor"
+                height="24"
+                viewBox="0 0 256 256"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  fill="none"
+                  height="256"
+                  width="256"
+                />
+                <g>
+                  <path
+                    d="M88,32h80a8,8,0,0,0,0-16H88a8,8,0,0,0,0,16Z"
+                  />
+                  <path
+                    d="M216,48H40a8,8,0,0,0,0,16h8V208a16.01582,16.01582,0,0,0,16,16H192a16.01582,16.01582,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM112,168a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"
+                  />
+                </g>
+              </svg>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`List shows 'nothing to show' message when todos array is empty 1`] = `
+<div>
+  <div
+    class="MuiPaper-root sc-hKgILt svXJU MuiPaper-elevation1 MuiPaper-rounded"
+  >
+    <ul
+      class="MuiList-root sc-eCssSg gSqQGt MuiList-padding"
+      data-rbd-droppable-context-id="2"
+      data-rbd-droppable-id="droppable"
+    >
+      <h4
+        class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom"
+      >
+        nothing to show
+      </h4>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`List shows error message 1`] = `
+<div>
+  <div
+    class="MuiPaper-root MuiAlert-root MuiAlert-filledError MuiPaper-elevation0"
+    role="alert"
+  >
+    <div
+      class="MuiAlert-icon"
+    >
+      <svg
+        aria-hidden="true"
+        class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+        />
+      </svg>
+    </div>
+    <div
+      class="MuiAlert-message"
+    >
+      Error: 
+      Error!
+    </div>
+  </div>
+</div>
+`;

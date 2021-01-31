@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import Drawer from "../Drawer";
 import Filter from "../../Filter";
 
@@ -11,14 +12,10 @@ const props = {
   children: <Filter />,
 };
 
-jest.mock("../../Filter", () => {
-  return {
-    __esModule: true,
-    default: () => {
-      return <div />;
-    },
-  };
-});
+jest.mock("../../Filter", () => ({
+  __esModule: true,
+  default: () => <div />,
+}));
 
 describe("Drawer", () => {
   it("renders as expected", () => {
@@ -26,10 +23,8 @@ describe("Drawer", () => {
     expect(container).toMatchSnapshot();
   });
   it("renders Close button which calls toggleDrawer function", () => {
-    const { getByTitle } = render(<Drawer {...props} />);
-    const closeButton = getByTitle(/close/i);
-    expect(closeButton).toBeInTheDocument();
-    fireEvent.click(closeButton);
+    render(<Drawer {...props} />);
+    userEvent.click(screen.getByTitle(/close/i));
     expect(props.toggleDrawer).toBeCalled();
   });
 });

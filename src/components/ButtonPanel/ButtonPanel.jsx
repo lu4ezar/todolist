@@ -1,40 +1,62 @@
 // @flow
 import * as React from "react";
 import {
-  RemoveRedEye as ViewIcon,
-  Edit as EditIcon,
-  CheckBox,
-  CheckBoxOutlineBlank,
-  Delete as DeleteIcon,
-} from "@material-ui/icons";
+  CaretUp,
+  CaretDown,
+  CheckSquare,
+  Eye,
+  Pencil,
+  Square,
+  TrashSimple,
+} from "phosphor-react";
+import { useToggle, useDeleteTodo } from "../../apollo/hooks";
 import { StToolbar, IconButton } from "./styles";
 import type { Props } from "./types";
-import { TodoStatusValues } from "../../generated/graphql";
+import { modeVar, currentEntityIdVar } from "../../apollo/cache";
 
 const ButtonPanel = ({
-  todo: { id, status },
-  toggle,
-  deleteTodo,
-  showTodo,
-}: Props): React.Node => (
-  <StToolbar>
-    <IconButton title="View details" onClick={() => showTodo(id, "view")}>
-      <ViewIcon />
-    </IconButton>
-    <IconButton title="Edit" onClick={() => showTodo(id, "edit")}>
-      <EditIcon />
-    </IconButton>
-    <IconButton title="Mark as Completed" onClick={() => toggle(id)}>
-      {status === TodoStatusValues.Completed ? (
-        <CheckBox />
+  entity: { id, completed, __typename: type },
+}: Props): React.Node => {
+  const { deleteTodo } = useDeleteTodo(id);
+  const { toggleTodo } = useToggle(id);
+  const [expandChecklist, setExpandChecklist] = React.useState(false);
+  const showEntity = (ID, mode) => {
+    currentEntityIdVar(ID);
+    modeVar(mode);
+  };
+  return (
+    <StToolbar>
+      <IconButton title="View details" onClick={() => showEntity(id, "view")}>
+        <Eye size={24} weight="fill" />
+      </IconButton>
+      <IconButton title="Edit" onClick={() => showEntity(id, "edit")}>
+        <Pencil size={24} weight="fill" />
+      </IconButton>
+      {type === "Todo" ? (
+        <IconButton title="Mark as Completed" onClick={toggleTodo}>
+          {completed ? (
+            <CheckSquare size={24} weight="fill" />
+          ) : (
+            <Square size={24} weight="fill" />
+          )}
+        </IconButton>
       ) : (
-        <CheckBoxOutlineBlank />
+        <IconButton
+          title="Expand todos list"
+          onClick={() => setExpandChecklist(!expandChecklist)}
+        >
+          {expandChecklist ? (
+            <CaretUp size={24} weight="fill" />
+          ) : (
+            <CaretDown size={24} weight="fill" />
+          )}
+        </IconButton>
       )}
-    </IconButton>
-    <IconButton title="Delete Todo" onClick={() => deleteTodo(id)}>
-      <DeleteIcon />
-    </IconButton>
-  </StToolbar>
-);
+      <IconButton title="Delete Todo" onClick={deleteTodo}>
+        <TrashSimple size={24} weight="fill" />
+      </IconButton>
+    </StToolbar>
+  );
+};
 
 export default ButtonPanel;
