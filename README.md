@@ -5,7 +5,7 @@ Simple to-do list app with ReactJS.
 ## Built With
 
 - [create-react-app](https://github.com/facebook/create-react-app)
-- [redux](https://redux.js.org/)
+- [apollo](https://www.apollographql.com/)
 - [material-ui](https://material-ui.com/)
 - [styled-components](https://www.styled-components.com/)
 - [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
