@@ -1,16 +1,15 @@
 // @flow
 import { DateTime } from "luxon";
-import { TodoStatusValues } from "../generated/graphql";
-import type { TodoStatus, Todo } from "../generated/graphql";
+import type { Todo } from "../generated/graphql";
 
 // $FixMe
-const getExpireState = (todo: Todo): TodoStatus => {
+const isExpired = (todo: Todo): boolean => {
   const currentDateTime = DateTime.local();
   const { created } = todo;
   if (created && currentDateTime > created) {
-    return TodoStatusValues.Expired;
+    return true;
   }
-  return TodoStatusValues.Active;
+  return false;
 };
 
-export default getExpireState;
+export default isExpired;

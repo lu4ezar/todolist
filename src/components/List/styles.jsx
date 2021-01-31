@@ -8,8 +8,8 @@ export const StyledPaper = styled(Paper)`
   height: auto;
 `;
 
-export const StyledList = styled(({ isDraggingOver, ...other }) => (
-  <ListMui {...other} />
+export const StyledList = styled(({ isDraggingOver, ref, ...other }) => (
+  <ListMui ref={ref} {...other} />
 ))`
   height: 100%;
   flex-grow: 1;

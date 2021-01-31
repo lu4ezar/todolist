@@ -1,25 +1,20 @@
 /* eslint-disable react/jsx-props-no-spreading */
 // @flow
 import * as React from "react";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Typography, LinearProgress } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import { useQuery } from "@apollo/client";
-import ListItem from "../Todo";
-import { GET_TODOS } from "../../apollo/queries";
+import { DnDWrapper as ChkList } from "../Checklist";
+import { DnDWrapper as Todo } from "../Todo";
 import type { Props } from "./types";
-import { StyledPaper, StyledList } from "./styles";
-import filterTodo from "../../utils/filterTodo";
+import { StyledList } from "./styles";
 
 const List = ({
-  filter,
-  toggleTodo,
-  deleteTodo,
-  showTodo,
-  onDragEnd,
+  list,
+  loading,
+  error,
+  provided,
+  snapshot,
 }: Props): React.Node => {
-  const { data, loading, error } = useQuery(GET_TODOS);
-
   if (loading) return <LinearProgress />;
 
   if (error)
@@ -29,43 +24,28 @@ const List = ({
       </Alert>
     );
 
-  const content = data?.todos
-    .filter((todo) => (filter.master.status ? filterTodo(todo, filter) : todo))
-    .map((todo, index) => (
-      <ListItem
-        key={todo.id}
-        index={index}
-        todo={todo}
-        toggleTodo={toggleTodo}
-        deleteTodo={deleteTodo}
-        showTodo={showTodo}
-      />
-    ));
-
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="droppable">
-        {(provided, snapshot) => (
-          <StyledPaper ref={provided.innerRef}>
-            <StyledList
-              isDraggingOver={snapshot.isDraggingOver}
-              {...provided.droppableProps}
-            >
-              {content?.length ? (
-                <>
-                  {content}
-                  {provided.placeholder}
-                </>
-              ) : (
-                <Typography variant="h4" gutterBottom>
-                  nothing to show
-                </Typography>
-              )}
-            </StyledList>
-          </StyledPaper>
-        )}
-      </Droppable>
-    </DragDropContext>
+    <StyledList
+      isDraggingOver={snapshot?.isDraggingOver}
+      {...provided?.droppableProps}
+    >
+      {list?.length ? (
+        <>
+          {list.map((entity, index) =>
+            entity.__typename === "Todo" ? (
+              <Todo key={entity.id} todo={entity} index={index} />
+            ) : (
+              <ChkList key={entity.id} checklist={entity} index={index} />
+            )
+          )}
+          {provided.placeholder}
+        </>
+      ) : (
+        <Typography variant="h4" gutterBottom>
+          nothing to show
+        </Typography>
+      )}
+    </StyledList>
   );
 };
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // @flow
 import * as React from "react";
 import {
@@ -11,55 +12,24 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import type {
-  FilterName,
-  FilterValue,
-  FilterStatus,
-  PriorityFilterValue,
-  CompletedFilterValue,
-  ExpiredFilterValue,
-} from "../../types/filter";
-import { TodoPriorityValues } from "../../generated/graphql";
+import { PriorityValues } from "../../generated/graphql";
 import type { Props } from "./types";
 
-const Filter = (props: Props): React.Node => {
+const Filter = ({
+  filter,
+  handleChange,
+  completedCount,
+  expiredCount,
+}: Props): React.Node => {
   const {
-    setFilter,
-    completedCount,
-    expiredCount,
-    filter: {
-      master: { status: masterFilterStatus },
-      priority: { status: priorityFilterStatus, value: priorityFilterValue },
-      completed: { status: completedFilterStatus, value: completedFilterValue },
-      expired: { status: expiredFilterStatus, value: expiredFilterValue },
+    master: { completed: masterFilterStatus },
+    priority: { completed: priorityFilterStatus, value: priorityFilterValue },
+    completed: {
+      completed: completedFilterStatus,
+      value: completedFilterValue,
     },
-  } = props;
-
-  const handleChange = (filterName: FilterName) => (
-    event: SyntheticInputEvent<HTMLInputElement>
-  ) => {
-    // MUI Select does not have currentTarget
-    const target: HTMLInputElement = event.target.type
-      ? event.currentTarget
-      : event.target;
-    const value: FilterValue =
-      target.type === "checkbox"
-        ? (target.checked:
-            | FilterStatus
-            | CompletedFilterValue
-            | ExpiredFilterValue)
-        : // $FlowFixMe
-          (target.value: PriorityFilterValue);
-    const { name } = target;
-
-    setFilter({
-      filter: filterName,
-      // $FlowFixMe
-      property: name,
-      value,
-    });
-  };
-
+    expired: { completed: expiredFilterStatus, value: expiredFilterValue },
+  } = filter;
   return (
     <Grid container direction="column">
       {/* master filter */}
@@ -69,7 +39,7 @@ const Filter = (props: Props): React.Node => {
           labelPlacement="top"
           control={
             <Switch
-              name="status"
+              name="completed"
               checked={masterFilterStatus}
               onChange={handleChange("master")}
               value={masterFilterStatus}
@@ -88,7 +58,7 @@ const Filter = (props: Props): React.Node => {
                 </Grid>
                 <Grid item>
                   <Switch
-                    name="status"
+                    name="completed"
                     checked={priorityFilterStatus}
                     onChange={handleChange("priority")}
                     value={priorityFilterStatus}
@@ -112,9 +82,9 @@ const Filter = (props: Props): React.Node => {
                   variant="standard"
                   multiple
                 >
-                  <MenuItem value={TodoPriorityValues.Low}>low</MenuItem>
-                  <MenuItem value={TodoPriorityValues.Normal}>normal</MenuItem>
-                  <MenuItem value={TodoPriorityValues.High}>high</MenuItem>
+                  <MenuItem value={PriorityValues.Low}>low</MenuItem>
+                  <MenuItem value={PriorityValues.Normal}>normal</MenuItem>
+                  <MenuItem value={PriorityValues.High}>high</MenuItem>
                 </Select>
               </Grid>
             </Paper>
@@ -128,7 +98,7 @@ const Filter = (props: Props): React.Node => {
                 </Grid>
                 <Grid item>
                   <Switch
-                    name="status"
+                    name="completed"
                     checked={completedFilterStatus}
                     onChange={handleChange("completed")}
                     value="completedFilterStatus"
@@ -173,7 +143,7 @@ const Filter = (props: Props): React.Node => {
                 </Grid>
                 <Grid item>
                   <Switch
-                    name="status"
+                    name="completed"
                     checked={expiredFilterStatus}
                     onChange={handleChange("expired")}
                     value="expiredFilterStatus"

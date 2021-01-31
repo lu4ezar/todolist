@@ -8,14 +8,6 @@ export type TodosState = {|
   +todos: Todos,
 |};
 
-export type TodosStateWithHistory = {|
-  +todos: {
-    +past: Todos,
-    +present: Todos,
-    +future: Todos,
-  },
-|};
-
 export type TodosActions =
   | "ADD_TODO"
   | "TOGGLE_TODO"

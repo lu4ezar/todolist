@@ -10,44 +10,32 @@ import {
 } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { Close as CloseIcon, Check as CheckIcon } from "@material-ui/icons";
-import { useQuery, NetworkStatus } from "@apollo/client";
-import getExpireState from "../../utils/luxon";
+// import isExpired from "../../utils/luxon";
 import Drawer from "../Drawer";
 import Header from "../Header";
 import type { Props } from "./types";
-import { TodoPriorityValues, TodoStatusValues } from "../../generated/graphql";
+import { PriorityValues } from "../../generated/graphql";
 import type { Todo } from "../../generated/graphql";
-import { GET_TODO } from "../../apollo/queries";
+import { useCreateTodo, useUpdateTodo, useGetTodo } from "../../apollo/hooks";
 
 const initialState: Todo = {
   id: "",
+  // order: 0,
   title: "",
   description: "",
-  priority: TodoPriorityValues.Normal,
-  status: TodoStatusValues.Active,
+  priority: PriorityValues.Normal,
+  completed: false,
   created: null,
 };
 
-const Form = ({ id, mode, submit, closeForm }: Props): React.Node => {
+const Form = ({ id, mode, entity, closeForm }: Props): React.Node => {
+  const { todo, loading } = useGetTodo(id);
   const [state, setState] = React.useState<Todo>(initialState);
-  const { data: { todo } = {}, loading, refetch, networkStatus } = useQuery(
-    GET_TODO,
-    {
-      skip: !id,
-      variables: {
-        id,
-      },
-      notifyOnNetworkStatusChange: true,
-      fetchPolicy: "cache-first",
-    }
-  );
+  const { createTodo } = useCreateTodo(state);
+  const { updateTodo } = useUpdateTodo(state);
 
   React.useEffect(() => {
-    refetch();
-  }, [id, refetch]);
-
-  React.useEffect(() => {
-    if (todo) {
+    if (id && todo) {
       setState(todo);
     } else {
       setState(initialState);
@@ -56,13 +44,17 @@ const Form = ({ id, mode, submit, closeForm }: Props): React.Node => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    state.status = getExpireState(state);
-    submit(state);
+    if (id) {
+      updateTodo();
+    } else {
+      createTodo();
+    }
+    closeForm();
     setState(initialState);
   };
 
   const clearForm = () => {
-    if (todo) {
+    if (id) {
       setState(todo);
     } else {
       setState(initialState);
@@ -80,21 +72,17 @@ const Form = ({ id, mode, submit, closeForm }: Props): React.Node => {
 
   const disableClearButton = !state.title && !state.description;
   const disableSubmitButton =
-    JSON.stringify(todo) === JSON.stringify(state) ||
-    !state.title ||
-    !state.description;
+    JSON.stringify(todo) === JSON.stringify(state) || !state.title;
+
+  const formTitle = `${
+    mode === "form" ? "Add new" : mode.charAt(0).toUpperCase() + mode.slice(1)
+  } ${entity}`;
 
   return (
     <Drawer side="right" open={mode !== "list"} toggleDrawer={closeForm}>
       <form data-testid="form" id="form" onSubmit={onSubmit}>
-        <Header
-          text={`${
-            mode === "form"
-              ? "Add new"
-              : mode.charAt(0).toUpperCase() + mode.slice(1)
-          } todo`}
-        />
-        {loading || networkStatus === NetworkStatus.refetch ? (
+        <Header text={formTitle} />
+        {loading ? (
           <Skeleton variant="rect" width={300} height={500} />
         ) : (
           <fieldset disabled={mode === "view"}>
@@ -115,22 +103,21 @@ const Form = ({ id, mode, submit, closeForm }: Props): React.Node => {
               value={state.description}
               onChange={onChange("description")}
               margin="normal"
-              required
             />
             <br />
             <FormControl>
               <InputLabel htmlFor="priority">Priority</InputLabel>
               <Select
-                value={state.priority || TodoPriorityValues.Normal}
+                value={state.priority || PriorityValues.Normal}
                 onChange={handleSelectChange}
                 inputProps={{
                   name: "priority",
                   id: "priority",
                 }}
               >
-                <MenuItem value={TodoPriorityValues.Low}>Low</MenuItem>
-                <MenuItem value={TodoPriorityValues.Normal}>Normal</MenuItem>
-                <MenuItem value={TodoPriorityValues.High}>High</MenuItem>
+                <MenuItem value={PriorityValues.Low}>Low</MenuItem>
+                <MenuItem value={PriorityValues.Normal}>Normal</MenuItem>
+                <MenuItem value={PriorityValues.High}>High</MenuItem>
               </Select>
             </FormControl>
             <br />

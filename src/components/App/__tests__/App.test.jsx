@@ -6,11 +6,12 @@ import {
   waitForElementToBeRemoved,
 } from "../../../utils/test-utils";
 
-import App from "../App";
+import App from "..";
 
 describe("App", () => {
-  it("should render without error", () => {
+  it("should render without error", async () => {
     render(<App />);
+    await waitForElementToBeRemoved(screen.getByRole("progressbar"));
   });
   it("should show and hide side panel on button click", async () => {
     render(<App />);

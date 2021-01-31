@@ -1,13 +1,13 @@
 // @flow
 import * as React from "react";
 import { CssBaseline } from "@material-ui/core";
-import AddTodoForm from "../../containers/FormContainer";
-import VisibleList from "../../containers/ListContainer";
+import AddForm from "../../containers/Form";
+import VisibleList from "../../containers/List";
 import Header from "../Header";
-import Notification from "../../containers/NotificationContainer";
+import Notification from "../../containers/Notification";
 import SidePanel from "../SidePanel";
 import Navbar from "../Navbar";
-import AddButton from "../../containers/AddButtonContainer";
+import AddButton from "../../containers/AddButton";
 import { StyledApp, StyledContainer } from "./styles";
 
 const App = (): React.Node => {
@@ -21,9 +21,10 @@ const App = (): React.Node => {
           <Header variant="h3" text="TodoApp" />
         </Navbar>
         <SidePanel open={showPanel} togglePanel={togglePanel} />
-        <AddTodoForm />
+        <AddForm />
         <VisibleList />
-        <AddButton />
+        <AddButton entity="todo" />
+        <AddButton entity="checklist" />
         <Notification />
       </StyledContainer>
     </StyledApp>
