@@ -26,9 +26,6 @@ const props = {
 //     </MockedProvider>
 //   );
 
-describe("Button Panel", () => {
-  it.only("renders as expected", () => {
-    const { container } = render(<ButtonPanel {...props} />);
 xdescribe("Button Panel", () => {
   it("renders as expected", () => {
     const { container } = render(<ButtonPanel {...props} />);
