@@ -12,7 +12,6 @@
   "plugins": ["jsx-a11y", "prettier", "testing-library", "jest-dom"],
   "rules": {
     "no-param-reassign": ["error", { "props": false }],
-    "react/jsx-props-no-spreading": ["off"],
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -24,6 +23,15 @@
           "**/test-utils.jsx"
         ]
       }
-    ]
-  }
+    ],
+    "no-underscore-dangle": [2, { "allow": ["__typename"] }]
+  },
+  "overrides": [
+    {
+      "files": ["src/**/*.test.js[x]"],
+      "rules": {
+        "react/jsx-props-no-spreading": 0
+      }
+    }
+  ]
 }

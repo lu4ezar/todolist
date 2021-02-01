@@ -1,15 +1,14 @@
 // @flow
-import { TodoStatusValues } from "../generated/graphql";
-import type { Todo as TodoType } from "../generated/graphql";
 import type { Filter } from "../types/filter";
+import type { Entity } from "../types/entity";
 
-const filterTodo = (todo: TodoType, filter: Filter): boolean => {
+const filterTodo = (entity: Entity, filter: Filter): boolean => {
   const {
-    priority: { status: priorityFilterEnabled, value: priorityFilter },
-    completed: { status: completedFilterEnabled, value: completedFilter },
-    expired: { status: expiredFilterEnabled, value: expiredFilter },
+    priority: { completed: priorityFilterEnabled, value: priorityFilter },
+    completed: { completed: completedFilterEnabled, value: completedFilter },
+    expired: { completed: expiredFilterEnabled, value: expiredFilter },
   } = filter;
-  const { priority, status } = todo;
+  const { priority, completed, expires } = entity;
   let result = false;
   if (priorityFilterEnabled) {
     if (!priorityFilter.includes(priority)) {
@@ -18,13 +17,13 @@ const filterTodo = (todo: TodoType, filter: Filter): boolean => {
     result = true;
   }
   if (completedFilterEnabled) {
-    if (status === TodoStatusValues.Completed) {
+    if (completed) {
       return completedFilter;
     }
     result = !completedFilter;
   }
   if (expiredFilterEnabled) {
-    if (status === TodoStatusValues.Expired) {
+    if (expires) {
       return expiredFilter;
     }
     result = !expiredFilter;

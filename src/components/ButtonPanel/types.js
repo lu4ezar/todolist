@@ -1,9 +1,9 @@
 // @flow
 import type { Mode } from "../../types/mode";
-import type { Todo } from "../../generated/graphql";
+import type { Entity } from "../../types/entity";
 
 export type Props = {
-  todo: Todo,
+  entity: Entity,
   toggle: (id: string) => void,
   deleteTodo: (id: string) => void,
   showTodo: (id: string, Mode) => void,
