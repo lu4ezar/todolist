@@ -148,15 +148,6 @@ export const useReorder = () => {
   return onDragEnd;
 };
 
-export const useGetTodos = () => {
-  const { data: { todos } = {}, loading, error } = useQuery(GET_TODO);
-  return {
-    todos,
-    loading,
-    error,
-  };
-};
-
 export const useGetCompletedCount = () => {
   const client = useApolloClient();
   const queryResult = client.readQuery({ query: GET_ALL });
