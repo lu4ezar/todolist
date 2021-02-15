@@ -184,10 +184,16 @@ export const useGetExpiredCount = () => {
 
 export const useLoginMutation = () => {
   const [loginUser, { loading, error }] = useMutation(LOGIN_USER, {
-    onCompleted: ({ loginUser: { token } }) => {
-      const user = jwtDecode(token);
-      localStorage.setItem("user", JSON.stringify(user));
+    onCompleted: (data) => {
+      if (data) {
+        const {
+          loginUser: { token },
+        } = data;
+        const user = jwtDecode(token);
+        localStorage.setItem("user", JSON.stringify(user));
+      }
     },
+    errorPolicy: "all",
   });
   return {
     loginUser,
@@ -198,9 +204,14 @@ export const useLoginMutation = () => {
 
 export const useCreateUserMutation = () => {
   const [createUser, { loading, error }] = useMutation(CREATE_USER, {
-    onCompleted: ({ createUser: { token } }) => {
-      const user = jwtDecode(token);
-      localStorage.setItem("user", JSON.stringify(user));
+    onCompleted: (data) => {
+      if (data) {
+        const {
+          createUser: { token },
+        } = data;
+        const user = jwtDecode(token);
+        localStorage.setItem("user", JSON.stringify(user));
+      }
     },
   });
   return {
