@@ -16,7 +16,8 @@
       "error",
       {
         "devDependencies": [
-          "**/*.test.js",
+          "**/*.stories.jsx",
+          "**/*.test.jsx",
           "**/*.test.jsx",
           "**/setupTests.js",
           "**/test-utils.jsx"
@@ -27,7 +28,7 @@
   },
   "overrides": [
     {
-      "files": ["src/**/*.test.js[x]"],
+      "files": ["src/**/*.test.js[x]", "src/**/*.stories.js[x]"],
       "rules": {
         "react/jsx-props-no-spreading": 0
       }

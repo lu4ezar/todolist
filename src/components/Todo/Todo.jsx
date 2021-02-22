@@ -14,10 +14,10 @@ const Todo = ({
   snapshot,
 }: Props): React.Node => (
   <StyledTodo
-    innerRef={provided.innerRef}
-    isDragging={snapshot.isDragging}
-    {...provided.draggableProps}
-    {...provided.dragHandleProps}
+    innerRef={provided?.innerRef}
+    isDragging={snapshot?.isDragging}
+    {...provided?.draggableProps}
+    {...provided?.dragHandleProps}
     completed={todo.completed ? todo.completed : todo.priority}
     title="DoubleClick to view details"
     onDoubleClick={() => showTodo(todo.id, "view")}

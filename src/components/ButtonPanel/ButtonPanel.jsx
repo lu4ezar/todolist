@@ -9,21 +9,17 @@ import {
   Square,
   TrashSimple,
 } from "phosphor-react";
-import { useToggle, useDeleteTodo } from "../../apollo/hooks";
 import { StToolbar, IconButton } from "./styles";
-import type { Props } from "./types";
-import { modeVar, currentEntityIdVar } from "../../apollo/cache";
 
 const ButtonPanel = ({
-  entity: { id, completed, __typename: type },
+  entity,
+  showEntity,
+  deleteTodo,
+  toggleTodo,
+  expand,
+  expanded,
 }: Props): React.Node => {
-  const { deleteTodo } = useDeleteTodo(id);
-  const { toggleTodo } = useToggle(id);
-  const [expandChecklist, setExpandChecklist] = React.useState(false);
-  const showEntity = (ID, mode) => {
-    currentEntityIdVar(ID);
-    modeVar(mode);
-  };
+  const { id, completed, __typename: type } = entity;
   return (
     <StToolbar>
       <IconButton title="View details" onClick={() => showEntity(id, "view")}>
@@ -41,11 +37,8 @@ const ButtonPanel = ({
           )}
         </IconButton>
       ) : (
-        <IconButton
-          title="Expand todos list"
-          onClick={() => setExpandChecklist(!expandChecklist)}
-        >
-          {expandChecklist ? (
+        <IconButton title="Expand todos list" onClick={expand}>
+          {expanded ? (
             <CaretUp size={24} weight="fill" />
           ) : (
             <CaretDown size={24} weight="fill" />

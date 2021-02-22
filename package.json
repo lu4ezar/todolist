@@ -29,7 +29,9 @@
     "eject": "react-scripts eject",
     "flow": "flow",
     "lint": "eslint ./src/**/*.js[x] && flow",
-    "generate": "graphql-codegen --config codegen.yml"
+    "generate": "graphql-codegen --config codegen.yml",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "browserslist": [
     ">0.2%",
@@ -47,13 +49,20 @@
     "@graphql-codegen/flow-resolvers": "1.17.13",
     "@graphql-codegen/introspection": "1.18.1",
     "@react-mock/localstorage": "0.1.2",
+    "@storybook/addon-actions": "^6.1.18",
+    "@storybook/addon-essentials": "^6.1.18",
+    "@storybook/addon-knobs": "^6.1.18",
+    "@storybook/addon-links": "^6.1.18",
+    "@storybook/node-logger": "^6.1.18",
+    "@storybook/preset-create-react-app": "^3.1.6",
+    "@storybook/react": "^6.1.18",
     "@testing-library/react": "11.2.3",
     "@testing-library/user-event": "^12.6.2",
     "babel-eslint": "10.1.0",
     "babel-plugin-styled-components": "1.12.0",
     "eslint-config-airbnb": "18.2.1",
-    "eslint-config-react-app": "6.0.0",
     "eslint-config-prettier": "7.2.0",
+    "eslint-config-react-app": "6.0.0",
     "eslint-plugin-flowtype": "5.2.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jest-dom": "^3.6.5",
@@ -66,7 +75,8 @@
     "gh-pages": "3.1.0",
     "husky": "4.3.8",
     "lint-staged": "10.5.3",
-    "prettier": "2.2.1"
+    "prettier": "2.2.1",
+    "storybook-addon-apollo-client": "^4.0.6"
   },
   "husky": {
     "hooks": {
