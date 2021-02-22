@@ -11,17 +11,22 @@ export default {
 const Template = (args) => <List {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {
-  // Shaping the stories through args composition.
-  // The data was inherited from the Default story in task.stories.js.
-  todos: [
-    { ...TodoStories.Default.args.todo, id: "1", title: "Task 1" },
-    { ...TodoStories.Default.args.todo, id: "2", title: "Task 2" },
-    { ...TodoStories.Default.args.todo, id: "3", title: "Task 3" },
-    { ...TodoStories.Default.args.todo, id: "4", title: "Task 4" },
-    { ...TodoStories.Default.args.todo, id: "5", title: "Task 5" },
-    { ...TodoStories.Default.args.todo, id: "6", title: "Task 6" },
-  ],
+Default.parameters = {
+  apolloClient: {
+    mocks: [
+      {
+        request: {
+          query: GET_ALL,
+        },
+        result: {
+          data: {
+            todos: [lowPriorTodo, normalPriorTodo],
+            checklists: [normalPriorChecklist],
+          },
+        },
+      },
+    ],
+  },
 };
 
 /* export const WithPinnedTasks = Template.bind({});
