@@ -10,17 +10,17 @@ const Template = (args) => <ButtonPanel {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  todo: {
+  entity: {
     id: "1",
-    status: "ACTIVE",
+    completed: false,
   },
 };
 
 export const Completed = Template.bind({});
 Completed.args = {
   ...Default.args,
-  todo: {
+  entity: {
     ...Default.args.todo,
-    status: "COMPLETED",
+    completed: true,
   },
 };
