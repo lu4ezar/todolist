@@ -1,6 +1,6 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import Filter from "./Filter";
+import Filter from "../../containers/Filter";
 
 export default {
   component: Filter,
