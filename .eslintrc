@@ -6,8 +6,7 @@
     "plugin:testing-library/recommended",
     "plugin:testing-library/react",
     "plugin:jest-dom/recommended",
-    "prettier",
-    "prettier/react"
+    "prettier"
   ],
   "plugins": ["jsx-a11y", "prettier", "testing-library", "jest-dom"],
   "rules": {
@@ -16,7 +15,8 @@
       "error",
       {
         "devDependencies": [
-          "**/*.test.js",
+          "**/*.stories.jsx",
+          "**/*.test.jsx",
           "**/*.test.jsx",
           "**/setupTests.js",
           "**/test-utils.jsx"
@@ -27,7 +27,7 @@
   },
   "overrides": [
     {
-      "files": ["src/**/*.test.js[x]"],
+      "files": ["src/**/*.test.js[x]", "src/**/*.stories.js[x]"],
       "rules": {
         "react/jsx-props-no-spreading": 0
       }

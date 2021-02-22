@@ -14,10 +14,10 @@ const Checklist = ({
   snapshot,
 }: Props): React.Node => (
   <StyledChecklist
-    innerRef={provided.innerRef}
-    isDragging={snapshot.isDragging}
-    {...provided.draggableProps}
-    {...provided.dragHandleProps}
+    innerRef={provided?.innerRef}
+    isDragging={snapshot?.isDragging}
+    {...provided?.draggableProps}
+    {...provided?.dragHandleProps}
     completed={checklist.completed ? checklist.completed : checklist.priority}
     title="DoubleClick to view details"
     onDoubleClick={() => showChecklist(checklist.id, "view")}

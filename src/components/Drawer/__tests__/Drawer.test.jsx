@@ -12,14 +12,10 @@ const props = {
   children: <Filter />,
 };
 
-jest.mock("../../Filter", () => {
-  return {
+jest.mock("../../Filter", () => ({
     __esModule: true,
-    default: () => {
-      return <div />;
-    },
-  };
-});
+    default: () => <div />,
+  }));
 
 describe("Drawer", () => {
   it("renders as expected", () => {

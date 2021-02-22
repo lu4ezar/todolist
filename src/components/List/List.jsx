@@ -38,7 +38,7 @@ const List = ({
               <ChkList key={entity.id} checklist={entity} index={index} />
             )
           )}
-          {provided.placeholder}
+          {provided?.placeholder}
         </>
       ) : (
         <Typography variant="h4" gutterBottom>
