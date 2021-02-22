@@ -6,8 +6,7 @@
     "plugin:testing-library/recommended",
     "plugin:testing-library/react",
     "plugin:jest-dom/recommended",
-    "prettier",
-    "prettier/react"
+    "prettier"
   ],
   "plugins": ["jsx-a11y", "prettier", "testing-library", "jest-dom"],
   "rules": {
