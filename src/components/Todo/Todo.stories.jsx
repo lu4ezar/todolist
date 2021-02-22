@@ -1,10 +1,18 @@
 import React from "react";
+import {
+  text,
+  boolean,
+  // number
+} from "@storybook/addon-knobs";
 import Todo from "./Todo";
 
 export default {
   component: Todo,
   title: "Todo",
 };
+
+const title = text("Title", "Todo with knob");
+const status = boolean("Status", false);
 
 const Template = (args) => <Todo {...args} />;
 
@@ -13,8 +21,8 @@ Default.args = {
   todo: {
     id: "1",
     order: 1,
-    title: "Test Task",
-    status: "ACTIVE",
+    title,
+    completed: status,
     priority: "NORMAL",
     created: new Date(2020, 0, 1, 9, 0),
   },
@@ -24,7 +32,7 @@ export const Completed = Template.bind({});
 Completed.args = {
   todo: {
     ...Default.args.todo,
-    status: "COMPLETED",
+    completed: true,
   },
 };
 
