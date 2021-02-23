@@ -1,9 +1,10 @@
 // @flow
-import type { Filter, ActionPayload } from "../../types/filter";
+import type { Filter, FilterName, ActionPayload } from "../../types/filter";
 
-export type Props = {
+export type Props = {|
   filter: Filter,
+  handleChange: (filter: FilterName) => void,
   completedCount: number,
   expiredCount: number,
   setFilter: (payload: ActionPayload) => void,
-};
+|};

@@ -10,11 +10,12 @@ import {
   TrashSimple,
 } from "phosphor-react";
 import { StToolbar, IconButton } from "./styles";
+import type { Props } from "./types";
 
 const ButtonPanel = ({
   entity,
   showEntity,
-  deleteTodo,
+  deleteEntity,
   toggleTodo,
   expand,
   expanded,
@@ -45,7 +46,7 @@ const ButtonPanel = ({
           )}
         </IconButton>
       )}
-      <IconButton title="Delete Todo" onClick={deleteTodo}>
+      <IconButton title="Delete Todo" onClick={deleteEntity}>
         <TrashSimple size={24} weight="fill" />
       </IconButton>
     </StToolbar>

@@ -3,6 +3,13 @@ import * as React from "react";
 import { filterVar } from "../apollo/cache";
 import { useGetCompletedCount, useGetExpiredCount } from "../apollo/hooks";
 import Filter from "../components/Filter";
+import type {
+  FilterName,
+  FilterValue,
+  FilterStatus,
+  CompletedFilterValue,
+  ExpiredFilterValue,
+} from "../types/filter";
 
 export default (): React.Node => {
   const completedCount = useGetCompletedCount();

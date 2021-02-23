@@ -1,11 +1,17 @@
 // @flow
+import type {
+  DraggableProvided,
+  DraggableStateSnapshot,
+} from "react-beautiful-dnd";
 import type { Todo as TodoType } from "../../generated/graphql";
-import type { Mode } from "../../types/mode";
 
-export type Props = {
+export type Props = {|
+  todo: TodoType,
+  provided: DraggableProvided,
+  snapshot: DraggableStateSnapshot,
+|};
+
+export type WrapperProps = {|
   todo: TodoType,
   index: number,
-  toggleTodo: (id: string) => void,
-  deleteTodo: (id: string) => void,
-  showTodo: (id: string, str: Mode) => void,
-};
+|};

@@ -4,7 +4,9 @@ import type { Entity } from "../../types/entity";
 
 export type Props = {
   entity: Entity,
-  toggle: (id: string) => void,
-  deleteTodo: (id: string) => void,
-  showTodo: (id: string, Mode) => void,
+  toggleTodo: (id: string) => void,
+  deleteEntity: (id: string) => void,
+  showEntity: (id: string, Mode) => void,
+  expand: () => void,
+  expanded: boolean,
 };

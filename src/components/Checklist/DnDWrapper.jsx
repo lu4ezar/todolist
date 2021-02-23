@@ -2,9 +2,9 @@
 import * as React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import Checklist from "./Checklist";
-import type { Props } from "./types";
+import type { WrapperProps } from "./types";
 
-export default ({ checklist, index }: Props): React.Node => (
+export default ({ checklist, index }: WrapperProps): React.Node => (
   <Draggable draggableId={checklist.id} index={index}>
     {(provided, snapshot) => (
       <Checklist

@@ -1,15 +1,22 @@
 // @flow
-import type { DropResult } from "react-beautiful-dnd";
-import type { Mode } from "../../types/mode";
-import type { Filter } from "../../types/filter";
+import type {
+  DroppableProvided,
+  DroppableStateSnapshot,
+} from "react-beautiful-dnd";
+import type { Todo, Checklist } from "../../generated/graphql";
+
+type List = Array<Todo | Checklist>;
 
 export type Props = {|
-  filter: Filter,
-  handleClick: (id: string) => void,
-  deleteTodo: (id: string) => void,
-  toggleTodo: (id: string) => void,
-  setMode: () => void,
-  showMessage: (message: string) => void,
-  showEntity: (id: string, mode: Mode) => void,
-  onDragEnd: (result: DropResult) => void,
+  list: List,
+  loading: boolean,
+  error: Error,
+  provided: DroppableProvided,
+  snapshot: DroppableStateSnapshot,
+|};
+
+export type WrapperProps = {|
+  list: List,
+  provided: DroppableProvided,
+  snapshot: DroppableStateSnapshot,
 |};

@@ -1,5 +1,5 @@
-// flow-typed signature: 1f5de1a8acfb1cef787a7062bb304212
-// flow-typed version: 207fb32765/styled-components_v5.x.x/flow_>=v0.104.x
+// flow-typed signature: 0a174604b2ba7d080e3730fb4a1df8c7
+// flow-typed version: ef443b7190/styled-components_v5.x.x/flow_>=v0.104.x
 
 // @flow
 
@@ -30,10 +30,11 @@ declare module 'styled-components' {
     | Styles
     | Class<InterpolatableComponent<any>>; // eslint-disable-line flowtype/no-weak-types
 
-  declare export type TaggedTemplateLiteral<I, R> = (
-    strings: string[],
-    ...interpolations: Interpolation<I>[]
-  ) => R;
+  declare export type TaggedTemplateLiteral<I, R> = {
+    [[call]]: (strings: string[], ...interpolations: Interpolation<I>[]) => R,
+    [[call]]: ((props: I) => Interpolation<any>) => R,
+    ...
+  };
 
   // Should this be `mixed` perhaps?
   declare export type CSSRules = Interpolation<any>[]; // eslint-disable-line flowtype/no-weak-types

@@ -5,7 +5,7 @@ import { modeVar, currentEntityIdVar } from "../apollo/cache";
 import ButtonPanel from "../components/Filter";
 import type { Entity } from "../types/entity";
 
-export default ({ entity }: { entity: Entity }) => {
+export default ({ entity }: { entity: Entity }): React.Node => {
   const { deleteTodo } = useDeleteTodo(entity.id);
   const { toggleTodo } = useToggle(entity.id);
   const [expandChecklist, setExpandChecklist] = React.useState(false);

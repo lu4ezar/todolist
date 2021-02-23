@@ -4,6 +4,7 @@ import * as React from "react";
 import { Droppable } from "react-beautiful-dnd";
 import List from "./List";
 import { StyledPaper } from "./styles";
+import type { Props } from "./types";
 
 const DnDWrapper = (props: Props): React.Node => (
   <Droppable droppableId="droppable">

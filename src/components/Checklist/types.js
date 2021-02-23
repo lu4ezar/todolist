@@ -1,11 +1,17 @@
 // @flow
+import type {
+  DraggableProvided,
+  DraggableStateSnapshot,
+} from "react-beautiful-dnd";
 import type { Checklist as ChecklistType } from "../../generated/graphql";
-// import type { Mode } from "../../types/mode";
 
 export type Props = {
   checklist: ChecklistType,
+  provided: DraggableProvided,
+  snapshot: DraggableStateSnapshot,
+};
+
+export type WrapperProps = {
+  checklist: ChecklistType,
   index: number,
-  // toggleChecklist: (id: string) => void,
-  // deleteChecklist: (id: string) => void,
-  // showChecklist: (id: string, str: Mode) => void,
 };
