@@ -1,3 +1,4 @@
+import { ListItem } from "@material-ui/core";
 import styled from "styled-components";
 
 export const StyledForm = styled.form`
@@ -26,5 +27,12 @@ export const LoginDiv = styled.div`
   &::active {
     color: red;
     background: #310909;
+  }
+`;
+
+export const StyledLI = styled(ListItem)`
+  &.active {
+    border: 2px solid #661818;
+    border-radius: 5px;
   }
 `;

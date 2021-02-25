@@ -1,4 +1,1 @@
-import Todo from "./Todo";
-import DnDWrapper from "./DnDWrapper";
-
-export { Todo, DnDWrapper };
+export { default } from "./Todo";

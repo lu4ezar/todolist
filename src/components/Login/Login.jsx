@@ -4,13 +4,13 @@ import { ExitToApp as LoginIcon } from "@material-ui/icons";
 import {
   IconButton,
   List,
-  ListItem,
   ListItemText,
   ClickAwayListener,
   Button,
   TextField,
 } from "@material-ui/core";
-import { StyledForm, LoginDiv } from "./styles";
+import { Alert } from "@material-ui/lab";
+import { StyledForm, LoginDiv, StyledLI } from "./styles";
 import { useCreateUserMutation, useLoginMutation } from "../../apollo/hooks";
 
 const loginOptions = ["login", "signup", "login as guest"];
@@ -23,6 +23,7 @@ const Login = (): React.Node => {
   const [showForm, setShowForm] = React.useState(false);
   const { loginUser, loading, error } = useLoginMutation();
   const { createUser } = useCreateUserMutation();
+
   const onClick = (e) => {
     e.preventDefault();
     if (action === "login") {
@@ -31,19 +32,6 @@ const Login = (): React.Node => {
     if (action === "signup") {
       createUser({ variables: { input: { email, password } } });
     }
-  };
-  const handleChange = (e) => {
-    const {
-      target: { name, value },
-    } = e;
-    if (name === "email") {
-      setEmail(value);
-    } else {
-      setPassword(value);
-    }
-    // e.target.name === "email"
-    //   ? setEmail(e.target.value)
-    //   : setPassword(e.target.value);
   };
 
   const handleSetAction = (option) => {
@@ -57,8 +45,16 @@ const Login = (): React.Node => {
   const handleClose = () => {
     setOpen(false);
   };
+
   if (loading) return "Loading!";
-  if (error) return `Error! ${error.message}`;
+
+  if (error)
+    return (
+      <Alert variant="filled" severity="error">
+        Error: {error.message}
+      </Alert>
+    );
+
   return (
     <ClickAwayListener onClickAway={handleClose}>
       <div>
@@ -68,15 +64,15 @@ const Login = (): React.Node => {
         <LoginDiv className={open ? "open" : "closed"} active={open}>
           <List>
             {loginOptions.map((option, index) => (
-              <ListItem
+              <StyledLI
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
                 button
                 onClick={() => handleSetAction(option)}
-                // onClick={() => {}}
+                className={action === option ? "active" : ""}
               >
                 <ListItemText>{option}</ListItemText>
-              </ListItem>
+              </StyledLI>
             ))}
           </List>
           <StyledForm
@@ -84,11 +80,15 @@ const Login = (): React.Node => {
             className={showForm ? "show" : ""}
             action="/login"
           >
-            <TextField type="email" name="email" onChange={handleChange} />
+            <TextField
+              type="email"
+              name="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
             <TextField
               type="password"
               name="password"
-              onChange={handleChange}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <Button type="submit">Okay</Button>
           </StyledForm>
