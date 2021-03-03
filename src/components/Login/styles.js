@@ -3,10 +3,6 @@ import styled from "styled-components";
 
 export const StyledForm = styled.form`
   width: 300px;
-  display: none;
-  &.show {
-    display: block;
-  }
 `;
 
 export const LoginDiv = styled.div`
@@ -14,7 +10,8 @@ export const LoginDiv = styled.div`
   z-index: 1;
   background: inherit;
   color: #2062c5;
-  border: 1px solid orange;
+  border: 1px solid #acb8eb;
+  border-radius: 5px;
   display: none;
   &.open {
     background: #fff;
@@ -32,7 +29,6 @@ export const LoginDiv = styled.div`
 
 export const StyledLI = styled(ListItem)`
   &.active {
-    border: 2px solid #661818;
-    border-radius: 5px;
+    background: #94b7e9;
   }
 `;

@@ -1,5 +1,6 @@
 // @flow
 import * as React from "react";
+import { Formik, Field, ErrorMessage } from "formik";
 import { ExitToApp as LoginIcon } from "@material-ui/icons";
 import {
   IconButton,
@@ -7,7 +8,6 @@ import {
   ListItemText,
   ClickAwayListener,
   Button,
-  TextField,
 } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { StyledForm, LoginDiv, StyledLI } from "./styles";
@@ -15,35 +15,20 @@ import { useCreateUserMutation, useLoginMutation } from "../../apollo/hooks";
 
 const loginOptions = ["login", "signup", "login as guest"];
 
-const Login = (): React.Node => {
-  const [email, setEmail] = React.useState("");
-  const [action, setAction] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [open, setOpen] = React.useState(false);
-  const [showForm, setShowForm] = React.useState(false);
+const Login = ({ values, isSubmitting, setValues }: Props): React.Node => {
+  const { email, password } = values;
+  const [activeOption, setActiveOption] = React.useState(null);
+  const [open, setOpen] = React.useState(true);
   const { loginUser, loading, error } = useLoginMutation();
   const { createUser } = useCreateUserMutation();
 
-  const onClick = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    if (action === "login") {
+    if (activeOption === loginOptions[1]) {
+      createUser({ variables: { input: { email, password } } });
+    } else {
       loginUser({ variables: { input: { email, password } } });
     }
-    if (action === "signup") {
-      createUser({ variables: { input: { email, password } } });
-    }
-  };
-
-  const handleSetAction = (option) => {
-    setAction(option);
-    setShowForm(true);
-  };
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
   };
 
   if (loading) return "Loading!";
@@ -55,46 +40,59 @@ const Login = (): React.Node => {
       </Alert>
     );
 
+  const handleGuest = () => {
+    setActiveOption(loginOptions[2]);
+    setValues({ email: "test@mail.com", password: "testtesttest" }, false);
+  };
   return (
-    <ClickAwayListener onClickAway={handleClose}>
+    <ClickAwayListener onClickAway={() => setOpen(false)}>
       <div>
-        <IconButton edge={false} aria-label="Login" onClick={handleClickOpen}>
+        <IconButton edge="end" aria-label="Login" onClick={() => setOpen(true)}>
           <LoginIcon />
         </IconButton>
-        <LoginDiv className={open ? "open" : "closed"} active={open}>
+        <LoginDiv className={open ? "open" : "closed"} active>
           <List>
-            {loginOptions.map((option, index) => (
-              <StyledLI
-                // eslint-disable-next-line react/no-array-index-key
-                key={index}
-                button
-                onClick={() => handleSetAction(option)}
-                className={action === option ? "active" : ""}
-              >
-                <ListItemText>{option}</ListItemText>
-              </StyledLI>
-            ))}
+            <StyledLI
+              className={activeOption === loginOptions.login ? "active" : ""}
+              button
+              onClick={() => setActiveOption("login")}
+            >
+              <ListItemText>LOG IN</ListItemText>
+            </StyledLI>
+            <StyledLI
+              className={activeOption === loginOptions.signup ? "active" : ""}
+              button
+              onClick={() => setActiveOption("signup")}
+            >
+              <ListItemText>SIGN UP</ListItemText>
+            </StyledLI>
+            <StyledLI
+              className={
+                activeOption === loginOptions["login as guest"] ? "active" : ""
+              }
+              button
+              onClick={handleGuest}
+            >
+              <ListItemText>LOGIN AS GUEST</ListItemText>
+            </StyledLI>
           </List>
-          <StyledForm
-            onSubmit={onClick}
-            className={showForm ? "show" : ""}
-            action="/login"
-          >
-            <TextField
-              type="email"
-              name="email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-              type="password"
-              name="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <Button type="submit">Okay</Button>
-          </StyledForm>
+          {activeOption !== null && (
+            <StyledForm onSubmit={onSubmit}>
+              <Field type="email" name="email" />
+              <ErrorMessage name="email" component="div" />
+              <Field type="password" name="password" />
+              <ErrorMessage name="password" component="div" />
+              <Button type="submit" disabled={isSubmitting}>
+                Okay
+              </Button>
+            </StyledForm>
+          )}
         </LoginDiv>
       </div>
     </ClickAwayListener>
   );
 };
-export default Login;
+
+export default () => (
+  <Formik component={Login} initialValues={{ email: "", password: "" }} />
+);
