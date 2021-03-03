@@ -3,8 +3,7 @@ import * as React from "react";
 import { CssBaseline } from "@material-ui/core";
 import AddForm from "../../containers/Form";
 import VisibleList from "../../containers/List";
-import Header from "../Header";
-import Notification from "../../containers/Notification";
+// import Notification from "../../containers/Notification";
 import SidePanel from "../SidePanel";
 import Navbar from "../Navbar";
 import AddButton from "../../containers/AddButton";
@@ -17,15 +16,13 @@ const App = (): React.Node => {
     <StyledApp>
       <CssBaseline />
       <StyledContainer maxWidth="sm">
-        <Navbar onClick={togglePanel}>
-          <Header variant="h3" text="TodoApp" />
-        </Navbar>
+        <Navbar onClick={togglePanel} />
         <SidePanel open={showPanel} togglePanel={togglePanel} />
         <AddForm />
         <VisibleList />
         <AddButton entity="todo" />
         <AddButton entity="checklist" />
-        <Notification />
+        {/* <Notification /> */}
       </StyledContainer>
     </StyledApp>
   );

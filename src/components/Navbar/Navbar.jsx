@@ -3,9 +3,10 @@ import * as React from "react";
 import { AppBar, Toolbar, IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import type { Props } from "./types";
+import Header from "../Header";
 import Login from "../Login";
 
-const Navbar = ({ onClick, children }: Props): React.Node => (
+const Navbar = ({ onClick }: Props): React.Node => (
   <AppBar position="static">
     <Toolbar>
       <IconButton
@@ -16,7 +17,7 @@ const Navbar = ({ onClick, children }: Props): React.Node => (
       >
         <MenuIcon />
       </IconButton>
-      {children}
+      <Header variant="h3" text="TodoApp" />
       <Login />
     </Toolbar>
   </AppBar>
