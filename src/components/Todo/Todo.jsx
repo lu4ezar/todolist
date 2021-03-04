@@ -11,8 +11,7 @@ const Todo = ({ todo, provided, snapshot }: Props): React.Node => (
     isDragging={snapshot?.isDragging}
     {...provided?.draggableProps}
     {...provided?.dragHandleProps}
-    completed={todo.completed ? todo.completed : todo.priority}
-    title="DoubleClick to view details"
+    completed={todo.completed}
   >
     <span>{todo.title}</span>
     <ButtonPanel entity={todo} />

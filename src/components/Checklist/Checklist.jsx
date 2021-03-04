@@ -11,8 +11,7 @@ const Checklist = ({ checklist, provided, snapshot }: Props): React.Node => (
     isDragging={snapshot?.isDragging}
     {...provided?.draggableProps}
     {...provided?.dragHandleProps}
-    completed={checklist.completed ? checklist.completed : checklist.priority}
-    title="DoubleClick to view details"
+    completed={checklist.completed}
   >
     <span>{checklist.title}</span>
     <ButtonPanel entity={checklist} />
