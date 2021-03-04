@@ -1,12 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
 import styled from "styled-components";
-import { Paper, List as ListMui, Fab } from "@material-ui/core";
+import { List as ListMui, Fab } from "@material-ui/core";
 import { ListColor } from "../../utils/color";
-
-export const StyledPaper = styled(Paper)`
-  height: auto;
-`;
 
 export const StyledList = styled(({ isDraggingOver, ref, ...other }) => (
   <ListMui ref={ref} {...other} />
