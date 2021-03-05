@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { List as ListMui, Fab } from "@material-ui/core";
 import { ListColor } from "../../utils/color";
 
-export const StyledList = styled(({ isDraggingOver, ref, ...other }) => (
-  <ListMui ref={ref} {...other} />
+export const StyledList = styled(({ isDraggingOver, innerRef, ...other }) => (
+  <ListMui ref={innerRef} {...other} />
 ))`
   height: 100%;
   flex-grow: 1;

@@ -27,6 +27,7 @@ const List = ({
 
   return (
     <StyledList
+      innerRef={provided?.innerRef}
       isDraggingOver={snapshot?.isDraggingOver}
       {...provided?.droppableProps}
     >
