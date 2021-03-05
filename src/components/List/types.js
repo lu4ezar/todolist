@@ -5,7 +5,7 @@ import type {
 } from "react-beautiful-dnd";
 import type { Todo, Checklist } from "../../generated/graphql";
 
-type List = Array<Todo | Checklist>;
+export type List = Array<Todo | Checklist>;
 
 export type Props = {|
   list: List,
