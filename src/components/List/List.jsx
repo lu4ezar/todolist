@@ -3,7 +3,6 @@
 import * as React from "react";
 import { Typography, LinearProgress } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import Draggable from "../Draggable";
 import Checklist from "../Checklist";
 import Todo from "../Todo";
 import type { Props } from "./types";
@@ -33,15 +32,13 @@ const List = ({
     >
       {list?.length ? (
         <>
-          {list.map((entity, index) => (
-            <Draggable key={entity.id} draggableId={entity.id} index={index}>
-              {entity.__typename === "Todo" ? (
-                <Todo key={entity.id} todo={entity} index={index} />
-              ) : (
-                <Checklist key={entity.id} checklist={entity} index={index} />
-              )}
-            </Draggable>
-          ))}
+          {list.map((entity, index) =>
+            entity.__typename === "Todo" ? (
+              <Todo key={entity.id} todo={entity} index={index} />
+            ) : (
+              <Checklist key={entity.id} checklist={entity} index={index} />
+            )
+          )}
           {provided.placeholder}
         </>
       ) : (
