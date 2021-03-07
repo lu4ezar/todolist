@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 // @flow
 import * as React from "react";
-import ButtonPanel from "../ButtonPanel";
+import ButtonPanel from "../../containers/ButtonPanel";
 import StyledTodo from "./styles";
 import type { PropsWrapped } from "./types";
 
