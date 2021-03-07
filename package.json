@@ -54,6 +54,7 @@
     "@storybook/addon-essentials": "^6.1.20",
     "@storybook/addon-knobs": "^6.1.20",
     "@storybook/addon-links": "^6.1.20",
+    "@storybook/addon-storyshots": "^6.1.21",
     "@storybook/node-logger": "^6.1.20",
     "@storybook/preset-create-react-app": "^3.1.6",
     "@storybook/react": "^6.1.20",
@@ -77,6 +78,7 @@
     "husky": "5.1.1",
     "lint-staged": "10.5.4",
     "prettier": "2.2.1",
+    "react-test-renderer": "^17.0.1",
     "storybook-addon-apollo-client": "^4.0.6"
   },
   "husky": {
