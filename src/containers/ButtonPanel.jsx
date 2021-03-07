@@ -2,7 +2,7 @@
 import * as React from "react";
 import { useToggle, useDeleteTodo } from "../apollo/hooks";
 import { modeVar, currentEntityIdVar } from "../apollo/cache";
-import ButtonPanel from "../components/Filter";
+import ButtonPanel from "../components/ButtonPanel";
 import type { Entity } from "../types/entity";
 
 export default ({ entity }: { entity: Entity }): React.Node => {
