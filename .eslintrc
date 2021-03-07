@@ -16,7 +16,7 @@
       {
         "devDependencies": [
           "**/*.stories.jsx",
-          "**/*.test.jsx",
+          "**/*.test.js",
           "**/*.test.jsx",
           "**/setupTests.js",
           "**/test-utils.jsx"
