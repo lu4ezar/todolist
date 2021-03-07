@@ -6,7 +6,7 @@ import VisibleList from "../../containers/List";
 // import Notification from "../../containers/Notification";
 import SidePanel from "../SidePanel";
 import Navbar from "../Navbar";
-import AddButton from "../../containers/AddButton";
+import AddButton from "../AddButton";
 import { StyledApp, StyledContainer } from "./styles";
 
 const App = (): React.Node => {
