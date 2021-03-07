@@ -13,7 +13,11 @@ import { Alert } from "@material-ui/lab";
 import { StyledForm, LoginDiv, StyledLI } from "./styles";
 import { useCreateUserMutation, useLoginMutation } from "../../apollo/hooks";
 
-const loginOptions = ["login", "signup", "login as guest"];
+const loginOptions = {
+  login: "login",
+  signup: "signup",
+  guest: "login as guest",
+};
 
 const Login = ({ values, isSubmitting, setValues }: Props): React.Node => {
   const { email, password } = values;
@@ -24,7 +28,7 @@ const Login = ({ values, isSubmitting, setValues }: Props): React.Node => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (activeOption === loginOptions[1]) {
+    if (activeOption === loginOptions.signup) {
       createUser({ variables: { input: { email, password } } });
     } else {
       loginUser({ variables: { input: { email, password } } });
@@ -41,7 +45,7 @@ const Login = ({ values, isSubmitting, setValues }: Props): React.Node => {
     );
 
   const handleGuest = () => {
-    setActiveOption(loginOptions[2]);
+    setActiveOption(loginOptions.guest);
     setValues({ email: "test@mail.com", password: "testtesttest" }, false);
   };
   return (
@@ -67,9 +71,7 @@ const Login = ({ values, isSubmitting, setValues }: Props): React.Node => {
               <ListItemText>SIGN UP</ListItemText>
             </StyledLI>
             <StyledLI
-              className={
-                activeOption === loginOptions["login as guest"] ? "active" : ""
-              }
+              className={activeOption === loginOptions.guest ? "active" : ""}
               button
               onClick={handleGuest}
             >
@@ -93,6 +95,6 @@ const Login = ({ values, isSubmitting, setValues }: Props): React.Node => {
   );
 };
 
-export default () => (
+export default (): React.Node => (
   <Formik component={Login} initialValues={{ email: "", password: "" }} />
 );
