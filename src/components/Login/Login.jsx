@@ -12,11 +12,17 @@ import {
 import { Alert } from "@material-ui/lab";
 import { StyledForm, LoginDiv, StyledLI } from "./styles";
 import { useCreateUserMutation, useLoginMutation } from "../../apollo/hooks";
+import type { Props } from "./types";
 
 const loginOptions = {
   login: "login",
   signup: "signup",
   guest: "login as guest",
+};
+
+const initialValues: LoginUserInput = {
+  email: "",
+  password: "",
 };
 
 const Login = ({ values, isSubmitting, setValues }: Props): React.Node => {
@@ -96,5 +102,5 @@ const Login = ({ values, isSubmitting, setValues }: Props): React.Node => {
 };
 
 export default (): React.Node => (
-  <Formik component={Login} initialValues={{ email: "", password: "" }} />
+  <Formik component={Login} initialValues={initialValues} />
 );

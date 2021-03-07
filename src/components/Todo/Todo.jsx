@@ -3,9 +3,9 @@
 import * as React from "react";
 import ButtonPanel from "../ButtonPanel";
 import StyledTodo from "./styles";
-import type { Props } from "./types";
+import type { PropsWrapped } from "./types";
 
-const Todo = ({ todo, provided, snapshot }: Props): React.Node => (
+const Todo = ({ todo, provided, snapshot }: PropsWrapped): React.Node => (
   <StyledTodo
     innerRef={provided?.innerRef}
     isDragging={snapshot?.isDragging}

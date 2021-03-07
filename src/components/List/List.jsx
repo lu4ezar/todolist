@@ -6,6 +6,7 @@ import { Alert } from "@material-ui/lab";
 import Checklist from "../Checklist";
 import Todo from "../Todo";
 import type { Props } from "./types";
+import type { Entity } from "../../types/entity";
 import { StyledList } from "./styles";
 
 const List = ({
@@ -32,7 +33,7 @@ const List = ({
     >
       {list?.length ? (
         <>
-          {list.map((entity, index) =>
+          {list.map((entity: Entity, index: number) =>
             entity.__typename === "Todo" ? (
               <Todo key={entity.id} todo={entity} index={index} />
             ) : (

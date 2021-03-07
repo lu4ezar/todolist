@@ -1,4 +1,5 @@
-import React from "react";
+// @flow
+import * as React from "react";
 import List from "./List";
 import Droppable from "../Droppable";
 import type { List as ListType } from "./types";
