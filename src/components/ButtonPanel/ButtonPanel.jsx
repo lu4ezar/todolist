@@ -15,7 +15,7 @@ import type { Props } from "./types";
 const ButtonPanel = ({
   entity,
   showEntity,
-  deleteEntity,
+  deleteTodo,
   toggleTodo,
   expand,
   expanded,
@@ -46,7 +46,7 @@ const ButtonPanel = ({
           )}
         </IconButton>
       )}
-      <IconButton title="Delete Todo" onClick={deleteEntity}>
+      <IconButton title="Delete Todo" onClick={deleteTodo}>
         <TrashSimple size={24} weight="fill" />
       </IconButton>
     </StToolbar>
