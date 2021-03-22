@@ -1,4 +1,4 @@
 // @flow
-import type { Mode } from "../../types/mode";
+import * as React from "react";
 
-export type Props = {| entity: string, setMode: (mode: Mode) => void |};
+export type Props = {| icon: React.Node, title: string, onClick: () => void |};
