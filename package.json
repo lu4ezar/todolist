@@ -42,7 +42,7 @@
 	],
 	"devDependencies": {
 		"@babel/cli": "7.13.16",
-		"@babel/core": "7.13.16",
+		"@babel/core": "7.14.0",
 		"@babel/preset-flow": "7.13.13",
 		"@graphql-codegen/cli": "1.21.4",
 		"@graphql-codegen/flow": "1.19.0",
