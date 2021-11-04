@@ -1,20 +1,24 @@
 // @flow
 import * as React from "react";
-import { useToggle, useDeleteTodo } from "../apollo/hooks";
+import { useToggle, useDeleteTodo } from "../apollo/hooks/todo";
 import { modeVar, currentEntityIdVar } from "../apollo/cache";
 import ButtonPanel from "../components/ButtonPanel";
 import type { Entity } from "../types/entity";
 
-export default ({ entity }: { entity: Entity }): React.Node => {
+export default ({
+  entity,
+  expand,
+  expanded,
+}: {
+  entity: Entity,
+  expand: () => void,
+  expanded: boolean,
+}): React.Node => {
   const { deleteTodo } = useDeleteTodo(entity.id);
   const { toggleTodo } = useToggle(entity.id);
-  const [expandChecklist, setExpandChecklist] = React.useState(false);
   const showEntity = (ID, mode) => {
     currentEntityIdVar(ID);
     modeVar(mode);
-  };
-  const expand = () => {
-    setExpandChecklist(!expandChecklist);
   };
   return (
     <ButtonPanel
@@ -23,7 +27,7 @@ export default ({ entity }: { entity: Entity }): React.Node => {
       deleteTodo={deleteTodo}
       toggleTodo={toggleTodo}
       expand={expand}
-      expanded={expandChecklist}
+      expanded={expanded}
     />
   );
 };
