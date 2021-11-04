@@ -10,28 +10,30 @@ import {
 } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { Close as CloseIcon, Check as CheckIcon } from "@material-ui/icons";
-// import isExpired from "../../utils/luxon";
 import Drawer from "../Drawer";
 import Header from "../Header";
 import type { Props } from "./types";
 import { PriorityValues } from "../../generated/graphql";
 import type { Todo } from "../../generated/graphql";
-import { useCreateTodo, useUpdateTodo, useGetTodo } from "../../apollo/hooks";
+import {
+  useCreateTodo,
+  useUpdateTodo,
+  useGetTodo,
+} from "../../apollo/hooks/todo";
+import { useCreateChecklist } from "../../apollo/hooks/checklist";
 
 const initialState: Todo = {
-  id: "",
-  order: 0,
   title: "",
   description: "",
   priority: PriorityValues.Normal,
   completed: false,
-  created: null,
 };
 
 const Form = ({ id, mode, entity, closeForm }: Props): React.Node => {
   const { todo, loading } = useGetTodo(id);
-  const [state, setState] = React.useState<Todo>(initialState);
+  const [state, setState] = React.useState<typeof entity>(initialState);
   const { createTodo } = useCreateTodo(state);
+  const { createChecklist } = useCreateChecklist(state);
   const { updateTodo } = useUpdateTodo(state);
 
   React.useEffect(() => {
@@ -46,6 +48,8 @@ const Form = ({ id, mode, entity, closeForm }: Props): React.Node => {
     e.preventDefault();
     if (id) {
       updateTodo();
+    } else if (entity === "checklist") {
+      createChecklist();
     } else {
       createTodo();
     }
