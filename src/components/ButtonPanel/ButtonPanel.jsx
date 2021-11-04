@@ -38,13 +38,15 @@ const ButtonPanel = ({
           )}
         </IconButton>
       ) : (
-        <IconButton title="Expand todos list" onClick={expand}>
-          {expanded ? (
-            <CaretUp size={24} weight="fill" />
-          ) : (
-            <CaretDown size={24} weight="fill" />
-          )}
-        </IconButton>
+        entity.todos && (
+          <IconButton title="Expand todos list" onClick={expand}>
+            {expanded ? (
+              <CaretUp size={24} weight="fill" />
+            ) : (
+              <CaretDown size={24} weight="fill" />
+            )}
+          </IconButton>
+        )
       )}
       <IconButton title="Delete Todo" onClick={deleteTodo}>
         <TrashSimple size={24} weight="fill" />
