@@ -14,6 +14,12 @@ export default {
 const title = text("Title", "Todo with knob");
 const status = boolean("Status", false);
 
+export const withAButton = () => (
+  <button type="button" disabled={status}>
+    {title}
+  </button>
+);
+
 const Template = (args) => <Todo {...args} />;
 
 export const Default = Template.bind({});

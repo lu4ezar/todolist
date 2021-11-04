@@ -1,6 +1,6 @@
 import React from "react";
-import { DragDropContext } from "react-beautiful-dnd";
-import List from "./DnDWrapper";
+import List from "./index";
+import Droppable from "../Droppable";
 import * as TodoStories from "../Todo/Todo.stories";
 import { GET_ALL } from "../../apollo/queries";
 import {
@@ -12,13 +12,10 @@ import {
 export default {
   component: List,
   title: "List",
+  decorator: [(story) => <Droppable>{story()}</Droppable>],
 };
 
-const Template = (args) => (
-  <DragDropContext>
-    <List {...args} />
-  </DragDropContext>
-);
+const Template = (args) => <List {...args} />;
 
 export const Default = Template.bind({});
 Default.parameters = {
