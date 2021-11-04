@@ -1,31 +1,16 @@
 /* eslint-disable react/jsx-props-no-spreading */
 // @flow
 import * as React from "react";
-import { Typography, LinearProgress } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
+import { Typography } from "@material-ui/core";
 import Checklist from "../Checklist";
 import Todo from "../Todo";
+import AddChecklistButton from "../../containers/AddChecklistButton";
 import type { Props } from "./types";
 import type { Entity } from "../../types/entity";
 import { StyledList } from "./styles";
 
-const List = ({
-  list,
-  loading,
-  error,
-  provided,
-  snapshot,
-}: Props): React.Node => {
-  if (loading) return <LinearProgress />;
-
-  if (error)
-    return (
-      <Alert variant="filled" severity="error">
-        Error: {error.message}
-      </Alert>
-    );
-
-  return (
+const List = ({ list, provided, snapshot }: Props): React.Node => (
+  <>
     <StyledList
       innerRef={provided?.innerRef}
       isDraggingOver={snapshot?.isDraggingOver}
@@ -48,7 +33,8 @@ const List = ({
         </Typography>
       )}
     </StyledList>
-  );
-};
+    <AddChecklistButton />
+  </>
+);
 
 export default List;

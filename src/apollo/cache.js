@@ -23,6 +23,8 @@ export const filterVar: Filter = makeVar(initialValue);
 export const modeVar: Mode = makeVar("list");
 export const entityVar: Entity = makeVar("todo");
 export const currentEntityIdVar: string | null = makeVar(null);
+export const isLoggedInVar = makeVar(!!localStorage.getItem("user"));
+export const errorVar = makeVar(null);
 
 export default new InMemoryCache({
   typePolicies: {
@@ -46,6 +48,16 @@ export default new InMemoryCache({
         currentEntityId: {
           read() {
             return currentEntityIdVar();
+          },
+        },
+        isLoggedIn: {
+          read() {
+            return isLoggedInVar();
+          },
+        },
+        errorVar: {
+          read() {
+            return errorVar();
           },
         },
       },

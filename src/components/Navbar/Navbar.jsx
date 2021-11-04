@@ -2,9 +2,10 @@
 import * as React from "react";
 import { AppBar, Toolbar, IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import { SignOut } from "phosphor-react";
 import type { Props } from "./types";
 import Header from "../Header";
-import Login from "../Login";
+import { isLoggedInVar } from "../../apollo/cache";
 
 const Navbar = ({ onClick }: Props): React.Node => (
   <AppBar position="static">
@@ -18,7 +19,11 @@ const Navbar = ({ onClick }: Props): React.Node => (
         <MenuIcon />
       </IconButton>
       <Header variant="h3" text="TodoApp" />
-      <Login />
+      {isLoggedInVar() && (
+        <IconButton onClick={() => isLoggedInVar(false)}>
+          <SignOut size={48}>LOG OUT</SignOut>
+        </IconButton>
+      )}
     </Toolbar>
   </AppBar>
 );
