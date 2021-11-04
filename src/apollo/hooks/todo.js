@@ -1,19 +1,26 @@
 import { useApolloClient, useQuery, useMutation } from "@apollo/client";
-import jwtDecode from "jwt-decode";
-import { TodoFragments } from "./fragments";
+import { currentEntityIdVar } from "../cache";
+import { TodoFragments } from "../fragments";
 import {
   CREATE_TODO,
   UPDATE_TODO,
   DELETE_TODO,
   TOGGLE_TODO,
-} from "./mutations/todo";
-import { CREATE_USER, LOGIN_USER } from "./mutations/user";
-import { GET_ALL, GET_TODO, GET_TODOS } from "./queries";
+} from "../mutations/todo";
+import {
+  GET_ALL,
+  GET_TODO,
+  GET_TODOS,
+  GET_CHECKLIST,
+  GET_CHECKLISTS,
+} from "../queries";
 
 export const useCreateTodo = ({ title, description, completed, priority }) => {
+  const checklist = currentEntityIdVar();
   const [createTodo] = useMutation(CREATE_TODO, {
     variables: {
       input: {
+        checklist,
         title,
         description,
         completed,
@@ -21,17 +28,26 @@ export const useCreateTodo = ({ title, description, completed, priority }) => {
       },
     },
     update(cache, { data: { createTodo: newTodo } }) {
-      const cachedQuery = cache.readQuery({
-        query: GET_TODOS,
-      });
-      const { todos: cachedTodos } = cachedQuery;
-      const todos = [...cachedTodos, newTodo];
-      cache.writeQuery({
-        query: GET_TODOS,
-        data: {
-          todos,
-        },
-      });
+      console.log("checklist: ", checklist);
+      // const cachedQuery = cache.readQuery({
+      //   query: GET_CHECKLIST,
+      //   variables: { id: checklist },
+      // });
+      console.log(newTodo);
+      console.log(
+        cache.readQuery({
+          query: GET_CHECKLIST,
+          variables: { id: checklist },
+        })
+      );
+      // const { todos: cachedTodos } = cachedQuery;
+      // const todos = [...cachedTodos, newTodo];
+      // cache.writeQuery({
+      //   query: GET_CHECKLIST,
+      //   data: {
+      //     todos,
+      //   },
+      // });
     },
   });
   return { createTodo };
@@ -72,14 +88,16 @@ export const useDeleteTodo = (id) => {
       }
     ) {
       const cachedQuery = cache.readQuery({
-        query: GET_TODOS,
+        query: GET_CHECKLISTS,
       });
-      const { todos: cachedTodos } = cachedQuery;
-      const todos = cachedTodos.filter(({ id: _id }) => _id !== removedTodoId);
+      const { checklists: cachedChecklists } = cachedQuery;
+      const checklists = cachedChecklists.filter(
+        ({ id: _id }) => _id !== removedTodoId
+      );
       cache.writeQuery({
-        query: GET_TODOS,
+        query: GET_CHECKLISTS,
         data: {
-          todos,
+          checklists,
         },
       });
     },
@@ -180,43 +198,4 @@ export const useGetExpiredCount = () => {
     });
   });
   return sum;
-};
-
-export const useLoginMutation = () => {
-  const [loginUser, { loading, error }] = useMutation(LOGIN_USER, {
-    onCompleted: (data) => {
-      if (data) {
-        const {
-          loginUser: { token },
-        } = data;
-        const user = jwtDecode(token);
-        localStorage.setItem("user", JSON.stringify(user));
-      }
-    },
-    errorPolicy: "all",
-  });
-  return {
-    loginUser,
-    loading,
-    error,
-  };
-};
-
-export const useCreateUserMutation = () => {
-  const [createUser, { loading, error }] = useMutation(CREATE_USER, {
-    onCompleted: (data) => {
-      if (data) {
-        const {
-          createUser: { token },
-        } = data;
-        const user = jwtDecode(token);
-        localStorage.setItem("user", JSON.stringify(user));
-      }
-    },
-  });
-  return {
-    createUser,
-    loading,
-    error,
-  };
 };
