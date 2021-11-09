@@ -17,7 +17,7 @@
 		"react": "17.0.2",
 		"react-beautiful-dnd": "13.1.0",
 		"react-dom": "17.0.2",
-		"react-scripts": "^3.4.4",
+		"react-scripts": "4.0.2",
 		"styled-components": "5.3.3",
 		"uuid": "8.3.2"
 	},
@@ -62,7 +62,6 @@
 		"babel-plugin-styled-components": "1.13.3",
 		"eslint-config-airbnb": "18.2.1",
 		"eslint-config-prettier": "8.3.0",
-		"eslint-config-react-app": "6.0.0",
 		"eslint-plugin-flowtype": "6.1.0",
 		"eslint-plugin-import": "2.24.2",
 		"eslint-plugin-jest-dom": "^3.9.2",
