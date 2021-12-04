@@ -58,7 +58,7 @@
 		"@storybook/preset-create-react-app": "^4.0.0",
 		"@storybook/react": "^6.4.7",
 		"@testing-library/react": "12.1.2",
-		"@testing-library/user-event": "^13.3.0",
+		"@testing-library/user-event": "^13.5.0",
 		"babel-plugin-styled-components": "2.0.2",
 		"eslint-config-airbnb": "18.2.1",
 		"eslint-config-prettier": "8.3.0",
