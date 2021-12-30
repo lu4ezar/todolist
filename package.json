@@ -44,7 +44,7 @@
 		"@babel/cli": "7.16.0",
 		"@babel/core": "7.16.0",
 		"@babel/preset-flow": "7.16.0",
-		"@graphql-codegen/cli": "^1.9.0",
+		"@graphql-codegen/cli": "^2.3.1",
 		"@graphql-codegen/flow": "2.2.0",
 		"@graphql-codegen/flow-operations": "2.2.0",
 		"@graphql-codegen/flow-resolvers": "2.2.0",
