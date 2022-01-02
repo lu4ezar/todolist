@@ -15,12 +15,12 @@ import {
 import { PriorityValues } from "../../generated/graphql";
 import type { Props } from "./types";
 
-const Filter = ({
+function Filter({
   filter,
   handleChange,
   completedCount,
   expiredCount,
-}: Props): React.Node => {
+}: Props): React.Node {
   const {
     master: { completed: masterFilterStatus },
     priority: { completed: priorityFilterStatus, value: priorityFilterValue },
@@ -48,11 +48,11 @@ const Filter = ({
         />
       </Grid>
       <Collapse in={masterFilterStatus}>
-        <Grid container spacing={4} justify="center">
+        <Grid container spacing={4} justifyContent="center">
           {/* priority filter */}
           <Grid item>
             <Paper>
-              <Grid container alignItems="center" justify="center">
+              <Grid container alignItems="center" justifyContent="center">
                 <Grid item>
                   <Typography>off</Typography>
                 </Grid>
@@ -68,7 +68,7 @@ const Filter = ({
                   <Typography>on</Typography>
                 </Grid>
               </Grid>
-              <Grid container alignItems="center" justify="center">
+              <Grid container alignItems="center" justifyContent="center">
                 <Grid item>
                   <Typography>Priority</Typography>
                 </Grid>
@@ -92,7 +92,7 @@ const Filter = ({
           {/* completed filter */}
           <Grid item>
             <Paper>
-              <Grid container alignItems="center" justify="center">
+              <Grid container alignItems="center" justifyContent="center">
                 <Grid item>
                   <Typography>off</Typography>
                 </Grid>
@@ -108,7 +108,7 @@ const Filter = ({
                   <Typography>on</Typography>
                 </Grid>
               </Grid>
-              <Grid container alignItems="center" justify="center">
+              <Grid container alignItems="center" justifyContent="center">
                 <Grid item>
                   <Badge color="primary" badgeContent={completedCount}>
                     <Typography>Completed</Typography>
@@ -137,7 +137,7 @@ const Filter = ({
           {/* expired filter */}
           <Grid item>
             <Paper>
-              <Grid container alignItems="center" justify="center">
+              <Grid container alignItems="center" justifyContent="center">
                 <Grid item>
                   <Typography>off</Typography>
                 </Grid>
@@ -153,7 +153,7 @@ const Filter = ({
                   <Typography>on</Typography>
                 </Grid>
               </Grid>
-              <Grid container alignItems="center" justify="center">
+              <Grid container alignItems="center" justifyContent="center">
                 <Grid item>
                   <Badge color="secondary" badgeContent={expiredCount}>
                     <Typography>Expired</Typography>
@@ -183,6 +183,6 @@ const Filter = ({
       </Collapse>
     </Grid>
   );
-};
+}
 
 export default Filter;

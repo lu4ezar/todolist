@@ -29,7 +29,7 @@ const initialState: Todo = {
   completed: false,
 };
 
-const Form = ({ id, mode, entity, closeForm }: Props): React.Node => {
+function Form({ id, mode, entity, closeForm }: Props): React.Node {
   const { todo, loading } = useGetTodo(id);
   const [state, setState] = React.useState<typeof entity>(initialState);
   const { createTodo } = useCreateTodo(state);
@@ -103,7 +103,7 @@ const Form = ({ id, mode, entity, closeForm }: Props): React.Node => {
               id="description"
               label="Description"
               multiline
-              rowsMax="4"
+              maxRows="4"
               value={state.description}
               onChange={onChange("description")}
               margin="normal"
@@ -179,6 +179,6 @@ const Form = ({ id, mode, entity, closeForm }: Props): React.Node => {
       </form>
     </Drawer>
   );
-};
+}
 
 export default Form;

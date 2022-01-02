@@ -12,14 +12,14 @@ import {
 import { StToolbar, IconButton } from "./styles";
 import type { Props } from "./types";
 
-const ButtonPanel = ({
+function ButtonPanel({
   entity,
   showEntity,
   deleteTodo,
   toggleTodo,
   expand,
   expanded,
-}: Props): React.Node => {
+}: Props): React.Node {
   const { id, completed, __typename: type } = entity;
   return (
     <StToolbar>
@@ -39,7 +39,7 @@ const ButtonPanel = ({
         </IconButton>
       ) : (
         entity.todos && (
-          <IconButton title="Expand todos list" onClick={expand}>
+          <IconButton title="Expand todo list" onClick={expand}>
             {expanded ? (
               <CaretUp size={24} weight="fill" />
             ) : (
@@ -53,6 +53,6 @@ const ButtonPanel = ({
       </IconButton>
     </StToolbar>
   );
-};
+}
 
 export default ButtonPanel;

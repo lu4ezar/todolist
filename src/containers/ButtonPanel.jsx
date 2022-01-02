@@ -5,7 +5,7 @@ import { modeVar, currentEntityIdVar } from "../apollo/cache";
 import ButtonPanel from "../components/ButtonPanel";
 import type { Entity } from "../types/entity";
 
-export default ({
+function ButtonPanelContainer({
   entity,
   expand,
   expanded,
@@ -13,7 +13,7 @@ export default ({
   entity: Entity,
   expand: () => void,
   expanded: boolean,
-}): React.Node => {
+}): React.Node {
   const { deleteTodo } = useDeleteTodo(entity.id);
   const { toggleTodo } = useToggle(entity.id);
   const showEntity = (ID, mode) => {
@@ -30,4 +30,6 @@ export default ({
       expanded={expanded}
     />
   );
-};
+}
+
+export default ButtonPanelContainer;

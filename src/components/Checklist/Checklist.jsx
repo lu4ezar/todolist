@@ -8,9 +8,8 @@ import StyledChecklist from "./styles";
 import type { Props } from "./types";
 import Draggable from "../Draggable";
 
-const Checklist = ({ checklist, provided, snapshot }: Props): React.Node => {
+function Checklist({ checklist, provided, snapshot }: Props): React.Node {
   const [expanded, setExpanded] = React.useState(false);
-
   return (
     <StyledChecklist
       innerRef={provided?.innerRef}
@@ -37,6 +36,6 @@ const Checklist = ({ checklist, provided, snapshot }: Props): React.Node => {
       <AddTodoButton checklist={checklist.id} />
     </StyledChecklist>
   );
-};
+}
 
 export default Checklist;
