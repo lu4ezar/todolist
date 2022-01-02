@@ -1,17 +1,18 @@
 // @flow
 import * as React from "react";
 import { useQuery } from "@apollo/client";
-import { Alert } from '@mui/material';
-import { LinearProgress } from "@mui/material";
+import { Alert, LinearProgress } from "@mui/material";
 import WrappedList from "../components/List";
 import { GET_CHECKLISTS } from "../apollo/queries";
 import filterEntity from "../utils/filterTodo";
 import { filterVar } from "../apollo/cache";
 
-export default (): React.Node => {
-  const { data: { checklists = [] } = {}, loading, error } = useQuery(
-    GET_CHECKLISTS
-  );
+export default function List(): React.Node {
+  const {
+    data: { checklists = [] } = {},
+    loading,
+    error,
+  } = useQuery(GET_CHECKLISTS);
 
   const filter = filterVar();
 
@@ -31,4 +32,4 @@ export default (): React.Node => {
     );
   }
   return <WrappedList list={visibleList} loading={loading} error={error} />;
-};
+}

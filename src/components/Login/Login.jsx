@@ -27,7 +27,7 @@ const initialValues: LoginUserInput = {
   password: "",
 };
 
-const Login = ({ values, isSubmitting, setValues }: Props): React.Node => {
+function Login({ values, isSubmitting, setValues }: Props): React.Node {
   const { email, password } = values;
   const [activeOption, setActiveOption] = React.useState(null);
   const { loginUser, loading } = useLoginMutation();
@@ -84,8 +84,8 @@ const Login = ({ values, isSubmitting, setValues }: Props): React.Node => {
       </StyledForm>
     </LoginDiv>
   );
-};
+}
 
-export default (): React.Node => (
-  <Formik component={Login} initialValues={initialValues} />
-);
+export default function Form(): React.Node {
+  return <Formik component={Login} initialValues={initialValues} />;
+}

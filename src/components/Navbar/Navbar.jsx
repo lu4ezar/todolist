@@ -7,25 +7,28 @@ import type { Props } from "./types";
 import Header from "../Header";
 import { isLoggedInVar } from "../../apollo/cache";
 
-const Navbar = ({ onClick }: Props): React.Node => (
-  <AppBar position="static">
-    <Toolbar>
-      <IconButton
-        edge="start"
-        color="inherit"
-        aria-label="Menu"
-        onClick={onClick}
-        size="large">
-        <MenuIcon />
-      </IconButton>
-      <Header variant="h3" text="TodoApp" />
-      {isLoggedInVar() && (
-        <IconButton onClick={() => isLoggedInVar(false)} size="large">
-          <SignOut size={48}>LOG OUT</SignOut>
+function Navbar({ onClick }: Props): React.Node {
+  return (
+    <AppBar position="static">
+      <Toolbar>
+        <IconButton
+          edge="start"
+          color="inherit"
+          aria-label="Menu"
+          onClick={onClick}
+          size="large"
+        >
+          <MenuIcon />
         </IconButton>
-      )}
-    </Toolbar>
-  </AppBar>
-);
+        <Header variant="h3" text="TodoApp" />
+        {isLoggedInVar() && (
+          <IconButton onClick={() => isLoggedInVar(false)} size="large">
+            <SignOut size={48}>LOG OUT</SignOut>
+          </IconButton>
+        )}
+      </Toolbar>
+    </AppBar>
+  );
+}
 
 export default Navbar;

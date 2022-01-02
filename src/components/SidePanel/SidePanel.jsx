@@ -7,14 +7,16 @@ import UndoRedo from "../../containers/UndoRedo";
 import Drawer from "../Drawer";
 import type { Props } from "./types";
 
-const SidePanel = ({ open, togglePanel }: Props): React.Node => (
-  <Drawer toggleDrawer={togglePanel} side="left" open={open}>
-    <Filter />
-    <Divider />
-    <Sort />
-    <Divider />
-    <UndoRedo />
-  </Drawer>
-);
+function SidePanel({ open, togglePanel }: Props): React.Node {
+  return (
+    <Drawer toggleDrawer={togglePanel} side="left" open={open}>
+      <Filter />
+      <Divider />
+      <Sort />
+      <Divider />
+      <UndoRedo />
+    </Drawer>
+  );
+}
 
 export default SidePanel;

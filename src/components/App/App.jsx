@@ -11,7 +11,7 @@ import { StyledApp, StyledContainer } from "./styles";
 import { isLoggedInVar, errorVar } from "../../apollo/cache";
 import Error from "../Error/Error";
 
-const App = (): React.Node => {
+function App(): React.Node {
   const client = useApolloClient();
   const [showPanel, toggleShowPanel] = React.useState(false);
   const togglePanel = () => toggleShowPanel(!showPanel);
@@ -39,6 +39,6 @@ const App = (): React.Node => {
       </StyledContainer>
     </StyledApp>
   );
-};
+}
 
 export default App;
