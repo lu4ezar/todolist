@@ -1,8 +1,8 @@
 // @flow
 import * as React from "react";
 import { useQuery } from "@apollo/client";
-import { Alert } from "@material-ui/lab";
-import { LinearProgress } from "@material-ui/core";
+import { Alert } from '@mui/material';
+import { LinearProgress } from "@mui/material";
 import WrappedList from "../components/List";
 import { GET_CHECKLISTS } from "../apollo/queries";
 import filterEntity from "../utils/filterTodo";

@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
 import styled from "styled-components";
-import { List as ListMui, Fab } from "@material-ui/core";
+import { List as ListMui, Fab } from "@mui/material";
 import { ListColor } from "../../utils/color";
 
 export const StyledList = styled(({ isDraggingOver, innerRef, ...other }) => (

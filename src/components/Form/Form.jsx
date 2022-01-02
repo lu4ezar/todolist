@@ -96,6 +96,7 @@ function Form({ id, mode, entity, closeForm }: Props): React.Node {
               value={state.title}
               onChange={onChange("title")}
               margin="normal"
+              variant="standard"
               required
             />
             <br />
@@ -107,13 +108,15 @@ function Form({ id, mode, entity, closeForm }: Props): React.Node {
               value={state.description}
               onChange={onChange("description")}
               margin="normal"
+              variant="standard"
             />
             <br />
-            <FormControl>
+            <FormControl variant="standard">
               <InputLabel htmlFor="priority">Priority</InputLabel>
               <Select
                 value={state.priority || PriorityValues.Normal}
                 onChange={handleSelectChange}
+                variant="standard"
                 inputProps={{
                   name: "priority",
                   id: "priority",
@@ -133,6 +136,7 @@ function Form({ id, mode, entity, closeForm }: Props): React.Node {
             InputLabelProps={{
               shrink: true,
             }}
+						variant="standard"
             onChange={onChange("date")}
           />
           <TextField
@@ -145,6 +149,7 @@ function Form({ id, mode, entity, closeForm }: Props): React.Node {
             inputProps={{
               step: 300,
             }}
+						variant="standard"
             onChange={onChange("time")}
           /> */}
           </fieldset>

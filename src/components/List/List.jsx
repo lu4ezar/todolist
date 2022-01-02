@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 // @flow
 import * as React from "react";
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import Checklist from "../Checklist";
 import Todo from "../Todo";
 import AddChecklistButton from "../../containers/AddChecklistButton";

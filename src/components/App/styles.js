@@ -1,4 +1,4 @@
-import { Container } from "@material-ui/core";
+import { Container } from "@mui/material";
 import styled from "styled-components";
 
 export const StyledContainer = styled(Container)`

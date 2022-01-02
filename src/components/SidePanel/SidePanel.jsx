@@ -1,6 +1,6 @@
 // @flow
 import * as React from "react";
-import { Divider } from "@material-ui/core";
+import { Divider } from "@mui/material";
 import Filter from "../../containers/Filter";
 import Sort from "../Sort";
 import UndoRedo from "../../containers/UndoRedo";

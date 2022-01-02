@@ -1,6 +1,6 @@
 // @flow
 import * as React from "react";
-import { Fab } from "@material-ui/core";
+import { Fab } from "@mui/material";
 import type { Props } from "./types";
 
 const AddButton = ({ icon, title, onClick }: Props): React.Node => (

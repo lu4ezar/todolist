@@ -23,14 +23,14 @@ function ButtonPanel({
   const { id, completed, __typename: type } = entity;
   return (
     <StToolbar>
-      <IconButton title="View details" onClick={() => showEntity(id, "view")}>
+      <IconButton title="View details" onClick={() => showEntity(id, "view")} size="large">
         <Eye size={24} weight="fill" />
       </IconButton>
-      <IconButton title="Edit" onClick={() => showEntity(id, "edit")}>
+      <IconButton title="Edit" onClick={() => showEntity(id, "edit")} size="large">
         <Pencil size={24} weight="fill" />
       </IconButton>
       {type === "Todo" ? (
-        <IconButton title="Mark as Completed" onClick={toggleTodo}>
+        <IconButton title="Mark as Completed" onClick={toggleTodo} size="large">
           {completed ? (
             <CheckSquare size={24} weight="fill" />
           ) : (
@@ -39,7 +39,7 @@ function ButtonPanel({
         </IconButton>
       ) : (
         entity.todos && (
-          <IconButton title="Expand todo list" onClick={expand}>
+          <IconButton title="Expand todo list" onClick={expand} size="large">
             {expanded ? (
               <CaretUp size={24} weight="fill" />
             ) : (
@@ -48,7 +48,7 @@ function ButtonPanel({
           </IconButton>
         )
       )}
-      <IconButton title="Delete Todo" onClick={deleteTodo}>
+      <IconButton title="Delete Todo" onClick={deleteTodo} size="large">
         <TrashSimple size={24} weight="fill" />
       </IconButton>
     </StToolbar>

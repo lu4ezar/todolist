@@ -3,11 +3,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { ApolloProvider } from "@apollo/client";
 import "./index.css";
-import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider, StyledEngineProvider, createTheme } from "@mui/material/styles";
 import client from "./apollo";
 import App from "./components/App";
 
-const theme = createMuiTheme();
+const theme = createTheme();
 
 const element = document.getElementById("root");
 
@@ -18,9 +18,11 @@ if (!element) {
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </StyledEngineProvider>
     </ApolloProvider>
   </React.StrictMode>,
   element

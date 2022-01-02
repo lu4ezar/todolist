@@ -5,15 +5,15 @@ import {
   Divider,
   Container,
   Drawer as CoreDrawer,
-} from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import Content from "./styles";
 import type { Props } from "./types";
 
 const Drawer = ({ side, open, toggleDrawer, children }: Props): React.Node => (
   <CoreDrawer anchor={side} open={open} onClose={toggleDrawer}>
     <Content side={side}>
-      <IconButton onClick={toggleDrawer} title="close">
+      <IconButton onClick={toggleDrawer} title="close" size="large">
         <CloseIcon />
       </IconButton>
     </Content>

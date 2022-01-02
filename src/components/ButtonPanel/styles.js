@@ -1,4 +1,4 @@
-import { IconButton as MuiBtn, Toolbar } from "@material-ui/core";
+import { IconButton as MuiBtn, Toolbar } from "@mui/material";
 import styled from "styled-components";
 
 export const IconButton = styled(MuiBtn)`

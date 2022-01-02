@@ -1,6 +1,6 @@
 // @flow
 import * as React from "react";
-import { CssBaseline } from "@material-ui/core";
+import { CssBaseline } from "@mui/material";
 import { useApolloClient, useReactiveVar } from "@apollo/client";
 import AddForm from "../../containers/Form";
 import VisibleList from "../../containers/List";

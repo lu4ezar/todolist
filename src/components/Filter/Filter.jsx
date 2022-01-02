@@ -11,7 +11,7 @@ import {
   Collapse,
   Paper,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import { PriorityValues } from "../../generated/graphql";
 import type { Props } from "./types";
 

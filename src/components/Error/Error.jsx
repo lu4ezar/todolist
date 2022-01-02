@@ -1,5 +1,4 @@
-// @flow
-import { Alert } from "@material-ui/lab";
+import { Alert } from '@mui/material';
 import * as React from "react";
 
 const Error = ({ error }: { error: Error }) => (

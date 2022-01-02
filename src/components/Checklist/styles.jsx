@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
 import styled, { css } from "styled-components";
-import { ListItem } from "@material-ui/core";
+import { ListItem } from "@mui/material";
 import { ChecklistColor } from "../../utils/color";
 
 const {
