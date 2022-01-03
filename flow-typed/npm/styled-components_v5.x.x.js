@@ -1,5 +1,5 @@
-// flow-typed signature: 0a174604b2ba7d080e3730fb4a1df8c7
-// flow-typed version: ef443b7190/styled-components_v5.x.x/flow_>=v0.104.x
+// flow-typed signature: ff5fd8efec7131ad9a2c76baef58d620
+// flow-typed version: 80277df6ae/styled-components_v5.x.x/flow_>=v0.134.x
 
 // @flow
 
@@ -46,7 +46,7 @@ declare module 'styled-components' {
   >;
   declare export type CreateGlobalStyleConstructor = TaggedTemplateLiteral<
     any, // eslint-disable-line flowtype/no-weak-types
-    React$ComponentType<*>
+    React$ComponentType<any>
   >;
 
   declare interface Tag<T> {
@@ -58,7 +58,7 @@ declare module 'styled-components' {
     removeRules(id: string): void;
     css(): string;
     toHTML(additionalAttrs: ?string): string;
-    toElement(): React$Element<*>;
+    toElement(): React$Element<any>;
     clone(): Tag<T>;
     sealed: boolean;
   }
@@ -100,7 +100,7 @@ declare module 'styled-components' {
   declare export function isStyledComponent(target: mixed): boolean;
 
   declare type SCMProps = {
-    children?: React.Node,
+    children?: React$Node,
     sheet?: StyleSheet,
     target?: HTMLElement,
     ...
@@ -420,7 +420,7 @@ declare module 'styled-components' {
   >;
 
   declare interface Styled {
-    <Comp: React$ComponentType<P>, Theme, OwnProps = React$ElementConfig<Comp>>(
+    <Comp: React$ComponentType<any>, Theme, OwnProps = React$ElementConfig<Comp>>(
       Comp
     ): StyledFactory<{| ...$Exact<OwnProps> |}, Theme, Comp>;
     <StyleProps, Theme, ElementName: $Keys<BuiltinElementInstances>>(
