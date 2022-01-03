@@ -106,7 +106,11 @@ export const useDeleteTodo = (id) => {
 };
 
 export const useGetTodo = (id) => {
-  const { data: { todo } = {}, loading, error } = useQuery(GET_TODO, {
+  const {
+    data: { todo } = {},
+    loading,
+    error,
+  } = useQuery(GET_TODO, {
     variables: {
       id,
     },

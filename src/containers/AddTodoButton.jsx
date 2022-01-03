@@ -7,8 +7,8 @@ import { currentEntityIdVar, entityVar, modeVar } from "../apollo/cache";
 
 const Icon = <PlusCircle size={24} color="#8be4ff" weight="thin" />;
 
-const AddTodoButton = ({ checklist }: { checklist: Scalars.Id }) => (
-  <AddButton
+function AddTodoButton({ checklist }: { checklist: Scalars.Id }) {
+  return <AddButton
     icon={Icon}
     title="Add todo"
     onClick={() => {
@@ -17,6 +17,6 @@ const AddTodoButton = ({ checklist }: { checklist: Scalars.Id }) => (
       modeVar("form");
     }}
   />
-);
+}
 
 export default AddTodoButton;

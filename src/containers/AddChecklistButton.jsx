@@ -6,8 +6,8 @@ import AddButton from "../components/AddButton";
 
 const Icon = <ListPlus size={48} color="#8be4ff" weight="thin" />;
 
-const AddChecklistButton = () => (
-  <AddButton
+function AddChecklistButton() {
+  return <AddButton
     icon={Icon}
     title="Add checklist"
     onClick={() => {
@@ -15,6 +15,6 @@ const AddChecklistButton = () => (
       modeVar("form");
     }}
   />
-);
+}
 
 export default AddChecklistButton;
