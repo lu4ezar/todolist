@@ -20,7 +20,9 @@ export const withAButton = () => (
   </button>
 );
 
-const Template = (args) => <Todo {...args} />;
+function Template(args) {
+  return <Todo {...args} />
+}
 
 export const Default = Template.bind({});
 Default.args = {

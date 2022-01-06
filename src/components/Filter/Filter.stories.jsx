@@ -8,7 +8,9 @@ export default {
   argTypes: { setFilter: { action: "clicked" } },
 };
 
-const Template = (args) => <Filter {...args} setFilter={action("changed")} />;
+function Template(args) {
+  return <Filter {...args} setFilter={action("changed")} />
+}
 
 export const Default = Template.bind({});
 Default.args = {

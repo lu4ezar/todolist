@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { ApolloClient, HttpLink, from } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import cache from "./cache";

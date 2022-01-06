@@ -11,7 +11,7 @@ import type {
   ExpiredFilterValue,
 } from "../types/filter";
 
-function FilterContainer() {
+function FilterContainer(): React.Node {
   const completedCount = useGetCompletedCount();
   const expiredCount = useGetExpiredCount();
   const filter = filterVar();

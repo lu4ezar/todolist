@@ -1,1 +1,3 @@
-export { default } from "./Error";
+import Error from "./Error";
+
+export default Error;

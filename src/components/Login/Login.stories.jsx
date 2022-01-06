@@ -6,7 +6,9 @@ export default {
   title: "Login",
 };
 
-const Template = () => <Login />;
+function Template() {
+  return <Login />
+}
 
 export const Default = Template.bind({});
 Default.args = {};

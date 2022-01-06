@@ -14,12 +14,12 @@ describe("Header", () => {
     expect(container).toMatchSnapshot();
   });
   it("renders right header tag", () => {
-    const { container } = render(<Header {...props} />);
-    const headerHtmlTag = container.querySelector(props.variant);
+    const { screen } = render(<Header {...props} />);
+    const headerHtmlTag = screen.queryBy(props.variant);
     expect(headerHtmlTag).toBeInTheDocument();
   });
   it("renders passed text", () => {
-    const container = render(<Header {...props} />);
-    expect(container.getByText(props.text)).toBeInTheDocument();
+    const { screen } = render(<Header {...props} />);
+    expect(screen.getByText(props.text)).toBeInTheDocument();
   });
 });

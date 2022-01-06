@@ -15,6 +15,7 @@ import {
   useLoginMutation,
 } from "../../apollo/hooks/user";
 import type { Props } from "./types";
+import type { LoginUserInput } from "../../generated/graphql";
 
 const loginOptions = {
   login: "login",

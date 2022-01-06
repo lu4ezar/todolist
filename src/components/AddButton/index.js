@@ -1,1 +1,3 @@
-export { default } from "./AddButton";
+import AddButton from "./AddButton";
+
+export default AddButton;

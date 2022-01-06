@@ -1,1 +1,3 @@
-export { default } from "./UndoRedo";
+import UndoRedo from "./UndoRedo";
+
+export default UndoRedo;

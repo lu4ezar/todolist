@@ -31,7 +31,7 @@ xdescribe("List", () => {
 
   it("renders list of todos after loading", async () => {
     const { container } = renderList();
-    await waitForElementToBeRemoved(screen.getByRole("progressbar"));
+    await waitForElementToBeRemoved(screen.queryByRole("progressbar"));
     expect(container).toMatchSnapshot();
     expect(screen.getByText(lowPriorTodo.title)).toBeInTheDocument();
     expect(screen.getByText(normalPriorTodo.title)).toBeInTheDocument();
@@ -52,7 +52,7 @@ xdescribe("List", () => {
   //     filter: enabledFilterLowPriority,
   //   };
   //   renderList(undefined, enabledFilterProps);
-  //   await waitForElementToBeRemoved(screen.getByRole("progressbar"));
+  //   await waitForElementToBeRemoved(screen.queryByRole("progressbar"));
   //   expect(screen.getByText(lowPriorTodo.title)).toBeInTheDocument();
   //   expect(screen.queryByText(normalPriorTodo.title)).not.toBeInTheDocument();
   // });
@@ -72,25 +72,25 @@ xdescribe("List", () => {
   //     filter: enabledFilterHighPriority,
   //   };
   //   const { container } = renderList(emptyMock, enabledFilterProps);
-  //   await waitForElementToBeRemoved(screen.getByRole("progressbar"));
+  //   await waitForElementToBeRemoved(screen.queryByRole("progressbar"));
   //   expect(container).toMatchSnapshot();
   //   expect(screen.getByText(/nothing to show/i)).toBeInTheDocument();
   // });
 
   it.only("shows error message", async () => {
     const { container } = renderList();
-    await waitForElementToBeRemoved(screen.getByRole("progressbar"));
+    await waitForElementToBeRemoved(screen.queryByRole("progressbar"));
     expect(container).toMatchSnapshot();
     expect(screen.getByText(/error/i)).toBeInTheDocument();
   });
 
   // xit("should render without error if 'todos' is undefined", async () => {
   //   renderList(undefinedMock);
-  //   await waitForElementToBeRemoved(screen.getByRole("progressbar"));
+  //   await waitForElementToBeRemoved(screen.queryByRole("progressbar"));
   // });
 
   xit("should render without error if 'data' is undefined", async () => {
     renderList(undefinedMock);
-    await waitForElementToBeRemoved(screen.getByRole("progressbar"));
+    await waitForElementToBeRemoved(screen.queryByRole("progressbar"));
   });
 });

@@ -6,7 +6,9 @@ export default {
   title: "AddButton",
 };
 
-const Template = (args) => <AddButton {...args} />;
+function Template(args) {
+  return <AddButton {...args} />
+}
 
 export const Default = Template.bind({});
 Default.args = {};

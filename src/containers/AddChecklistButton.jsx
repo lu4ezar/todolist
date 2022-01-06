@@ -6,15 +6,17 @@ import AddButton from "../components/AddButton";
 
 const Icon = <ListPlus size={48} color="#8be4ff" weight="thin" />;
 
-function AddChecklistButton() {
-  return <AddButton
-    icon={Icon}
-    title="Add checklist"
-    onClick={() => {
-      entityVar("checklist");
-      modeVar("form");
-    }}
-  />
+function AddChecklistButton(): React.Node {
+  return (
+    <AddButton
+      icon={Icon}
+      title="Add checklist"
+      onClick={() => {
+        entityVar("checklist");
+        modeVar("form");
+      }}
+    />
+  );
 }
 
 export default AddChecklistButton;

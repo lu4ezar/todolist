@@ -6,7 +6,9 @@ export default {
   title: "ButtonPanel",
 };
 
-const Template = (args) => <ButtonPanel {...args} />;
+function Template(args) {
+  return <ButtonPanel {...args} />
+}
 
 export const Default = Template.bind({});
 Default.args = {

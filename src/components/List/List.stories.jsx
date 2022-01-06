@@ -15,7 +15,9 @@ export default {
   decorator: [(story) => <Droppable>{story()}</Droppable>],
 };
 
-const Template = (args) => <List {...args} />;
+function Template(args) {
+  return <List {...args} />
+}
 
 export const Default = Template.bind({});
 Default.parameters = {

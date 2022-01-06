@@ -15,7 +15,7 @@ import type { Props } from "./types";
 function ButtonPanel({
   entity,
   showEntity,
-  deleteTodo,
+  deleteEntity,
   toggleTodo,
   expand,
   expanded,
@@ -23,10 +23,18 @@ function ButtonPanel({
   const { id, completed, __typename: type } = entity;
   return (
     <StToolbar>
-      <IconButton title="View details" onClick={() => showEntity(id, "view")} size="large">
+      <IconButton
+        title="View details"
+        onClick={() => showEntity(id, "view")}
+        size="large"
+      >
         <Eye size={24} weight="fill" />
       </IconButton>
-      <IconButton title="Edit" onClick={() => showEntity(id, "edit")} size="large">
+      <IconButton
+        title="Edit"
+        onClick={() => showEntity(id, "edit")}
+        size="large"
+      >
         <Pencil size={24} weight="fill" />
       </IconButton>
       {type === "Todo" ? (
@@ -48,7 +56,7 @@ function ButtonPanel({
           </IconButton>
         )
       )}
-      <IconButton title="Delete Todo" onClick={deleteTodo} size="large">
+      <IconButton title="Delete Todo" onClick={deleteEntity} size="large">
         <TrashSimple size={24} weight="fill" />
       </IconButton>
     </StToolbar>

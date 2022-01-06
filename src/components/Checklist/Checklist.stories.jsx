@@ -6,7 +6,9 @@ export default {
   title: "Checklist",
 };
 
-const Template = (args) => <Checklist {...args} />;
+function Template(args) {
+  return <Checklist {...args} />
+}
 
 export const Default = Template.bind({});
 Default.args = {

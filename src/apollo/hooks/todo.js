@@ -11,7 +11,7 @@ import {
   GET_ALL,
   GET_TODO,
   GET_TODOS,
-  GET_CHECKLIST,
+  // GET_CHECKLIST,
   GET_CHECKLISTS,
 } from "../queries";
 
@@ -27,28 +27,26 @@ export const useCreateTodo = ({ title, description, completed, priority }) => {
         priority,
       },
     },
-    update(cache, { data: { createTodo: newTodo } }) {
-      console.log("checklist: ", checklist);
-      // const cachedQuery = cache.readQuery({
-      //   query: GET_CHECKLIST,
-      //   variables: { id: checklist },
-      // });
-      console.log(newTodo);
-      console.log(
-        cache.readQuery({
-          query: GET_CHECKLIST,
-          variables: { id: checklist },
-        })
-      );
-      // const { todos: cachedTodos } = cachedQuery;
-      // const todos = [...cachedTodos, newTodo];
-      // cache.writeQuery({
-      //   query: GET_CHECKLIST,
-      //   data: {
-      //     todos,
-      //   },
-      // });
-    },
+    // update(cache, { data: { createTodo: newTodo } }) {
+    // const cachedQuery = cache.readQuery({
+    //   query: GET_CHECKLIST,
+    //   variables: { id: checklist },
+    // });
+    // console.log(
+    //   cache.readQuery({
+    //     query: GET_CHECKLIST,
+    //     variables: { id: checklist },
+    //   })
+    // );
+    // const { todos: cachedTodos } = cachedQuery;
+    // const todos = [...cachedTodos, newTodo];
+    // cache.writeQuery({
+    //   query: GET_CHECKLIST,
+    //   data: {
+    //     todos,
+    //   },
+    // });
+    // },
   });
   return { createTodo };
 };

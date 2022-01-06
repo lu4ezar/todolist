@@ -1,1 +1,3 @@
-export { default } from "./Droppable";
+import Droppable from "./Droppable";
+
+export default Droppable;
