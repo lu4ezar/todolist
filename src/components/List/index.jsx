@@ -6,8 +6,12 @@ import List from "./List";
 import Droppable from "../Droppable";
 import type { Props } from "./types";
 
-export default ({ list, loading, error }: Props) => (
-  <Droppable droppableId="list">
-    <List list={list} loading={loading} error={error?.message} />
-  </Droppable>
-);
+function ListComponent({ list, loading, error }: Props) {
+  return (
+    <Droppable droppableId="list">
+      <List list={list} loading={loading} error={error?.message} />
+    </Droppable>
+  );
+}
+
+export default ListComponent;

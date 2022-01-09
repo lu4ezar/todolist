@@ -1,6 +1,8 @@
 // @flow
 import * as React from "react";
 
-const Sort = (): React.Node => <>Sort</>;
+function Sort(): React.Node {
+  return <>Sort</>;
+}
 
 export default Sort;
