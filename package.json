@@ -62,7 +62,7 @@
 		"@storybook/addon-storyshots": "^6.4.16",
 		"@storybook/node-logger": "^6.4.16",
 		"@storybook/preset-create-react-app": "^4.0.0",
-		"@storybook/react": "^6.5.0-alpha.27",
+		"@storybook/react": "^6.5.0-alpha.28",
 		"@testing-library/react": "12.1.2",
 		"@testing-library/user-event": "^13.5.0",
 		"babel-plugin-styled-components": "2.0.2",
