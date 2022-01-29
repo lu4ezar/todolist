@@ -15,7 +15,7 @@
 		"@mui/styles": "^5.3.0",
 		"@testing-library/jest-dom": "5.16.1",
 		"formik": "^2.2.9",
-		"graphql": "^16.2.0",
+		"graphql": "^16.3.0",
 		"jwt-decode": "^3.1.2",
 		"luxon": "^2.3.0",
 		"phosphor-react": "^1.4.0",
