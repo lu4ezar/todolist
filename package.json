@@ -79,7 +79,7 @@
 		"flow-typed": "^3.6.1",
 		"gh-pages": "3.2.3",
 		"husky": "7.0.4",
-		"lint-staged": "12.3.2",
+		"lint-staged": "12.3.3",
 		"prettier": "2.5.1",
 		"react-test-renderer": "^17.0.2",
 		"storybook-addon-apollo-client": "^4.0.11"
