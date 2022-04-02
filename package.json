@@ -5,10 +5,10 @@
 	"dependencies": {
 		"@apollo/client": "3.5.10",
 		"@mui/icons-material": "^5.5.1",
-		"@mui/lab": "^5.0.0-alpha.74",
-		"@mui/material": "^5.5.2",
+		"@mui/lab": "^5.0.0-alpha.75",
+		"@mui/material": "^5.5.3",
 		"@mui/styled-engine-sc": "^5.5.2",
-		"@mui/styles": "^5.5.1",
+		"@mui/styles": "^5.5.3",
 		"@testing-library/jest-dom": "5.16.3",
 		"@emotion/react": "^11.8.2",
 		"@emotion/styled": "^11.8.1",
