@@ -10,7 +10,7 @@
 		"@mui/styled-engine-sc": "^5.5.2",
 		"@mui/styles": "^5.5.3",
 		"@testing-library/jest-dom": "5.16.4",
-		"@emotion/react": "^11.8.2",
+		"@emotion/react": "^11.9.0",
 		"@emotion/styled": "^11.8.1",
 		"formik": "^2.2.9",
 		"graphql": "^16.3.0",
