@@ -9,7 +9,7 @@
 		"@mui/material": "^5.5.3",
 		"@mui/styled-engine-sc": "^5.5.2",
 		"@mui/styles": "^5.5.3",
-		"@testing-library/jest-dom": "5.16.3",
+		"@testing-library/jest-dom": "5.16.4",
 		"@emotion/react": "^11.8.2",
 		"@emotion/styled": "^11.8.1",
 		"formik": "^2.2.9",
