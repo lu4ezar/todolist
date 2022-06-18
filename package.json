@@ -6,7 +6,7 @@
 		"@mui/icons-material": "^5.8.3",
 		"@mui/lab": "^5.0.0-alpha.85",
 		"@mui/material": "^5.8.3",
-		"@apollo/client": "3.6.7",
+		"@apollo/client": "3.6.8",
 		"@mui/styled-engine-sc": "^5.8.0",
 		"@mui/styles": "^5.8.3",
 		"@testing-library/jest-dom": "5.16.4",
