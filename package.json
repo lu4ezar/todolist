@@ -74,7 +74,7 @@
 		"eslint-plugin-prettier": "4.0.0",
 		"eslint-plugin-react": "7.30.0",
 		"flow-bin": "0.180.0",
-		"eslint-plugin-react-hooks": "4.5.0",
+		"eslint-plugin-react-hooks": "4.6.0",
 		"flow-typed": "^3.7.0",
 		"gh-pages": "4.0.0",
 		"husky": "8.0.1",
