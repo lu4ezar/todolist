@@ -44,9 +44,9 @@
 		"not op_mini all"
 	],
 	"devDependencies": {
-		"@babel/cli": "7.17.10",
-		"@babel/core": "7.18.5",
-		"@babel/preset-flow": "7.17.12",
+		"@babel/cli": "7.18.6",
+		"@babel/core": "7.18.6",
+		"@babel/preset-flow": "7.18.6",
 		"@graphql-codegen/cli": "^2.6.4",
 		"@graphql-codegen/flow": "2.2.13",
 		"@graphql-codegen/flow-operations": "2.2.13",
