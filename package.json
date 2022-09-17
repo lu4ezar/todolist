@@ -4,8 +4,8 @@
 	"private": true,
 	"dependencies": {
 		"@mui/icons-material": "^5.10.3",
-		"@mui/lab": "^5.0.0-alpha.98",
-		"@mui/material": "^5.10.4",
+		"@mui/lab": "^5.0.0-alpha.99",
+		"@mui/material": "^5.10.5",
 		"@apollo/client": "3.6.9",
 		"@mui/styled-engine-sc": "^5.10.3",
 		"@mui/styles": "^5.10.3",
