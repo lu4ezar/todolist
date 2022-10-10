@@ -81,7 +81,7 @@
 		"lint-staged": "13.0.3",
 		"prettier": "2.7.1",
 		"react-test-renderer": "^18.2.0",
-		"storybook-addon-apollo-client": "^4.0.12"
+		"storybook-addon-apollo-client": "^4.0.13"
 	},
 	"husky": {
 		"hooks": {
