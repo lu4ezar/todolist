@@ -79,7 +79,7 @@
 		"gh-pages": "4.0.0",
 		"husky": "8.0.2",
 		"lint-staged": "13.0.4",
-		"prettier": "2.7.1",
+		"prettier": "2.8.0",
 		"react-test-renderer": "^18.2.0",
 		"storybook-addon-apollo-client": "^4.0.13"
 	},
