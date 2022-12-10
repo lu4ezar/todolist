@@ -4,7 +4,7 @@
 	"private": true,
 	"dependencies": {
 		"@mui/icons-material": "^5.10.16",
-		"@apollo/client": "3.7.1",
+		"@apollo/client": "3.7.2",
 		"@mui/lab": "^5.0.0-alpha.110",
 		"@mui/material": "^5.10.16",
 		"@mui/styled-engine-sc": "^5.10.16",
