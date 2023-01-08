@@ -13,7 +13,11 @@ function DroppableComponent({
   return (
     <Droppable droppableId={droppableId}>
       {(provided, snapshot) =>
-        React.cloneElement(children, { provided, snapshot })
+        React.cloneElement(children, {
+          provided,
+          snapshot,
+          ref: provided.innerRef,
+        })
       }
     </Droppable>
   );

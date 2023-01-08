@@ -6,7 +6,8 @@ import AddTodoButton from "../../containers/AddTodoButton";
 import Todo from "../Todo";
 import StyledChecklist from "./styles";
 import type { Props } from "./types";
-import Draggable from "../Draggable";
+// import Draggable from "../Draggable";
+import Droppable from "../Droppable";
 
 function Checklist({ checklist, provided, snapshot }: Props): React.Node {
   const [expanded, setExpanded] = React.useState(false);
@@ -20,13 +21,15 @@ function Checklist({ checklist, provided, snapshot }: Props): React.Node {
     >
       <span>{checklist.title}</span>
       {expanded && (
-        <ul>
-          {checklist.todos.map((todo, index) => (
-            <Draggable key={todo.id} draggableId={todo.id} index={index}>
-              <Todo todo={todo} />
-            </Draggable>
-          ))}
-        </ul>
+        <Droppable droppableId={checklist.id}>
+          <ul>
+            {checklist.todos.map((todo, index) => (
+              // <Draggable key={todo.id} draggableId={todo.id} index={index}>
+              <Todo key={todo.id} todo={todo} index={index} />
+              // </Draggable>
+            ))}
+          </ul>
+        </Droppable>
       )}
       <ButtonPanel
         entity={checklist}

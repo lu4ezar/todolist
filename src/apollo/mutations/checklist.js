@@ -19,7 +19,6 @@ export const UPDATE_CHECKLIST: DocumentNode = gql`
   }
   ${ChecklistFragments.allFields}
 `;
-
 export const TOGGLE_CHECKLIST: DocumentNode = gql`
   mutation toggleChecklist($id: ID!) {
     toggleChecklist(id: $id) {
@@ -29,7 +28,6 @@ export const TOGGLE_CHECKLIST: DocumentNode = gql`
     }
   }
 `;
-
 export const DELETE_CHECKLIST: DocumentNode = gql`
   mutation deleteChecklist($id: ID!) {
     deleteChecklist(id: $id) {

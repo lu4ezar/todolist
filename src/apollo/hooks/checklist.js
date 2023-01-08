@@ -9,23 +9,26 @@ import { GET_CHECKLISTS } from "../queries";
 import type { CreateChecklistInput } from "../../generated/graphql";
 
 export const useCreateChecklist = (input: CreateChecklistInput) => {
-  const [createChecklist] = useMutation(CREATE_CHECKLIST, {
-    variables: {
-      input,
-    },
-    update(cache, { data: { createChecklist: newChecklist } }) {
-      const cachedQuery = cache.readQuery({
-        query: GET_CHECKLISTS,
-      });
-      const { checklists: cachedChecklists } = cachedQuery;
-      const checklists = [...cachedChecklists, newChecklist];
-      cache.writeQuery({
-        query: GET_CHECKLISTS,
-        data: { checklists },
-      });
-    },
-  });
-  return { createChecklist };
+  const [createChecklist, { data, loading, error }] = useMutation(
+    CREATE_CHECKLIST,
+    {
+      variables: {
+        input,
+      },
+      update(cache, { data: { createChecklist: newChecklist } }) {
+        const cachedQuery = cache.readQuery({
+          query: GET_CHECKLISTS,
+        });
+        const { checklists: cachedChecklists } = cachedQuery;
+        const checklists = [...cachedChecklists, newChecklist];
+        cache.writeQuery({
+          query: GET_CHECKLISTS,
+          data: { checklists },
+        });
+      },
+    }
+  );
+  return { createChecklist, data, loading, error };
 };
 
 // export const useCreateChecklist = ({
@@ -115,20 +118,20 @@ export const useReorder = () => {
   const client = useApolloClient();
   function onDragEnd(result: DropResult): void {
     const { source, destination } = result;
-    const { todos } = client.readQuery({ query: GET_CHECKLISTS });
+    const { checklists } = client.readQuery({ query: GET_CHECKLISTS });
     if (!destination) {
-      return todos;
+      return checklists;
     }
     if (source.index === destination.index) {
-      return todos;
+      return checklists;
     }
-    const arr = [...todos];
+    const arr = [...checklists];
     const [removed] = arr.splice(source.index, 1);
     arr.splice(destination.index, 0, removed);
     client.writeQuery({
       query: GET_CHECKLISTS,
       data: {
-        todos: arr,
+        checklists: arr,
       },
     });
     return arr;

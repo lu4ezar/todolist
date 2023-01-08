@@ -147,7 +147,8 @@ export const useReorder = () => {
   const client = useApolloClient();
   function onDragEnd(result: DropResult): void {
     const { source, destination } = result;
-    const { todos } = client.readQuery({ query: GET_TODOS });
+    const res = client.readQuery({ query: GET_TODOS });
+    const { todos } = res;
     if (!destination) {
       return todos;
     }

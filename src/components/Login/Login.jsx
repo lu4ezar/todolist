@@ -4,6 +4,7 @@ import { Formik, Field, ErrorMessage } from "formik";
 // import { ExitToApp as LoginIcon } from "@mui/icons-material";
 import {
   // IconButton,
+  LinearProgress,
   List,
   ListItemText,
   // ClickAwayListener,
@@ -19,7 +20,7 @@ import type { LoginUserInput } from "../../generated/graphql";
 
 const loginOptions = {
   login: "login",
-  signup: "signup",
+  signUp: "signUp",
   guest: "login as guest",
 };
 
@@ -36,14 +37,14 @@ function Login({ values, isSubmitting, setValues }: Props): React.Node {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (activeOption === loginOptions.signup) {
+    if (activeOption === loginOptions.signUp) {
       createUser({ variables: { input: { email, password } } });
     } else {
       loginUser({ variables: { input: { email, password } } });
     }
   };
 
-  if (loading) return "Loading!";
+  if (loading) return <LinearProgress />;
 
   const handleGuest = () => {
     setActiveOption(loginOptions.guest);
@@ -60,9 +61,9 @@ function Login({ values, isSubmitting, setValues }: Props): React.Node {
           <ListItemText>LOG IN</ListItemText>
         </StyledLI>
         <StyledLI
-          className={activeOption === loginOptions.signup ? "active" : ""}
+          className={activeOption === loginOptions.signUp ? "active" : ""}
           button
-          onClick={() => setActiveOption("signup")}
+          onClick={() => setActiveOption("signUp")}
         >
           <ListItemText>SIGN UP</ListItemText>
         </StyledLI>

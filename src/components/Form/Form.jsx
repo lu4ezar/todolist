@@ -7,9 +7,9 @@ import {
   InputLabel,
   MenuItem,
   Fab,
-} from "@material-ui/core";
-import Skeleton from "@material-ui/lab/Skeleton";
-import { Close as CloseIcon, Check as CheckIcon } from "@material-ui/icons";
+} from "@mui/material";
+import Skeleton from "@mui/lab/Skeleton";
+import { Close as CloseIcon, Check as CheckIcon } from "@mui/icons-material";
 import Drawer from "../Drawer";
 import Header from "../Header";
 import type { Props } from "./types";
@@ -21,6 +21,7 @@ import {
   useGetTodo,
 } from "../../apollo/hooks/todo";
 import { useCreateChecklist } from "../../apollo/hooks/checklist";
+import { errorVar } from "../../apollo/cache";
 
 const initialState: Todo = {
   title: "",
@@ -33,8 +34,19 @@ function Form({ id, mode, entity, closeForm }: Props): React.Node {
   const { todo, loading } = useGetTodo(id);
   const [state, setState] = React.useState<typeof entity>(initialState);
   const { createTodo } = useCreateTodo(state);
-  const { createChecklist } = useCreateChecklist(state);
+  const {
+    createChecklist,
+    // data,
+    loading: createChecklistPending,
+    error,
+  } = useCreateChecklist(state);
   const { updateTodo } = useUpdateTodo(state);
+
+  React.useEffect(() => {
+    if (error) {
+      errorVar(error.message);
+    }
+  }, [error]);
 
   React.useEffect(() => {
     if (id && todo) {
@@ -53,8 +65,10 @@ function Form({ id, mode, entity, closeForm }: Props): React.Node {
     } else {
       createTodo();
     }
-    closeForm();
-    setState(initialState);
+    if (!createChecklistPending) {
+      closeForm();
+      setState(initialState);
+    }
   };
 
   const clearForm = () => {
@@ -86,7 +100,7 @@ function Form({ id, mode, entity, closeForm }: Props): React.Node {
     <Drawer side="right" open={mode !== "list"} toggleDrawer={closeForm}>
       <form data-testid="form" id="form" onSubmit={onSubmit}>
         <Header text={formTitle} />
-        {loading ? (
+        {loading && createChecklistPending ? (
           <Skeleton variant="rect" width={300} height={500} />
         ) : (
           <fieldset disabled={mode === "view"}>

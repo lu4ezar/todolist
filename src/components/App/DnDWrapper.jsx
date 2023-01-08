@@ -2,7 +2,7 @@
 import * as React from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import App from "./App";
-import { useReorder } from "../../apollo/hooks/todo";
+import { useReorder } from "../../apollo/hooks/checklist";
 
 function DnDWrapper(): React.Node {
   const onDragStart = () => {

@@ -46,15 +46,18 @@ function ButtonPanel({
           )}
         </IconButton>
       ) : (
-        entity.todos && (
-          <IconButton title="Expand todo list" onClick={expand} size="large">
-            {expanded ? (
-              <CaretUp size={24} weight="fill" />
-            ) : (
-              <CaretDown size={24} weight="fill" />
-            )}
-          </IconButton>
-        )
+        <IconButton
+          title="Expand todo list"
+          onClick={expand}
+          size="large"
+          disabled={!entity.todos.length}
+        >
+          {expanded ? (
+            <CaretUp size={24} weight="fill" />
+          ) : (
+            <CaretDown size={24} weight="fill" />
+          )}
+        </IconButton>
       )}
       <IconButton title="Delete Todo" onClick={deleteEntity} size="large">
         <TrashSimple size={24} weight="fill" />
