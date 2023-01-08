@@ -57,6 +57,8 @@
 		"@storybook/addon-knobs": "^6.4.0",
 		"@storybook/addon-links": "^6.5.15",
 		"@storybook/addon-storyshots": "^6.5.15",
+		"@storybook/builder-webpack5": "^6.5.15",
+		"@storybook/manager-webpack5": "^6.5.15",
 		"@storybook/node-logger": "^6.5.15",
 		"@storybook/preset-create-react-app": "^4.1.2",
 		"@storybook/react": "^6.5.15",
@@ -79,7 +81,8 @@
 		"lint-staged": "13.1.0",
 		"prettier": "2.8.1",
 		"react-test-renderer": "^18.2.0",
-		"storybook-addon-apollo-client": "^4.0.13"
+		"storybook-addon-apollo-client": "^4.0.13",
+		"webpack": "^5.75.0"
 	},
 	"husky": {
 		"hooks": {
