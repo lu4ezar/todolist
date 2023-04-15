@@ -56,12 +56,12 @@
 		"@storybook/addon-essentials": "^7.0.2",
 		"@storybook/addon-knobs": "^7.0.0",
 		"@storybook/addon-links": "^7.0.2",
-		"@storybook/addon-storyshots": "^7.0.2",
+		"@storybook/addon-storyshots": "^7.0.4",
 		"@storybook/builder-webpack5": "^7.0.2",
 		"@storybook/manager-webpack5": "^6.5.16",
 		"@storybook/node-logger": "^7.0.2",
 		"@storybook/preset-create-react-app": "^7.0.2",
-		"@storybook/react": "^7.0.2",
+		"@storybook/react": "^7.0.4",
 		"@testing-library/react": "14.0.0",
 		"@testing-library/user-event": "^14.4.3",
 		"babel-plugin-styled-components": "2.1.1",
@@ -82,7 +82,7 @@
 		"prettier": "2.8.7",
 		"react-test-renderer": "^18.2.0",
 		"storybook-addon-apollo-client": "^4.1.4",
-		"webpack": "^5.76.3"
+		"webpack": "^5.79.0"
 	},
 	"husky": {
 		"hooks": {
