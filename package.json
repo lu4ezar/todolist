@@ -82,7 +82,7 @@
 		"prettier": "2.8.8",
 		"react-test-renderer": "^18.2.0",
 		"storybook-addon-apollo-client": "^4.1.4",
-		"webpack": "^5.87.0"
+		"webpack": "^5.88.0"
 	},
 	"husky": {
 		"hooks": {
