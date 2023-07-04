@@ -20,7 +20,7 @@
 		"react-beautiful-dnd": "13.1.1",
 		"react-dom": "18.2.0",
 		"react-scripts": "5.0.1",
-		"styled-components": "^5.3.11",
+		"styled-components": "^6.0.2",
 		"uuid": "9.0.0"
 	},
 	"scripts": {
@@ -52,16 +52,16 @@
 		"@graphql-codegen/flow-resolvers": "2.4.4",
 		"@graphql-codegen/introspection": "4.0.0",
 		"@react-mock/localstorage": "0.1.2",
-		"@storybook/addon-actions": "^7.0.23",
-		"@storybook/addon-essentials": "^7.0.23",
+		"@storybook/addon-actions": "^7.0.25",
+		"@storybook/addon-essentials": "^7.0.25",
 		"@storybook/addon-knobs": "^7.0.2",
-		"@storybook/addon-links": "^7.0.23",
-		"@storybook/addon-storyshots": "^7.0.23",
-		"@storybook/builder-webpack5": "^7.0.23",
+		"@storybook/addon-links": "^7.0.25",
+		"@storybook/addon-storyshots": "^7.0.25",
+		"@storybook/builder-webpack5": "^7.0.25",
 		"@storybook/manager-webpack5": "^6.5.16",
-		"@storybook/node-logger": "^7.0.23",
-		"@storybook/preset-create-react-app": "^7.0.23",
-		"@storybook/react": "^7.0.23",
+		"@storybook/node-logger": "^7.0.25",
+		"@storybook/preset-create-react-app": "^7.0.25",
+		"@storybook/react": "^7.0.25",
 		"@testing-library/react": "14.0.0",
 		"@testing-library/user-event": "^14.4.3",
 		"babel-plugin-styled-components": "2.1.4",
@@ -74,7 +74,7 @@
 		"eslint-plugin-prettier": "4.2.1",
 		"eslint-plugin-react": "7.32.2",
 		"eslint-plugin-react-hooks": "4.6.0",
-		"flow-bin": "0.209.0",
+		"flow-bin": "0.211.0",
 		"flow-typed": "^3.8.0",
 		"gh-pages": "5.0.0",
 		"husky": "8.0.3",
@@ -82,7 +82,7 @@
 		"prettier": "2.8.8",
 		"react-test-renderer": "^18.2.0",
 		"storybook-addon-apollo-client": "^5.0.0",
-		"webpack": "^5.88.0"
+		"webpack": "^5.88.1"
 	},
 	"husky": {
 		"hooks": {
